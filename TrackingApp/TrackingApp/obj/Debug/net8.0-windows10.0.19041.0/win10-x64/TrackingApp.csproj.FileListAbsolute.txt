@@ -203,3 +203,4 @@ C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\TrackingApp\TrackingApp\obj\De
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\TrackingApp\TrackingApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\qualifiers.txt.intermediate
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\TrackingApp\TrackingApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\MultipleQualifiersPerDimensionFound.txt
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\TrackingApp\TrackingApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\ProjectArchitectures.txt
+C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\TrackingApp\TrackingApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\TrackingApp.sourcelink.json

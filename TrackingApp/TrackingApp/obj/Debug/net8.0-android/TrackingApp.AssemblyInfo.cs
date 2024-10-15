@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TrackingApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+996d5785a490e29e848711d1e523e42fbb8c040e")]
 [assembly: System.Reflection.AssemblyProductAttribute("TrackingApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TrackingApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
