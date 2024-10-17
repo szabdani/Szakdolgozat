@@ -1,0 +1,1 @@
+C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\MauiBlazorWeb.Maui.csproj;x64
