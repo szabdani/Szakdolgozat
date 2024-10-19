@@ -2,6 +2,9 @@ using MauiBlazorWeb.Shared;
 using Microsoft.Extensions.Logging;
 using MauiBlazorWeb.Maui.Services;
 using MauiBlazorWeb.Shared.Interfaces;
+using DataLibrary;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MauiBlazorWeb.Maui
 {
@@ -19,6 +22,10 @@ namespace MauiBlazorWeb.Maui
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 });
+
+            // For Db services
+            builder.Services.AddSingleton<IDataAccess, DataAccess>();
+            builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
             builder.Services.AddMauiBlazorWebView();
 

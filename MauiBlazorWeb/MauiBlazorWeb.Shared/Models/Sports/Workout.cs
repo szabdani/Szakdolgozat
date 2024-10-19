@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MauiBlazorWeb.Shared.Models.Sports
+{
+    public class Workout
+    {
+        public int Id { get; set; }
+        public DateTime Datetime { get; set; }
+        public string Notes { get; set; }
+        public int Sport_Id { get; set; }
+        public int Routine_Id { get; set; }
+    }
+}
