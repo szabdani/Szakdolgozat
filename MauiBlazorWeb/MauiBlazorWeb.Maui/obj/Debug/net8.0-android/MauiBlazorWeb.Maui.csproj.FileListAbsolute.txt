@@ -1,4 +1,3 @@
-C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\bin\Debug\net8.0-android\MauiBlazorWeb.Shared.staticwebassets.runtime.json
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\bin\Debug\net8.0-android\MauiBlazorWeb.Maui.runtimeconfig.json
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\bin\Debug\net8.0-android\MauiBlazorWeb.Maui.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\bin\Debug\net8.0-android\MauiBlazorWeb.Maui.pdb
@@ -146,8 +145,6 @@ C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Ma
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\res\values\colors.xml
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\uploadflags.txt
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\resolvedassemblies.hash
-C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\arm64-v8a\System.Private.CoreLib.dll
-C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\armeabi-v7a\System.Private.CoreLib.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\ar\Microsoft.Maui.Controls.resources.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\ca\Microsoft.Maui.Controls.resources.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\cs\Microsoft.Maui.Controls.resources.dll
@@ -398,8 +395,6 @@ C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Ma
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\uk\Microsoft.Maui.Controls.resources.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\vi\Microsoft.Maui.Controls.resources.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\WindowsBase.dll
-C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\x86\System.Private.CoreLib.dll
-C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\x86_64\System.Private.CoreLib.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\Xamarin.Android.Glide.Annotations.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\Xamarin.Android.Glide.DiskLruCache.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\Xamarin.Android.Glide.dll
@@ -1101,4 +1096,5 @@ C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Ma
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.Security.Permissions.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.Windows.Extensions.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\ZstdSharp.dll
+C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\bin\Debug\net8.0-android\MauiBlazorWeb.Shared.staticwebassets.runtime.json
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.Private.CoreLib.dll

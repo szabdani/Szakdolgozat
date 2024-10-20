@@ -1,4 +1,3 @@
-C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\bin\Debug\net8.0-ios\iossimulator-x64\MauiBlazorWeb.Shared.staticwebassets.runtime.json
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\bin\Debug\net8.0-ios\iossimulator-x64\MauiBlazorWeb.Maui.runtimeconfig.json
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\bin\Debug\net8.0-ios\iossimulator-x64\MauiBlazorWeb.Maui.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\bin\Debug\net8.0-ios\iossimulator-x64\MauiBlazorWeb.Maui.pdb

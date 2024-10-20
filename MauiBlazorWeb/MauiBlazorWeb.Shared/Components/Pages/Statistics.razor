@@ -1,60 +1,13 @@
 ﻿@page "/statistics"
 @using DataLibrary
 @using Models
-@using Microsoft.Extensions.Configuration
+
 @inject IDataAccess _data
-@inject IConfiguration _config
+
 
 <h3>Statistics</h3>
-<button class="btn btn-primary" @onclick="InsertData">Insert</button>
-<button class="btn btn-warning" @onclick="UpdateData">Update</button>
-<button class="btn btn-danger" @onclick="DeleteData">Delete</button>
 
-@if (accounts == null)
-{
-	<p><em>Loading...</em></p>
-}
-else
-{
-	foreach (var acc in accounts)
-	{
-		<p>
-			@acc.Username @acc.Age @acc.Sex @acc.Admin
-		</p>
-	}
-}
 
 @code {
-	List<Account> accounts;
-
-	private async Task InsertData()
-	{
-		string sql = "Insert into account (username, age, sex) values (@a, @b, @c);";
-
-		await _data.SaveData(sql, new { a = "dwake", b = 40, c = 1 }, _config.GetConnectionString("DefaultConnection"));
-
-		await OnInitializedAsync();
-	}
-
-	private async Task UpdateData()
-	{
-		string sql = "Update account set age = 16 where username = 'dwake'";
-		await _data.SaveData(sql, new { }, _config.GetConnectionString("DefaultConnection"));
-
-		await OnInitializedAsync();
-	}
-
-	private async Task DeleteData()
-	{
-		string sql = "Delete from account where age = 16";
-		await _data.SaveData(sql, new { }, _config.GetConnectionString("DefaultConnection"));
-
-		await OnInitializedAsync();
-	}
-
-	protected override async Task OnInitializedAsync()
-	{
-		string sql = "select * from account";
-		accounts = await _data.LoadData<Account, dynamic>(sql, new { }, _config.GetConnectionString("DefaultConnection"));
-	}
+	
 }

@@ -3,48 +3,64 @@
   "WorkspaceRootPath": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A813A640-4535-4024-8FD9-1EE6B76FB2AE}|MauiBlazorWeb.Web\\MauiBlazorWeb.Web.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A813A640-4535-4024-8FD9-1EE6B76FB2AE}|MauiBlazorWeb.Web\\MauiBlazorWeb.Web.csproj|solutionrelative:mauiblazorweb.web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F635CF8D-A716-4155-A8C8-A6C7154493C7}|DataLibrary\\DataLibrary.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\datalibrary\\dataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F635CF8D-A716-4155-A8C8-A6C7154493C7}|DataLibrary\\DataLibrary.csproj|solutionrelative:datalibrary\\dataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{765F13F2-2E97-4912-B774-DA38B78DC032}|MauiBlazorWeb.Maui\\MauiBlazorWeb.Maui.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.maui\\mauiprogram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{765F13F2-2E97-4912-B774-DA38B78DC032}|MauiBlazorWeb.Maui\\MauiBlazorWeb.Maui.csproj|solutionrelative:mauiblazorweb.maui\\mauiprogram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\components\\pages\\diary.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\components\\pages\\diary.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\models\\sports\\sets.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\models\\sports\\sets.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F635CF8D-A716-4155-A8C8-A6C7154493C7}|DataLibrary\\DataLibrary.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\datalibrary\\idataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F635CF8D-A716-4155-A8C8-A6C7154493C7}|DataLibrary\\DataLibrary.csproj|solutionrelative:datalibrary\\idataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\components\\pages\\habits.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\components\\pages\\habits.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\models\\diaries\\diary_log_column.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\models\\diaries\\diary_log_column.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A813A640-4535-4024-8FD9-1EE6B76FB2AE}|MauiBlazorWeb.Web\\MauiBlazorWeb.Web.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.web\\mauiblazorweb.web.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{A813A640-4535-4024-8FD9-1EE6B76FB2AE}|MauiBlazorWeb.Web\\MauiBlazorWeb.Web.csproj|solutionrelative:mauiblazorweb.web\\mauiblazorweb.web.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A813A640-4535-4024-8FD9-1EE6B76FB2AE}|MauiBlazorWeb.Web\\MauiBlazorWeb.Web.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.web\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{A813A640-4535-4024-8FD9-1EE6B76FB2AE}|MauiBlazorWeb.Web\\MauiBlazorWeb.Web.csproj|solutionrelative:mauiblazorweb.web\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\models\\sports\\routine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\models\\sports\\routine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\models\\sports\\sport.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\models\\sports\\sport.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\components\\pages\\statistics.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\components\\pages\\statistics.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F635CF8D-A716-4155-A8C8-A6C7154493C7}|DataLibrary\\DataLibrary.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\datalibrary\\idataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F635CF8D-A716-4155-A8C8-A6C7154493C7}|DataLibrary\\DataLibrary.csproj|solutionrelative:datalibrary\\idataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A813A640-4535-4024-8FD9-1EE6B76FB2AE}|MauiBlazorWeb.Web\\MauiBlazorWeb.Web.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.web\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A813A640-4535-4024-8FD9-1EE6B76FB2AE}|MauiBlazorWeb.Web\\MauiBlazorWeb.Web.csproj|solutionrelative:mauiblazorweb.web\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\models\\diaries\\diary_log_row.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\models\\diaries\\diary_log_row.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A813A640-4535-4024-8FD9-1EE6B76FB2AE}|MauiBlazorWeb.Web\\MauiBlazorWeb.Web.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A813A640-4535-4024-8FD9-1EE6B76FB2AE}|MauiBlazorWeb.Web\\MauiBlazorWeb.Web.csproj|solutionrelative:mauiblazorweb.web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\models\\sports\\exercise.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\models\\sports\\exercise.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\models\\diaries\\diary_log_column.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\models\\diaries\\diary_log_column.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\models\\sports\\routine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\models\\sports\\routine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\models\\sports\\workout.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -53,10 +69,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\models\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\models\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\models\\sports\\exercise.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\models\\sports\\exercise.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\models\\habits\\habit_log_row.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -71,24 +83,8 @@
       "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\models\\habits\\habit_log_column.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\models\\diaries\\diary_log_row.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\models\\diaries\\diary_log_row.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\models\\diaries\\diary_log_post.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\models\\diaries\\diary_log_post.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\models\\sports\\set.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\models\\sports\\set.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\models\\sports\\sport.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\models\\sports\\sport.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F635CF8D-A716-4155-A8C8-A6C7154493C7}|DataLibrary\\DataLibrary.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\datalibrary\\dataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F635CF8D-A716-4155-A8C8-A6C7154493C7}|DataLibrary\\DataLibrary.csproj|solutionrelative:datalibrary\\dataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -98,17 +94,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 20,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 8,
               "Title": "NavMenu.razor",
               "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Components\\Layout\\NavMenu.razor",
               "RelativeDocumentMoniker": "MauiBlazorWeb.Shared\\Components\\Layout\\NavMenu.razor",
               "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Components\\Layout\\NavMenu.razor",
               "RelativeToolTip": "MauiBlazorWeb.Shared\\Components\\Layout\\NavMenu.razor",
-              "ViewState": "AgIAABsAAAAAAAAAAAAAADYAAAARAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAADYAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-10-19T16:34:15.302Z",
               "IsPinned": true,
@@ -117,6 +113,59 @@
             {
               "$type": "Document",
               "DocumentIndex": 4,
+              "Title": "Habits.razor",
+              "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Components\\Pages\\Habits.razor",
+              "RelativeDocumentMoniker": "MauiBlazorWeb.Shared\\Components\\Pages\\Habits.razor",
+              "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Components\\Pages\\Habits.razor",
+              "RelativeToolTip": "MauiBlazorWeb.Shared\\Components\\Pages\\Habits.razor",
+              "ViewState": "AgIAACEAAAAAAAAAAAAAADYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-19T15:41:43.815Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Diary.razor",
+              "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Components\\Pages\\Diary.razor",
+              "RelativeDocumentMoniker": "MauiBlazorWeb.Shared\\Components\\Pages\\Diary.razor",
+              "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Components\\Pages\\Diary.razor",
+              "RelativeToolTip": "MauiBlazorWeb.Shared\\Components\\Pages\\Diary.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-20T12:09:40.998Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DataAccess.cs",
+              "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\DataLibrary\\DataAccess.cs",
+              "RelativeDocumentMoniker": "DataLibrary\\DataAccess.cs",
+              "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\DataLibrary\\DataAccess.cs",
+              "RelativeToolTip": "DataLibrary\\DataAccess.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAvwCQAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-17T17:09:37.203Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IDataAccess.cs",
+              "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\DataLibrary\\IDataAccess.cs",
+              "RelativeDocumentMoniker": "DataLibrary\\IDataAccess.cs",
+              "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\DataLibrary\\IDataAccess.cs",
+              "RelativeToolTip": "DataLibrary\\IDataAccess.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAYAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-20T11:53:38.041Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
               "Title": "Diary_log_column.cs",
               "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Models\\Diaries\\Diary_log_column.cs",
               "RelativeDocumentMoniker": "MauiBlazorWeb.Shared\\Models\\Diaries\\Diary_log_column.cs",
@@ -129,7 +178,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 10,
               "Title": "MainLayout.razor",
               "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Components\\Layout\\MainLayout.razor",
               "RelativeDocumentMoniker": "MauiBlazorWeb.Shared\\Components\\Layout\\MainLayout.razor",
@@ -142,59 +191,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "MauiBlazorWeb.Web",
-              "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Web\\MauiBlazorWeb.Web.csproj",
-              "RelativeDocumentMoniker": "MauiBlazorWeb.Web\\MauiBlazorWeb.Web.csproj",
-              "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Web\\MauiBlazorWeb.Web.csproj",
-              "RelativeToolTip": "MauiBlazorWeb.Web\\MauiBlazorWeb.Web.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-10-19T17:01:01.845Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 7,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Web\\appsettings.json",
               "RelativeDocumentMoniker": "MauiBlazorWeb.Web\\appsettings.json",
               "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Web\\appsettings.json",
               "RelativeToolTip": "MauiBlazorWeb.Web\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAaAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2024-10-19T16:30:55.835Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "IDataAccess.cs",
-              "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\DataLibrary\\IDataAccess.cs",
-              "RelativeDocumentMoniker": "DataLibrary\\IDataAccess.cs",
-              "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\DataLibrary\\IDataAccess.cs",
-              "RelativeToolTip": "DataLibrary\\IDataAccess.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAcAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-19T16:24:25.943Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 12,
               "Title": "Exercise.cs",
               "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Models\\Sports\\Exercise.cs",
               "RelativeDocumentMoniker": "MauiBlazorWeb.Shared\\Models\\Sports\\Exercise.cs",
               "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Models\\Sports\\Exercise.cs",
               "RelativeToolTip": "MauiBlazorWeb.Shared\\Models\\Sports\\Exercise.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAsAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-19T16:08:26.059Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 14,
               "Title": "Routine.cs",
               "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Models\\Sports\\Routine.cs",
               "RelativeDocumentMoniker": "MauiBlazorWeb.Shared\\Models\\Sports\\Routine.cs",
@@ -207,7 +230,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 15,
               "Title": "Workout.cs",
               "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Models\\Sports\\Workout.cs",
               "RelativeDocumentMoniker": "MauiBlazorWeb.Shared\\Models\\Sports\\Workout.cs",
@@ -220,7 +243,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 16,
               "Title": "Account.cs",
               "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Models\\Account.cs",
               "RelativeDocumentMoniker": "MauiBlazorWeb.Shared\\Models\\Account.cs",
@@ -233,20 +256,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 17,
               "Title": "Habit_log_row.cs",
               "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Models\\Habits\\Habit_log_row.cs",
               "RelativeDocumentMoniker": "MauiBlazorWeb.Shared\\Models\\Habits\\Habit_log_row.cs",
               "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Models\\Habits\\Habit_log_row.cs",
               "RelativeToolTip": "MauiBlazorWeb.Shared\\Models\\Habits\\Habit_log_row.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAgAAAATAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAIBJwAgAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-19T16:18:35.911Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 18,
               "Title": "Habit_log_post.cs",
               "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Models\\Habits\\Habit_log_post.cs",
               "RelativeDocumentMoniker": "MauiBlazorWeb.Shared\\Models\\Habits\\Habit_log_post.cs",
@@ -259,7 +282,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 19,
               "Title": "Habit_log_column.cs",
               "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Models\\Habits\\Habit_log_column.cs",
               "RelativeDocumentMoniker": "MauiBlazorWeb.Shared\\Models\\Habits\\Habit_log_column.cs",
@@ -272,7 +295,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 9,
               "Title": "Diary_log_row.cs",
               "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Models\\Diaries\\Diary_log_row.cs",
               "RelativeDocumentMoniker": "MauiBlazorWeb.Shared\\Models\\Diaries\\Diary_log_row.cs",
@@ -285,7 +308,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 20,
               "Title": "Diary_log_post.cs",
               "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Models\\Diaries\\Diary_log_post.cs",
               "RelativeDocumentMoniker": "MauiBlazorWeb.Shared\\Models\\Diaries\\Diary_log_post.cs",
@@ -298,7 +321,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 5,
               "Title": "Sport.cs",
               "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Models\\Sports\\Sport.cs",
               "RelativeDocumentMoniker": "MauiBlazorWeb.Shared\\Models\\Sports\\Sport.cs",
@@ -311,80 +334,41 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "Set.cs",
-              "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Models\\Sports\\Set.cs",
-              "RelativeDocumentMoniker": "MauiBlazorWeb.Shared\\Models\\Sports\\Set.cs",
-              "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Models\\Sports\\Set.cs",
-              "RelativeToolTip": "MauiBlazorWeb.Shared\\Models\\Sports\\Set.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAHAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "Sets.cs",
+              "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Models\\Sports\\Sets.cs",
+              "RelativeDocumentMoniker": "MauiBlazorWeb.Shared\\Models\\Sports\\Sets.cs",
+              "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Models\\Sports\\Sets.cs",
+              "RelativeToolTip": "MauiBlazorWeb.Shared\\Models\\Sports\\Sets.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-19T16:10:36.004Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 6,
               "Title": "Statistics.razor",
               "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Components\\Pages\\Statistics.razor",
               "RelativeDocumentMoniker": "MauiBlazorWeb.Shared\\Components\\Pages\\Statistics.razor",
               "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Components\\Pages\\Statistics.razor",
               "RelativeToolTip": "MauiBlazorWeb.Shared\\Components\\Pages\\Statistics.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAABEAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-10-19T15:42:35.446Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "DataAccess.cs",
-              "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\DataLibrary\\DataAccess.cs",
-              "RelativeDocumentMoniker": "DataLibrary\\DataAccess.cs",
-              "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\DataLibrary\\DataAccess.cs",
-              "RelativeToolTip": "DataLibrary\\DataAccess.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-17T17:09:37.203Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Habits.razor",
-              "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Components\\Pages\\Habits.razor",
-              "RelativeDocumentMoniker": "MauiBlazorWeb.Shared\\Components\\Pages\\Habits.razor",
-              "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Components\\Pages\\Habits.razor",
-              "RelativeToolTip": "MauiBlazorWeb.Shared\\Components\\Pages\\Habits.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-10-19T15:41:43.815Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 11,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Web\\Program.cs",
               "RelativeDocumentMoniker": "MauiBlazorWeb.Web\\Program.cs",
               "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Web\\Program.cs",
               "RelativeToolTip": "MauiBlazorWeb.Web\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACMAAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-17T17:03:59.925Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "MauiProgram.cs",
-              "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Maui\\MauiProgram.cs",
-              "RelativeDocumentMoniker": "MauiBlazorWeb.Maui\\MauiProgram.cs",
-              "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Maui\\MauiProgram.cs",
-              "RelativeToolTip": "MauiBlazorWeb.Maui\\MauiProgram.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAeAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-17T17:04:03.613Z",
               "EditorCaption": ""
             }
           ]

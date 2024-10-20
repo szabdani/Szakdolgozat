@@ -55,11 +55,6 @@ splashSplashScreen.scale-125.png
 splashSplashScreen.scale-150.png
 splashSplashScreen.scale-200.png
 splashSplashScreen.scale-400.png
-wwwroot\MauiBlazorWeb.Maui.styles.css
 AboutAssets.txt
 wwwroot\favicon.png
 wwwroot\index.html
-wwwroot\_content\MauiBlazorWeb.Shared\MauiBlazorWeb.Shared.bundle.scp.css
-wwwroot\_content\MauiBlazorWeb.Shared\css\app.css
-wwwroot\_content\MauiBlazorWeb.Shared\css\bootstrap\bootstrap.min.css
-wwwroot\_content\MauiBlazorWeb.Shared\css\bootstrap\bootstrap.min.css.map

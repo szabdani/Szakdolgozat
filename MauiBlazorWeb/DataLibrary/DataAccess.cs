@@ -11,9 +11,17 @@ namespace DataLibrary
 {
 	public class DataAccess : IDataAccess
 	{
-		public async Task<List<T>> LoadData<T, U>(string sql, U parameters, string connectionString)
+		private string connectionString = "Server=localhost;Port=3306;Database=diary_db;User=root;Password=;";
+
+		public MySqlConnection GetConnection()
 		{
-			using (IDbConnection connection = new MySqlConnection(connectionString))
+			MySqlConnection connection = new MySqlConnection(connectionString);
+			return connection;
+		}
+
+		public async Task<List<T>> LoadData<T, U>(string sql, U parameters)
+		{
+			using (IDbConnection connection = GetConnection())
 			{
 				var rows = await connection.QueryAsync<T>(sql, parameters);
 
@@ -21,9 +29,9 @@ namespace DataLibrary
 			}
 		}
 
-		public async Task SaveData<T>(string sql, T parameters, string connectionString)
+		public async Task SaveData<T>(string sql, T parameters)
 		{
-			using (IDbConnection connection = new MySqlConnection(connectionString))
+			using (IDbConnection connection = GetConnection())
 			{
 				await connection.ExecuteAsync(sql, parameters);
 			}

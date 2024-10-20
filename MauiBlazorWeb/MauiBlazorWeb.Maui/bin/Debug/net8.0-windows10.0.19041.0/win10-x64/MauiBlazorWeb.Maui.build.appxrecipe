@@ -37,6 +37,15 @@
     <AppxPackagedFile Include="C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\apphost.exe">
       <PackagePath>MauiBlazorWeb.Maui.exe</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Shared\wwwroot\css\app.css">
+      <PackagePath>wwwroot\css\app.css</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Shared\wwwroot\css\bootstrap\bootstrap.min.css">
+      <PackagePath>wwwroot\css\bootstrap\bootstrap.min.css</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Shared\wwwroot\css\bootstrap\bootstrap.min.css.map">
+      <PackagePath>wwwroot\css\bootstrap\bootstrap.min.css.map</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\Resources\Raw\AboutAssets.txt">
       <PackagePath>AboutAssets.txt</PackagePath>
     </AppxPackagedFile>
@@ -45,15 +54,6 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\wwwroot\index.html">
       <PackagePath>wwwroot\index.html</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Shared\wwwroot\css\app.css">
-      <PackagePath>wwwroot\_content\MauiBlazorWeb.Shared\css\app.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Shared\wwwroot\css\bootstrap\bootstrap.min.css">
-      <PackagePath>wwwroot\_content\MauiBlazorWeb.Shared\css\bootstrap\bootstrap.min.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Shared\wwwroot\css\bootstrap\bootstrap.min.css.map">
-      <PackagePath>wwwroot\_content\MauiBlazorWeb.Shared\css\bootstrap\bootstrap.min.css.map</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\sp\splashSplashScreen.scale-100.png">
       <PackagePath>splashSplashScreen.scale-100.png</PackagePath>
@@ -556,9 +556,6 @@
     <AppxPackagedFile Include="C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Shared\bin\Debug\net8.0\MauiBlazorWeb.Shared.dll">
       <PackagePath>MauiBlazorWeb.Shared.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Shared\obj\Debug\net8.0\staticwebassets.development.json">
-      <PackagePath>MauiBlazorWeb.Shared.staticwebassets.runtime.json</PackagePath>
-    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\microsoft.maui.controls.compatibility\8.0.82\lib\net8.0-windows10.0.19041\Microsoft.Maui.Controls.Compatibility.pri">
       <PackagePath>Microsoft.Maui.Controls.Compatibility.pri</PackagePath>
     </AppxPackagedFile>
@@ -567,12 +564,6 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\microsoft.maui.core\8.0.82\lib\net8.0-windows10.0.19041\Microsoft.Maui.pri">
       <PackagePath>Microsoft.Maui.pri</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\scopedcss\bundle\MauiBlazorWeb.Maui.styles.css">
-      <PackagePath>wwwroot\MauiBlazorWeb.Maui.styles.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Shared\obj\Debug\net8.0\scopedcss\projectbundle\MauiBlazorWeb.Shared.bundle.scp.css">
-      <PackagePath>wwwroot\_content\MauiBlazorWeb.Shared\MauiBlazorWeb.Shared.bundle.scp.css</PackagePath>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
