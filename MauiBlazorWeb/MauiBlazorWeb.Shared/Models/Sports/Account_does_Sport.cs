@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MauiBlazorWeb.Shared.Models.Habits
+namespace MauiBlazorWeb.Shared.Models.Sports
 {
-	public class Habit_log_column
+	public class Account_does_Sport
 	{
 		public int Id { get; set; }
-		public string Name { get; set; }
 		public int Account_Id { get; set; }
+		public int Sport_Id { get; set; }
+
 	}
 }

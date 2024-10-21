@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauiBlazorWeb.Shared", "Mau
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauiBlazorWeb.Web", "MauiBlazorWeb.Web\MauiBlazorWeb.Web.csproj", "{A813A640-4535-4024-8FD9-1EE6B76FB2AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLibrary", "DataLibrary\DataLibrary.csproj", "{F635CF8D-A716-4155-A8C8-A6C7154493C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLibrary", "DataLibrary\DataLibrary.csproj", "{F635CF8D-A716-4155-A8C8-A6C7154493C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

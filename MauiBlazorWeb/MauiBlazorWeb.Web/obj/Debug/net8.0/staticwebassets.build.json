@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "5VCz4coxfhcv0m4abSgROVY3eqFmRkl9gTnz0nTXFM4=",
+  "Hash": "ZwQ0mWT1+88TFFGVdrrHdMsfmMXvyvwZ96F4yrX7l80=",
   "Source": "MauiBlazorWeb.Web",
   "BasePath": "_content/MauiBlazorWeb.Web",
   "Mode": "Default",
@@ -103,6 +103,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Identity": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\wwwroot\\css\\def_user.jpg",
+      "SourceId": "MauiBlazorWeb.Shared",
+      "SourceType": "Project",
+      "ContentRoot": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\wwwroot\\",
+      "BasePath": "_content/MauiBlazorWeb.Shared",
+      "RelativePath": "css/def_user.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\def_user.jpg"
     },
     {
       "Identity": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Web\\obj\\Debug\\net8.0\\scopedcss\\bundle\\MauiBlazorWeb.Web.styles.css",

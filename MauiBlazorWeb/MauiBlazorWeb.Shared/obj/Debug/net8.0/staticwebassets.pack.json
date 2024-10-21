@@ -17,6 +17,14 @@
       "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css.map"
     },
     {
+      "Id": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\wwwroot\\css\\caret-up-fill.svg",
+      "PackagePath": "staticwebassets\\css\\caret-up-fill.svg"
+    },
+    {
+      "Id": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\wwwroot\\css\\def_user.jpg",
+      "PackagePath": "staticwebassets\\css\\def_user.jpg"
+    },
+    {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.MauiBlazorWeb.Shared.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },

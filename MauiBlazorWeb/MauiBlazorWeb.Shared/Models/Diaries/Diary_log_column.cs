@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace MauiBlazorWeb.Shared.Models.Diaries
 {
+	public enum DiaryColumnType {Habit, Words, NumberRange, Other}
 	public class Diary_log_column
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }
-		public string Type { get; set; }
-		public int Value_range { get; set; }
+		public DiaryColumnType Type { get; set; }
+		public int Value_range_min { get; set; }
+		public int Value_range_max { get; set; }
 		public int Account_Id { get; set; }
 	}
 }

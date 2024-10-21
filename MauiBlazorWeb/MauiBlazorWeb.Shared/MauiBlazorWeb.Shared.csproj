@@ -22,6 +22,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\css\caret-up-fill.svg" />
+    <None Include="wwwroot\css\def_user.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DataLibrary\DataLibrary.csproj" />
   </ItemGroup>
 

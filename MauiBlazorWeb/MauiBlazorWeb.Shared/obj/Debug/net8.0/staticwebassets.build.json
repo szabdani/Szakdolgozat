@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "wFVg/aula6OguYlyUOZFbGzzLMis1rWYKmhA7bxlszM=",
+  "Hash": "GSr++qW5T9r6Jc+u6JWZcauOczNEbOAeH50RxgNHWXw=",
   "Source": "MauiBlazorWeb.Shared",
   "BasePath": "_content/MauiBlazorWeb.Shared",
   "Mode": "Default",
@@ -110,6 +110,44 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Identity": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\wwwroot\\css\\caret-up-fill.svg",
+      "SourceId": "MauiBlazorWeb.Shared",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\wwwroot\\",
+      "BasePath": "_content/MauiBlazorWeb.Shared",
+      "RelativePath": "css/caret-up-fill.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\caret-up-fill.svg"
+    },
+    {
+      "Identity": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\wwwroot\\css\\def_user.jpg",
+      "SourceId": "MauiBlazorWeb.Shared",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\wwwroot\\",
+      "BasePath": "_content/MauiBlazorWeb.Shared",
+      "RelativePath": "css/def_user.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\def_user.jpg"
     }
   ]
 }

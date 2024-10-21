@@ -18,6 +18,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Shared
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Layout/Footer.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcRm9vdGVyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Pages/Counter.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDb3VudGVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -36,6 +40,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Pages/Home.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xIb21lLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Pages/Profile.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xQcm9maWxlLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Pages/Sports.razor]
@@ -57,6 +65,10 @@ build_metadata.AdditionalFiles.CssScope =
 [C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Layout/DropUp.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcRHJvcFVwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-zdkrn2xtqc
 
 [C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Layout/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTWFpbkxheW91dC5yYXpvcg==

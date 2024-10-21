@@ -26,3 +26,4 @@ C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Sh
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Shared\bin\Debug\net8.0\DataLibrary.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Shared\bin\Debug\net8.0\DataLibrary.pdb
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Shared\obj\Debug\net8.0\MauiBlaz.DFFBCB1F.Up2Date
+C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Shared\obj\Debug\net8.0\scopedcss\Components\Layout\DropUp.razor.rz.scp.css

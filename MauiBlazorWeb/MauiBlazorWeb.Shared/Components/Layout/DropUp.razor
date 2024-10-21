@@ -1,0 +1,25 @@
+﻿<div class="dropdown">
+    @if (isDropdownOpen)
+    {
+        <ul class="dropdown-menu dropdown-menu-dark text-small shadow show">
+            <li><a class="dropdown-item" href="#">Log In</a></li>
+            <li><a class="dropdown-item" href="#">Register</a></li>
+            <li><a class="dropdown-item" href="#">Sign out</a></li>
+        </ul>
+    }
+</div>
+<NavLink class="nav-link d-flex align-items-center text-white" @onclick="ToggleDropdown">
+    <img src=@pfpPath width="32" height="32" class="rounded-circle me-2">
+    <strong>@accountName</strong>
+</NavLink>
+
+@code {
+    string pfpPath = "/css/def_user.jpg";
+    string accountName = "Account";
+    private bool isDropdownOpen = false;
+
+    private void ToggleDropdown()
+    {
+        isDropdownOpen = !isDropdownOpen;
+    }
+}
