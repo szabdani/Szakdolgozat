@@ -1,7 +1,31 @@
 ﻿@page "/sports"
 
-<h3>Sports</h3>
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+
+<h3>Local Storage Example</h3>
+
+<button @onclick="SaveToLocalStorage">Save to Local Storage</button>
+<button @onclick="GetFromLocalStorage">Get from Local Storage</button>
+<button @onclick="RemoveFromLocalStorage">Remove from Local Storage</button>
+
+<p>Stored Value: @storedValue</p>
 
 @code {
+    private string storedValue;
 
+    private async Task SaveToLocalStorage()
+    {
+        await localStorage.SetItemAsync("myKey", "Hello from Local Storage");
+    }
+
+    private async Task GetFromLocalStorage()
+    {
+        storedValue = await localStorage.GetItemAsync<string>("myKey") ?? "No value found";
+    }
+
+    private async Task RemoveFromLocalStorage()
+    {
+        await localStorage.RemoveItemAsync("myKey");
+        storedValue = "Value removed.";
+    }
 }

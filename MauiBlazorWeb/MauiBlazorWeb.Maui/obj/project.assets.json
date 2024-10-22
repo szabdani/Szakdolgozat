@@ -2,6 +2,18 @@
   "version": 3,
   "targets": {
     "net8.0-android34.0": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "BouncyCastle.Cryptography/2.3.1": {
         "type": "package",
         "compile": {
@@ -2918,6 +2930,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
@@ -2931,6 +2944,18 @@
       }
     },
     "net8.0-android34.0/android-arm": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "BouncyCastle.Cryptography/2.3.1": {
         "type": "package",
         "compile": {
@@ -5797,6 +5822,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
@@ -5810,6 +5836,18 @@
       }
     },
     "net8.0-android34.0/android-arm64": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "BouncyCastle.Cryptography/2.3.1": {
         "type": "package",
         "compile": {
@@ -8676,6 +8714,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
@@ -8689,6 +8728,18 @@
       }
     },
     "net8.0-android34.0/android-x64": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "BouncyCastle.Cryptography/2.3.1": {
         "type": "package",
         "compile": {
@@ -11555,6 +11606,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
@@ -11568,6 +11620,18 @@
       }
     },
     "net8.0-android34.0/android-x86": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "BouncyCastle.Cryptography/2.3.1": {
         "type": "package",
         "compile": {
@@ -14434,6 +14498,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
@@ -14447,6 +14512,18 @@
       }
     },
     "net8.0-android34.0/iossimulator-x64": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "BouncyCastle.Cryptography/2.3.1": {
         "type": "package",
         "compile": {
@@ -17313,6 +17390,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
@@ -17326,6 +17404,18 @@
       }
     },
     "net8.0-android34.0/maccatalyst-x64": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "BouncyCastle.Cryptography/2.3.1": {
         "type": "package",
         "compile": {
@@ -20192,6 +20282,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
@@ -20205,6 +20296,18 @@
       }
     },
     "net8.0-android34.0/win10-x64": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "BouncyCastle.Cryptography/2.3.1": {
         "type": "package",
         "compile": {
@@ -23071,6 +23174,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
@@ -23084,6 +23188,18 @@
       }
     },
     "net8.0-ios18.0": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "BouncyCastle.Cryptography/2.3.1": {
         "type": "package",
         "compile": {
@@ -24318,6 +24434,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
@@ -24331,6 +24448,18 @@
       }
     },
     "net8.0-ios18.0/android-arm": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "BouncyCastle.Cryptography/2.3.1": {
         "type": "package",
         "compile": {
@@ -25614,6 +25743,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
@@ -25627,6 +25757,18 @@
       }
     },
     "net8.0-ios18.0/android-arm64": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "BouncyCastle.Cryptography/2.3.1": {
         "type": "package",
         "compile": {
@@ -26910,6 +27052,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
@@ -26923,6 +27066,18 @@
       }
     },
     "net8.0-ios18.0/android-x64": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "BouncyCastle.Cryptography/2.3.1": {
         "type": "package",
         "compile": {
@@ -28206,6 +28361,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
@@ -28219,6 +28375,18 @@
       }
     },
     "net8.0-ios18.0/android-x86": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "BouncyCastle.Cryptography/2.3.1": {
         "type": "package",
         "compile": {
@@ -29502,6 +29670,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
@@ -29515,6 +29684,18 @@
       }
     },
     "net8.0-ios18.0/iossimulator-x64": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "BouncyCastle.Cryptography/2.3.1": {
         "type": "package",
         "compile": {
@@ -30798,6 +30979,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
@@ -30811,6 +30993,18 @@
       }
     },
     "net8.0-ios18.0/maccatalyst-x64": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "BouncyCastle.Cryptography/2.3.1": {
         "type": "package",
         "compile": {
@@ -32094,6 +32288,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
@@ -32107,6 +32302,18 @@
       }
     },
     "net8.0-ios18.0/win10-x64": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "BouncyCastle.Cryptography/2.3.1": {
         "type": "package",
         "compile": {
@@ -33382,6 +33589,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
@@ -33395,6 +33603,18 @@
       }
     },
     "net8.0-maccatalyst18.0": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "BouncyCastle.Cryptography/2.3.1": {
         "type": "package",
         "compile": {
@@ -34629,6 +34849,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
@@ -34642,6 +34863,18 @@
       }
     },
     "net8.0-maccatalyst18.0/android-arm": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "BouncyCastle.Cryptography/2.3.1": {
         "type": "package",
         "compile": {
@@ -35925,6 +36158,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
@@ -35938,6 +36172,18 @@
       }
     },
     "net8.0-maccatalyst18.0/android-arm64": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "BouncyCastle.Cryptography/2.3.1": {
         "type": "package",
         "compile": {
@@ -37221,6 +37467,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
@@ -37234,6 +37481,18 @@
       }
     },
     "net8.0-maccatalyst18.0/android-x64": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "BouncyCastle.Cryptography/2.3.1": {
         "type": "package",
         "compile": {
@@ -38517,6 +38776,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
@@ -38530,6 +38790,18 @@
       }
     },
     "net8.0-maccatalyst18.0/android-x86": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "BouncyCastle.Cryptography/2.3.1": {
         "type": "package",
         "compile": {
@@ -39813,6 +40085,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
@@ -39826,6 +40099,18 @@
       }
     },
     "net8.0-maccatalyst18.0/iossimulator-x64": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "BouncyCastle.Cryptography/2.3.1": {
         "type": "package",
         "compile": {
@@ -41109,6 +41394,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
@@ -41122,6 +41408,18 @@
       }
     },
     "net8.0-maccatalyst18.0/maccatalyst-x64": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "BouncyCastle.Cryptography/2.3.1": {
         "type": "package",
         "compile": {
@@ -42405,6 +42703,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
@@ -42418,6 +42717,18 @@
       }
     },
     "net8.0-maccatalyst18.0/win10-x64": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "BouncyCastle.Cryptography/2.3.1": {
         "type": "package",
         "compile": {
@@ -43693,6 +44004,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
@@ -43706,6 +44018,18 @@
       }
     },
     "net8.0-windows10.0.19041": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "BouncyCastle.Cryptography/2.3.1": {
         "type": "package",
         "compile": {
@@ -45109,6 +45433,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
@@ -45122,6 +45447,18 @@
       }
     },
     "net8.0-windows10.0.19041/android-arm": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "BouncyCastle.Cryptography/2.3.1": {
         "type": "package",
         "compile": {
@@ -46534,6 +46871,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
@@ -46547,6 +46885,18 @@
       }
     },
     "net8.0-windows10.0.19041/android-arm64": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "BouncyCastle.Cryptography/2.3.1": {
         "type": "package",
         "compile": {
@@ -47959,6 +48309,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
@@ -47972,6 +48323,18 @@
       }
     },
     "net8.0-windows10.0.19041/android-x64": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "BouncyCastle.Cryptography/2.3.1": {
         "type": "package",
         "compile": {
@@ -49384,6 +49747,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
@@ -49397,6 +49761,18 @@
       }
     },
     "net8.0-windows10.0.19041/android-x86": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "BouncyCastle.Cryptography/2.3.1": {
         "type": "package",
         "compile": {
@@ -50809,6 +51185,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
@@ -50822,6 +51199,18 @@
       }
     },
     "net8.0-windows10.0.19041/iossimulator-x64": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "BouncyCastle.Cryptography/2.3.1": {
         "type": "package",
         "compile": {
@@ -52234,6 +52623,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
@@ -52247,6 +52637,18 @@
       }
     },
     "net8.0-windows10.0.19041/maccatalyst-x64": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "BouncyCastle.Cryptography/2.3.1": {
         "type": "package",
         "compile": {
@@ -53659,6 +54061,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
@@ -53672,6 +54075,18 @@
       }
     },
     "net8.0-windows10.0.19041/win10-x64": {
+      "Blazored.LocalStorage/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazored.LocalStorage.dll": {}
+        }
+      },
       "BouncyCastle.Cryptography/2.3.1": {
         "type": "package",
         "compile": {
@@ -55082,6 +55497,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
@@ -55096,6 +55512,22 @@
     }
   },
   "libraries": {
+    "Blazored.LocalStorage/4.5.0": {
+      "sha512": "6nZuJwA7zNIKx83IsObiHXZb09ponJOpCClU3en+hI8ZFvrOKXeOw+H7TegQZQrvdR1n9fkrVkEBQZg8vx6ZTw==",
+      "type": "package",
+      "path": "blazored.localstorage/4.5.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "blazored.localstorage.4.5.0.nupkg.sha512",
+        "blazored.localstorage.nuspec",
+        "icon.png",
+        "lib/net6.0/Blazored.LocalStorage.dll",
+        "lib/net7.0/Blazored.LocalStorage.dll",
+        "lib/net8.0/Blazored.LocalStorage.dll"
+      ]
+    },
     "BouncyCastle.Cryptography/2.3.1": {
       "sha512": "buwoISwecYke3CmgG1AQSg+sNZjJeIb93vTAtJiHZX35hP/teYMxsfg0NDXGUKjGx6BKBTNKc77O2M3vKvlXZQ==",
       "type": "package",
