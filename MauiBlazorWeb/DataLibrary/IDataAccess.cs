@@ -1,6 +1,4 @@
-﻿
-
-namespace DataLibrary
+﻿namespace DataLibrary
 {
 	public interface IDataAccess
 	{

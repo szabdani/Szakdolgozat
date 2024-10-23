@@ -1,22 +1,41 @@
-﻿<div class="dropdown">
+﻿@using Blazored.LocalStorage
+@inject ILocalStorageService localStorage
+
+<div class="dropdown">
     @if (isDropdownOpen)
     {
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow show">
-            <li><a class="dropdown-item" href="#">Log In</a></li>
-            <li><a class="dropdown-item" href="#">Register</a></li>
+            <li><a class="dropdown-item" href="login" @onclick="ToggleDropdown">Log In</a></li>
+            <li><a class="dropdown-item" href="register" @onclick="ToggleDropdown">Register</a></li>
             <li><a class="dropdown-item" href="#">Sign out</a></li>
         </ul>
     }
 </div>
 <NavLink class="nav-link d-flex align-items-center text-white" @onclick="ToggleDropdown">
     <img src=@pfpPath width="32" height="32" class="rounded-circle me-2">
-    <strong>@accountName</strong>
+    <strong>@username</strong>
 </NavLink>
 
 @code {
-    string pfpPath = "/css/def_user.jpg";
-    string accountName = "Account";
+    string pfpPath;
+    string username;
     private bool isDropdownOpen = false;
+
+    public async Task RerenderComponent()
+    {
+        pfpPath = await localStorage.GetItemAsync<string>("pfpPath") ?? "/css/def_user.jpg";
+        username = await localStorage.GetItemAsync<string>("username") ?? "Account";
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await RerenderComponent();
+
+            StateHasChanged();
+        }
+    }
 
     private void ToggleDropdown()
     {

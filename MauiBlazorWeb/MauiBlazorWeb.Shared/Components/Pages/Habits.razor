@@ -1,12 +1,17 @@
 ﻿@page "/habits"
 @using DataLibrary
 @using Models
+@using Blazored.LocalStorage
 @inject IDataAccess _data
+@inject ILocalStorageService localStorage
 
 <h3>Habits</h3>
 <button class="btn btn-primary" @onclick="InsertData">Insert</button>
 <button class="btn btn-warning" @onclick="UpdateData">Update</button>
 <button class="btn btn-danger" @onclick="DeleteData">Delete</button>
+
+<p>Stored Value: @storedValue</p>
+<button @onclick="GetFromLocalStorage">Get from Local Storage</button>
 
 @if (accounts == null)
 {
@@ -55,6 +60,13 @@ else
 	{
 		string sql = "select * from account";
 		accounts = await _data.LoadData<Account, dynamic>(sql, new { });
+	}
+
+
+	private string storedValue;
+	private async Task GetFromLocalStorage()
+	{
+		storedValue = await localStorage.GetItemAsync<string>("myKey") ?? "No value found";
 	}
 }
 
