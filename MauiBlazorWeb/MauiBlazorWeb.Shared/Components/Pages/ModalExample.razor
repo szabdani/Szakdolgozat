@@ -1,0 +1,40 @@
+﻿@if (ShowModal)
+{
+    <div class="modal fade show" style="display:block" aria-modal="true" role="dialog" @onclick="@ModalCancel">
+        <div class="modal-dialog modal-dialog-centered" @onclick:stopPropagation="true">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirm action</h4>
+                    <button type="button" class="close" @onclick="@ModalCancel">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <p>This is the modal content!</p>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn" @onclick="@ModalCancel">Cancel</button>
+                    <button type="button" class="btn btn-danger" @onclick=@ModalOk>Delete</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+@code
+{
+    [Parameter]
+    public bool ShowModal { get; set; } = false;
+
+    public void ModalShow() => ShowModal = true;
+    void ModalCancel() => ShowModal = false;
+    void ModalOk()
+    {
+        Console.WriteLine("Modal ok");
+        ShowModal = false;
+    }
+}
