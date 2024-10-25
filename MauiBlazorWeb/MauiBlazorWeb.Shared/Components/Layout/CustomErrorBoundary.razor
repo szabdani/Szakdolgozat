@@ -1,21 +1,25 @@
 ﻿@inherits ErrorBoundary
-@using Microsoft.Extensions.Logging
-@inject ILogger<CustomErrorBoundary> Logger
-
-<ErrorBoundary @ref="errorBoundary">
-    <ChildContent>
-        @ChildContent
-    </ChildContent>
-    <ErrorContent>
-        <div class="alert alert-danger" role="alert">
-            <p class="fs-3 fw-bold">Unexpected error occured: @exceptionMessage</p>
-            <p class="fs-2">Try again later or switch to a different page</p>
-            <button class="btn btn-info" @onclick="ClearError" >
-                Refresh
-            </button>
-        </div>
-    </ErrorContent>
-</ErrorBoundary>
+@if (CurrentException is null)
+{
+    @ChildContent
+}
+else
+{
+    <ErrorBoundary @ref="errorBoundary">
+        <ChildContent>
+            @ChildContent
+        </ChildContent>
+        <ErrorContent>
+            <div class="alert alert-danger" role="alert">
+                <p class="fs-3 fw-bold">Unexpected error occured: @exceptionMessage</p>
+                <p class="fs-2">Try again later or switch to a different page</p>
+                <button class="btn btn-info" @onclick="ClearError">
+                    Refresh
+                </button>
+            </div>
+        </ErrorContent>
+    </ErrorBoundary>
+}
 
 @code {
     private ErrorBoundary? errorBoundary;
@@ -23,7 +27,6 @@
     protected override Task OnErrorAsync(Exception ex)
     {
         exceptionMessage = ex.Message;
-        Logger.LogError(ex, exceptionMessage);
         return Task.CompletedTask;
     }
     public void ClearError()

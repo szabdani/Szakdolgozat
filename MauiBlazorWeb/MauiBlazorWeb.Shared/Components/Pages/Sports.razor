@@ -2,6 +2,7 @@
 
 @using Blazored.LocalStorage
 @inject ILocalStorageService localStorage
+@inject IJSRuntime JS   
 
 <h3>Local Storage Example</h3>
 
@@ -19,6 +20,7 @@
         await localStorage.SetItemAsync("myKey", "Hello from Local Storage");
         await localStorage.SetItemAsync("id", 3);
         await localStorage.SetItemAsync("username", "goaat");
+        await JS.InvokeVoidAsync("alert", "sziaaa");
     }
 
     private async Task GetFromLocalStorage()

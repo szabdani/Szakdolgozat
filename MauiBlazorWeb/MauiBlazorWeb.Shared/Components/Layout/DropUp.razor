@@ -14,7 +14,7 @@
 </div>
 <NavLink class="nav-link d-flex align-items-center text-white" @onclick="ToggleDropdown">
     <img src=@pfpPath width="32" height="32" class="rounded-circle me-2">
-    <strong @bind = "username"/>
+    <strong>@username</strong>
 </NavLink>
 
 <ModalExample @ref=moda/>
@@ -31,7 +31,6 @@
     {
         pfpPath = await localStorage.GetItemAsync<string>("pfpPath") ?? "/css/def_user.jpg";
         username = await localStorage.GetItemAsync<string>("username") ?? "Account";
-        StateHasChanged();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -39,6 +38,7 @@
         if (firstRender)
         {
             await RerenderComponent();
+            await InvokeAsync(StateHasChanged);
         }
     }
 

@@ -1,6 +1,79 @@
 ﻿@page "/register"
+
+@using Models
+
 <h3>Register</h3>
 
-@code {
+<div class="form-field">
+    <label>Username:</label>
+    <div>
+        <input @ref= "startUsername" @bind="newAccount.Username" />
+    </div>
+</div>
 
+<div class="form-field">
+    <label>Email:</label>
+    <div>
+        <input @bind="newAccount.Email" />
+    </div>
+</div>
+
+<div class="form-field">
+    <label>Password:</label>
+    <div>
+        <input @bind="passwordTry" />
+    </div>
+</div>
+
+<div class="form-field">
+    <label>Password again:</label>
+    <div>
+        <input @bind="passwordTry2" />
+    </div>
+</div>
+
+<div class="form-field">
+    <label>Age:</label>
+    <div>
+        <input @bind="newAccount.Age" />
+    </div>
+</div>
+
+<div class="form-field">
+    <label>Sex:</label>
+    <div>
+        <input @bind="newAccount.Sex" />
+    </div>
+</div>
+
+<button class="btn btn-warning" @onclick="RegisterAccount">
+    Register
+</button>
+
+@code {
+	Account newAccount;
+	string passwordTry;
+	string passwordTry2;
+
+	private ElementReference startUsername;
+
+	protected override async Task OnInitializedAsync()
+	{
+		newAccount = new Account();
+	}
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await startUsername.FocusAsync();
+		}
+	}
+
+
+	private void RegisterAccount()
+	{
+		throw new NotImplementedException();
+	}
 }
+
