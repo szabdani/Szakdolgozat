@@ -1,7 +1,12 @@
 ﻿@page "/profile"
 
-<h3>Account</h3>
+
 
 @code {
-
+	[CascadingParameter]
+	public Action<string>? UpdateTitle { get; set; }
+	protected override async Task OnInitializedAsync()
+	{
+		UpdateTitle?.Invoke("Profile");
+	}
 }

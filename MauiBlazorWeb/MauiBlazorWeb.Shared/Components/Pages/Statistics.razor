@@ -5,9 +5,13 @@
 @inject IDataAccess _data
 
 
-<h3>Statistics</h3>
 
 
 @code {
-	
+	[CascadingParameter]
+	public Action<string>? UpdateTitle { get; set; }
+	protected override async Task OnInitializedAsync()
+	{
+		UpdateTitle?.Invoke("Statistics");
+	}
 }

@@ -2,7 +2,10 @@
 
 @using Models
 
-<h3>Register</h3>
+<EditForm Model=@newAccount>
+    <label>Username:</label>
+    <InputText @bind-Value=newAccount.Username/>
+</EditForm>
 
 <div class="form-field">
     <label>Username:</label>
@@ -51,16 +54,19 @@
 </button>
 
 @code {
+    [CascadingParameter]
+    public Action<string>? UpdateTitle { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        UpdateTitle?.Invoke("Register");
+        newAccount = new Account();
+    }
+
 	Account newAccount;
 	string passwordTry;
 	string passwordTry2;
 
 	private ElementReference startUsername;
-
-	protected override async Task OnInitializedAsync()
-	{
-		newAccount = new Account();
-	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{

@@ -1,5 +1,4 @@
 ﻿@page "/login"
-<h3>Login</h3>
 
 <li><a class="dropdown-item" href="login" @onclick="ShowLoginDialog">Log In</a></li>
 
@@ -12,6 +11,13 @@
 
 
 @code {
+	[CascadingParameter]
+	public Action<string>? UpdateTitle { get; set; }
+	protected override async Task OnInitializedAsync()
+	{
+		UpdateTitle?.Invoke("Login");
+	}
+
 	[Parameter]
 	public bool ShowingLoginDialog { get; set; } = false;
 	private void ShowLoginDialog()

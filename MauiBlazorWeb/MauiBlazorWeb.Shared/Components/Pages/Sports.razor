@@ -13,6 +13,13 @@
 <p>Stored Value: @storedValue</p>
 
 @code {
+    [CascadingParameter]
+    public Action<string>? UpdateTitle { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        UpdateTitle?.Invoke("Sports");
+    }
+
     private string storedValue;
 
     private async Task SaveToLocalStorage()

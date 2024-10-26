@@ -2,8 +2,13 @@
 @using DataLibrary
 @inject IDataAccess _data
 
-<h3>Diary</h3>
+
 
 @code {
-
+	[CascadingParameter]
+	public Action<string>? UpdateTitle { get; set; }
+	protected override async Task OnInitializedAsync()
+	{
+		UpdateTitle?.Invoke("Diary");
+	}
 }

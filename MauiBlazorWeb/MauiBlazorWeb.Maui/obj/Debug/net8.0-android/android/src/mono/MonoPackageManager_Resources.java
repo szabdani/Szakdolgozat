@@ -3,6 +3,7 @@ public class MonoPackageManager_Resources {
 	public static String[] Assemblies = new String[]{
 		/* We need to ensure that "MauiBlazorWeb.Maui.dll" comes first in this list. */
 		"MauiBlazorWeb.Maui.dll",
+		"Blazored.LocalStorage.dll",
 		"BouncyCastle.Cryptography.dll",
 		"Dapper.dll",
 		"Google.Protobuf.dll",

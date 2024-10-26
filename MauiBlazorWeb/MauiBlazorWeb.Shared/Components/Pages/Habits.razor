@@ -6,7 +6,6 @@
 @inject IDataAccess _data
 @inject ILocalStorageService localStorage
 
-<h3>Habits</h3>
 <button class="btn btn-primary" @onclick="InsertData">Insert</button>
 <button class="btn btn-warning" @onclick="UpdateData">Update</button>
 <button class="btn btn-danger" @onclick="DeleteData">Delete</button>
@@ -28,8 +27,17 @@ else
 	}
 }
 
-
 @code {
+	[CascadingParameter]
+	public Action<string>? UpdateTitle { get; set; }
+	protected override async Task OnInitializedAsync()
+	{
+		UpdateTitle?.Invoke("Habits");
+
+		string sql = "select * from account";
+		accounts = await _data.LoadData<Account, dynamic>(sql, new { });
+	}
+
 	List<Account> accounts;
 
 	private async Task InsertData()
@@ -57,11 +65,7 @@ else
 		await OnInitializedAsync();
 	}
 
-	protected override async Task OnInitializedAsync()
-	{
-		string sql = "select * from account";
-		accounts = await _data.LoadData<Account, dynamic>(sql, new { });
-	}
+	
 
 
 	private string storedValue;

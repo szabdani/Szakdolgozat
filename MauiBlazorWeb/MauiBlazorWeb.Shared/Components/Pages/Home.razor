@@ -3,3 +3,13 @@
 <h1>Hello, world!</h1>
 
 Welcome to your new app?
+
+@code
+{
+	[CascadingParameter]
+	public Action<string>? UpdateTitle { get; set; }
+	protected override async Task OnInitializedAsync()
+	{
+		UpdateTitle?.Invoke("Home");
+	}
+}

@@ -5,6 +5,7 @@ using MauiBlazorWeb.Shared.Interfaces;
 using DataLibrary;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Blazored.LocalStorage;
 
 namespace MauiBlazorWeb.Maui
 {
@@ -26,6 +27,9 @@ namespace MauiBlazorWeb.Maui
             // For Db services
             builder.Services.AddSingleton<IDataAccess, DataAccess>();
             builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
+
+            // Session data
+            builder.Services.AddBlazoredLocalStorage();
 
             builder.Services.AddMauiBlazorWebView();
 
