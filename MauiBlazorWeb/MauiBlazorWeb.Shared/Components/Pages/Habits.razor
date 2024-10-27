@@ -22,7 +22,7 @@ else
 	foreach (var acc in accounts)
 	{
 		<p>
-			@acc.Username @acc.Age @acc.Sex @acc.Admin
+			@acc.Username @acc.Gender @acc.Admin
 		</p>
 	}
 }
@@ -42,16 +42,16 @@ else
 
 	private async Task InsertData()
 	{
-		string sql = "Insert into account (username, age, sex) values (@a, @b, @c);";
+		string sql = "Insert into account (username, gender) values (@a, @c);";
 
-		await _data.SaveData(sql, new { a = "dwake", b = 40, c = 1});
+		await _data.SaveData(sql, new { a = "dwake", c = "Male"});
 
 		await OnInitializedAsync();
 	}
 
 	private async Task UpdateData()
 	{
-		string sql = "Update account set age = 16 where username = 'dwake'";
+		string sql = "Update account set gender = 'Other' where username = 'dwake'";
 		await _data.SaveData(sql, new { });
 
 		await OnInitializedAsync();
@@ -59,7 +59,7 @@ else
 
 	private async Task DeleteData()
 	{
-		string sql = "Delete from account where age = 16";
+		string sql = "Delete from account where  gender = 'Other'";
 		await _data.SaveData(sql, new { });
 
 		await OnInitializedAsync();

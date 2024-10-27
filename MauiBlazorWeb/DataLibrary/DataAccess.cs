@@ -29,12 +29,12 @@ namespace DataLibrary
 			}
 		}
 
-		public async Task SaveData<T>(string sql, T parameters)
+		public async Task<int> SaveData<T>(string sql, T parameters)
 		{
 			using (IDbConnection connection = GetConnection())
 			{
-				await connection.ExecuteAsync(sql, parameters);
+                return await connection.ExecuteAsync(sql, parameters);
 			}
-		}
+        }
 	}
 }

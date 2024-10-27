@@ -6,6 +6,7 @@ using DataLibrary;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Blazored.LocalStorage;
+using MauiBlazorWeb.Shared.Services;
 
 namespace MauiBlazorWeb.Maui
 {
@@ -30,6 +31,9 @@ namespace MauiBlazorWeb.Maui
 
             // Session data
             builder.Services.AddBlazoredLocalStorage();
+
+            // PW hash
+            builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>();
 
             builder.Services.AddMauiBlazorWebView();
 

@@ -1,85 +1,224 @@
 ﻿@page "/register"
 
+@using DataLibrary
 @using Models
+@using System.Security.Cryptography;
+@using Services;
 
-<EditForm Model=@newAccount>
-    <label>Username:</label>
-    <InputText @bind-Value=newAccount.Username/>
+@inject IDataAccess _data
+@inject IPasswordHasher _pw
+
+<EditForm Model=@newAccount OnSubmit="ValidateData">
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Username:</label>
+        <div class="col-sm-2" @ref="startUsername">
+            <InputText class="form-control" @bind-Value=newAccount.Username />
+            @if (invalidForm)
+            {
+                <div class="text-danger" style="margin-top: 0.25rem;">Sorry, this username is already taken.</div>
+            }
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Email:</label>
+        <div class="col-sm-2">
+            <InputText class="form-control" @bind-Value=newAccount.Email />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Password:</label>
+        <div class="col-sm-2">
+            <InputText class="form-control" type="password" @bind-Value=newAccount.Password1 />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Password again:</label>
+        <div class="col-sm-2">
+            <InputText class="form-control" type="password" @bind-Value=newAccount.Password2 />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Date of birth (MM/dd/yyyy):</label>
+        <div class="col-sm-2">
+            <InputDate class="form-control" @bind-Value=newAccount.Birthdate/>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Gender:</label>
+        <div class="col-sm-2">
+            <InputSelect class="form-control" @bind-Value=newAccount.Gender>
+            @foreach (var gender in Enum.GetValues(typeof(GenderType)))
+            {
+                <option value="@gender">@gender</option>
+            }       
+            </InputSelect>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <input type="submit" class="btn btn-warning" value="Register"/>
+        </div>
+    </div>
+    <div class="alert alert-warning" role="alert">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+    </div>
 </EditForm>
 
-<div class="form-field">
-    <label>Username:</label>
-    <div>
-        <input @ref= "startUsername" @bind="newAccount.Username" />
+@if (successfulRegister)
+{
+    <div class="alert alert-info" role="alert">
+        <p class="fs-3 fw-bold">
+            Succesful registration! 
+        </p>
+        <a class="fs-2" href="login">Log in</a>
     </div>
-</div>
+}
 
-<div class="form-field">
-    <label>Email:</label>
-    <div>
-        <input @bind="newAccount.Email" />
-    </div>
-</div>
 
-<div class="form-field">
-    <label>Password:</label>
-    <div>
-        <input @bind="passwordTry" />
-    </div>
-</div>
-
-<div class="form-field">
-    <label>Password again:</label>
-    <div>
-        <input @bind="passwordTry2" />
-    </div>
-</div>
-
-<div class="form-field">
-    <label>Age:</label>
-    <div>
-        <input @bind="newAccount.Age" />
-    </div>
-</div>
-
-<div class="form-field">
-    <label>Sex:</label>
-    <div>
-        <input @bind="newAccount.Sex" />
-    </div>
-</div>
-
-<button class="btn btn-warning" @onclick="RegisterAccount">
-    Register
-</button>
 
 @code {
     [CascadingParameter]
     public Action<string>? UpdateTitle { get; set; }
+
+    List<Account> accountUsernames;
     protected override async Task OnInitializedAsync()
     {
         UpdateTitle?.Invoke("Register");
         newAccount = new Account();
+
+        string sql = "select username from account";
+        accountUsernames = await _data.LoadData<Account, dynamic>(sql, new { });
     }
 
-	Account newAccount;
-	string passwordTry;
-	string passwordTry2;
+    bool successfulRegister = false;
+    bool invalidForm = false;
+    List<string> errorMessages = new();
+    Account newAccount;
+    string passwordTry;
+    string passwordTry2;
 
-	private ElementReference startUsername;
+    private ElementReference startUsername;
 
-	protected override async Task OnAfterRenderAsync(bool firstRender)
-	{
-		if (firstRender)
-		{
-			await startUsername.FocusAsync();
-		}
-	}
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await startUsername.FocusAsync();
+        }
+    }
+    private async Task ValidateData(EditContext editContext)
+    {
+        bool dataIsValid = editContext.Validate();
+        if (dataIsValid)
+        {
+            foreach (var u in accountUsernames)
+            {
+                if (u.Username == newAccount.Username)
+                {
+                    //
+                    invalidForm = true;
+                    errorMessages.Add("Username already taken!");
+                    break;
+                }
+            }
+            if(!invalidForm)
+                await RegisterAccount();
+        }
+    }
+    
 
+    private async Task ValiddddddateData(EditContext editContext)
+    {
+        invalidForm = false;
+        errorMessages.Clear();
 
-	private void RegisterAccount()
-	{
-		throw new NotImplementedException();
-	}
+        if (newAccount.Username is null or "")
+        {
+            invalidForm = true;
+            errorMessages.Add("Setting a username is required!");
+        }
+        else if (newAccount.Username.Length > 45)
+        {
+            invalidForm = true;
+            errorMessages.Add("Username cannot exceed 45 characters!");
+        }
+        else
+        {
+            foreach (var u in accountUsernames)
+            {
+                if (u.Username == newAccount.Username)
+                {
+                    invalidForm = true;
+                    errorMessages.Add("Username already taken!");
+                    break;
+                }
+            }
+        }
+
+        if (newAccount.Email is null or "")
+        {
+            invalidForm = true;
+            errorMessages.Add("Setting an email is required!");
+        }
+
+        if (passwordTry is null or "")
+        {
+            invalidForm = true;
+            errorMessages.Add("Setting a password is required!");
+        }
+        else if (passwordTry.Length<6 || !passwordTry.Any(char.IsUpper) || !passwordTry.Any(char.IsNumber))
+        {
+            invalidForm = true;
+            errorMessages.Add("Password has to be at least 6 characters long and include a capital letter and a number");
+        }
+        else if (passwordTry2 is null or "")
+        {
+            invalidForm = true;
+            errorMessages.Add("Repeat your password!");
+        }
+        else if (passwordTry != passwordTry2)
+        {
+            invalidForm = true;
+            errorMessages.Add("Passwords are not matching!");
+        }
+
+        if(!invalidForm)
+            await RegisterAccount();
+    }
+
+    private async Task RegisterAccount()
+    {
+        byte[] pw_salt = RandomNumberGenerator.GetBytes(8);
+        byte[] pw_hash = _pw.Hash(passwordTry, pw_salt);
+
+        int affectedRows;
+        string date = newAccount.Birthdate.ToString("yyyy-MM-dd");
+        string gender = newAccount.Gender.ToString();
+        string pw_salt_string = Convert.ToBase64String(pw_salt);
+        string pw_hash_string = Convert.ToBase64String(pw_hash);
+        string sql = "Insert into account (username, email, password_hash, password_salt, birthdate, gender) values (@username, @email, @pw_h, @pw_s, @birthdate, @gender);";
+
+        affectedRows = await _data.SaveData(sql, new {
+            username = newAccount.Username, 
+            email = newAccount.Email,
+            pw_h = pw_hash_string, 
+            pw_s = pw_salt_string,
+            birthdate = date,
+            gender = gender}
+        );
+
+        if (affectedRows == 0)
+        {
+            invalidForm = true;
+
+            errorMessages.Clear();
+            errorMessages.Add("Could not register your account");
+        }
+        else
+        {
+            successfulRegister = true;
+        }
+    }
 }
 

@@ -110,6 +110,42 @@
           }
         }
       },
+      "Konscious.Security.Cryptography.Argon2/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Konscious.Security.Cryptography.Blake2": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Konscious.Security.Cryptography.Blake2/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Liphsoft.Crypto.Argon2/1.0.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        }
+      },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
         "type": "package",
         "dependencies": {
@@ -985,6 +1021,19 @@
         },
         "build": {
           "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "dependencies": {
+          "System.Buffers": "4.5.1",
+          "System.Runtime.CompilerServices.Unsafe": "4.5.3"
+        },
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
         }
       },
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {
@@ -2932,6 +2981,8 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
+          "Konscious.Security.Cryptography.Argon2": "1.3.1",
+          "Liphsoft.Crypto.Argon2": "1.0.5",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
         },
@@ -3052,6 +3103,42 @@
           }
         }
       },
+      "Konscious.Security.Cryptography.Argon2/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Konscious.Security.Cryptography.Blake2": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Konscious.Security.Cryptography.Blake2/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Liphsoft.Crypto.Argon2/1.0.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        }
+      },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
         "type": "package",
         "dependencies": {
@@ -3895,6 +3982,19 @@
         },
         "build": {
           "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "dependencies": {
+          "System.Buffers": "4.5.1",
+          "System.Runtime.CompilerServices.Unsafe": "4.5.3"
+        },
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
         }
       },
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {
@@ -5824,6 +5924,8 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
+          "Konscious.Security.Cryptography.Argon2": "1.3.1",
+          "Liphsoft.Crypto.Argon2": "1.0.5",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
         },
@@ -5944,6 +6046,42 @@
           }
         }
       },
+      "Konscious.Security.Cryptography.Argon2/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Konscious.Security.Cryptography.Blake2": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Konscious.Security.Cryptography.Blake2/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Liphsoft.Crypto.Argon2/1.0.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        }
+      },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
         "type": "package",
         "dependencies": {
@@ -6787,6 +6925,19 @@
         },
         "build": {
           "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "dependencies": {
+          "System.Buffers": "4.5.1",
+          "System.Runtime.CompilerServices.Unsafe": "4.5.3"
+        },
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
         }
       },
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {
@@ -8716,6 +8867,8 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
+          "Konscious.Security.Cryptography.Argon2": "1.3.1",
+          "Liphsoft.Crypto.Argon2": "1.0.5",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
         },
@@ -8836,6 +8989,42 @@
           }
         }
       },
+      "Konscious.Security.Cryptography.Argon2/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Konscious.Security.Cryptography.Blake2": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Konscious.Security.Cryptography.Blake2/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Liphsoft.Crypto.Argon2/1.0.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        }
+      },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
         "type": "package",
         "dependencies": {
@@ -9679,6 +9868,19 @@
         },
         "build": {
           "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "dependencies": {
+          "System.Buffers": "4.5.1",
+          "System.Runtime.CompilerServices.Unsafe": "4.5.3"
+        },
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
         }
       },
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {
@@ -11608,6 +11810,8 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
+          "Konscious.Security.Cryptography.Argon2": "1.3.1",
+          "Liphsoft.Crypto.Argon2": "1.0.5",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
         },
@@ -11728,6 +11932,42 @@
           }
         }
       },
+      "Konscious.Security.Cryptography.Argon2/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Konscious.Security.Cryptography.Blake2": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Konscious.Security.Cryptography.Blake2/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Liphsoft.Crypto.Argon2/1.0.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        }
+      },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
         "type": "package",
         "dependencies": {
@@ -12571,6 +12811,19 @@
         },
         "build": {
           "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "dependencies": {
+          "System.Buffers": "4.5.1",
+          "System.Runtime.CompilerServices.Unsafe": "4.5.3"
+        },
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
         }
       },
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {
@@ -14500,6 +14753,8 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
+          "Konscious.Security.Cryptography.Argon2": "1.3.1",
+          "Liphsoft.Crypto.Argon2": "1.0.5",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
         },
@@ -14620,6 +14875,42 @@
           }
         }
       },
+      "Konscious.Security.Cryptography.Argon2/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Konscious.Security.Cryptography.Blake2": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Konscious.Security.Cryptography.Blake2/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Liphsoft.Crypto.Argon2/1.0.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        }
+      },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
         "type": "package",
         "dependencies": {
@@ -15463,6 +15754,19 @@
         },
         "build": {
           "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "dependencies": {
+          "System.Buffers": "4.5.1",
+          "System.Runtime.CompilerServices.Unsafe": "4.5.3"
+        },
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
         }
       },
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {
@@ -17392,6 +17696,8 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
+          "Konscious.Security.Cryptography.Argon2": "1.3.1",
+          "Liphsoft.Crypto.Argon2": "1.0.5",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
         },
@@ -17512,6 +17818,42 @@
           }
         }
       },
+      "Konscious.Security.Cryptography.Argon2/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Konscious.Security.Cryptography.Blake2": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Konscious.Security.Cryptography.Blake2/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Liphsoft.Crypto.Argon2/1.0.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        }
+      },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
         "type": "package",
         "dependencies": {
@@ -18355,6 +18697,19 @@
         },
         "build": {
           "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "dependencies": {
+          "System.Buffers": "4.5.1",
+          "System.Runtime.CompilerServices.Unsafe": "4.5.3"
+        },
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
         }
       },
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {
@@ -20284,6 +20639,8 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
+          "Konscious.Security.Cryptography.Argon2": "1.3.1",
+          "Liphsoft.Crypto.Argon2": "1.0.5",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
         },
@@ -20404,6 +20761,42 @@
           }
         }
       },
+      "Konscious.Security.Cryptography.Argon2/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Konscious.Security.Cryptography.Blake2": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Konscious.Security.Cryptography.Blake2/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Liphsoft.Crypto.Argon2/1.0.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        }
+      },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
         "type": "package",
         "dependencies": {
@@ -21247,6 +21640,19 @@
         },
         "build": {
           "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "dependencies": {
+          "System.Buffers": "4.5.1",
+          "System.Runtime.CompilerServices.Unsafe": "4.5.3"
+        },
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
         }
       },
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {
@@ -23176,6 +23582,8 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
+          "Konscious.Security.Cryptography.Argon2": "1.3.1",
+          "Liphsoft.Crypto.Argon2": "1.0.5",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
         },
@@ -23283,6 +23691,42 @@
           }
         }
       },
+      "Konscious.Security.Cryptography.Argon2/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Konscious.Security.Cryptography.Blake2": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Konscious.Security.Cryptography.Blake2/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Liphsoft.Crypto.Argon2/1.0.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        }
+      },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
         "type": "package",
         "dependencies": {
@@ -24182,6 +24626,15 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
+        }
+      },
       "System.Reflection/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -24436,6 +24889,8 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
+          "Konscious.Security.Cryptography.Argon2": "1.3.1",
+          "Liphsoft.Crypto.Argon2": "1.0.5",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
         },
@@ -24543,6 +24998,42 @@
           }
         }
       },
+      "Konscious.Security.Cryptography.Argon2/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Konscious.Security.Cryptography.Blake2": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Konscious.Security.Cryptography.Blake2/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Liphsoft.Crypto.Argon2/1.0.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        }
+      },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
         "type": "package",
         "dependencies": {
@@ -25493,6 +25984,15 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
+        }
+      },
       "System.Private.Uri/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -25745,6 +26245,8 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
+          "Konscious.Security.Cryptography.Argon2": "1.3.1",
+          "Liphsoft.Crypto.Argon2": "1.0.5",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
         },
@@ -25852,6 +26354,42 @@
           }
         }
       },
+      "Konscious.Security.Cryptography.Argon2/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Konscious.Security.Cryptography.Blake2": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Konscious.Security.Cryptography.Blake2/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Liphsoft.Crypto.Argon2/1.0.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        }
+      },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
         "type": "package",
         "dependencies": {
@@ -26802,6 +27340,15 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
+        }
+      },
       "System.Private.Uri/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -27054,6 +27601,8 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
+          "Konscious.Security.Cryptography.Argon2": "1.3.1",
+          "Liphsoft.Crypto.Argon2": "1.0.5",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
         },
@@ -27161,6 +27710,42 @@
           }
         }
       },
+      "Konscious.Security.Cryptography.Argon2/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Konscious.Security.Cryptography.Blake2": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Konscious.Security.Cryptography.Blake2/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Liphsoft.Crypto.Argon2/1.0.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        }
+      },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
         "type": "package",
         "dependencies": {
@@ -28111,6 +28696,15 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
+        }
+      },
       "System.Private.Uri/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -28363,6 +28957,8 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
+          "Konscious.Security.Cryptography.Argon2": "1.3.1",
+          "Liphsoft.Crypto.Argon2": "1.0.5",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
         },
@@ -28470,6 +29066,42 @@
           }
         }
       },
+      "Konscious.Security.Cryptography.Argon2/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Konscious.Security.Cryptography.Blake2": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Konscious.Security.Cryptography.Blake2/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Liphsoft.Crypto.Argon2/1.0.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        }
+      },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
         "type": "package",
         "dependencies": {
@@ -29420,6 +30052,15 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
+        }
+      },
       "System.Private.Uri/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -29672,6 +30313,8 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
+          "Konscious.Security.Cryptography.Argon2": "1.3.1",
+          "Liphsoft.Crypto.Argon2": "1.0.5",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
         },
@@ -29779,6 +30422,42 @@
           }
         }
       },
+      "Konscious.Security.Cryptography.Argon2/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Konscious.Security.Cryptography.Blake2": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Konscious.Security.Cryptography.Blake2/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Liphsoft.Crypto.Argon2/1.0.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        }
+      },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
         "type": "package",
         "dependencies": {
@@ -30729,6 +31408,15 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
+        }
+      },
       "System.Private.Uri/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -30981,6 +31669,8 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
+          "Konscious.Security.Cryptography.Argon2": "1.3.1",
+          "Liphsoft.Crypto.Argon2": "1.0.5",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
         },
@@ -31088,6 +31778,42 @@
           }
         }
       },
+      "Konscious.Security.Cryptography.Argon2/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Konscious.Security.Cryptography.Blake2": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Konscious.Security.Cryptography.Blake2/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Liphsoft.Crypto.Argon2/1.0.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        }
+      },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
         "type": "package",
         "dependencies": {
@@ -32038,6 +32764,15 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
+        }
+      },
       "System.Private.Uri/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -32290,6 +33025,8 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
+          "Konscious.Security.Cryptography.Argon2": "1.3.1",
+          "Liphsoft.Crypto.Argon2": "1.0.5",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
         },
@@ -32395,6 +33132,42 @@
           "lib/net6.0/K4os.Hash.xxHash.dll": {
             "related": ".xml"
           }
+        }
+      },
+      "Konscious.Security.Cryptography.Argon2/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Konscious.Security.Cryptography.Blake2": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Konscious.Security.Cryptography.Blake2/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Liphsoft.Crypto.Argon2/1.0.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
         }
       },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
@@ -33339,6 +34112,15 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
+        }
+      },
       "System.Private.Uri/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -33591,6 +34373,8 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
+          "Konscious.Security.Cryptography.Argon2": "1.3.1",
+          "Liphsoft.Crypto.Argon2": "1.0.5",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
         },
@@ -33696,6 +34480,42 @@
           "lib/net6.0/K4os.Hash.xxHash.dll": {
             "related": ".xml"
           }
+        }
+      },
+      "Konscious.Security.Cryptography.Argon2/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Konscious.Security.Cryptography.Blake2": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Konscious.Security.Cryptography.Blake2/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Liphsoft.Crypto.Argon2/1.0.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
         }
       },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
@@ -34597,6 +35417,15 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
+        }
+      },
       "System.Reflection/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -34851,6 +35680,8 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
+          "Konscious.Security.Cryptography.Argon2": "1.3.1",
+          "Liphsoft.Crypto.Argon2": "1.0.5",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
         },
@@ -34958,6 +35789,42 @@
           }
         }
       },
+      "Konscious.Security.Cryptography.Argon2/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Konscious.Security.Cryptography.Blake2": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Konscious.Security.Cryptography.Blake2/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Liphsoft.Crypto.Argon2/1.0.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        }
+      },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
         "type": "package",
         "dependencies": {
@@ -35908,6 +36775,15 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
+        }
+      },
       "System.Private.Uri/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -36160,6 +37036,8 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
+          "Konscious.Security.Cryptography.Argon2": "1.3.1",
+          "Liphsoft.Crypto.Argon2": "1.0.5",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
         },
@@ -36267,6 +37145,42 @@
           }
         }
       },
+      "Konscious.Security.Cryptography.Argon2/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Konscious.Security.Cryptography.Blake2": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Konscious.Security.Cryptography.Blake2/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Liphsoft.Crypto.Argon2/1.0.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        }
+      },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
         "type": "package",
         "dependencies": {
@@ -37217,6 +38131,15 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
+        }
+      },
       "System.Private.Uri/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -37469,6 +38392,8 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
+          "Konscious.Security.Cryptography.Argon2": "1.3.1",
+          "Liphsoft.Crypto.Argon2": "1.0.5",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
         },
@@ -37576,6 +38501,42 @@
           }
         }
       },
+      "Konscious.Security.Cryptography.Argon2/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Konscious.Security.Cryptography.Blake2": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Konscious.Security.Cryptography.Blake2/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Liphsoft.Crypto.Argon2/1.0.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        }
+      },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
         "type": "package",
         "dependencies": {
@@ -38526,6 +39487,15 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
+        }
+      },
       "System.Private.Uri/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -38778,6 +39748,8 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
+          "Konscious.Security.Cryptography.Argon2": "1.3.1",
+          "Liphsoft.Crypto.Argon2": "1.0.5",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
         },
@@ -38885,6 +39857,42 @@
           }
         }
       },
+      "Konscious.Security.Cryptography.Argon2/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Konscious.Security.Cryptography.Blake2": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Konscious.Security.Cryptography.Blake2/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Liphsoft.Crypto.Argon2/1.0.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        }
+      },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
         "type": "package",
         "dependencies": {
@@ -39835,6 +40843,15 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
+        }
+      },
       "System.Private.Uri/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -40087,6 +41104,8 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
+          "Konscious.Security.Cryptography.Argon2": "1.3.1",
+          "Liphsoft.Crypto.Argon2": "1.0.5",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
         },
@@ -40194,6 +41213,42 @@
           }
         }
       },
+      "Konscious.Security.Cryptography.Argon2/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Konscious.Security.Cryptography.Blake2": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Konscious.Security.Cryptography.Blake2/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Liphsoft.Crypto.Argon2/1.0.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        }
+      },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
         "type": "package",
         "dependencies": {
@@ -41144,6 +42199,15 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
+        }
+      },
       "System.Private.Uri/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -41396,6 +42460,8 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
+          "Konscious.Security.Cryptography.Argon2": "1.3.1",
+          "Liphsoft.Crypto.Argon2": "1.0.5",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
         },
@@ -41503,6 +42569,42 @@
           }
         }
       },
+      "Konscious.Security.Cryptography.Argon2/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Konscious.Security.Cryptography.Blake2": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Konscious.Security.Cryptography.Blake2/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Liphsoft.Crypto.Argon2/1.0.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        }
+      },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
         "type": "package",
         "dependencies": {
@@ -42453,6 +43555,15 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
+        }
+      },
       "System.Private.Uri/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -42705,6 +43816,8 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
+          "Konscious.Security.Cryptography.Argon2": "1.3.1",
+          "Liphsoft.Crypto.Argon2": "1.0.5",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
         },
@@ -42810,6 +43923,42 @@
           "lib/net6.0/K4os.Hash.xxHash.dll": {
             "related": ".xml"
           }
+        }
+      },
+      "Konscious.Security.Cryptography.Argon2/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Konscious.Security.Cryptography.Blake2": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Konscious.Security.Cryptography.Blake2/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Liphsoft.Crypto.Argon2/1.0.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
         }
       },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
@@ -43754,6 +44903,15 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
+        }
+      },
       "System.Private.Uri/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -44006,6 +45164,8 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
+          "Konscious.Security.Cryptography.Argon2": "1.3.1",
+          "Liphsoft.Crypto.Argon2": "1.0.5",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
         },
@@ -44111,6 +45271,42 @@
           "lib/net6.0/K4os.Hash.xxHash.dll": {
             "related": ".xml"
           }
+        }
+      },
+      "Konscious.Security.Cryptography.Argon2/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Konscious.Security.Cryptography.Blake2": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Konscious.Security.Cryptography.Blake2/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Liphsoft.Crypto.Argon2/1.0.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
         }
       },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
@@ -45181,6 +46377,15 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
+        }
+      },
       "System.Reflection/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -45435,6 +46640,8 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
+          "Konscious.Security.Cryptography.Argon2": "1.3.1",
+          "Liphsoft.Crypto.Argon2": "1.0.5",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
         },
@@ -45542,6 +46749,42 @@
           }
         }
       },
+      "Konscious.Security.Cryptography.Argon2/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Konscious.Security.Cryptography.Blake2": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Konscious.Security.Cryptography.Blake2/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Liphsoft.Crypto.Argon2/1.0.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        }
+      },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
         "type": "package",
         "dependencies": {
@@ -46621,6 +47864,15 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
+        }
+      },
       "System.Private.Uri/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -46873,6 +48125,8 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
+          "Konscious.Security.Cryptography.Argon2": "1.3.1",
+          "Liphsoft.Crypto.Argon2": "1.0.5",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
         },
@@ -46980,6 +48234,42 @@
           }
         }
       },
+      "Konscious.Security.Cryptography.Argon2/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Konscious.Security.Cryptography.Blake2": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Konscious.Security.Cryptography.Blake2/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Liphsoft.Crypto.Argon2/1.0.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        }
+      },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
         "type": "package",
         "dependencies": {
@@ -48059,6 +49349,15 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
+        }
+      },
       "System.Private.Uri/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -48311,6 +49610,8 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
+          "Konscious.Security.Cryptography.Argon2": "1.3.1",
+          "Liphsoft.Crypto.Argon2": "1.0.5",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
         },
@@ -48418,6 +49719,42 @@
           }
         }
       },
+      "Konscious.Security.Cryptography.Argon2/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Konscious.Security.Cryptography.Blake2": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Konscious.Security.Cryptography.Blake2/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Liphsoft.Crypto.Argon2/1.0.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        }
+      },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
         "type": "package",
         "dependencies": {
@@ -49497,6 +50834,15 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
+        }
+      },
       "System.Private.Uri/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -49749,6 +51095,8 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
+          "Konscious.Security.Cryptography.Argon2": "1.3.1",
+          "Liphsoft.Crypto.Argon2": "1.0.5",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
         },
@@ -49856,6 +51204,42 @@
           }
         }
       },
+      "Konscious.Security.Cryptography.Argon2/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Konscious.Security.Cryptography.Blake2": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Konscious.Security.Cryptography.Blake2/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Liphsoft.Crypto.Argon2/1.0.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        }
+      },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
         "type": "package",
         "dependencies": {
@@ -50935,6 +52319,15 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
+        }
+      },
       "System.Private.Uri/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -51187,6 +52580,8 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
+          "Konscious.Security.Cryptography.Argon2": "1.3.1",
+          "Liphsoft.Crypto.Argon2": "1.0.5",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
         },
@@ -51294,6 +52689,42 @@
           }
         }
       },
+      "Konscious.Security.Cryptography.Argon2/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Konscious.Security.Cryptography.Blake2": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Konscious.Security.Cryptography.Blake2/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Liphsoft.Crypto.Argon2/1.0.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        }
+      },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
         "type": "package",
         "dependencies": {
@@ -52373,6 +53804,15 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
+        }
+      },
       "System.Private.Uri/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -52625,6 +54065,8 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
+          "Konscious.Security.Cryptography.Argon2": "1.3.1",
+          "Liphsoft.Crypto.Argon2": "1.0.5",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
         },
@@ -52732,6 +54174,42 @@
           }
         }
       },
+      "Konscious.Security.Cryptography.Argon2/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Konscious.Security.Cryptography.Blake2": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Konscious.Security.Cryptography.Blake2/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Liphsoft.Crypto.Argon2/1.0.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        }
+      },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
         "type": "package",
         "dependencies": {
@@ -53811,6 +55289,15 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
+        }
+      },
       "System.Private.Uri/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -54063,6 +55550,8 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
+          "Konscious.Security.Cryptography.Argon2": "1.3.1",
+          "Liphsoft.Crypto.Argon2": "1.0.5",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
         },
@@ -54168,6 +55657,42 @@
           "lib/net6.0/K4os.Hash.xxHash.dll": {
             "related": ".xml"
           }
+        }
+      },
+      "Konscious.Security.Cryptography.Argon2/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Konscious.Security.Cryptography.Blake2": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Konscious.Security.Cryptography.Blake2/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Liphsoft.Crypto.Argon2/1.0.5": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
         }
       },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
@@ -55247,6 +56772,15 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "System.Memory/4.5.4": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
+        }
+      },
       "System.Private.Uri/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -55499,6 +57033,8 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "DataLibrary": "1.0.0",
+          "Konscious.Security.Cryptography.Argon2": "1.3.1",
+          "Liphsoft.Crypto.Argon2": "1.0.5",
           "Microsoft.AspNetCore.Components.Web": "8.0.4",
           "Microsoft.Extensions.Configuration": "8.0.0"
         },
@@ -55671,6 +57207,60 @@
         "lib/netstandard2.0/K4os.Hash.xxHash.xml",
         "lib/netstandard2.1/K4os.Hash.xxHash.dll",
         "lib/netstandard2.1/K4os.Hash.xxHash.xml"
+      ]
+    },
+    "Konscious.Security.Cryptography.Argon2/1.3.1": {
+      "sha512": "T+OAGwzYYXftahpOxO7J4xA5K6urxwGnWQf3M+Jpi+76Azv/0T3M5SuN+h7/QvXuiqNw3ZEZ5QqVLI5ygDAylw==",
+      "type": "package",
+      "path": "konscious.security.cryptography.argon2/1.3.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "konscious.security.cryptography.argon2.1.3.1.nupkg.sha512",
+        "konscious.security.cryptography.argon2.nuspec",
+        "lib/net46/Konscious.Security.Cryptography.Argon2.dll",
+        "lib/net46/Konscious.Security.Cryptography.Argon2.xml",
+        "lib/net6.0/Konscious.Security.Cryptography.Argon2.dll",
+        "lib/net6.0/Konscious.Security.Cryptography.Argon2.xml",
+        "lib/net8.0/Konscious.Security.Cryptography.Argon2.dll",
+        "lib/net8.0/Konscious.Security.Cryptography.Argon2.xml",
+        "lib/netstandard1.3/Konscious.Security.Cryptography.Argon2.dll",
+        "lib/netstandard1.3/Konscious.Security.Cryptography.Argon2.xml"
+      ]
+    },
+    "Konscious.Security.Cryptography.Blake2/1.1.1": {
+      "sha512": "odwOyzj/J/lHJZNwFWJGU/LRecBShupAJ2S8TQqZfhUe9niHzu/voBYK5wuVKsvSpzbfupKQYZguVyIk1sgOkQ==",
+      "type": "package",
+      "path": "konscious.security.cryptography.blake2/1.1.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "konscious.security.cryptography.blake2.1.1.1.nupkg.sha512",
+        "konscious.security.cryptography.blake2.nuspec",
+        "lib/net46/Konscious.Security.Cryptography.Blake2.dll",
+        "lib/net46/Konscious.Security.Cryptography.Blake2.xml",
+        "lib/net6.0/Konscious.Security.Cryptography.Blake2.dll",
+        "lib/net6.0/Konscious.Security.Cryptography.Blake2.xml",
+        "lib/net8.0/Konscious.Security.Cryptography.Blake2.dll",
+        "lib/net8.0/Konscious.Security.Cryptography.Blake2.xml",
+        "lib/netstandard1.3/Konscious.Security.Cryptography.Blake2.dll",
+        "lib/netstandard1.3/Konscious.Security.Cryptography.Blake2.xml"
+      ]
+    },
+    "Liphsoft.Crypto.Argon2/1.0.5": {
+      "sha512": "1R+7NKUhl1H7ePnVXo/33uqT6N7c30VNVv1fI5HmaBgYeTc7fvQPdjlGWnCBzaAD071IR5XTtVq7dX/33KZWtA==",
+      "type": "package",
+      "path": "liphsoft.crypto.argon2/1.0.5",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Argon2/x64/libargon2.dll",
+        "Argon2/x86/libargon2.dll",
+        "build/Liphsoft.Crypto.Argon2.targets",
+        "lib/net35/x64/Liphsoft.Crypto.Argon2.dll",
+        "lib/net35/x86/Liphsoft.Crypto.Argon2.dll",
+        "liphsoft.crypto.argon2.1.0.5.nupkg.sha512",
+        "liphsoft.crypto.argon2.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Authorization/8.0.4": {
@@ -58716,6 +60306,29 @@
         "system.io.pipelines.8.0.0.nupkg.sha512",
         "system.io.pipelines.nuspec",
         "useSharedDesignerContext.txt"
+      ]
+    },
+    "System.Memory/4.5.4": {
+      "sha512": "1MbJTHS1lZ4bS4FmsJjnuGJOu88ZzTT2rLvrhW7Ygic+pC0NWA+3hgAen0HRdsocuQXCkUTdFn9yHJJhsijDXw==",
+      "type": "package",
+      "path": "system.memory/4.5.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/System.Memory.dll",
+        "lib/net461/System.Memory.xml",
+        "lib/netcoreapp2.1/_._",
+        "lib/netstandard1.1/System.Memory.dll",
+        "lib/netstandard1.1/System.Memory.xml",
+        "lib/netstandard2.0/System.Memory.dll",
+        "lib/netstandard2.0/System.Memory.xml",
+        "ref/netcoreapp2.1/_._",
+        "system.memory.4.5.4.nupkg.sha512",
+        "system.memory.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
       ]
     },
     "System.Private.Uri/4.3.0": {

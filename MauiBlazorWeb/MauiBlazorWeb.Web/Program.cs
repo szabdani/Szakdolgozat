@@ -3,6 +3,7 @@ using MauiBlazorWeb.Shared.Interfaces;
 using MauiBlazorWeb.Web.Services;
 using DataLibrary;
 using Blazored.LocalStorage;
+using MauiBlazorWeb.Shared.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,9 @@ builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
 // Session data
 builder.Services.AddBlazoredLocalStorage();
+
+// PW hash
+builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>();
 
 builder.Services.AddScoped<IFormFactor, FormFactor>();
 
