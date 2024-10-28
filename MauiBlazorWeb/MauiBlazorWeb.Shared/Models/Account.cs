@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using MauiBlazorWeb.Shared.Services;
 
 namespace MauiBlazorWeb.Shared.Models
 {
@@ -17,6 +18,7 @@ namespace MauiBlazorWeb.Shared.Models
         [MaxLength(45, ErrorMessage = "Username cannot exceed 45 characters.")]
         public string Username { get; set; }
 
+        [Required(ErrorMessage = "You must set a valid email address for your account.")]
         [EmailAddress(ErrorMessage = "You must set a valid email address for your account.")]
         public string Email { get; set; }
 
@@ -24,8 +26,8 @@ namespace MauiBlazorWeb.Shared.Models
         [MinLength(6, ErrorMessage = "Password must be at least 6 characters long.")]
 		public string Password1 { get; set; }
 
-        [Required(ErrorMessage = "You must repeat your password.")]
-        [Compare("Password1", ErrorMessage = "The password and confirmation password do not match.")]
+        [Required(ErrorMessage = "You must repeat your password for confirmation.")]
+        [Compare("Password1", ErrorMessage = "The password are not matching.")]
         public string Password2 { get; set; }
 
 		public DateTime Birthdate { get; set; } = new DateTime(2000,1,1);

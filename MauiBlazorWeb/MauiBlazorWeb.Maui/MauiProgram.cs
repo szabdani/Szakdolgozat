@@ -27,13 +27,12 @@ namespace MauiBlazorWeb.Maui
 
             // For Db services
             builder.Services.AddSingleton<IDataAccess, DataAccess>();
-            builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
             // Session data
             builder.Services.AddBlazoredLocalStorage();
 
             // PW hash
-            builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>();
+            builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 
             builder.Services.AddMauiBlazorWebView();
 

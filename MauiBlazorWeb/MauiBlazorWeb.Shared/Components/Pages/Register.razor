@@ -7,16 +7,17 @@
 
 @inject IDataAccess _data
 @inject IPasswordHasher _pw
+@implements IDisposable
 
-<EditForm Model=@newAccount OnSubmit="ValidateData">
+<EditForm EditContext=editContext OnValidSubmit=RegisterAccount>
+    <DataAnnotationsValidator />
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Username:</label>
         <div class="col-sm-2" @ref="startUsername">
             <InputText class="form-control" @bind-Value=newAccount.Username />
-            @if (invalidForm)
-            {
-                <div class="text-danger" style="margin-top: 0.25rem;">Sorry, this username is already taken.</div>
-            }
+        </div>
+        <div class="col-sm-3 d-flex align-items-center">
+            <ValidationMessage For="@(() => newAccount.Username)" />
         </div>
     </div>
     <div class="form-group row">
@@ -24,17 +25,26 @@
         <div class="col-sm-2">
             <InputText class="form-control" @bind-Value=newAccount.Email />
         </div>
+        <div class="col-sm-3 d-flex align-items-center">
+            <ValidationMessage For="@(() => newAccount.Email)" />
+        </div>
     </div>
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Password:</label>
         <div class="col-sm-2">
             <InputText class="form-control" type="password" @bind-Value=newAccount.Password1 />
         </div>
+        <div class="col-sm-3 d-flex align-items-center">
+            <ValidationMessage For="@(() => newAccount.Password1)" />
+        </div>
     </div>
     <div class="form-group row">
-        <label class="col-sm-2 col-form-label">Password again:</label>
+        <label class="col-sm-2 col-form-label">Confirmation password:</label>
         <div class="col-sm-2">
             <InputText class="form-control" type="password" @bind-Value=newAccount.Password2 />
+        </div>
+        <div class="col-sm-3 d-flex align-items-center">
+            <ValidationMessage For="@(() => newAccount.Password2)" />
         </div>
     </div>
     <div class="form-group row">
@@ -56,49 +66,51 @@
     </div>
     <div class="form-group row">
         <div class="col-sm-2">
-            <input type="submit" class="btn btn-warning" value="Register"/>
+            <input type="submit" class="btn btn-warning flex-column" value="Register" disabled=@isError/>
         </div>
-    </div>
-    <div class="alert alert-warning" role="alert">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
     </div>
 </EditForm>
 
 @if (successfulRegister)
 {
-    <div class="alert alert-info" role="alert">
+    <div class="p-2 alert alert-info" role="alert">
         <p class="fs-3 fw-bold">
-            Succesful registration! 
+            Succesful registration!  <button class="fs-2" href="login">Log in</button>
         </p>
-        <a class="fs-2" href="login">Log in</a>
     </div>
 }
-
-
 
 @code {
     [CascadingParameter]
     public Action<string>? UpdateTitle { get; set; }
 
-    List<Account> accountUsernames;
+    private EditContext editContext;
+    Account newAccount;
+    private ValidationMessageStore messageStore;
+
+    bool successfulRegister;
+    bool isError;
+    List<Account> existingUsers;
+
+    private ElementReference startUsername;
+
     protected override async Task OnInitializedAsync()
     {
         UpdateTitle?.Invoke("Register");
+
+        isError = true;
+        successfulRegister = false;
+
         newAccount = new Account();
+        editContext = new EditContext(newAccount);
+        messageStore = new ValidationMessageStore(editContext);
 
-        string sql = "select username from account";
-        accountUsernames = await _data.LoadData<Account, dynamic>(sql, new { });
+        editContext.OnFieldChanged += HandleFieldChanged;
+
+        string sql = "select * from account";
+        existingUsers = await _data.LoadData<Account, dynamic>(sql, new { });
+
     }
-
-    bool successfulRegister = false;
-    bool invalidForm = false;
-    List<string> errorMessages = new();
-    Account newAccount;
-    string passwordTry;
-    string passwordTry2;
-
-    private ElementReference startUsername;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -107,90 +119,47 @@
             await startUsername.FocusAsync();
         }
     }
-    private async Task ValidateData(EditContext editContext)
+
+    private void HandleFieldChanged(object sender, FieldChangedEventArgs e)
     {
-        bool dataIsValid = editContext.Validate();
-        if (dataIsValid)
+        if (e.FieldIdentifier.FieldName == nameof(Account.Username))
         {
-            foreach (var u in accountUsernames)
-            {
-                if (u.Username == newAccount.Username)
-                {
-                    //
-                    invalidForm = true;
-                    errorMessages.Add("Username already taken!");
-                    break;
-                }
-            }
-            if(!invalidForm)
-                await RegisterAccount();
+            isError = ValidateUsername();
         }
+        isError = !editContext.Validate();
+        StateHasChanged();
     }
-    
 
-    private async Task ValiddddddateData(EditContext editContext)
+    private bool ValidateUsername()
     {
-        invalidForm = false;
-        errorMessages.Clear();
-
-        if (newAccount.Username is null or "")
-        {
-            invalidForm = true;
-            errorMessages.Add("Setting a username is required!");
+        bool isTaken = false;
+        foreach (var user in existingUsers)
+        { 
+            if (user.Username.Equals(newAccount.Username))
+            {
+                isTaken = true;
+                break;
+            }
         }
-        else if (newAccount.Username.Length > 45)
+
+        if (isTaken)
         {
-            invalidForm = true;
-            errorMessages.Add("Username cannot exceed 45 characters!");
+            messageStore.Add(() => newAccount.Username, "Sorry, this username is already taken.");
         }
         else
-        {
-            foreach (var u in accountUsernames)
-            {
-                if (u.Username == newAccount.Username)
-                {
-                    invalidForm = true;
-                    errorMessages.Add("Username already taken!");
-                    break;
-                }
-            }
-        }
+            messageStore.Clear();
+        return isTaken;
+    }
 
-        if (newAccount.Email is null or "")
-        {
-            invalidForm = true;
-            errorMessages.Add("Setting an email is required!");
-        }
-
-        if (passwordTry is null or "")
-        {
-            invalidForm = true;
-            errorMessages.Add("Setting a password is required!");
-        }
-        else if (passwordTry.Length<6 || !passwordTry.Any(char.IsUpper) || !passwordTry.Any(char.IsNumber))
-        {
-            invalidForm = true;
-            errorMessages.Add("Password has to be at least 6 characters long and include a capital letter and a number");
-        }
-        else if (passwordTry2 is null or "")
-        {
-            invalidForm = true;
-            errorMessages.Add("Repeat your password!");
-        }
-        else if (passwordTry != passwordTry2)
-        {
-            invalidForm = true;
-            errorMessages.Add("Passwords are not matching!");
-        }
-
-        if(!invalidForm)
-            await RegisterAccount();
+    public void Dispose()
+    {
+        editContext.OnFieldChanged -= HandleFieldChanged;
     }
 
     private async Task RegisterAccount()
     {
         byte[] pw_salt = RandomNumberGenerator.GetBytes(8);
-        byte[] pw_hash = _pw.Hash(passwordTry, pw_salt);
+        byte[] pw_hash = _pw.Hash(newAccount.Password1, pw_salt);
 
         int affectedRows;
         string date = newAccount.Birthdate.ToString("yyyy-MM-dd");
@@ -210,10 +179,7 @@
 
         if (affectedRows == 0)
         {
-            invalidForm = true;
-
-            errorMessages.Clear();
-            errorMessages.Add("Could not register your account");
+            throw new Exception("Sorry, we could not register your account");
         }
         else
         {
