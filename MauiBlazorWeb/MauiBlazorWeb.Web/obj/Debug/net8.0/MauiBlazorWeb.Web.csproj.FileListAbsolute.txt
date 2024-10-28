@@ -57,8 +57,6 @@ C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.We
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\bin\Debug\net8.0\runtimes\win-x64\native\krb5_64.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\bin\Debug\net8.0\runtimes\win-x64\native\krbcc64.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Windows.Extensions.dll
-C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\bin\Debug\net8.0\DataLibrary.dll
-C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\bin\Debug\net8.0\DataLibrary.pdb
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\bin\Debug\net8.0\Blazored.LocalStorage.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\bin\Debug\net8.0\Konscious.Security.Cryptography.Argon2.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\bin\Debug\net8.0\Konscious.Security.Cryptography.Blake2.dll

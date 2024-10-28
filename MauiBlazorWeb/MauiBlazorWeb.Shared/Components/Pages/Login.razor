@@ -1,32 +1,117 @@
 ﻿@page "/login"
 
-<li><a class="dropdown-item" href="login" @onclick="ShowLoginDialog">Log In</a></li>
+@using MauiBlazorWeb.Shared.Components.Dialogs
+@using Models
+@using Services
 
-@if (ShowingLoginDialog)
-{
-    <LoginDialog/>
+@inject IDataAccess _data;
+@inject IPasswordHasher _pw;
 
-	<ModalExample/>
-}
+<EditForm EditContext=editContext OnSubmit=ProcessLogin>
+    <DataAnnotationsValidator />
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Username:</label>
+        <div class="col-sm-2" @ref="startUsername">
+            <InputText class="form-control" @bind-Value=newAccount.LoginUsername />
+        </div>
+        <div class="col-sm-3 d-flex align-items-center">
+            <ValidationMessage For="@(() => newAccount.LoginUsername)" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Password:</label>
+        <div class="col-sm-2">
+            <InputText class="form-control" type="password" @bind-Value=newAccount.LoginPassword />
+        </div>
+        <div class="col-sm-3 d-flex align-items-center">
+            <ValidationMessage For="@(() => newAccount.LoginPassword)" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <input type="submit" class="btn btn-warning flex-column" value="Log In" />
+        </div>
+    </div>
+</EditForm>
 
+<MessageDialog @ref="dialog" Title="Login" Link="Profile">
+    <p>Successful login.</p>
+</MessageDialog>
 
 @code {
-	[CascadingParameter]
-	public Action<string>? UpdateTitle { get; set; }
-	protected override async Task OnInitializedAsync()
-	{
-		UpdateTitle?.Invoke("Login");
-	}
+    [CascadingParameter]
+    public Action<string>? UpdateTitle { get; set; }
 
-	[Parameter]
-	public bool ShowingLoginDialog { get; set; } = false;
-	private void ShowLoginDialog()
-	{
-		ShowingLoginDialog = true;
-	}
+    EditContext editContext;
+    Account newAccount;
+    ValidationMessageStore messageStore;
+    List<Account> existingUsers;
 
-	void SuccesfulLogin()
-	{
+    private ElementReference startUsername;
 
-	}
+    MessageDialog dialog;
+
+    protected override async Task OnInitializedAsync()
+    {
+        UpdateTitle?.Invoke("Login");
+
+        newAccount = new Account();
+        editContext = new EditContext(newAccount);
+        messageStore = new ValidationMessageStore(editContext);
+
+
+        string sql = "select * from account";
+        existingUsers = await _data.LoadData<Account, dynamic>(sql, new { });
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await startUsername.FocusAsync();
+        }
+    }
+
+    private async Task ProcessLogin()
+    {
+        bool userExists = false;
+        bool successfulLogin = false;
+        messageStore.Clear();
+
+        foreach (var user in existingUsers)
+        {
+            if (user.Username.Equals(newAccount.LoginUsername))
+            {
+                userExists = true;
+                break;
+            }
+        }
+
+        if (userExists)
+        {
+            if (newAccount.LoginPassword is not null)
+            {
+                var userData = existingUsers.FirstOrDefault(user => user.Username.Equals(newAccount.LoginUsername));
+                if (userData is null)
+                    throw new Exception("Invalid username request while logging in");
+
+                if (_pw.VerifyPassword(userData.Password_hash, userData.Password_salt, newAccount.LoginPassword))
+                {
+                    dialog.Show();
+                }
+                else
+                {
+                    messageStore.Add(() => newAccount.LoginPassword, "Incorrect password.");
+                }
+            }
+            else
+            {
+                messageStore.Add(() => newAccount.LoginPassword, "You must enter your password.");
+            }
+        }
+        else
+        {
+            messageStore.Add(() => newAccount.LoginUsername, "This username is not registered.");
+        }
+    }
 }

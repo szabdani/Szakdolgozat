@@ -2,7 +2,8 @@
 {
     public interface IPasswordHasher
     {
+        byte[] GenerateSalt();
         byte[] Hash(string password, byte[] salt);
-        bool VerifyPassword(string passwordHash, string passwordInput);
+        bool VerifyPassword(byte[] passwordHash, byte[] passwordSalt, string passwordInput);
     }
 }

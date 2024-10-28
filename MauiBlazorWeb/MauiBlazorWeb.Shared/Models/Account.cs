@@ -30,10 +30,16 @@ namespace MauiBlazorWeb.Shared.Models
         [Compare("Password1", ErrorMessage = "The password are not matching.")]
         public string Password2 { get; set; }
 
-		public DateTime Birthdate { get; set; } = new DateTime(2000,1,1);
+        public byte[] Password_hash { get; set; }
+        public byte[] Password_salt { get; set; }
+
+        public DateTime Birthdate { get; set; } = new DateTime(2000,1,1);
 
 		public GenderType Gender { get; set; }
 
 		public bool Admin { get; set; } = false;
-	}
+
+        public string LoginUsername { get; set; }
+        public string LoginPassword { get; set; }
+    }
 }

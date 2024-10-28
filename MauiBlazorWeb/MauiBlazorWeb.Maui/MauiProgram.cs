@@ -2,7 +2,6 @@ using MauiBlazorWeb.Shared;
 using Microsoft.Extensions.Logging;
 using MauiBlazorWeb.Maui.Services;
 using MauiBlazorWeb.Shared.Interfaces;
-using DataLibrary;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Blazored.LocalStorage;

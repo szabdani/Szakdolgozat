@@ -6,7 +6,7 @@
     @if (isDropdownOpen)
     {
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow show">
-            <li><div class="dropdown-item" @onclick="moda.ModalShow">Log In</div></li>
+            <li><a class="dropdown-item" href="login" @onclick="ToggleDropdown">Log In</a></li>
             <li><a class="dropdown-item" href="register" @onclick="ToggleDropdown">Register</a></li>
             <li><a class="dropdown-item" href="#">Sign out</a></li>
         </ul>
@@ -17,10 +17,7 @@
     <strong>@username</strong>
 </NavLink>
 
-<ModalExample @ref=moda/>
-
 @code {
-    ModalExample moda;
     string pfpPath;
     string username;
     private bool isDropdownOpen = false;

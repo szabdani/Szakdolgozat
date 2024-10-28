@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauiBlazorWeb.Shared", "Mau
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauiBlazorWeb.Web", "MauiBlazorWeb.Web\MauiBlazorWeb.Web.csproj", "{A813A640-4535-4024-8FD9-1EE6B76FB2AE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLibrary", "DataLibrary\DataLibrary.csproj", "{F635CF8D-A716-4155-A8C8-A6C7154493C7}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,10 +29,6 @@ Global
 		{A813A640-4535-4024-8FD9-1EE6B76FB2AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A813A640-4535-4024-8FD9-1EE6B76FB2AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A813A640-4535-4024-8FD9-1EE6B76FB2AE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F635CF8D-A716-4155-A8C8-A6C7154493C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F635CF8D-A716-4155-A8C8-A6C7154493C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F635CF8D-A716-4155-A8C8-A6C7154493C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F635CF8D-A716-4155-A8C8-A6C7154493C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

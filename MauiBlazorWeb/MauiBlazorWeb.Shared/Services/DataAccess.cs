@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 using MySql.Data.MySqlClient;
 
-namespace DataLibrary
+namespace MauiBlazorWeb.Shared.Services
 {
 	public class DataAccess : IDataAccess
 	{

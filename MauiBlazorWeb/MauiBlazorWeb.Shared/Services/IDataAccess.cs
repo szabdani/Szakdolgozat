@@ -1,4 +1,4 @@
-﻿namespace DataLibrary
+﻿namespace MauiBlazorWeb.Shared.Services
 {
 	public interface IDataAccess
 	{

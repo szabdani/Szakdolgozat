@@ -1,9 +1,10 @@
 ﻿@page "/register"
 
-@using DataLibrary
+@using MauiBlazorWeb.Shared.Components.Dialogs
 @using Models
-@using System.Security.Cryptography;
-@using Services;
+@using System.Security.Cryptography
+@using Services
+
 
 @inject IDataAccess _data
 @inject IPasswordHasher _pw
@@ -71,28 +72,25 @@
     </div>
 </EditForm>
 
-@if (successfulRegister)
-{
-    <div class="p-2 alert alert-info" role="alert">
-        <p class="fs-3 fw-bold">
-            Succesful registration!  <button class="fs-2" href="login">Log in</button>
-        </p>
-    </div>
-}
+<MessageDialog @ref="dialog" Title="Registration" Link="Login">
+    <p>Successful registration.</p>
+</MessageDialog>
 
 @code {
     [CascadingParameter]
     public Action<string>? UpdateTitle { get; set; }
 
-    private EditContext editContext;
+    EditContext editContext;
     Account newAccount;
-    private ValidationMessageStore messageStore;
+    ValidationMessageStore messageStore;
 
     bool successfulRegister;
     bool isError;
     List<Account> existingUsers;
 
-    private ElementReference startUsername;
+    ElementReference startUsername;
+
+    MessageDialog dialog;
 
     protected override async Task OnInitializedAsync()
     {
@@ -107,7 +105,7 @@
 
         editContext.OnFieldChanged += HandleFieldChanged;
 
-        string sql = "select * from account";
+        string sql = "select username from account";
         existingUsers = await _data.LoadData<Account, dynamic>(sql, new { });
 
     }
@@ -158,21 +156,24 @@
 
     private async Task RegisterAccount()
     {
-        byte[] pw_salt = RandomNumberGenerator.GetBytes(8);
+
+        byte[] pw_salt = _pw.GenerateSalt();
+        var hex = BitConverter.ToString(pw_salt).Replace("-", "");
+
         byte[] pw_hash = _pw.Hash(newAccount.Password1, pw_salt);
+        hex = BitConverter.ToString(pw_hash).Replace("-", "");
+
 
         int affectedRows;
         string date = newAccount.Birthdate.ToString("yyyy-MM-dd");
         string gender = newAccount.Gender.ToString();
-        string pw_salt_string = Convert.ToBase64String(pw_salt);
-        string pw_hash_string = Convert.ToBase64String(pw_hash);
         string sql = "Insert into account (username, email, password_hash, password_salt, birthdate, gender) values (@username, @email, @pw_h, @pw_s, @birthdate, @gender);";
 
         affectedRows = await _data.SaveData(sql, new {
             username = newAccount.Username, 
             email = newAccount.Email,
-            pw_h = pw_hash_string, 
-            pw_s = pw_salt_string,
+            pw_h = pw_hash, 
+            pw_s = pw_salt,
             birthdate = date,
             gender = gender}
         );
@@ -183,7 +184,7 @@
         }
         else
         {
-            successfulRegister = true;
+            dialog.Show();
         }
     }
 }
