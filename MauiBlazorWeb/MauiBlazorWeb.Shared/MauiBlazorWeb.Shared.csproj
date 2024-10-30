@@ -7,6 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\**" />
+    <Compile Remove="Views\**" />
+    <Content Remove="Controllers\**" />
+    <Content Remove="Views\**" />
+    <EmbeddedResource Remove="Controllers\**" />
+    <EmbeddedResource Remove="Views\**" />
+    <None Remove="Controllers\**" />
+    <None Remove="Views\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
 
@@ -22,8 +33,6 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Views\" />
   </ItemGroup>
 
   <ItemGroup>

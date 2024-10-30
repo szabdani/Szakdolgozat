@@ -17,28 +17,24 @@
     public Action<string>? UpdateTitle { get; set; }
     protected override async Task OnInitializedAsync()
     {
-        UpdateTitle?.Invoke("Sports");
+        await Task.Run(() => UpdateTitle?.Invoke("Sports"));
     }
 
     private string storedValue;
 
     private async Task SaveToLocalStorage()
     {
-        await localStorage.SetItemAsync("myKey", "Hello from Local Storage");
-        await localStorage.SetItemAsync("id", 3);
-        await localStorage.SetItemAsync("username", "goaat");
+        await localStorage.SetItemAsync("username", "name");
         await JS.InvokeVoidAsync("alert", "sziaaa");
     }
 
     private async Task GetFromLocalStorage()
     {
-        storedValue = await localStorage.GetItemAsync<string>("myKey") ?? "Not found";
+        storedValue = await localStorage.GetItemAsync<string>("username") ?? "Not found";
     }
 
     private async Task RemoveFromLocalStorage()
     {
-        await localStorage.RemoveItemAsync("myKey");
-        await localStorage.RemoveItemAsync("id");
         await localStorage.RemoveItemAsync("username");
         storedValue = "Value removed.";
     }

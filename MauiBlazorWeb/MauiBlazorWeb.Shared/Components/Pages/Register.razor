@@ -3,7 +3,7 @@
 @using MauiBlazorWeb.Shared.Components.Dialogs
 @using Models
 @using System.Security.Cryptography
-@using Services
+@using Interfaces
 
 
 @inject IDataAccess _data
@@ -80,17 +80,17 @@
     [CascadingParameter]
     public Action<string>? UpdateTitle { get; set; }
 
-    EditContext editContext;
-    Account newAccount;
-    ValidationMessageStore messageStore;
+    private EditContext editContext;
+    private Account newAccount;
+    private ValidationMessageStore messageStore;
 
-    bool successfulRegister;
-    bool isError;
-    List<Account> existingUsers;
+    private bool successfulRegister;
+    private bool isError;
+    private List<Account> existingUsers;
 
-    ElementReference startUsername;
+    private ElementReference startUsername;
 
-    MessageDialog dialog;
+    private MessageDialog dialog;
 
     protected override async Task OnInitializedAsync()
     {

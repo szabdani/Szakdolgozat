@@ -7,8 +7,9 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using Konscious.Security.Cryptography;
+using MauiBlazorWeb.Shared.Interfaces;
 
-namespace MauiBlazorWeb.Shared.Services
+namespace MauiBlazorWeb.Shared.Interfaces
 {
     public class PasswordHasher : IPasswordHasher
     {

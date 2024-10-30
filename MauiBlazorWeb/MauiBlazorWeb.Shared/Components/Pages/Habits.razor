@@ -2,7 +2,7 @@
 
 @using Models
 @using Blazored.LocalStorage
-@using Services
+@using Interfaces
 @inject IDataAccess _data
 @inject ILocalStorageService localStorage
 
@@ -38,20 +38,20 @@ else
 		accounts = await _data.LoadData<Account, dynamic>(sql, new { });
 	}
 
-	List<Account> accounts;
+	private List<Account> accounts;
 
 	private async Task InsertData()
 	{
 		string sql = "Insert into account (username, gender) values (@a, @c);";
 
-		await _data.SaveData(sql, new { a = "dwake", c = "Male"});
+		await _data.SaveData(sql, new { a = "random", c = "Male"});
 
 		await OnInitializedAsync();
 	}
 
 	private async Task UpdateData()
 	{
-		string sql = "Update account set gender = 'Other' where username = 'dwake'";
+		string sql = "Update account set gender = 'Other' where username = 'random'";
 		await _data.SaveData(sql, new { });
 
 		await OnInitializedAsync();

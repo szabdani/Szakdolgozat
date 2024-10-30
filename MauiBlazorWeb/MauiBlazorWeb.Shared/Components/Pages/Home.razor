@@ -1,32 +1,40 @@
 ﻿@page "/"
 
 @using MauiBlazorWeb.Shared.Components.Dialogs
-<h1>Hello, world!</h1>
+@using Models
+@using Blazored.LocalStorage
 
-Welcome to your new app?
+@inject ILocalStorageService localStorage
 
-<button class="btn btn-warning" @onclick="OpenLogin">Open Login</button>
-
-<MessageDialog @ref="login" Title="HAPPPY" Link="Login">
-    <p>This is the modal content. </p>
-</MessageDialog>
-
-@code {
-    
+@if (userInfo.isLoggedIn)
+{
+	<h1>This your dashboard</h1>
 }
+else
+{
+	<h1>Welcome to LifeTracker</h1>
+
+	<p>Get started by registering an account!</p>
+	<a type="button" class="btn btn-primary" href=Register>Register here!</a>
+}
+
 @code
 {
 	[CascadingParameter]
 	public Action<string>? UpdateTitle { get; set; }
+
+	private UserInfo userInfo { get; set; } = new UserInfo();
 	protected override async Task OnInitializedAsync()
 	{
-		UpdateTitle?.Invoke("Home");
+		await Task.Run(() => UpdateTitle?.Invoke("Home"));
 	}
 
-	MessageDialog? login;
-
-	private void OpenLogin()
+	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		login?.Show();
+		if (firstRender)
+		{
+			await userInfo.UpdateInfo(localStorage);
+			await InvokeAsync(StateHasChanged);
+		}
 	}
 }

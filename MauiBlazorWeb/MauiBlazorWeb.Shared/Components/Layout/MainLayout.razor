@@ -1,5 +1,9 @@
 ﻿@inherits LayoutComponentBase
+@using Blazored.LocalStorage
+@using Models
+
 @inject NavigationManager Navigation
+@inject ILocalStorageService localStorage
 
 <div class="page">
     <div class="sidebar">
@@ -27,7 +31,7 @@
 
 
 @code {
-    public string Title { get; set; } = "Home";
+    public string? Title { get; set; }
     public Action<string>? UpdateTitle { get; set; }
 
     protected override void OnInitialized()
@@ -39,7 +43,7 @@
         };
     }
 
-    private CustomErrorBoundary? customErrorBoundary;
+    CustomErrorBoundary? customErrorBoundary;
 
     protected override void OnParametersSet()
     {

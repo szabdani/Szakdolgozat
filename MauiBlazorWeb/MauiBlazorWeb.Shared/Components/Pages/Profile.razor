@@ -7,6 +7,6 @@
 	public Action<string>? UpdateTitle { get; set; }
 	protected override async Task OnInitializedAsync()
 	{
-		UpdateTitle?.Invoke("Profile");
+		await Task.Run(() => UpdateTitle?.Invoke("Profile"));
 	}
 }

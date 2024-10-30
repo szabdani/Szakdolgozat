@@ -1,46 +1,58 @@
 ﻿@using MauiBlazorWeb.Shared.Components.Pages
 @using Blazored.LocalStorage
+@using Models
+
+@inject NavigationManager Navigation
 @inject ILocalStorageService localStorage
 
 <div class="dropdown">
     @if (isDropdownOpen)
     {
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow show">
-            <li><a class="dropdown-item" href="login" @onclick="ToggleDropdown">Log In</a></li>
-            <li><a class="dropdown-item" href="register" @onclick="ToggleDropdown">Register</a></li>
-            <li><a class="dropdown-item" href="#">Sign out</a></li>
+            @if (userInfo.isLoggedIn)
+            {
+                <li><a class="dropdown-item" href="profile" @onclick="ToggleDropdown">Profile</a></li>
+                <li><a class="dropdown-item" href="#" @onclick="SignOut">Sign out</a></li>
+            }
+            else
+            {
+                <li><a class="dropdown-item" href="login" @onclick="ToggleDropdown">Log In</a></li>            
+                <li><a class="dropdown-item" href="register" @onclick="ToggleDropdown">Register</a></li>
+            }
         </ul>
     }
 </div>
 <NavLink class="nav-link d-flex align-items-center text-white" @onclick="ToggleDropdown">
-    <img src=@pfpPath width="32" height="32" class="rounded-circle me-2">
-    <strong>@username</strong>
+    <img src=@userInfo.PfpPath width="32" height="32" class="rounded-circle me-2">
+    <strong>@userInfo.Username</strong>
 </NavLink>
 
 @code {
-    string pfpPath;
-    string username;
-    private bool isDropdownOpen = false;
-    [Parameter]
-    public bool ShowingLoginDialog { get; set; } = false;
+    private UserInfo userInfo { get; set; } = new UserInfo();
 
-    public async Task RerenderComponent()
-    {
-        pfpPath = await localStorage.GetItemAsync<string>("pfpPath") ?? "/css/def_user.jpg";
-        username = await localStorage.GetItemAsync<string>("username") ?? "Account";
-    }
+    private bool isDropdownOpen = false;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            await RerenderComponent();
+            await userInfo.UpdateInfo(localStorage);
             await InvokeAsync(StateHasChanged);
         }
+    }
+
+    private async void SignOut()
+    {
+        ToggleDropdown();
+        await localStorage.RemoveItemAsync("username");
+        StateHasChanged();
+        Navigation.NavigateTo("", forceLoad: true);
     }
 
     private void ToggleDropdown()
     {
         isDropdownOpen = !isDropdownOpen;
     }
+
+
 }

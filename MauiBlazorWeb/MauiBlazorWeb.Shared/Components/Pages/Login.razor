@@ -2,10 +2,13 @@
 
 @using MauiBlazorWeb.Shared.Components.Dialogs
 @using Models
-@using Services
+@using Interfaces
+@using Blazored.LocalStorage
 
-@inject IDataAccess _data;
-@inject IPasswordHasher _pw;
+@inject NavigationManager Navigation
+@inject ILocalStorageService localStorage
+@inject IDataAccess _data
+@inject IPasswordHasher _pw
 
 <EditForm EditContext=editContext OnSubmit=ProcessLogin>
     <DataAnnotationsValidator />
@@ -42,14 +45,14 @@
     [CascadingParameter]
     public Action<string>? UpdateTitle { get; set; }
 
-    EditContext editContext;
-    Account newAccount;
-    ValidationMessageStore messageStore;
-    List<Account> existingUsers;
+    private EditContext editContext;
+    private Account newAccount;
+    private ValidationMessageStore messageStore;
+    private List<Account> existingUsers;
 
     private ElementReference startUsername;
 
-    MessageDialog dialog;
+    private MessageDialog dialog;
 
     protected override async Task OnInitializedAsync()
     {
@@ -75,7 +78,6 @@
     private async Task ProcessLogin()
     {
         bool userExists = false;
-        bool successfulLogin = false;
         messageStore.Clear();
 
         foreach (var user in existingUsers)
@@ -97,7 +99,9 @@
 
                 if (_pw.VerifyPassword(userData.Password_hash, userData.Password_salt, newAccount.LoginPassword))
                 {
-                    dialog.Show();
+                    await localStorage.SetItemAsync("username", userData.Username);
+                    await localStorage.SetItemAsync("pfppath", userData.PfpPath);
+                    Navigation.NavigateTo("", forceLoad: true);
                 }
                 else
                 {

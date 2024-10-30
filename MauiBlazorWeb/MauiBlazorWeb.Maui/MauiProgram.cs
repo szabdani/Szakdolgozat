@@ -5,7 +5,7 @@ using MauiBlazorWeb.Shared.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Blazored.LocalStorage;
-using MauiBlazorWeb.Shared.Services;
+using MauiBlazorWeb.Shared.Interfaces;
 
 namespace MauiBlazorWeb.Maui
 {

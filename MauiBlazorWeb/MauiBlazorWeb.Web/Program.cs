@@ -2,7 +2,7 @@ using MauiBlazorWeb.Web.Components;
 using MauiBlazorWeb.Shared.Interfaces;
 using MauiBlazorWeb.Web.Services;
 using Blazored.LocalStorage;
-using MauiBlazorWeb.Shared.Services;
+using MauiBlazorWeb.Shared.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
