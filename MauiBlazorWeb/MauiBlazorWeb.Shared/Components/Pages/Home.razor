@@ -2,6 +2,7 @@
 
 @using MauiBlazorWeb.Shared.Components.Dialogs
 @using Models
+@using Services
 @using Blazored.LocalStorage
 
 @inject ILocalStorageService localStorage
@@ -14,8 +15,12 @@ else
 {
 	<h1>Welcome to LifeTracker</h1>
 
-	<p>Get started by registering an account!</p>
+	<p>Get started by logging in!
+		<br/>
+		Or if you don't have an account register one!
+	</p>
 	<a type="button" class="btn btn-primary" href=Register>Register here!</a>
+	<a type="button" class="btn btn-info" href=Login>Login here!</a>
 }
 
 @code

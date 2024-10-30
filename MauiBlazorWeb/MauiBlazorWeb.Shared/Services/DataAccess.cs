@@ -15,7 +15,7 @@ namespace MauiBlazorWeb.Shared.Interfaces
 	{
 		private string connectionString = "Server=localhost;Port=3306;Database=diary_db;User=root;Password=;";
 
-		public MySqlConnection GetConnection()
+		private MySqlConnection GetConnection()
 		{
 			MySqlConnection connection = new MySqlConnection(connectionString);
 			return connection;

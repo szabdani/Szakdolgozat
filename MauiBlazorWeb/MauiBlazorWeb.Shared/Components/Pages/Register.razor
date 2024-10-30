@@ -80,28 +80,28 @@
     [CascadingParameter]
     public Action<string>? UpdateTitle { get; set; }
 
-    private EditContext editContext;
     private Account newAccount;
+    private EditContext editContext;
     private ValidationMessageStore messageStore;
-
-    private bool successfulRegister;
     private bool isError;
     private List<Account> existingUsers;
+    private MessageDialog dialog;
 
     private ElementReference startUsername;
 
-    private MessageDialog dialog;
+    public Register()
+    {
+        newAccount = new Account();
+        editContext = new EditContext(newAccount);
+        messageStore = new ValidationMessageStore(editContext);
+        isError = true;
+        existingUsers = new List<Account>();
+        dialog = new MessageDialog();
+    }
 
     protected override async Task OnInitializedAsync()
     {
         UpdateTitle?.Invoke("Register");
-
-        isError = true;
-        successfulRegister = false;
-
-        newAccount = new Account();
-        editContext = new EditContext(newAccount);
-        messageStore = new ValidationMessageStore(editContext);
 
         editContext.OnFieldChanged += HandleFieldChanged;
 
@@ -118,7 +118,7 @@
         }
     }
 
-    private void HandleFieldChanged(object sender, FieldChangedEventArgs e)
+    private void HandleFieldChanged(object? sender, FieldChangedEventArgs e)
     {
         if (e.FieldIdentifier.FieldName == nameof(Account.Username))
         {
@@ -158,11 +158,7 @@
     {
 
         byte[] pw_salt = _pw.GenerateSalt();
-        var hex = BitConverter.ToString(pw_salt).Replace("-", "");
-
         byte[] pw_hash = _pw.Hash(newAccount.Password1, pw_salt);
-        hex = BitConverter.ToString(pw_hash).Replace("-", "");
-
 
         int affectedRows;
         string date = newAccount.Birthdate.ToString("yyyy-MM-dd");

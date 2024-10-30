@@ -3,6 +3,7 @@
 @using MauiBlazorWeb.Shared.Components.Dialogs
 @using Models
 @using Interfaces
+@using Services
 @using Blazored.LocalStorage
 
 @inject NavigationManager Navigation
@@ -45,23 +46,28 @@
     [CascadingParameter]
     public Action<string>? UpdateTitle { get; set; }
 
-    private EditContext editContext;
     private Account newAccount;
+    private EditContext editContext;
     private ValidationMessageStore messageStore;
+    private bool isError;
     private List<Account> existingUsers;
+    private MessageDialog dialog;
 
     private ElementReference startUsername;
 
-    private MessageDialog dialog;
-
-    protected override async Task OnInitializedAsync()
+    public Login()
     {
-        UpdateTitle?.Invoke("Login");
-
         newAccount = new Account();
         editContext = new EditContext(newAccount);
         messageStore = new ValidationMessageStore(editContext);
 
+        existingUsers = new List<Account>();
+        dialog = new MessageDialog();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        UpdateTitle?.Invoke("Login");
 
         string sql = "select * from account";
         existingUsers = await _data.LoadData<Account, dynamic>(sql, new { });
@@ -91,16 +97,15 @@
 
         if (userExists)
         {
-            if (newAccount.LoginPassword is not null)
+            if (newAccount.LoginPassword != "")
             {
                 var userData = existingUsers.FirstOrDefault(user => user.Username.Equals(newAccount.LoginUsername));
-                if (userData is null)
+                if (userData is null || userData.Password_hash is null || userData.Password_salt is null)
                     throw new Exception("Invalid username request while logging in");
 
                 if (_pw.VerifyPassword(userData.Password_hash, userData.Password_salt, newAccount.LoginPassword))
                 {
-                    await localStorage.SetItemAsync("username", userData.Username);
-                    await localStorage.SetItemAsync("pfppath", userData.PfpPath);
+                    await UserInfo.GetInfo(localStorage, userData);
                     Navigation.NavigateTo("", forceLoad: true);
                 }
                 else

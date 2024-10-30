@@ -15,7 +15,7 @@ namespace MauiBlazorWeb.Shared.Models
 
         [Required(ErrorMessage = "You must set a username for your account.")]
         [MaxLength(45, ErrorMessage = "Username cannot exceed 45 characters.")]
-        public string? Username { get; set; }
+        public string Username { get; set; } = "";
 
         [Required(ErrorMessage = "You must set a valid email address for your account.")]
         [EmailAddress(ErrorMessage = "You must set a valid email address for your account.")]
@@ -23,11 +23,11 @@ namespace MauiBlazorWeb.Shared.Models
 
         [Required(ErrorMessage = "You must set a password for your account.")]
         [MinLength(6, ErrorMessage = "Password must be at least 6 characters long.")]
-		public string? Password1 { get; set; }
+        public string Password1 { get; set; } = "";
 
         [Required(ErrorMessage = "You must repeat your password for confirmation.")]
         [Compare("Password1", ErrorMessage = "The password are not matching.")]
-        public string? Password2 { get; set; }
+        public string Password2 { get; set; } = "";
 
         public byte[]? Password_hash { get; set; }
         public byte[]? Password_salt { get; set; }
@@ -40,7 +40,7 @@ namespace MauiBlazorWeb.Shared.Models
 
         public string? PfpPath { get; set; }
 
-        public string? LoginUsername { get; set; }
-        public string? LoginPassword { get; set; }
+        public string LoginUsername { get; set; } = "";
+        public string LoginPassword { get; set; } = "";
     }
 }
