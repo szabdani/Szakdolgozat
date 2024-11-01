@@ -1,25 +1,21 @@
 ﻿@page "/habits"
 
 @using Models
-@using Blazored.LocalStorage
 @using Interfaces
+@inject IAppState _appState
 @inject IDataAccess _data
-@inject ILocalStorageService localStorage
 
 <button class="btn btn-primary" @onclick="InsertData">Insert</button>
 <button class="btn btn-warning" @onclick="UpdateData">Update</button>
 <button class="btn btn-danger" @onclick="DeleteData">Delete</button>
 
-<p>Stored Value: @storedValue</p>
-<button @onclick="GetFromLocalStorage">Get from Local Storage</button>
-
-@if (accounts == null)
+@if (_appState.ExistingUsers == null)
 {
 	<p><em>Loading...</em></p>
 }
 else
 {
-	foreach (var acc in accounts)
+	foreach (var acc in _appState.ExistingUsers)
 	{
 		<p>
 			@acc.Username @acc.Gender @acc.Admin
@@ -29,16 +25,12 @@ else
 
 @code {
 	[CascadingParameter]
-	public Action<string>? UpdateTitle { get; set; }
+	public Action RerenderLayout { get; set; }
 	protected override async Task OnInitializedAsync()
 	{
-		UpdateTitle?.Invoke("Habits");
-
-		string sql = "select * from account";
-		accounts = await _data.LoadData<Account, dynamic>(sql, new { });
+		await InvokeAsync(() => _appState.Title = "Habits");
+		await InvokeAsync(() => RerenderLayout?.Invoke());
 	}
-
-	private List<Account> accounts;
 
 	private async Task InsertData()
 	{
@@ -65,13 +57,6 @@ else
 		await OnInitializedAsync();
 	}
 
-	
 
-
-	private string storedValue;
-	private async Task GetFromLocalStorage()
-	{
-		storedValue = await localStorage.GetItemAsync<string>("myKey") ?? "No value found";
-	}
 }
 

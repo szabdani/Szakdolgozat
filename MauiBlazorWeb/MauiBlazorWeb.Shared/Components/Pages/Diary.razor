@@ -1,11 +1,12 @@
 ﻿@page "/diary"
+@using Interfaces
 
+@inject IAppState appState
 
 @code {
-	[CascadingParameter]
-	public Action<string>? UpdateTitle { get; set; }
-	protected override async Task OnInitializedAsync()
-	{
-		await Task.Run(()=> UpdateTitle?.Invoke("Diary"));
-	}
+    protected override async Task OnInitializedAsync()
+    {
+        appState.Title = "Diary";
+        await InvokeAsync(StateHasChanged);
+    }
 }

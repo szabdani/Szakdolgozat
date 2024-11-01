@@ -2,12 +2,11 @@
 
 @using MauiBlazorWeb.Shared.Components.Dialogs
 @using Models
-@using Services
-@using Blazored.LocalStorage
+@using Interfaces
 
-@inject ILocalStorageService localStorage
+@inject IAppState _appState
 
-@if (userInfo.isLoggedIn)
+@if (_appState.IsLoggedIn)
 {
 	<h1>This your dashboard</h1>
 }
@@ -21,25 +20,26 @@ else
 	</p>
 	<a type="button" class="btn btn-primary" href=Register>Register here!</a>
 	<a type="button" class="btn btn-info" href=Login>Login here!</a>
+
+	
 }
+
+<button @onclick="RunLongTask">Run Long Task</button>
 
 @code
 {
-	[CascadingParameter]
-	public Action<string>? UpdateTitle { get; set; }
-
-	private UserInfo userInfo { get; set; } = new UserInfo();
+	[CascadingParameter] public Action RerenderLayout { get; set; }
+	[CascadingParameter] public Action<bool> SetLoadingScreen { get; set; }
 	protected override async Task OnInitializedAsync()
 	{
-		await Task.Run(() => UpdateTitle?.Invoke("Home"));
+		await InvokeAsync(() => _appState.Title = "Home");
+		await InvokeAsync(() => RerenderLayout?.Invoke());
 	}
-
-	protected override async Task OnAfterRenderAsync(bool firstRender)
+	
+	private async Task RunLongTask()
 	{
-		if (firstRender)
-		{
-			await userInfo.UpdateInfo(localStorage);
-			await InvokeAsync(StateHasChanged);
-		}
+		await InvokeAsync(() => SetLoadingScreen?.Invoke(true));
+		await Task.Delay(2000); // Simulate a long-running task
+		await InvokeAsync(() => SetLoadingScreen?.Invoke(false));
 	}
 }

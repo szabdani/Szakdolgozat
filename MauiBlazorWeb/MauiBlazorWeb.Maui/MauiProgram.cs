@@ -5,7 +5,7 @@ using MauiBlazorWeb.Shared.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Blazored.LocalStorage;
-using MauiBlazorWeb.Shared.Interfaces;
+using MauiBlazorWeb.Shared.Services;
 
 namespace MauiBlazorWeb.Maui
 {
@@ -23,12 +23,14 @@ namespace MauiBlazorWeb.Maui
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 });
+            // Session data
+            builder.Services.AddBlazoredLocalStorage();
 
             // For Db services
             builder.Services.AddSingleton<IDataAccess, DataAccess>();
 
-            // Session data
-            builder.Services.AddBlazoredLocalStorage();
+            // For keeping up with the state of the app
+            builder.Services.AddSingleton<IAppState, AppState>();
 
             // PW hash
             builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();

@@ -1,28 +1,37 @@
 ﻿@inherits LayoutComponentBase
-@using Blazored.LocalStorage
 @using Models
+@using Interfaces
+@using MauiBlazorWeb.Shared.Components.Dialogs
+@using Blazored.LocalStorage
 
+@inject ILocalStorageService _localStorage
 @inject NavigationManager Navigation
-@inject ILocalStorageService localStorage
+@inject IAppState _appState
 
 <div class="page">
     <div class="sidebar">
-        <NavMenu />
+        <NavMenu @ref="navmenu"/>
     </div>
 
     <main>
         <div class="top-row px-4 border-bottom">
         </div>
-        <CascadingValue Value="UpdateTitle">
-            <div class="px-4 py-3 border-bottom h3" style="background-color: #d6abab">
-                @Title
-            </div>
-                <article class="content px-4">
-                    <CustomErrorBoundary @ref="customErrorBoundary">
+        <div class="px-4 py-3 border-bottom h3" style="background-color: #d6abab">
+            @_appState.Title
+        </div>
+        <article class="content px-4">
+            <CustomErrorBoundary @ref="customErrorBoundary">
+                <CascadingValue Value="SetLoadingScreen">
+                    <CascadingValue Value="RerenderLayout">
+                        @if (IsLoading)
+                        {
+                            <LoadingScreen />
+                        }
                         @Body
-                    </CustomErrorBoundary>
-                </article>
-        </CascadingValue>
+                    </CascadingValue>
+                </CascadingValue>
+            </CustomErrorBoundary>
+        </article>
     </main>
     <div class="footer">
         <Footer />
@@ -31,19 +40,44 @@
 
 
 @code {
-    public string? Title { get; set; }
-    public Action<string>? UpdateTitle { get; set; }
+    public Action RerenderLayout { get; set; }
+    public Action<bool> SetLoadingScreen { get; set; }
+
+    public bool IsLoading { get; private set; }
 
     protected override void OnInitialized()
     {
-        UpdateTitle = (string newTitle) =>
+        IsLoading = true;
+        RerenderLayout = () =>
         {
-            Title = newTitle;
+            InvokeAsync(StateHasChanged);
+            InvokeAsync(navmenu.RerenderNavMenu);
+        };
+        SetLoadingScreen = (bool value) =>
+        {
+            IsLoading = value;
             InvokeAsync(StateHasChanged);
         };
     }
+    private NavMenu? navmenu;
 
-    CustomErrorBoundary? customErrorBoundary;
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (!_appState.IsInitialized)
+            {
+                await _appState.Init(_localStorage);
+            }
+
+            IsLoading = false;
+            await InvokeAsync(navmenu.RerenderNavMenu);
+            await InvokeAsync(StateHasChanged);
+        }
+        
+    }
+
+    private CustomErrorBoundary? customErrorBoundary;
 
     protected override void OnParametersSet()
     {

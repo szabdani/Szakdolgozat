@@ -1,15 +1,16 @@
 ﻿@using MauiBlazorWeb.Shared.Components.Pages
+@using Interfaces
 @using Blazored.LocalStorage
-@using Services
 
+@inject ILocalStorageService _localStorage
 @inject NavigationManager Navigation
-@inject ILocalStorageService localStorage
+@inject IAppState _appState
 
 <div class="dropdown">
     @if (isDropdownOpen)
     {
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow show">
-            @if (userInfo.isLoggedIn)
+            @if (_appState.IsLoggedIn)
             {
                 <li><a class="dropdown-item" href="profile" @onclick="ToggleDropdown">Profile</a></li>
                 <li><a class="dropdown-item" href="#" @onclick="SignOut">Sign out</a></li>
@@ -23,29 +24,22 @@
     }
 </div>
 <NavLink class="nav-link d-flex align-items-center text-white" @onclick="ToggleDropdown">
-    <img src=@userInfo.PfpPath width="32" height="32" class="rounded-circle me-2">
-    <strong>@userInfo.Username</strong>
+    <img src=@_appState.CurrentUser.PfpPath width="32" height="32" class="rounded-circle me-2">
+    <strong>@_appState.CurrentUser.Username</strong>
 </NavLink>
 
 @code {
-    private UserInfo userInfo { get; set; } = new UserInfo();
+    public async Task RerenderDropUp()
+    {
+        await InvokeAsync(StateHasChanged);
+    }
 
     private bool isDropdownOpen = false;
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await userInfo.UpdateInfo(localStorage);
-            await InvokeAsync(StateHasChanged);
-        }
-    }
-
-    private async void SignOut()
+    private void SignOut()
     {
         ToggleDropdown();
-        await localStorage.RemoveItemAsync("username");
-        StateHasChanged();
+        _appState.Logout(_localStorage);
         Navigation.NavigateTo("", forceLoad: true);
     }
 

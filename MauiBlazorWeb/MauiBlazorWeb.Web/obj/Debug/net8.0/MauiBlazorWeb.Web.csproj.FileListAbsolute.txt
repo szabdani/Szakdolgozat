@@ -7,7 +7,6 @@ C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.We
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\bin\Debug\net8.0\MauiBlazorWeb.Web.runtimeconfig.json
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\bin\Debug\net8.0\MauiBlazorWeb.Web.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\bin\Debug\net8.0\MauiBlazorWeb.Web.pdb
-C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\bin\Debug\net8.0\Blazored.LocalStorage.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\bin\Debug\net8.0\Dapper.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\bin\Debug\net8.0\Google.Protobuf.dll
@@ -60,3 +59,4 @@ C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.We
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\obj\Debug\net8.0\MauiBlazorWeb.Web.pdb
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\obj\Debug\net8.0\MauiBlazorWeb.Web.genruntimeconfig.cache
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\obj\Debug\net8.0\ref\MauiBlazorWeb.Web.dll
+C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\bin\Debug\net8.0\Blazored.LocalStorage.dll

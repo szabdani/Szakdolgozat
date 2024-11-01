@@ -3,13 +3,12 @@
 @using MauiBlazorWeb.Shared.Components.Dialogs
 @using Models
 @using Interfaces
-@using Services
 @using Blazored.LocalStorage
 
 @inject NavigationManager Navigation
-@inject ILocalStorageService localStorage
-@inject IDataAccess _data
 @inject IPasswordHasher _pw
+@inject IAppState _appState
+@inject ILocalStorageService _localStorage
 
 <EditForm EditContext=editContext OnSubmit=ProcessLogin>
     <DataAnnotationsValidator />
@@ -43,34 +42,29 @@
 </MessageDialog>
 
 @code {
-    [CascadingParameter]
-    public Action<string>? UpdateTitle { get; set; }
+    [CascadingParameter] public Action RerenderLayout { get; set; }
+    [CascadingParameter] public Action<bool> SetLoadingScreen { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        await InvokeAsync(() => _appState.Title = "Login");
+        await InvokeAsync(() => RerenderLayout?.Invoke());
+    }
 
-    private Account newAccount;
+    private LoginRegUser newAccount;
     private EditContext editContext;
     private ValidationMessageStore messageStore;
-    private bool isError;
-    private List<Account> existingUsers;
+
     private MessageDialog dialog;
 
     private ElementReference startUsername;
 
     public Login()
     {
-        newAccount = new Account();
+        newAccount = new LoginRegUser();
         editContext = new EditContext(newAccount);
         messageStore = new ValidationMessageStore(editContext);
 
-        existingUsers = new List<Account>();
         dialog = new MessageDialog();
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        UpdateTitle?.Invoke("Login");
-
-        string sql = "select * from account";
-        existingUsers = await _data.LoadData<Account, dynamic>(sql, new { });
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -83,10 +77,13 @@
 
     private async Task ProcessLogin()
     {
+        await InvokeAsync(() => SetLoadingScreen?.Invoke(true));
         bool userExists = false;
         messageStore.Clear();
+        
+        await _appState.UpdateExistingUsers();
 
-        foreach (var user in existingUsers)
+        foreach (var user in _appState.ExistingUsers)
         {
             if (user.Username.Equals(newAccount.LoginUsername))
             {
@@ -99,13 +96,13 @@
         {
             if (newAccount.LoginPassword != "")
             {
-                var userData = existingUsers.FirstOrDefault(user => user.Username.Equals(newAccount.LoginUsername));
+                var userData = _appState.ExistingUsers.FirstOrDefault(user => user.Username.Equals(newAccount.LoginUsername));
                 if (userData is null || userData.Password_hash is null || userData.Password_salt is null)
                     throw new Exception("Invalid username request while logging in");
 
                 if (_pw.VerifyPassword(userData.Password_hash, userData.Password_salt, newAccount.LoginPassword))
                 {
-                    await UserInfo.GetInfo(localStorage, userData);
+                    await _appState.Login(userData, _localStorage);
                     Navigation.NavigateTo("", forceLoad: true);
                 }
                 else
@@ -122,5 +119,6 @@
         {
             messageStore.Add(() => newAccount.LoginUsername, "This username is not registered.");
         }
+        await InvokeAsync(() => SetLoadingScreen?.Invoke(false));
     }
 }
