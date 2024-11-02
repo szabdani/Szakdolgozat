@@ -14,10 +14,12 @@ namespace MauiBlazorWeb.Shared.Services
 {
     public class AppState : IAppState
     {
-        public bool IsInitialized { get; set; } = false;
-        public bool IsLoading { get; set; } = false;
-        public bool IsLoggedIn { get; set; } = false;
         public string? Title { get; set; }
+        private bool isInitialized = false;
+        private bool isLoggedIn = false;
+        public bool IsInitialized { get { return isInitialized; } }
+        public bool IsLoggedIn { get { return isLoggedIn; } }
+        public bool IsLoading { get; set; } = false;
         public Account CurrentUser { get; set; }
         public List<Account> ExistingUsers { get; set; }
 		
@@ -27,9 +29,17 @@ namespace MauiBlazorWeb.Shared.Services
             ExistingUsers = new List<Account>();
             CurrentUser = new Account();
         }
+
+        public async Task UpdateExistingUsers()
+        {
+            IDataAccess _data = new DataAccess();
+            string sql = "select * from account";
+            ExistingUsers = await _data.LoadData<Account, dynamic>(sql, new { });
+        }
+
         public async Task Init(ILocalStorageService localStorage)
         {
-            IsInitialized = true;
+            isInitialized = true;
             int id = await localStorage.GetItemAsync<int>("id");
             if (id != 0)
             {
@@ -39,7 +49,7 @@ namespace MauiBlazorWeb.Shared.Services
                 if (results.Count == 1)
                 {
                     CurrentUser = results[0];
-                    IsLoggedIn = true;
+                    isLoggedIn = true;
                 }
                 else
                     throw new Exception("Account not found in database");
@@ -78,23 +88,15 @@ namespace MauiBlazorWeb.Shared.Services
         public async Task Login(Account userData, ILocalStorageService localStorage)
         {
             CurrentUser = userData;
-            IsLoggedIn = true;
+            isLoggedIn = true;
             await localStorage.SetItemAsync("id", userData.Id);
         }
 
         public async Task Logout(ILocalStorageService localStorage)
         {
             CurrentUser = new Account();
-            IsLoggedIn = false;
+            isLoggedIn = false;
             await localStorage.RemoveItemAsync("id");
         }
-
-        public async Task UpdateExistingUsers()
-        {
-            IDataAccess _data = new DataAccess();
-            string sql = "select * from account";
-            ExistingUsers = await _data.LoadData<Account, dynamic>(sql, new { });
-        }
-
     }
 }

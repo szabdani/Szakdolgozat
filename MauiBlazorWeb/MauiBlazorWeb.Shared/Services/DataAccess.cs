@@ -19,7 +19,7 @@ namespace MauiBlazorWeb.Shared.Interfaces
 		{
 			MySqlConnection connection = new MySqlConnection(connectionString);
 			return connection;
-		}
+		}	
 
 		public async Task<List<T>> LoadData<T, U>(string sql, U parameters)
 		{
@@ -27,7 +27,7 @@ namespace MauiBlazorWeb.Shared.Interfaces
 			{
 				var rows = await connection.QueryAsync<T>(sql, parameters);
 
-				return rows.ToList();
+                return rows.ToList();
 			}
 		}
 
