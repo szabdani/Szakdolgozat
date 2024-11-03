@@ -1,31 +1,40 @@
 ﻿@page "/habits"
 
+@using MauiBlazorWeb.Shared.Components.Dialogs
 @using Models
 @using Interfaces
 @inject IAppState _appState
 @inject IDataAccess _data
 
-<button class="btn btn-primary" @onclick="InsertData">Insert</button>
-<button class="btn btn-warning" @onclick="UpdateData">Update</button>
-<button class="btn btn-danger" @onclick="DeleteData">Delete</button>
-
-@if (_appState.ExistingUsers == null)
+@if (!_appState.IsLoggedIn)
 {
-	<p><em>Loading...</em></p>
+	<h1>This page is only available to users!</h1>
+	<LoginPrompt />
 }
 else
 {
-	foreach (var acc in _appState.ExistingUsers)
+	<button class="btn btn-primary" @onclick="InsertData">Insert</button>
+	<button class="btn btn-warning" @onclick="UpdateData">Update</button>
+	<button class="btn btn-danger" @onclick="DeleteData">Delete</button>
+
+	@if (_appState.ExistingUsers == null)
 	{
-		<p>
-			@acc.Username @acc.Gender @acc.Admin
-		</p>
+		<p><em>Loading...</em></p>
+	}
+	else
+	{
+		foreach (var acc in _appState.ExistingUsers)
+		{
+			<p>
+				@acc.Username @acc.Gender @acc.Admin
+			</p>
+		}
 	}
 }
 
 @code {
-	[CascadingParameter]
-	public Action RerenderLayout { get; set; }
+	[CascadingParameter] public Action RerenderLayout { get; set; }
+	[CascadingParameter] public Action<bool> SetLoadingScreen { get; set; }
 	protected override async Task OnInitializedAsync()
 	{
 		await InvokeAsync(() => _appState.Title = "Habits");

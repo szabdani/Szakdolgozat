@@ -1,11 +1,25 @@
 ﻿@page "/statistics"
 
+@using MauiBlazorWeb.Shared.Components.Dialogs
+@using Interfaces
+@inject IAppState _appState
+
+@if (!_appState.IsLoggedIn)
+{
+	<h1>This page is only available to users!</h1>
+	<LoginPrompt />
+}
+else
+{
+
+}
 
 @code {
-	[CascadingParameter]
-	public Action<string>? UpdateTitle { get; set; }
+	[CascadingParameter] public Action RerenderLayout { get; set; }
+	[CascadingParameter] public Action<bool> SetLoadingScreen { get; set; }
 	protected override async Task OnInitializedAsync()
 	{
-		await Task.Run(() => UpdateTitle?.Invoke("Statistics"));
+		await InvokeAsync(() => _appState.Title = "Statistics");
+		await InvokeAsync(() => RerenderLayout?.Invoke());
 	}
 }

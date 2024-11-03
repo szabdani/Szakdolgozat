@@ -9,71 +9,78 @@
 @inject IAppState _appState
 @implements IDisposable
 
-<EditForm EditContext=editContext OnValidSubmit=RegisterAccount>
-    <DataAnnotationsValidator />
-    <div class="form-group row">
-        <label class="col-sm-2 col-form-label">Username:</label>
-        <div class="col-sm-2" @ref="startUsername">
-            <InputText class="form-control" @bind-Value=newAccount.Username />
+@if (_appState.IsLoggedIn)
+{
+    <h1>You are already logged in!</h1>
+}
+else
+{
+    <EditForm EditContext=editContext OnValidSubmit=RegisterAccount>
+        <DataAnnotationsValidator />
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Username:</label>
+            <div class="col-sm-2" @ref="startUsername">
+                <InputText class="form-control" @bind-Value=newAccount.Username />
+            </div>
+            <div class="col-sm-3 d-flex align-items-center">
+                <ValidationMessage For="@(() => newAccount.Username)" />
+            </div>
         </div>
-        <div class="col-sm-3 d-flex align-items-center">
-            <ValidationMessage For="@(() => newAccount.Username)" />
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Email:</label>
+            <div class="col-sm-2">
+                <InputText class="form-control" @bind-Value=newAccount.Email />
+            </div>
+            <div class="col-sm-3 d-flex align-items-center">
+                <ValidationMessage For="@(() => newAccount.Email)" />
+            </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-2 col-form-label">Email:</label>
-        <div class="col-sm-2">
-            <InputText class="form-control" @bind-Value=newAccount.Email />
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Password:</label>
+            <div class="col-sm-2">
+                <InputText class="form-control" type="password" @bind-Value=newAccount.Password1 />
+            </div>
+            <div class="col-sm-3 d-flex align-items-center">
+                <ValidationMessage For="@(() => newAccount.Password1)" />
+            </div>
         </div>
-        <div class="col-sm-3 d-flex align-items-center">
-            <ValidationMessage For="@(() => newAccount.Email)" />
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Confirmation password:</label>
+            <div class="col-sm-2">
+                <InputText class="form-control" type="password" @bind-Value=newAccount.Password2 />
+            </div>
+            <div class="col-sm-3 d-flex align-items-center">
+                <ValidationMessage For="@(() => newAccount.Password2)" />
+            </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-2 col-form-label">Password:</label>
-        <div class="col-sm-2">
-            <InputText class="form-control" type="password" @bind-Value=newAccount.Password1 />
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Date of birth (MM/dd/yyyy):</label>
+            <div class="col-sm-2">
+                <InputDate class="form-control" @bind-Value=newAccount.Birthdate/>
+            </div>
         </div>
-        <div class="col-sm-3 d-flex align-items-center">
-            <ValidationMessage For="@(() => newAccount.Password1)" />
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Gender:</label>
+            <div class="col-sm-2">
+                <InputSelect class="form-control" @bind-Value=newAccount.Gender>
+                @foreach (var gender in Enum.GetValues(typeof(GenderType)))
+                {
+                    <option value="@gender">@gender</option>
+                }       
+                </InputSelect>
+            </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-2 col-form-label">Confirmation password:</label>
-        <div class="col-sm-2">
-            <InputText class="form-control" type="password" @bind-Value=newAccount.Password2 />
+        <div class="form-group row">
+            <div class="col-sm-2">
+                <input type="submit" class="btn btn-warning flex-column" value="Register" disabled=@isError/>
+            </div>
         </div>
-        <div class="col-sm-3 d-flex align-items-center">
-            <ValidationMessage For="@(() => newAccount.Password2)" />
-        </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-2 col-form-label">Date of birth (MM/dd/yyyy):</label>
-        <div class="col-sm-2">
-            <InputDate class="form-control" @bind-Value=newAccount.Birthdate/>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-2 col-form-label">Gender:</label>
-        <div class="col-sm-2">
-            <InputSelect class="form-control" @bind-Value=newAccount.Gender>
-            @foreach (var gender in Enum.GetValues(typeof(GenderType)))
-            {
-                <option value="@gender">@gender</option>
-            }       
-            </InputSelect>
-        </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-sm-2">
-            <input type="submit" class="btn btn-warning flex-column" value="Register" disabled=@isError/>
-        </div>
-    </div>
-</EditForm>
+    </EditForm>
 
-<MessageDialog @ref="dialog" Title="Registration" Link="Login">
-    <p>Successful registration.</p>
-</MessageDialog>
+    <MessageDialog @ref="dialog" Title="Registration" Link="Login">
+        <p>Successful registration.</p>
+    </MessageDialog>
+}
 
 @code {
     [CascadingParameter] public Action RerenderLayout { get; set; }
@@ -104,7 +111,8 @@
     {
         if (firstRender)
         {
-            await startUsername.FocusAsync();
+            if (!_appState.IsLoggedIn)
+                await startUsername.FocusAsync();
         }
     }
 

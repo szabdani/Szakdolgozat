@@ -1,12 +1,25 @@
 ﻿@page "/diary"
-@using Interfaces
 
-@inject IAppState appState
+@using MauiBlazorWeb.Shared.Components.Dialogs
+@using Interfaces
+@inject IAppState _appState
+
+@if (!_appState.IsLoggedIn)
+{
+    <h1>This page is only available to users!</h1>
+    <LoginPrompt />
+}
+else
+{
+
+}
 
 @code {
-    protected override async Task OnInitializedAsync()
-    {
-        appState.Title = "Diary";
-        await InvokeAsync(StateHasChanged);
-    }
+	[CascadingParameter] public Action RerenderLayout { get; set; }
+	[CascadingParameter] public Action<bool> SetLoadingScreen { get; set; }
+	protected override async Task OnInitializedAsync()
+	{
+		await InvokeAsync(() => _appState.Title = "Diary");
+		await InvokeAsync(() => RerenderLayout?.Invoke());
+	}
 }

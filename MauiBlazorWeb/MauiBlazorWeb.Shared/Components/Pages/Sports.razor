@@ -1,41 +1,25 @@
 ﻿@page "/sports"
 
-@using Blazored.LocalStorage
-@inject ILocalStorageService localStorage
-@inject IJSRuntime JS   
+@using MauiBlazorWeb.Shared.Components.Dialogs
+@using Interfaces
+@inject IAppState _appState
 
-<h3>Local Storage Example</h3>
+@if (!_appState.IsLoggedIn)
+{
+	<h1>This page is only available to users!</h1>
+	<LoginPrompt />
+}
+else
+{
 
-<button @onclick="SaveToLocalStorage">Save to Local Storage</button>
-<button @onclick="GetFromLocalStorage">Get from Local Storage</button>
-<button @onclick="RemoveFromLocalStorage">Remove from Local Storage</button>
-
-<p>Stored Value: @storedValue</p>
+}
 
 @code {
-    [CascadingParameter]
-    public Action<string>? UpdateTitle { get; set; }
-    protected override async Task OnInitializedAsync()
-    {
-        await Task.Run(() => UpdateTitle?.Invoke("Sports"));
-    }
-
-    private string storedValue;
-
-    private async Task SaveToLocalStorage()
-    {
-        await localStorage.SetItemAsync("username", "name");
-        await JS.InvokeVoidAsync("alert", "sziaaa");
-    }
-
-    private async Task GetFromLocalStorage()
-    {
-        storedValue = await localStorage.GetItemAsync<string>("username") ?? "Not found";
-    }
-
-    private async Task RemoveFromLocalStorage()
-    {
-        await localStorage.RemoveItemAsync("username");
-        storedValue = "Value removed.";
-    }
+	[CascadingParameter] public Action RerenderLayout { get; set; }
+	[CascadingParameter] public Action<bool> SetLoadingScreen { get; set; }
+	protected override async Task OnInitializedAsync()
+	{
+		await InvokeAsync(() => _appState.Title = "Sports");
+		await InvokeAsync(() => RerenderLayout?.Invoke());
+	}
 }
