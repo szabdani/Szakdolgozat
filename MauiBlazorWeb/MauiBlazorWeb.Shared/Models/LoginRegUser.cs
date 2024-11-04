@@ -15,7 +15,7 @@ namespace MauiBlazorWeb.Shared.Models
 
         [Required(ErrorMessage = "You must set a valid email address for your account.")]
         [EmailAddress(ErrorMessage = "You must set a valid email address for your account.")]
-        public string? Email { get; set; }
+        public string Email { get; set; } = "";
 
         [Required(ErrorMessage = "You must set a password for your account.")]
         [MinLength(6, ErrorMessage = "Password must be at least 6 characters long.")]

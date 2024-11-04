@@ -15,11 +15,47 @@ else
 		<div class="col">
 			<div class="row">
 				<label class="col-sm-2">Username:</label>
-				<div class="col-sm-2">
+				<div class="col-sm-4">
 					@_appState.CurrentUser.Username
 				</div>
-				<div class="col-sm-3 d-flex align-items-center">
+				<div class="col d-flex align-items-center">
 					<button type="button" class="btn btn-primary" @onclick="()=> usernameEdit.Show()">Edit</button>
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-2">Password:</label>
+				<div class="col-sm-4">
+					-
+				</div>
+				<div class="col d-flex align-items-center">
+					<button type="button" class="btn btn-primary" @onclick="()=> passwordEdit.Show()">Edit</button>
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-2">Email:</label>
+				<div class="col-sm-4">
+					@_appState.CurrentUser.Email
+				</div>
+				<div class="col d-flex align-items-center">
+					<button type="button" class="btn btn-primary" @onclick="()=> emailEdit.Show()">Edit</button>
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-2">Birthdate:</label>
+				<div class="col-sm-4">
+					@_appState.CurrentUser.Birthdate.ToShortDateString()
+				</div>
+				<div class="col d-flex align-items-center">
+					<button type="button" class="btn btn-primary" @onclick="()=> birthdateEdit.Show()">Edit</button>
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-2">Gender:</label>
+				<div class="col-sm-4">
+					@_appState.CurrentUser.Gender
+				</div>
+				<div class="col d-flex align-items-center">
+					<button type="button" class="btn btn-primary" @onclick="()=> genderEdit.Show()">Edit</button>
 				</div>
 			</div>
 		</div>
@@ -30,14 +66,36 @@ else
 	<EditDialog RerenderParent="RerenderProfile" @ref="usernameEdit">
 		<EditUsernameDialog />
 	</EditDialog>
+	<EditDialog RerenderParent="RerenderProfile" @ref="passwordEdit">
+		<EditPasswordDialog />
+	</EditDialog>
+	<EditDialog RerenderParent="RerenderProfile" @ref="emailEdit">
+		<EditEmailDialog />
+	</EditDialog>
+	<EditDialog RerenderParent="RerenderProfile" @ref="birthdateEdit">
+		<EditBirthdateDialog />
+	</EditDialog>
+	<EditDialog RerenderParent="RerenderProfile" @ref="genderEdit">
+		<EditGenderDialog />
+	</EditDialog>
+
 }
 
 @code {
 	private EditDialog usernameEdit;
+	private EditDialog passwordEdit;
+	private EditDialog emailEdit;
+	private EditDialog birthdateEdit;
+	private EditDialog genderEdit;
+	
 
 	public Profile()
 	{
 		usernameEdit = new EditDialog();
+		passwordEdit = new EditDialog();
+		emailEdit = new EditDialog();
+		birthdateEdit = new EditDialog();
+		genderEdit = new EditDialog();
 	}
 
 	public async Task RerenderProfile()

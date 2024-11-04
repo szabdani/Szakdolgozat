@@ -9,7 +9,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Editing Username</h5>
+                    <h5 class="modal-title">Editing personal data</h5>
                     <button type="button" class="btn-close" aria-label="Close" @onclick="Hide"></button>
                 </div>
                 <div class="modal-body">
@@ -34,6 +34,14 @@
         newAccount = new LoginRegUser();
         editContext = new EditContext(newAccount);
         messageStore = new ValidationMessageStore(editContext);
+    }
+
+    protected override void OnInitialized()
+    {
+        newAccount.Username = _appState.CurrentUser.Username;
+        newAccount.Email = _appState.CurrentUser.Email;
+        newAccount.Birthdate = _appState.CurrentUser.Birthdate;
+        newAccount.Gender = _appState.CurrentUser.Gender;
     }
 
     [Parameter]

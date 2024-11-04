@@ -30,6 +30,7 @@ namespace MauiBlazorWeb.Shared.Services
         {
             ExistingUsers = new List<Account>();
             CurrentUser = new Account();
+            MainLayout = new MainLayout();
         }
 
         public async Task UpdateExistingUsers()

@@ -1,105 +1,84 @@
-﻿@using Interfaces
+﻿@inherits EditDialog
+@using Interfaces
 @using Models
 @inject IAppState _appState
 
-@if (IsVisible)
-{
-    <div class="modal fade show" style="display:block" tabindex="-1" aria-modal="true" role="dialog">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Editing @Title</h5>
-                    <button type="button" class="btn-close" aria-label="Close" @onclick="Hide"></button>
-                </div>
-                <div class="modal-body">
-                    @ChildContent
-                    <div class="row">
-                        <div class="col-sm">
-                            New @Title:
-                        </div>
-                        <div class="col-sm">
-                            @if (IsVisible)
-                            {
-                                var property = _appState.CurrentUser.GetUserProperty(Title);
-                                var type = property.GetType();
-                                switch (property)
-                                {
-                                    case string val:
-                                        <div class="col-sm-2">
-                                            <InputText class="form-control" @bind-Value=newAccount.Username />
-                                        </div>
-                                        break;
-                                    case byte[] val:
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Password:</label>
-                                            <div class="col-sm-2">
-                                                <InputText class="form-control" type="password" @bind-Value=newAccount.Password1 />
-                                            </div>
-                                            <div class="col-sm-3 d-flex align-items-center">
-                                                <ValidationMessage For="@(() => newAccount.Password1)" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Confirmation password:</label>
-                                            <div class="col-sm-2">
-                                                <InputText class="form-control" type="password" @bind-Value=newAccount.Password2 />
-                                            </div>
-                                            <div class="col-sm-3 d-flex align-items-center">
-                                                <ValidationMessage For="@(() => newAccount.Password2)" />
-                                            </div>
-                                        </div>
-                                        break;
-                                    case DateTime val:
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Date of birth (MM/dd/yyyy):</label>
-                                            <div class="col-sm-2">
-                                                <InputDate class="form-control" @bind-Value=newAccount.Birthdate />
-                                            </div>
-                                        </div>
-                                        break;
-                                    case GenderType val:
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Gender:</label>
-                                            <div class="col-sm-2">
-                                                <InputSelect class="form-control" @bind-Value=newAccount.Gender>
-                                                    @foreach (var gender in Enum.GetValues(typeof(GenderType)))
-                                                    {
-                                                        <option value="@gender">@gender</option>
-                                                    }
-                                                </InputSelect>
-                                            </div>
-                                        </div>
-                                        break;
-                                }
-                            }
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" @onclick="Hide">Close</button>
-                    <button type="button" class="btn btn-primary" @onclick="Enter">Enter</button>
-                </div>
+<div class="row">
+    <div class="col">
+        Current Email:
+    </div>
+    <div class="col">
+        @_appState.CurrentUser.Email
+    </div>
+</div>
+<div class="row">
+    <EditForm EditContext=editContext>
+        <DataAnnotationsValidator />
+        <div class="row">
+            <div class="col">
+                New Email:
+            </div>
+            <div class="col">
+                <InputText class="form-control" @bind-Value=newAccount.Email />
             </div>
         </div>
-    </div>
-    <div class="modal-backdrop fade show"></div>
-}
+        <div class="row">
+            <ValidationMessage For="@(() => newAccount.Email)" />
+        </div>
+    </EditForm>
+</div>
+<div class="row">
+    <button type="button" class="btn btn-primary" @onclick="Enter">Enter</button>
+</div>
 
 @code {
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-    [Parameter]
-    public string Title { get; set; } = "";
-    private LoginRegUser newAccount = new LoginRegUser();
-
-    private bool IsVisible { get; set; } = false;
-    public void Show() => IsVisible = true;
-    public void Hide() => IsVisible = false;
-
     private async Task Enter()
     {
-        
-        Hide();    
+        bool emailExists = false;
+        messageStore.Clear();
+
+        await _appState.UpdateExistingUsers();
+
+        foreach (var user in _appState.ExistingUsers)
+        {
+            if (newAccount.Email is not null && newAccount.Email.Equals(user.Email))
+            {
+                emailExists = true;
+                break;
+            }
+        }
+
+        if (newAccount.Email != "")
+        {
+            if (!newAccount.Email.Equals(_appState.CurrentUser.Email))
+            {
+                if (!emailExists)
+                {
+                    IDataAccess _data = new DataAccess();
+                    string sql = "update account set email = @name where id = @userid;";
+                    int affectedRows = await _data.SaveData(sql, new { @name = newAccount.Email, @userid = _appState.CurrentUser.Id });
+
+                    if (affectedRows == 1)
+                    {
+                        _appState.CurrentUser.Email = newAccount.Email;
+                        await InvokeAsync(StateHasChanged);
+                    }
+                    else
+                        throw new Exception("Error editing email adress.");
+                }
+                else
+                {
+                    messageStore.Add(() => newAccount.Email, "This email adress is already used");
+                }
+            }
+            else
+            {
+                messageStore.Add(() => newAccount.Email, "New email adress must differ from the old one.");
+            }
+        }
+        else
+        {
+            messageStore.Add(() => newAccount.Email, "New email adress can not be empty.");
+        }
     }
 }
-

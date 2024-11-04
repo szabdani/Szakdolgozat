@@ -15,10 +15,10 @@ namespace MauiBlazorWeb.Shared.Models
 
         public string Username { get; set; } = "Account";
 
-        public string? Email { get; set; }
+        public string Email { get; set; } = "";
 
-        public byte[]? Password_hash { get; set; }
-        public byte[]? Password_salt { get; set; }
+        public byte[] Password_hash { get; set; } = new byte[32];
+        public byte[] Password_salt { get; set; } = new byte[16];
 
         public DateTime Birthdate { get; set; }
 

@@ -1,4 +1,8 @@
 ﻿@inherits ErrorBoundary
+
+@using Interfaces
+@inject IAppState _appState
+
 @if (CurrentException is null)
 {
     @ChildContent
@@ -24,10 +28,10 @@ else
 @code {
     private ErrorBoundary? errorBoundary;
     private string? exceptionMessage;
-    protected override Task OnErrorAsync(Exception ex)
+    protected override async Task OnErrorAsync(Exception ex)
     {
+        await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(false));
         exceptionMessage = ex.Message;
-        return Task.CompletedTask;
     }
     public void ClearError()
     {
