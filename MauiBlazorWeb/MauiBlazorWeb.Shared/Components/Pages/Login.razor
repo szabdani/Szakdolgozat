@@ -49,12 +49,10 @@ else
 }
 
 @code {
-    [CascadingParameter] public Action RerenderLayout { get; set; }
-    [CascadingParameter] public Action<bool> SetLoadingScreen { get; set; }
     protected override async Task OnInitializedAsync()
     {
         await InvokeAsync(() => _appState.Title = "Login");
-        await InvokeAsync(() => RerenderLayout?.Invoke());
+        await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
     }
 
     private LoginRegUser newAccount;
@@ -85,7 +83,7 @@ else
 
     private async Task ProcessLogin()
     {
-        await InvokeAsync(() => SetLoadingScreen?.Invoke(true));
+        await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(true));
         bool userExists = false;
         messageStore.Clear();
         
@@ -127,6 +125,6 @@ else
         {
             messageStore.Add(() => newAccount.LoginUsername, "This username is not registered.");
         }
-        await InvokeAsync(() => SetLoadingScreen?.Invoke(false));
+        await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(false));
     }
 }

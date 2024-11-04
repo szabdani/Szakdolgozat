@@ -11,15 +11,43 @@
 }
 else
 {
-
+	<div class="row">
+		<div class="col">
+			<div class="row">
+				<label class="col-sm-2">Username:</label>
+				<div class="col-sm-2">
+					@_appState.CurrentUser.Username
+				</div>
+				<div class="col-sm-3 d-flex align-items-center">
+					<button type="button" class="btn btn-primary" @onclick="()=> usernameEdit.Show()">Edit</button>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			Import data
+		</div>
+	</div>
+	<EditDialog RerenderParent="RerenderProfile" @ref="usernameEdit">
+		<EditUsernameDialog />
+	</EditDialog>
 }
 
 @code {
-	[CascadingParameter] public Action RerenderLayout { get; set; }
-	[CascadingParameter] public Action<bool> SetLoadingScreen { get; set; }
+	private EditDialog usernameEdit;
+
+	public Profile()
+	{
+		usernameEdit = new EditDialog();
+	}
+
+	public async Task RerenderProfile()
+	{
+		await InvokeAsync(StateHasChanged);
+	}	 
+
 	protected override async Task OnInitializedAsync()
 	{
 		await InvokeAsync(() => _appState.Title = "Profile");
-		await InvokeAsync(() => RerenderLayout?.Invoke());
+		await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
 	}
 }

@@ -18,11 +18,9 @@ else
 
 @code
 {
-	[CascadingParameter] public Action RerenderLayout { get; set; }
-	[CascadingParameter] public Action<bool> SetLoadingScreen { get; set; }
 	protected override async Task OnInitializedAsync()
 	{
 		await InvokeAsync(() => _appState.Title = "Home");
-		await InvokeAsync(() => RerenderLayout?.Invoke());
+		await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
 	}
 }

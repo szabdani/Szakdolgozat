@@ -27,5 +27,15 @@ namespace MauiBlazorWeb.Shared.Models
 		public bool Admin { get; set; } = false;
 
         public string PfpPath { get; set; } = "";
+
+        public object? GetUserProperty(string propertyName)
+        {
+            var property = typeof(Account).GetProperty(propertyName);
+            if (property != null)
+            {
+                return property;
+            }
+            throw new ArgumentException($"Property '{propertyName}' not found.");
+        }
     }
 }

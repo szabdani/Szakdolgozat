@@ -1,4 +1,5 @@
 ﻿using Blazored.LocalStorage;
+using MauiBlazorWeb.Shared.Components.Layout;
 using MauiBlazorWeb.Shared.Models;
 
 namespace MauiBlazorWeb.Shared.Interfaces
@@ -11,6 +12,7 @@ namespace MauiBlazorWeb.Shared.Interfaces
         bool IsLoading { get; set; }
         Account CurrentUser { get; set; }
         List<Account> ExistingUsers { get; set; }
+        MainLayout MainLayout { get; set; }
 
         Task<bool> Register(LoginRegUser newAccount);
         Task Login(Account userData, ILocalStorageService localStorage);

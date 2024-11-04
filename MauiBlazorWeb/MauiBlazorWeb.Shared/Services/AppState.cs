@@ -9,6 +9,7 @@ using MauiBlazorWeb.Shared.Interfaces;
 using MauiBlazorWeb.Shared.Models;
 using Org.BouncyCastle.Math.EC;
 using Blazored.LocalStorage;
+using MauiBlazorWeb.Shared.Components.Layout;
 
 namespace MauiBlazorWeb.Shared.Services
 {
@@ -22,6 +23,7 @@ namespace MauiBlazorWeb.Shared.Services
         public bool IsLoading { get; set; } = false;
         public Account CurrentUser { get; set; }
         public List<Account> ExistingUsers { get; set; }
+        public MainLayout MainLayout { get; set; }
 		
 
 		public AppState()
@@ -67,7 +69,7 @@ namespace MauiBlazorWeb.Shared.Services
 
             int affectedRows;
             string date = newAccount.Birthdate.ToString("yyyy-MM-dd");
-            string gender = newAccount.Gender.ToString();
+            string gen = newAccount.Gender.ToString();
             string sql = "Insert into account (username, email, password_hash, password_salt, birthdate, gender) values (@username, @email, @pw_h, @pw_s, @birthdate, @gender);";
 
             affectedRows = await _data.SaveData(sql, new
@@ -77,7 +79,7 @@ namespace MauiBlazorWeb.Shared.Services
                 pw_h = pw_hash,
                 pw_s = pw_salt,
                 birthdate = date,
-                gender = gender
+                gender = gen
             }
             );
 

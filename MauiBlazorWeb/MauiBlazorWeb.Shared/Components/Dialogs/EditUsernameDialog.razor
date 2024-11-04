@@ -1,0 +1,85 @@
+﻿@inherits EditDialog
+@using Interfaces
+@using Models
+@inject IAppState _appState
+
+<div class="row">
+    <div class="col">
+        Current Username:
+    </div>
+    <div class="col">
+        @_appState.CurrentUser.Username
+    </div>
+</div>
+<div class="row">
+    <EditForm EditContext=editContext>
+        <DataAnnotationsValidator />
+        <div class="row">
+            <div class="col">
+                New Username:
+            </div>
+            <div class="col">
+                <InputText class="form-control" @bind-Value=newAccount.LoginUsername />
+            </div>
+        </div>
+        <div class="row">
+            <ValidationMessage For="@(() => newAccount.LoginUsername)" />
+        </div>
+    </EditForm>
+</div>
+<div class="row">
+    <button type="button" class="btn btn-primary" @onclick="Enter">Enter</button>
+</div>
+
+@code {
+    private async Task Enter()
+    {
+        bool userExists = false;
+        messageStore.Clear();
+
+        await _appState.UpdateExistingUsers();
+
+        foreach (var user in _appState.ExistingUsers)
+        {
+            if (user.Username.Equals(newAccount.LoginUsername))
+            {
+                userExists = true;
+                break;
+            }
+        }
+
+        if (newAccount.LoginUsername != "")
+        {
+            if (!newAccount.LoginUsername.Equals(_appState.CurrentUser.Username))
+            {
+                if (!userExists)
+                {
+                    IDataAccess _data = new DataAccess();
+                    string sql = "update account set username = @name where id = @userid;";
+                    int affectedRows = await _data.SaveData(sql, new { @name = newAccount.LoginUsername, @userid = _appState.CurrentUser.Id });
+
+                    if (affectedRows == 1)
+                    {
+                        _appState.CurrentUser.Username = newAccount.LoginUsername;
+                        await InvokeAsync(StateHasChanged);
+                    }
+                    
+                    else
+                        throw new Exception("Error editing username.");
+                }
+                else
+                {
+                    messageStore.Add(() => newAccount.LoginUsername, "This username is already taken");
+                }
+            }
+            else
+            {
+                messageStore.Add(() => newAccount.LoginUsername, "New username must differ from the old one.");
+            }
+        }
+        else
+        {
+            messageStore.Add(() => newAccount.LoginUsername, "New username can not be empty.");
+        }
+    }
+}

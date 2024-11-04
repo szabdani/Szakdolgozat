@@ -83,12 +83,10 @@ else
 }
 
 @code {
-    [CascadingParameter] public Action RerenderLayout { get; set; }
-    [CascadingParameter] public Action<bool> SetLoadingScreen { get; set; }
     protected override async Task OnInitializedAsync()
     {
         await InvokeAsync(() => _appState.Title = "Register");
-        await InvokeAsync(() => RerenderLayout?.Invoke());
+        await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
     }
 
     private LoginRegUser newAccount;
@@ -102,7 +100,11 @@ else
 
     public Register()
     {
-        NewEditContext();
+        newAccount = new LoginRegUser();
+        editContext = new EditContext(newAccount);
+        messageStore = new ValidationMessageStore(editContext);
+        isError = true;
+        editContext.OnFieldChanged += HandleFieldChanged;
 
         dialog = new MessageDialog();
     }
@@ -164,7 +166,7 @@ else
 
     private async Task RegisterAccount()
     {
-        await InvokeAsync(() => SetLoadingScreen?.Invoke(true));
+        await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(true));
         bool success = await _appState.Register(newAccount);
         if (success)
         {
@@ -173,7 +175,7 @@ else
         }
         else
             throw new Exception("Sorry, we could not register your account");
-        await InvokeAsync(() => SetLoadingScreen?.Invoke(false));
+        await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(false));
     }
 }
 

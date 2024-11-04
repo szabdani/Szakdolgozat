@@ -1,0 +1,50 @@
+﻿@using Models
+@using Interfaces
+
+@inject IAppState _appState
+
+@if (isVisible)
+{
+    <div class="modal fade show" style="display:block" tabindex="-1" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editing Username</h5>
+                    <button type="button" class="btn-close" aria-label="Close" @onclick="Hide"></button>
+                </div>
+                <div class="modal-body">
+                    @ChildContent
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
+}
+
+@code {
+    [Parameter] public Func<Task> RerenderParent { get; set; }
+    protected LoginRegUser newAccount;
+    protected EditContext editContext;
+    protected ValidationMessageStore messageStore;
+
+    public EditDialog()
+    {
+        newAccount = new LoginRegUser();
+        editContext = new EditContext(newAccount);
+        messageStore = new ValidationMessageStore(editContext);
+    }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private bool isVisible = false;
+    public void Show() => isVisible = true;
+    public async Task Hide()
+    {
+        isVisible = false;
+        await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
+        await InvokeAsync(RerenderParent);
+    }
+}

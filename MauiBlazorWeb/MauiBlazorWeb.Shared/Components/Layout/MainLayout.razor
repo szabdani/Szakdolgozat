@@ -25,17 +25,13 @@
         </div>
         <article class="content px-4">
             <CustomErrorBoundary @ref="customErrorBoundary">
-                <CascadingValue Value="SetLoadingScreen">
-                    <CascadingValue Value="RerenderLayout">
-                        @if (IsLoading)
-                        {
-                            <LoadingScreen />
-                        }
-                        <div class="px-2 py-2" style="background-color: #ffe9e9">
-                            @Body
-                        </div>
-                    </CascadingValue>
-                </CascadingValue>
+                @if (isLoading)
+                {
+                    <LoadingScreen />
+                }
+                <div class="px-2 py-2 d-grid" style="background-color: #ffe9e9">
+                    @Body
+                </div>
             </CustomErrorBoundary>
         </article>
     </main>
@@ -45,28 +41,31 @@
 </div>
 
 @code {
-    private string pageTitle = "LifeTrakcer";
+    private NavMenu navmenu;
+    private bool isLoading = true;
 
-    public Action RerenderLayout { get; set; }
-    public Action<bool> SetLoadingScreen { get; set; }
-
-    public bool IsLoading { get; private set; }
+    public MainLayout()
+    {
+        navmenu = new NavMenu();
+    }
 
     protected override void OnInitialized()
     {
-        IsLoading = true;
-        RerenderLayout = () =>
-        {
-            InvokeAsync(StateHasChanged);
-            InvokeAsync(navmenu.RerenderNavMenu);
-        };
-        SetLoadingScreen = (bool value) =>
-        {
-            IsLoading = value;
-            InvokeAsync(StateHasChanged);
-        };
+        _appState.MainLayout = this;
     }
-    private NavMenu? navmenu;
+
+    public async Task RerenderLayout()
+    {
+        await InvokeAsync(navmenu.RerenderNavMenu);
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public async Task SetLoadingScreen(bool state)
+    {
+        isLoading = state;
+        await InvokeAsync(StateHasChanged);
+    }
+
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -76,12 +75,9 @@
             {
                 await _appState.Init(_localStorage);
             }
-
-            IsLoading = false;
-            await InvokeAsync(navmenu.RerenderNavMenu);
-            await InvokeAsync(StateHasChanged);
-        }
-        
+            isLoading = false;
+            await RerenderLayout(); 
+        }  
     }
 
     private CustomErrorBoundary? customErrorBoundary;
