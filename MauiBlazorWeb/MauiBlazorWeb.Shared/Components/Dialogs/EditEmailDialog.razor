@@ -55,7 +55,7 @@
                 if (!emailExists)
                 {
                     IDataAccess _data = new DataAccess();
-                    string sql = "update account set email = @name where id = @userid;";
+                    string sql = "Update account set email = @name where id = @userid;";
                     int affectedRows = await _data.SaveData(sql, new { @name = newAccount.Email, @userid = _appState.CurrentUser.Id });
 
                     if (affectedRows == 1)

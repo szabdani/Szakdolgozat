@@ -32,7 +32,7 @@
     private async Task Enter()
     {
         IDataAccess _data = new DataAccess();
-        string sql = "update account set birthdate = @name where id = @userid;";
+        string sql = "Update account set birthdate = @name where id = @userid;";
         int affectedRows = await _data.SaveData(sql, new { @name = newAccount.Birthdate, @userid = _appState.CurrentUser.Id });
         if (affectedRows == 1)
         {

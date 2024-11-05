@@ -7,36 +7,32 @@
       "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\services\\diarymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\components\\pages\\newhabits.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\components\\pages\\newhabits.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\components\\dialogs\\newhabitdialog.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\components\\dialogs\\newhabitdialog.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\components\\dialogs\\newhabitpostdialog.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\components\\dialogs\\newhabitpostdialog.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\components\\pages\\habits.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\components\\pages\\habits.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\interfaces\\idiarymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\interfaces\\idiarymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\components\\dialogs\\edithabitdialog.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\components\\dialogs\\edithabitdialog.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\services\\appstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\services\\appstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\models\\diaries\\diary_log_column.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\models\\diaries\\diary_log_column.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\components\\pages\\profile.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\components\\pages\\profile.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\components\\pages\\register.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\components\\pages\\register.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\components\\dialogs\\editdialog.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\components\\dialogs\\editdialog.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\mauiblazorweb\\mauiblazorweb.shared\\services\\appstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{868BF270-578F-4618-9238-C41861F379DF}|MauiBlazorWeb.Shared\\MauiBlazorWeb.Shared.csproj|solutionrelative:mauiblazorweb.shared\\services\\appstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -46,17 +42,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "AppState.cs",
               "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Services\\AppState.cs",
               "RelativeDocumentMoniker": "MauiBlazorWeb.Shared\\Services\\AppState.cs",
               "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Services\\AppState.cs",
               "RelativeToolTip": "MauiBlazorWeb.Shared\\Services\\AppState.cs",
-              "ViewState": "AgIAAC4AAAAAAAAAAAAYwEAAAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAADUAAAAAAAAAAAAmwCEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-03T16:55:49.216Z",
               "IsPinned": true,
@@ -64,13 +60,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 6,
               "Title": "MainLayout.razor",
               "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Components\\Layout\\MainLayout.razor",
               "RelativeDocumentMoniker": "MauiBlazorWeb.Shared\\Components\\Layout\\MainLayout.razor",
               "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Components\\Layout\\MainLayout.razor",
               "RelativeToolTip": "MauiBlazorWeb.Shared\\Components\\Layout\\MainLayout.razor",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAAAEAAAAARAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAB8AAABOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-11-03T15:16:50.076Z",
               "IsPinned": true,
@@ -78,43 +74,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Habits.razor",
               "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Components\\Pages\\Habits.razor",
               "RelativeDocumentMoniker": "MauiBlazorWeb.Shared\\Components\\Pages\\Habits.razor",
               "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Components\\Pages\\Habits.razor",
               "RelativeToolTip": "MauiBlazorWeb.Shared\\Components\\Pages\\Habits.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAEUAAAAAAAAAAAAAAD8AAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-11-04T22:11:41.368Z",
               "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "NewHabits.razor",
-              "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Components\\Pages\\NewHabits.razor",
-              "RelativeDocumentMoniker": "MauiBlazorWeb.Shared\\Components\\Pages\\NewHabits.razor",
-              "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Components\\Pages\\NewHabits.razor",
-              "RelativeToolTip": "MauiBlazorWeb.Shared\\Components\\Pages\\NewHabits.razor",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABUAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-11-05T09:24:05.453Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "IDiaryManager.cs",
-              "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Interfaces\\IDiaryManager.cs",
-              "RelativeDocumentMoniker": "MauiBlazorWeb.Shared\\Interfaces\\IDiaryManager.cs",
-              "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Interfaces\\IDiaryManager.cs",
-              "RelativeToolTip": "MauiBlazorWeb.Shared\\Interfaces\\IDiaryManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAA/AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-05T10:44:30.866Z",
               "EditorCaption": ""
             },
             {
@@ -125,48 +94,64 @@
               "RelativeDocumentMoniker": "MauiBlazorWeb.Shared\\Services\\DiaryManager.cs",
               "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Services\\DiaryManager.cs",
               "RelativeToolTip": "MauiBlazorWeb.Shared\\Services\\DiaryManager.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAAwBwAAAA2AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-05T10:39:58.367Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "NewHabitDialog.razor",
+              "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Components\\Dialogs\\NewHabitDialog.razor",
+              "RelativeDocumentMoniker": "MauiBlazorWeb.Shared\\Components\\Dialogs\\NewHabitDialog.razor",
+              "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Components\\Dialogs\\NewHabitDialog.razor",
+              "RelativeToolTip": "MauiBlazorWeb.Shared\\Components\\Dialogs\\NewHabitDialog.razor",
+              "ViewState": "AgIAAF4AAAAAAAAAAAAAAHAAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T15:16:48.542Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "NewHabitPostDialog.razor",
+              "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Components\\Dialogs\\NewHabitPostDialog.razor",
+              "RelativeDocumentMoniker": "MauiBlazorWeb.Shared\\Components\\Dialogs\\NewHabitPostDialog.razor",
+              "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Components\\Dialogs\\NewHabitPostDialog.razor",
+              "RelativeToolTip": "MauiBlazorWeb.Shared\\Components\\Dialogs\\NewHabitPostDialog.razor",
+              "ViewState": "AgIAAEYAAAAAAAAAAAAcwHEAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T15:32:07.994Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "EditHabitDialog.razor",
+              "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Components\\Dialogs\\EditHabitDialog.razor",
+              "RelativeDocumentMoniker": "MauiBlazorWeb.Shared\\Components\\Dialogs\\EditHabitDialog.razor",
+              "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Components\\Dialogs\\EditHabitDialog.razor",
+              "RelativeToolTip": "MauiBlazorWeb.Shared\\Components\\Dialogs\\EditHabitDialog.razor",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAAAGkAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-05T15:37:43.044Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "Diary_log_column.cs",
-              "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Models\\Diaries\\Diary_log_column.cs",
-              "RelativeDocumentMoniker": "MauiBlazorWeb.Shared\\Models\\Diaries\\Diary_log_column.cs",
-              "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Models\\Diaries\\Diary_log_column.cs",
-              "RelativeToolTip": "MauiBlazorWeb.Shared\\Models\\Diaries\\Diary_log_column.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAeAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-05T10:22:17.025Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Profile.razor",
-              "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Components\\Pages\\Profile.razor",
-              "RelativeDocumentMoniker": "MauiBlazorWeb.Shared\\Components\\Pages\\Profile.razor",
-              "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Components\\Pages\\Profile.razor",
-              "RelativeToolTip": "MauiBlazorWeb.Shared\\Components\\Pages\\Profile.razor",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAAAA4AAAAFAAAAAAAAAA==",
+              "Title": "EditDialog.razor",
+              "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Components\\Dialogs\\EditDialog.razor",
+              "RelativeDocumentMoniker": "MauiBlazorWeb.Shared\\Components\\Dialogs\\EditDialog.razor",
+              "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Components\\Dialogs\\EditDialog.razor",
+              "RelativeToolTip": "MauiBlazorWeb.Shared\\Components\\Dialogs\\EditDialog.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-11-05T10:11:28.967Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Register.razor",
-              "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Components\\Pages\\Register.razor",
-              "RelativeDocumentMoniker": "MauiBlazorWeb.Shared\\Components\\Pages\\Register.razor",
-              "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\Components\\Pages\\Register.razor",
-              "RelativeToolTip": "MauiBlazorWeb.Shared\\Components\\Pages\\Register.razor",
-              "ViewState": "AgIAAIQAAAAAAAAAAAAAAJ8AAABiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-11-05T10:09:54.5Z",
+              "WhenOpened": "2024-11-05T15:20:23.537Z",
               "EditorCaption": ""
             }
           ]

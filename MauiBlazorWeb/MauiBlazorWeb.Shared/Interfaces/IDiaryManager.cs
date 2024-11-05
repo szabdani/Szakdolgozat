@@ -4,8 +4,14 @@ namespace MauiBlazorWeb.Shared.Interfaces
 {
     public interface IDiaryManager
     {
-        Task<List<Diary_log_post>> GetDiaryPosts(int columnId);
-        Task<bool> SetHabitCols(string habitName, int accountId);
+        Task<bool> DeleteDiaryPost(Diary_log_post oldPost);
+        Task<bool> DeleteDiaryCols(Diary_log_column oldCol);
+        Task<bool> InsertDiaryPost(Diary_log_post newPost);
+        Task<bool> InsertDiaryCols(Diary_log_column newCol);
+        Task<bool> UpdateDiaryPost(Diary_log_post oldPost);
+        Task<bool> UpdateDiaryCols(Diary_log_column oldCol);
+
+        Task<List<Diary_log_post>> GetDiaryColumnsPosts(int columnId);
         Task<List<Diary_log_column>> GetHabitCols(int accountId);
     }
 }

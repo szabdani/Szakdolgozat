@@ -35,7 +35,7 @@ namespace MauiBlazorWeb.Shared.Services
         public async Task UpdateExistingUsers()
         {
             IDataAccess _data = new DataAccess();
-            string sql = "select * from account";
+            string sql = "Select * from account";
             ExistingUsers = await _data.LoadData<Account, dynamic>(sql, new { });
         }
 
@@ -46,7 +46,7 @@ namespace MauiBlazorWeb.Shared.Services
             if (id != 0)
             {
                 IDataAccess _data = new DataAccess();
-                string sql = "select * from account where Id = @accountid;";
+                string sql = "Select * from account where Id = @accountid;";
                 var results = await _data.LoadData<Account, dynamic>(sql, new {accountid = id });
                 if (results.Count == 1)
                 {

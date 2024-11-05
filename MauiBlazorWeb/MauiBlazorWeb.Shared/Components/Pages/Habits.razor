@@ -15,18 +15,66 @@
 else
 {
 	<div class="row">
-		<div class="col-sm-2">
-			<a type="button" class="btn btn-info w-100" href="NewHabits">Add a new Habit</a>
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead class="thead-light">
+					<tr>
+						<th scope="col">Date</th>
+						@foreach (var col in habitCols)
+						{
+							<th scope="col">@col.Name</th>
+						}
+						<th scope="col">
+							<button type="button" class="btn btn-info w-100" @onclick="()=>newHabitDialog.Show()">Add a new Habit</button>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var date in uniqueDates)
+					{
+						<tr>
+							<th scope="row">@date</th>
+							@foreach (var col in habitCols)
+							{
+								var post = habitPosts.FirstOrDefault(p => p.Diary_log_column_Id == col.Id && p.Date == date);
+								<td @onclick="() => ToggleValue(col.Id, date)">
+									@(post?.Value ?? "")
+								</td>
+							}
+						</tr>
+					}
+					<tr>
+						<th scope="row">
+							<button type="button" class="btn btn-info w-100" @onclick="()=>newPostDialog.Show()">New Post</button>
+						</th>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
 	<div class="row">
-		All the habits that you track
+		<div class="col-sm-6" style="background-color: #cde9e9">
+			Statisztika gyakorisagrol
+		</div>
+		<div class="col-sm-5" style="background-color: #12e9e9">
+			Nezet valtas
+		</div>
 	</div>
+
+	<NewHabitDialog RerenderParent="UpdateTables" @ref=newHabitDialog />
+	<NewHabitPostDialog RerenderParent="UpdateTables" @ref=newPostDialog />
 }
 
 @code {
 	private List<Diary_log_column> habitCols = new List<Diary_log_column>();
 	private List<Diary_log_post> habitPosts = new List<Diary_log_post>();
+	private List<DateOnly> uniqueDates = new List<DateOnly>();
+
+	private NewHabitDialog newHabitDialog = new NewHabitDialog();
+	private NewHabitPostDialog newPostDialog = new NewHabitPostDialog();
+
+	private DateOnly today = DateOnly.FromDateTime(DateTime.Now);	
+
 	protected override async Task OnInitializedAsync()
 	{
 		await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(true));
@@ -34,18 +82,46 @@ else
 		await InvokeAsync(() => _appState.Title = "Habit Tracker");
 		await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
 
+		await UpdateTables();
+
+		
+		await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(false));
+	}
+
+	private async Task UpdateTables()
+	{
 		habitCols = await _diaryManager.GetHabitCols(_appState.CurrentUser.Id);
-		if (habitCols.Count != 0)
+		foreach (var col in habitCols)
 		{
-			foreach (var col in habitCols)
-			{
-				var result = await _diaryManager.GetDiaryPosts(col.Id);
-				if(result.Count != 0)
-					habitPosts.AddRange(result);
-			}
+			var result = await _diaryManager.GetDiaryColumnsPosts(col.Id);
+			habitPosts.AddRange(result);
 		}
 
+		uniqueDates = habitPosts
+		.Select(obj => obj.Date)
+		.Distinct()
+		.OrderBy(date => date)
+		.ToList();
+
 		await InvokeAsync(StateHasChanged);
+	}
+
+	private async Task ToggleValue(int colId, DateOnly date)
+	{
+		await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(true));
+		var post = habitPosts.FirstOrDefault(p => p.Diary_log_column_Id == colId && p.Date == date);
+		if (post == null)
+		{
+			post = new Diary_log_post { Date = date, Value = "X", Diary_log_column_Id = colId };
+			await _diaryManager.InsertDiaryPost(post);
+		}
+		else
+		{
+			post.Value = post.Value == "X" ? "" : "X";
+			await _diaryManager.UpdateDiaryPost(post);
+		}
+
+		await UpdateTables();
 		await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(false));
 	}
 }

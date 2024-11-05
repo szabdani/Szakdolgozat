@@ -41,7 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Components\Pages\NewHabits.razor">
+    <Content Update="Components\Dialogs\NewHabitDialog.razor">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>
   </ItemGroup>

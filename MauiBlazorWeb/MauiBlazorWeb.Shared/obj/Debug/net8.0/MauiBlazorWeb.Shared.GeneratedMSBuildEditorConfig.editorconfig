@@ -34,6 +34,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xEaWFsb2dzXEVkaXRHZW5kZXJEaWFsb2cucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Dialogs/EditHabitDialog.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xEaWFsb2dzXEVkaXRIYWJpdERpYWxvZy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Dialogs/EditPasswordDialog.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xEaWFsb2dzXEVkaXRQYXNzd29yZERpYWxvZy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
@@ -52,6 +56,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Dialogs/MessageDialog.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xEaWFsb2dzXE1lc3NhZ2VEaWFsb2cucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Dialogs/NewHabitDialog.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xEaWFsb2dzXE5ld0hhYml0RGlhbG9nLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Dialogs/NewHabitPostDialog.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xEaWFsb2dzXE5ld0hhYml0UG9zdERpYWxvZy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Layout/CustomErrorBoundary.razor]
@@ -80,10 +92,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Pages/Login.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xMb2dpbi5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Pages/NewHabits.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xOZXdIYWJpdHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Pages/Profile.razor]
