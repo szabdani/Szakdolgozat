@@ -20,7 +20,6 @@ namespace MauiBlazorWeb.Shared.Services
         private bool isLoggedIn = false;
         public bool IsInitialized { get { return isInitialized; } }
         public bool IsLoggedIn { get { return isLoggedIn; } }
-        public bool IsLoading { get; set; } = false;
         public Account CurrentUser { get; set; }
         public List<Account> ExistingUsers { get; set; }
         public MainLayout MainLayout { get; set; }

@@ -35,6 +35,9 @@ namespace MauiBlazorWeb.Maui
             // PW hash
             builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 
+            // Diary DB accesses
+            builder.Services.AddScoped<IDiaryManager, DiaryManager>();
+
             builder.Services.AddMauiBlazorWebView();
 
 #if DEBUG

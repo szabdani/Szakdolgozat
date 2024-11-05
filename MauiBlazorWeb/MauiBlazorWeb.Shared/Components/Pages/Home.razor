@@ -14,6 +14,19 @@
 else
 {
 	<h1>This your dashboard</h1>
+	@if (_appState.ExistingUsers == null)
+	{
+		<p><em>Loading...</em></p>
+	}
+	else
+	{
+		foreach (var acc in _appState.ExistingUsers)
+		{
+			<p>
+				@acc.Username @acc.Gender @acc.Admin
+			</p>
+		}
+	}
 }
 
 @code

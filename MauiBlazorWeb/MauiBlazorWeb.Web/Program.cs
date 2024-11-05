@@ -19,6 +19,9 @@ builder.Services.AddBlazoredLocalStorage();
 // PW hash
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 
+// Diary DB accesses
+builder.Services.AddScoped<IDiaryManager, DiaryManager>();
+
 // For keeping up with the state of the app
 builder.Services.AddSingleton<IAppState, AppState>();
 

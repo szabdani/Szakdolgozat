@@ -1,0 +1,129 @@
+﻿@page "/newhabits"
+
+@using MauiBlazorWeb.Shared.Components.Dialogs
+@using Models.Diaries
+@using Interfaces
+@inject IAppState _appState
+@inject IDataAccess _data
+@inject IDiaryManager _diaryManager
+
+@if (!_appState.IsLoggedIn)
+{
+	<h1>This page is only available to users!</h1>
+    <LoginPrompt />
+}
+else
+{
+    <div class="row">
+        <div class="col-sm-4">
+            <EditForm EditContext=editContext OnSubmit=RegisterHabit>
+                <DataAnnotationsValidator />
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">New Habit:</label>
+                    <div class="col-sm">
+                        <InputText class="form-control" @bind-Value=newHabit.Name />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col">
+                        <ValidationMessage For="@(() => newHabit.Name)" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col">
+                        <input type="submit" class="btn btn-warning flex-column" value="Enter" />
+                    </div>
+                </div>
+            </EditForm>
+        </div>
+        <div class="col-sm-4">
+            <table>
+                <tr>
+                    <th>Habits that you are currently tracking</th>
+                </tr>
+                @foreach (var col in habitCols)
+                {
+                    <tr>
+                        <td>@col.Name</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+
+    
+
+	<MessageDialog @ref="dialog" Title="New Habit Added" Link="Habits">
+        <div class="row">
+		    <p>New habit was successfully added.</p>
+        </div>
+        <div class="row">
+            <p>If you want to add more habits continue in this page.</p>
+        </div>
+	</MessageDialog>
+}
+
+@code {
+    private MessageDialog dialog;
+
+    private Diary_log_column newHabit;
+    private EditContext editContext;
+    private ValidationMessageStore messageStore;
+
+    private List<Diary_log_column> habitCols = new List<Diary_log_column>();
+
+    public NewHabits()
+    {
+        dialog = new MessageDialog();
+
+        newHabit = new Diary_log_column();
+        editContext = new EditContext(newHabit);
+        messageStore = new ValidationMessageStore(editContext);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await InvokeAsync(() => _appState.Title = "Track new Habits");
+        await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
+
+        habitCols = await _diaryManager.GetHabitCols(_appState.CurrentUser.Id);
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task RegisterHabit()
+    {
+        messageStore.Clear();
+        if (editContext.Validate())
+        {
+            bool habitNameUsed = false;
+
+            foreach (var col in habitCols)
+            {
+                if (col.Name.Equals(newHabit.Name))
+                {
+                    habitNameUsed = true;
+                    break;
+                }
+            }
+
+            if (habitNameUsed)
+            {
+                messageStore.Add(() => newHabit.Name, "You already track this habit");
+            }
+            else
+            {
+                bool isCorrect = await _diaryManager.SetHabitCols(newHabit.Name, _appState.CurrentUser.Id);
+                if (isCorrect)
+                {
+                    newHabit = new Diary_log_column();
+                    habitCols = await _diaryManager.GetHabitCols(_appState.CurrentUser.Id);
+                    await InvokeAsync(StateHasChanged);
+                    dialog.Show();
+                }
+                else
+                    throw new Exception("Sorry, we could not register your habit");
+            }
+        }
+    }
+}
+

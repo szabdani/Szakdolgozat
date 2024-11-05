@@ -1,10 +1,11 @@
 ﻿@page "/habits"
 
 @using MauiBlazorWeb.Shared.Components.Dialogs
-@using Models
+@using Models.Diaries
 @using Interfaces
 @inject IAppState _appState
 @inject IDataAccess _data
+@inject IDiaryManager _diaryManager
 
 @if (!_appState.IsLoggedIn)
 {
@@ -13,57 +14,39 @@
 }
 else
 {
-	<button class="btn btn-primary" @onclick="InsertData">Insert</button>
-	<button class="btn btn-warning" @onclick="UpdateData">Update</button>
-	<button class="btn btn-danger" @onclick="DeleteData">Delete</button>
-
-	@if (_appState.ExistingUsers == null)
-	{
-		<p><em>Loading...</em></p>
-	}
-	else
-	{
-		foreach (var acc in _appState.ExistingUsers)
-		{
-			<p>
-				@acc.Username @acc.Gender @acc.Admin
-			</p>
-		}
-	}
+	<div class="row">
+		<div class="col-sm-2">
+			<a type="button" class="btn btn-info w-100" href="NewHabits">Add a new Habit</a>
+		</div>
+	</div>
+	<div class="row">
+		All the habits that you track
+	</div>
 }
 
 @code {
+	private List<Diary_log_column> habitCols = new List<Diary_log_column>();
+	private List<Diary_log_post> habitPosts = new List<Diary_log_post>();
 	protected override async Task OnInitializedAsync()
 	{
-		await InvokeAsync(() => _appState.Title = "Habits");
+		await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(true));
+
+		await InvokeAsync(() => _appState.Title = "Habit Tracker");
 		await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
+
+		habitCols = await _diaryManager.GetHabitCols(_appState.CurrentUser.Id);
+		if (habitCols.Count != 0)
+		{
+			foreach (var col in habitCols)
+			{
+				var result = await _diaryManager.GetDiaryPosts(col.Id);
+				if(result.Count != 0)
+					habitPosts.AddRange(result);
+			}
+		}
+
+		await InvokeAsync(StateHasChanged);
+		await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(false));
 	}
-
-	private async Task InsertData()
-	{
-		string sql = "Insert into account (username, gender) values (@a, @c);";
-
-		await _data.SaveData(sql, new { a = "random", c = "Male"});
-
-		await OnInitializedAsync();
-	}
-
-	private async Task UpdateData()
-	{
-		string sql = "Update account set gender = 'Other' where username = 'random'";
-		await _data.SaveData(sql, new { });
-
-		await OnInitializedAsync();
-	}
-
-	private async Task DeleteData()
-	{
-		string sql = "Delete from account where  gender = 'Other'";
-		await _data.SaveData(sql, new { });
-
-		await OnInitializedAsync();
-	}
-
-
 }
 

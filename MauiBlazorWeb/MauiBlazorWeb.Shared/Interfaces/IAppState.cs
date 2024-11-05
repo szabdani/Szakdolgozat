@@ -9,7 +9,6 @@ namespace MauiBlazorWeb.Shared.Interfaces
         string? Title { get; set; }
         bool IsLoggedIn { get; }
         bool IsInitialized { get; }
-        bool IsLoading { get; set; }
         Account CurrentUser { get; set; }
         List<Account> ExistingUsers { get; set; }
         MainLayout MainLayout { get; set; }

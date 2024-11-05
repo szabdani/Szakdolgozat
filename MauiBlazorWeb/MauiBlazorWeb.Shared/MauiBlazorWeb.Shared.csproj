@@ -40,4 +40,10 @@
     <None Include="wwwroot\css\def_user.jpg" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Components\Pages\NewHabits.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+  </ItemGroup>
+
 </Project>
