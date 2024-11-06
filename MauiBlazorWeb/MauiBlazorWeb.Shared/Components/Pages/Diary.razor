@@ -11,10 +11,16 @@
 }
 else
 {
-
+	<button type="button" class="btn btn-info w-100" @onclick="()=>newHabitDialog.Show()">Add a new Habit</button>
+	<button type="button" class="btn btn-info w-100" @onclick="()=>editHabitDialog.Show(new Models.Diaries.Diary_log_column())">edit Habit</button>
+	<NewDiaryColDialog RerenderParent="()=> InvokeAsync(StateHasChanged)" @ref=newHabitDialog />
+	<EditDiaryColDialog RerenderParent="()=> InvokeAsync(StateHasChanged)" @ref=editHabitDialog />
 }
 
 @code {
+	private NewDiaryColDialog newHabitDialog = new NewDiaryColDialog();
+	private EditDiaryColDialog editHabitDialog = new EditDiaryColDialog();
+
 	protected override async Task OnInitializedAsync()
 	{
 		await InvokeAsync(() => _appState.Title = "Diary");

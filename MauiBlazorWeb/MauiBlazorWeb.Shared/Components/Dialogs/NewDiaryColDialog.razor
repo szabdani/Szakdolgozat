@@ -1,0 +1,178 @@
+﻿@using Models.Diaries
+@using Interfaces
+@inject IAppState _appState
+@inject IDataAccess _data
+@inject IDiaryManager _diaryManager
+
+@if (isVisible)
+{
+    <div class="modal fade show" style="display:block" tabindex="-1" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add a new @diaryOrHabit</h5>
+                    <button type="button" class="btn-close" aria-label="Close" @onclick="Hide"></button>
+                </div>
+                <EditForm EditContext=editContext OnSubmit=RegisterColumn>
+                    <DataAnnotationsValidator />
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group row">
+                                    <label class="col col-form-label">New @diaryOrHabit:</label>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col">
+                                        <div class="col">
+                                            <InputText class="form-control" @bind-Value=newCol.Name />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col">
+                                        <ValidationMessage For="@(() => newCol.Name)" />
+                                    </div>
+                                </div>
+                            </div>
+                            @if (!IsHabit)
+                            {
+                                <div class="form-group row">
+                                    <div class="col">
+                                        <label class="col col-form-label">Choose a type:</label>
+                                    </div>
+                                    <div class="col">
+                                        <div class="col">
+                                            <InputSelect class="form-control" @bind-Value=newCol.Type>
+                                                @foreach (var dType in Enum.GetValues(typeof(DiaryColumnType)))
+                                                {
+                                                    if (!dType.Equals(DiaryColumnType.Habit))
+                                                    {
+                                                        <option value="@dType">@dType</option>
+                                                    }   
+                                                }
+                                            </InputSelect>
+                                        </div>
+                                    </div>
+                                </div>
+                                @if (newCol.Type.Equals(DiaryColumnType.NumberRange))
+                                {
+                                    <div class="col">
+                                        <div class="form-group row">
+                                            <div class="col">
+                                                <label class="col col-form-label">Minimum:</label>
+                                            </div>
+                                            <div class="col">
+                                                <div class="col">
+                                                    <InputNumber class="form-control" @bind-Value=newCol.Value_range_min />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col">
+                                                <label class="col col-form-label">Maximum:</label>
+                                            </div>
+                                            <div class="col">
+                                                <div class="col">
+                                                    <InputNumber class="form-control" @bind-Value=newCol.Value_range_max />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col">
+                                                <ValidationMessage For="@(() => newCol.Value_range_max)" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                } 
+                            }
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-warning flex-column" value="Enter" />
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
+}
+
+@code {
+    [Parameter] public Func<Task>? RerenderParent { get; set; }
+    [Parameter] public bool IsHabit { get; set; } = false;
+
+    private string diaryOrHabit = "Diary column";
+    private bool isVisible = false;
+    public void Show() => isVisible = true;
+    public void Hide() => isVisible = false;
+
+    private Diary_log_column newCol;
+    private EditContext editContext;
+    private ValidationMessageStore messageStore;
+
+    public NewDiaryColDialog()
+    {
+        newCol = new Diary_log_column();
+        editContext = new EditContext(newCol);
+        messageStore = new ValidationMessageStore(editContext);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (IsHabit)
+        {
+            newCol.Type = DiaryColumnType.Habit;
+            diaryOrHabit = "Habit";
+
+            await InvokeAsync(StateHasChanged);
+        } 
+    }
+
+    private async Task RegisterColumn()
+    {
+        messageStore.Clear();
+        if (editContext.Validate())
+        {
+            bool colNameUsed = false;
+
+            var existingCols = await _diaryManager.GetDiaryCols(_appState.CurrentUser.Id, IsHabit);
+
+            foreach (var col in existingCols)
+            {
+                if (col.Name.Equals(newCol.Name))
+                {
+                    colNameUsed = true;
+                    break;
+                }
+            }
+
+            if (colNameUsed)
+            {
+                messageStore.Add(() => newCol.Name, $"You already track this {diaryOrHabit}");
+            }
+            else
+            {
+                if (newCol.Type.Equals(DiaryColumnType.NumberRange) && (newCol.Value_range_min>newCol.Value_range_max))
+                {
+                    messageStore.Add(() => newCol.Value_range_max, "Min value can not be higher than max value.");
+                }
+                else
+                {
+                    newCol.Account_Id = _appState.CurrentUser.Id;
+
+                    bool isCorrect = await _diaryManager.InsertDiaryCols(newCol);
+                    if (isCorrect)
+                    {
+                        newCol = new Diary_log_column();
+                        if (RerenderParent is not null)
+                            await InvokeAsync(RerenderParent);
+                        Hide();
+                    }
+                    else
+                        throw new Exception($"Sorry, we could not register your {diaryOrHabit}");
+                } 
+            }
+        }
+    }
+}
+

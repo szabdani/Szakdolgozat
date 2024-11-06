@@ -1,8 +1,10 @@
 ﻿@page "/habits"
 
 @using MauiBlazorWeb.Shared.Components.Dialogs
+@using MauiBlazorWeb.Shared.Components.Images
 @using Models.Diaries
 @using Interfaces
+
 @inject IAppState _appState
 @inject IDataAccess _data
 @inject IDiaryManager _diaryManager
@@ -15,42 +17,45 @@
 else
 {
 	<div class="row">
-		<div class="table-responsive">
-			<table class="table table-hover">
-				<thead class="thead-light">
+		<table class="table table-hover">
+			<thead class="thead-light">
+				<tr>
+					<th scope="col">Date</th>
+					@foreach (var col in habitCols)
+					{
+						<th scope="col">
+							@col.Name
+							<button class="btn btn-warning flex-column" @onclick="() => editHabitDialog.Show(col)">
+								<IconEdit />
+							</button>
+						</th>
+					}
+					<th scope="col">
+						<button type="button" class="btn btn-info w-100" @onclick="()=>newHabitDialog.Show()">Add a new Habit</button>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var date in uniqueDates)
+				{
 					<tr>
-						<th scope="col">Date</th>
+						<th scope="row">@date</th>
 						@foreach (var col in habitCols)
 						{
-							<th scope="col">@col.Name</th>
+							var post = habitPosts.FirstOrDefault(p => p.Diary_log_column_Id == col.Id && p.Date == date);
+							<td @onclick="() => ToggleValue(col.Id, date)">
+								@(post?.Value ?? "")
+							</td>
 						}
-						<th scope="col">
-							<button type="button" class="btn btn-info w-100" @onclick="()=>newHabitDialog.Show()">Add a new Habit</button>
-						</th>
 					</tr>
-				</thead>
-				<tbody>
-					@foreach (var date in uniqueDates)
-					{
-						<tr>
-							<th scope="row">@date</th>
-							@foreach (var col in habitCols)
-							{
-								var post = habitPosts.FirstOrDefault(p => p.Diary_log_column_Id == col.Id && p.Date == date);
-								<td @onclick="() => ToggleValue(col.Id, date)">
-									@(post?.Value ?? "")
-								</td>
-							}
-						</tr>
-					}
-					<tr>
-						<th scope="row">
-							<button type="button" class="btn btn-info w-100" @onclick="()=>newPostDialog.Show()">New Post</button>
-						</th>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+				}
+				<tr>
+					<th scope="row">
+						<button type="button" class="btn btn-info w-100" @onclick="()=>newPostDialog.Show()">New Post</button>
+					</th>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 	<div class="row">
 		<div class="col-sm-6" style="background-color: #cde9e9">
@@ -61,8 +66,9 @@ else
 		</div>
 	</div>
 
-	<NewHabitDialog RerenderParent="UpdateTables" @ref=newHabitDialog />
-	<NewHabitPostDialog RerenderParent="UpdateTables" @ref=newPostDialog />
+	<NewDiaryColDialog IsHabit="true" RerenderParent="UpdateTables" @ref=newHabitDialog />
+	<EditDiaryColDialog IsHabit="true" RerenderParent="UpdateTables" @ref=editHabitDialog />
+	<NewDiaryPostDialog RerenderParent="UpdateTables" @ref=newPostDialog />
 }
 
 @code {
@@ -70,10 +76,11 @@ else
 	private List<Diary_log_post> habitPosts = new List<Diary_log_post>();
 	private List<DateOnly> uniqueDates = new List<DateOnly>();
 
-	private NewHabitDialog newHabitDialog = new NewHabitDialog();
-	private NewHabitPostDialog newPostDialog = new NewHabitPostDialog();
+	private NewDiaryColDialog newHabitDialog = new NewDiaryColDialog();
+	private EditDiaryColDialog editHabitDialog = new EditDiaryColDialog();
+	private NewDiaryPostDialog newPostDialog = new NewDiaryPostDialog();
 
-	private DateOnly today = DateOnly.FromDateTime(DateTime.Now);	
+	private DateOnly today = DateOnly.FromDateTime(DateTime.Now);
 
 	protected override async Task OnInitializedAsync()
 	{
@@ -84,13 +91,13 @@ else
 
 		await UpdateTables();
 
-		
+
 		await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(false));
 	}
 
 	private async Task UpdateTables()
 	{
-		habitCols = await _diaryManager.GetHabitCols(_appState.CurrentUser.Id);
+		habitCols = await _diaryManager.GetDiaryCols(_appState.CurrentUser.Id, true);
 		foreach (var col in habitCols)
 		{
 			var result = await _diaryManager.GetDiaryColumnsPosts(col.Id);

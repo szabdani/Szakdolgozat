@@ -1,4 +1,4 @@
-﻿@if (IsVisible)
+﻿@if (isVisible)
 {
     <div class="modal fade show" style="display:block" tabindex="-1" aria-modal="true" role="dialog">
         <div class="modal-dialog modal-dialog-centered">
@@ -27,8 +27,8 @@
     [Parameter]
     public string Link { get; set; } = "";
 
-    private bool IsVisible { get; set; } = false;
-    public void Show() => IsVisible = true;
-    public void Hide() => IsVisible = false;
+    private bool isVisible = false;
+    public void Show() => isVisible = true;
+    public void Hide() => isVisible = false;
 }
 

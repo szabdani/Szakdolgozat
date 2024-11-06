@@ -22,8 +22,8 @@ namespace MauiBlazorWeb.Shared.Services
         public async Task<bool> UpdateDiaryCols(Diary_log_column oldCol)
         {
             IDataAccess _data = new DataAccess();
-            string sql = "Update Diary_log_column set name = @name, type = @type, Value_range_min = @min, Value_range_max = @max,Account_Id = @userid, where id = @colid ;";
-            int affectedRows = await _data.SaveData(sql, new { name = oldCol.Name, type = oldCol.Type, min = oldCol.Value_range_min, max = oldCol.Value_range_max, userid = oldCol.Account_Id, colid = oldCol.Id });
+            string sql = "Update Diary_log_column set name = @name, type = @type, Value_range_min = @min, Value_range_max = @max,Account_Id = @userid where id = @colid ;";
+            int affectedRows = await _data.SaveData(sql, new { name = oldCol.Name, type = oldCol.Type.ToString(), min = oldCol.Value_range_min, max = oldCol.Value_range_max, userid = oldCol.Account_Id, colid = oldCol.Id });
             return affectedRows != 0;
         }
         public async Task<bool> DeleteDiaryCols(Diary_log_column oldCol)
@@ -59,12 +59,15 @@ namespace MauiBlazorWeb.Shared.Services
             return affectedRows != 0;
         }
 
-        public async Task<List<Diary_log_column>> GetHabitCols(int accountId)
+        public async Task<List<Diary_log_column>> GetDiaryCols(int accountId, bool isHabit)
         {
             IDataAccess _data = new DataAccess();
-            string sql = "Select * from Diary_log_column where Account_id = @userid and type = 'Habit';";
+
+            string relation = isHabit ? "=" : "!=";
+            string sql = $"Select * from Diary_log_column where Account_id = @userid and type {relation} 'Habit';";
             return await _data.LoadData<Diary_log_column, dynamic>(sql, new { @userid = accountId });
         }
+
         public async Task<List<Diary_log_post>> GetDiaryColumnsPosts(int columnId)
         {
             IDataAccess _data = new DataAccess();

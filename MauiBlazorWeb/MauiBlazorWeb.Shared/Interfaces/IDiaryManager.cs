@@ -11,7 +11,8 @@ namespace MauiBlazorWeb.Shared.Interfaces
         Task<bool> UpdateDiaryPost(Diary_log_post oldPost);
         Task<bool> UpdateDiaryCols(Diary_log_column oldCol);
 
+        Task<List<Diary_log_column>> GetDiaryCols(int accountId, bool isHabit);
         Task<List<Diary_log_post>> GetDiaryColumnsPosts(int columnId);
-        Task<List<Diary_log_column>> GetHabitCols(int accountId);
+        
     }
 }
