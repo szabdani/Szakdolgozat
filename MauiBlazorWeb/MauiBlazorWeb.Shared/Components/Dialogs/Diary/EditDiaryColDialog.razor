@@ -10,16 +10,16 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Add a new @diaryOrHabit</h5>
+                    <h5 class="modal-title">Edit @title</h5>
                     <button type="button" class="btn-close" aria-label="Close" @onclick="Hide"></button>
                 </div>
-                <EditForm EditContext=editContext OnSubmit=RegisterColumn>
+                <EditForm EditContext=editContext OnSubmit=EditCol>
                     <DataAnnotationsValidator />
                     <div class="modal-body">
                         <div class="row">
                             <div class="col">
                                 <div class="form-group row">
-                                    <label class="col col-form-label">New @diaryOrHabit:</label>
+                                    <label class="col col-form-label">@diaryOrHabit name:</label>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col">
@@ -88,7 +88,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <input type="submit" class="btn btn-warning flex-column" value="Enter" />
+                        <input type="submit" class="btn btn-warning flex-column" value="Edit" />
+                        <input class="btn btn-danger flex-column" @onclick="DeleteCol" value="Delete" />
                     </div>
                 </EditForm>
             </div>
@@ -101,16 +102,22 @@
     [Parameter] public Func<Task>? RerenderParent { get; set; }
     [Parameter] public bool IsHabit { get; set; } = false;
 
+    private string title = "";
     private string diaryOrHabit = "Diary column";
     private bool isVisible = false;
-    public void Show() => isVisible = true;
+    public void Show(Diary_log_column col)
+    {
+        newCol = col;
+        title = newCol.Name;
+        isVisible = true;
+    }
     public void Hide() => isVisible = false;
 
     private Diary_log_column newCol;
     private EditContext editContext;
     private ValidationMessageStore messageStore;
 
-    public NewDiaryPostDialog()
+    public EditDiaryColDialog()
     {
         newCol = new Diary_log_column();
         editContext = new EditContext(newCol);
@@ -128,51 +135,61 @@
         }
     }
 
-    private async Task RegisterColumn()
+    private async Task EditCol()
     {
         messageStore.Clear();
-        if (editContext.Validate())
+        if (newCol.Name != "")
         {
-            bool colNameUsed = false;
+            bool habitNameUsed = false;
 
-            var existingCols = await _diaryManager.GetDiaryCols(_appState.CurrentUser.Id, IsHabit);
-
-            foreach (var col in existingCols)
+            var habitCols = await _diaryManager.GetDiaryCols(_appState.CurrentUser.Id, newCol.Type.Equals(DiaryColumnType.Habit));
+            foreach (var col in habitCols)
             {
                 if (col.Name.Equals(newCol.Name))
                 {
-                    colNameUsed = true;
+                    habitNameUsed = true;
                     break;
                 }
             }
-
-            if (colNameUsed)
+            if (habitNameUsed)
             {
                 messageStore.Add(() => newCol.Name, $"You already track this {diaryOrHabit}");
             }
             else
             {
-                if (newCol.Type.Equals(DiaryColumnType.NumberRange) && (newCol.Value_range_min > newCol.Value_range_max))
+                bool isCorrect = await _diaryManager.UpdateDiaryCols(newCol);
+                if (isCorrect)
                 {
-                    messageStore.Add(() => newCol.Value_range_max, "Min value can not be higher than max value.");
+                    newCol = new Diary_log_column();
+                    if (RerenderParent is not null)
+                        await InvokeAsync(RerenderParent);
+                    Hide();
                 }
                 else
-                {
-                    newCol.Account_Id = _appState.CurrentUser.Id;
-
-                    bool isCorrect = await _diaryManager.InsertDiaryCols(newCol);
-                    if (isCorrect)
-                    {
-                        newCol = new Diary_log_column();
-                        if (RerenderParent is not null)
-                            await InvokeAsync(RerenderParent);
-                        Hide();
-                    }
-                    else
-                        throw new Exception($"Sorry, we could not register your {diaryOrHabit}");
-                }
+                    throw new Exception($"Sorry, we could not edit {newCol.Name}");
             }
         }
+    }
+
+    private async Task DeleteCol()
+    {
+        var posts = await _diaryManager.GetDiaryColumnsPosts(newCol.Id);
+        foreach(var p in posts)
+        {
+            bool fail = !await _diaryManager.DeleteDiaryPost(p);
+            if (fail)
+                throw new Exception($"Sorry, we could not delete post from {newCol.Name}");
+        }
+
+        bool isCorrect = await _diaryManager.DeleteDiaryCols(newCol);
+        if (isCorrect)
+        {
+            if (RerenderParent is not null)
+                await InvokeAsync(RerenderParent);
+            Hide();
+        }
+        else
+            throw new Exception($"Sorry, we could not delete {newCol.Name}");
     }
 }
 

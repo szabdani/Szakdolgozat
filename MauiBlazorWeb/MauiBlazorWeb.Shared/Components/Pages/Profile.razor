@@ -1,5 +1,6 @@
 ﻿@page "/profile"
 
+@using MauiBlazorWeb.Shared.Components.Dialogs.Account
 @using MauiBlazorWeb.Shared.Components.Dialogs
 @using Interfaces
 @inject IAppState _appState
@@ -63,39 +64,39 @@ else
 			Import data
 		</div>
 	</div>
-	<EditDialog RerenderParent="RerenderProfile" @ref="usernameEdit">
+	<EditAccountDialog RerenderParent="RerenderProfile" @ref="usernameEdit">
 		<EditUsernameDialog />
-	</EditDialog>
-	<EditDialog RerenderParent="RerenderProfile" @ref="passwordEdit">
+	</EditAccountDialog>
+	<EditAccountDialog RerenderParent="RerenderProfile" @ref="passwordEdit">
 		<EditPasswordDialog />
-	</EditDialog>
-	<EditDialog RerenderParent="RerenderProfile" @ref="emailEdit">
+	</EditAccountDialog>
+	<EditAccountDialog RerenderParent="RerenderProfile" @ref="emailEdit">
 		<EditEmailDialog />
-	</EditDialog>
-	<EditDialog RerenderParent="RerenderProfile" @ref="birthdateEdit">
+	</EditAccountDialog>
+	<EditAccountDialog RerenderParent="RerenderProfile" @ref="birthdateEdit">
 		<EditBirthdateDialog />
-	</EditDialog>
-	<EditDialog RerenderParent="RerenderProfile" @ref="genderEdit">
+	</EditAccountDialog>
+	<EditAccountDialog RerenderParent="RerenderProfile" @ref="genderEdit">
 		<EditGenderDialog />
-	</EditDialog>
+	</EditAccountDialog>
 
 }
 
 @code {
-	private EditDialog usernameEdit;
-	private EditDialog passwordEdit;
-	private EditDialog emailEdit;
-	private EditDialog birthdateEdit;
-	private EditDialog genderEdit;
+	private EditAccountDialog usernameEdit;
+	private EditAccountDialog passwordEdit;
+	private EditAccountDialog emailEdit;
+	private EditAccountDialog birthdateEdit;
+	private EditAccountDialog genderEdit;
 	
 
 	public Profile()
 	{
-		usernameEdit = new EditDialog();
-		passwordEdit = new EditDialog();
-		emailEdit = new EditDialog();
-		birthdateEdit = new EditDialog();
-		genderEdit = new EditDialog();
+		usernameEdit = new EditAccountDialog();
+		passwordEdit = new EditAccountDialog();
+		emailEdit = new EditAccountDialog();
+		birthdateEdit = new EditAccountDialog();
+		genderEdit = new EditAccountDialog();
 	}
 
 	public async Task RerenderProfile()

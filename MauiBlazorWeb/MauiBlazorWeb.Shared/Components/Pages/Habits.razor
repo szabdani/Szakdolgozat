@@ -1,5 +1,6 @@
 ﻿@page "/habits"
 
+@using MauiBlazorWeb.Shared.Components.Dialogs.Diary
 @using MauiBlazorWeb.Shared.Components.Dialogs
 @using MauiBlazorWeb.Shared.Components.Images
 @using Models.Diaries
@@ -39,7 +40,7 @@ else
 				@foreach (var date in uniqueDates)
 				{
 					<tr>
-						<th scope="row">@date</th>
+						<th scope="row">@date.ToString("yyyy-MM-dd")</th>
 						@foreach (var col in habitCols)
 						{
 							var post = habitPosts.FirstOrDefault(p => p.Diary_log_column_Id == col.Id && p.Date == date);
@@ -47,11 +48,14 @@ else
 								@(post?.Value ?? "")
 							</td>
 						}
+						<td>
+							Delete DialogEntry @date
+						</td>
 					</tr>
 				}
 				<tr>
 					<th scope="row">
-						<button type="button" class="btn btn-info w-100" @onclick="()=>newPostDialog.Show()">New Post</button>
+						<button type="button" class="btn btn-info w-100" @onclick="()=>newEntryDialog.Show()">New Post</button>
 					</th>
 				</tr>
 			</tbody>
@@ -68,19 +72,28 @@ else
 
 	<NewDiaryColDialog IsHabit="true" RerenderParent="UpdateTables" @ref=newHabitDialog />
 	<EditDiaryColDialog IsHabit="true" RerenderParent="UpdateTables" @ref=editHabitDialog />
-	<NewDiaryPostDialog RerenderParent="UpdateTables" @ref=newPostDialog />
+	<NewDiaryEntryDialog IsHabit="true" RerenderParent="UpdateTables" @ref=newEntryDialog />
 }
 
 @code {
-	private List<Diary_log_column> habitCols = new List<Diary_log_column>();
-	private List<Diary_log_post> habitPosts = new List<Diary_log_post>();
-	private List<DateOnly> uniqueDates = new List<DateOnly>();
+	private List<Diary_log_column> habitCols;
+	private List<Diary_log_post> habitPosts;
+	private List<DateTime> uniqueDates;
 
-	private NewDiaryColDialog newHabitDialog = new NewDiaryColDialog();
-	private EditDiaryColDialog editHabitDialog = new EditDiaryColDialog();
-	private NewDiaryPostDialog newPostDialog = new NewDiaryPostDialog();
+	private NewDiaryColDialog newHabitDialog;
+	private EditDiaryColDialog editHabitDialog;
+	private NewDiaryEntryDialog newEntryDialog;
 
-	private DateOnly today = DateOnly.FromDateTime(DateTime.Now);
+	public Habits()
+	{
+		habitCols = new List<Diary_log_column>();
+		habitPosts = new List<Diary_log_post>();
+		uniqueDates = new List<DateTime>();
+
+		newHabitDialog = new NewDiaryColDialog();
+		editHabitDialog = new EditDiaryColDialog();
+		newEntryDialog = new NewDiaryEntryDialog();
+	}
 
 	protected override async Task OnInitializedAsync()
 	{
@@ -98,24 +111,14 @@ else
 	private async Task UpdateTables()
 	{
 		habitCols = await _diaryManager.GetDiaryCols(_appState.CurrentUser.Id, true);
-		foreach (var col in habitCols)
-		{
-			var result = await _diaryManager.GetDiaryColumnsPosts(col.Id);
-			habitPosts.AddRange(result);
-		}
-
-		uniqueDates = habitPosts
-		.Select(obj => obj.Date)
-		.Distinct()
-		.OrderBy(date => date)
-		.ToList();
+		habitPosts = await _diaryManager.GetDiaryPosts(_appState.CurrentUser.Id, true);
+		uniqueDates = await _diaryManager.GetUniquePostDates(_appState.CurrentUser.Id, true);
 
 		await InvokeAsync(StateHasChanged);
 	}
 
-	private async Task ToggleValue(int colId, DateOnly date)
+	private async Task ToggleValue(int colId, DateTime date)
 	{
-		await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(true));
 		var post = habitPosts.FirstOrDefault(p => p.Diary_log_column_Id == colId && p.Date == date);
 		if (post == null)
 		{
@@ -129,7 +132,6 @@ else
 		}
 
 		await UpdateTables();
-		await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(false));
 	}
 }
 

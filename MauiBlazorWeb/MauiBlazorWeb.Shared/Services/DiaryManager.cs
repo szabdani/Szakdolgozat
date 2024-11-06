@@ -11,7 +11,6 @@ namespace MauiBlazorWeb.Shared.Services
 {
     public class DiaryManager : IDiaryManager
     {
-
         public async Task<bool> InsertDiaryCols(Diary_log_column newCol)
         {
             IDataAccess _data = new DataAccess();
@@ -33,21 +32,18 @@ namespace MauiBlazorWeb.Shared.Services
             int affectedRows = await _data.SaveData(sql, new { postid = oldCol.Id });
             return affectedRows != 0;
         }
-
-        
         public async Task<bool> InsertDiaryPost(Diary_log_post newPost)
         {
             IDataAccess _data = new DataAccess();
             string sql = "Insert into Diary_log_post (date, value, diary_log_column_id) values (@date, @value, @colid);";
-            int affectedRows = await _data.SaveData(sql, new { date = newPost.Date, value = newPost.Value, colid = newPost.Diary_log_column_Id });
+            int affectedRows = await _data.SaveData(sql, new { date = newPost.Date.ToString("yyyy-MM-dd"), value = newPost.Value, colid = newPost.Diary_log_column_Id });
             return affectedRows != 0;
         }
-
         public async Task<bool> UpdateDiaryPost(Diary_log_post oldPost)
         {
             IDataAccess _data = new DataAccess();
             string sql = "Update Diary_log_post set date = @date, value = @value, Diary_log_column_Id = @colid where id = @postid;";
-            int affectedRows = await _data.SaveData(sql, new { date = oldPost.Date, value = oldPost.Value, colid = oldPost.Diary_log_column_Id, postid = oldPost.Id });
+            int affectedRows = await _data.SaveData(sql, new { date = oldPost.Date.ToString("yyyy-MM-dd"), value = oldPost.Value, colid = oldPost.Diary_log_column_Id, postid = oldPost.Id });
             return affectedRows != 0;
         }
 
@@ -73,6 +69,22 @@ namespace MauiBlazorWeb.Shared.Services
             IDataAccess _data = new DataAccess();
             string sql = "Select * from Diary_log_post where Diary_log_column_id = @colid order by date;";
             return await _data.LoadData<Diary_log_post, dynamic>(sql, new { @colid = columnId });
+        }
+        public async Task<List<Diary_log_post>> GetDiaryPosts(int accountId, bool isHabit)
+        {
+            IDataAccess _data = new DataAccess();
+            List<Diary_log_post> retVal = new List<Diary_log_post>();
+
+            var cols = await GetDiaryCols(accountId, isHabit);
+            foreach (var col in cols)
+                retVal.AddRange(await GetDiaryColumnsPosts(col.Id));
+
+            return retVal;
+        }
+        public async Task<List<DateTime>> GetUniquePostDates(int accountId, bool isHabit)
+        {
+            var list = await GetDiaryPosts(accountId, isHabit);
+            return list.Select(obj => obj.Date).Distinct().OrderBy(date => date).ToList();
         }
     }
 }

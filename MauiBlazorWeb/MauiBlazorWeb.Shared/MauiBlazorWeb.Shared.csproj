@@ -48,7 +48,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Components\Dialogs\NewDiaryColDialog.razor">
+    <Content Update="Components\Dialogs\Diary\NewDiaryColDialog.razor">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>
   </ItemGroup>
