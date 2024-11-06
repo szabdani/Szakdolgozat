@@ -64,7 +64,7 @@
         messageStore.Clear();
         var uniqueDates = await _diaryManager.GetUniquePostDates(_appState.CurrentUser.Id, IsHabit);
 
-        if (uniqueDates.Any(d => d.Date == newDate.Date))
+        if (uniqueDates.Any(d => d.Date.Equals(newDate.Date)))
         {
             messageStore.Add(() => newDate, $"This date is already tracked");
         }

@@ -140,18 +140,18 @@
         messageStore.Clear();
         if (newCol.Name != "")
         {
-            bool habitNameUsed = false;
+            bool diaryNameUsed = false;
 
-            var habitCols = await _diaryManager.GetDiaryCols(_appState.CurrentUser.Id, newCol.Type.Equals(DiaryColumnType.Habit));
-            foreach (var col in habitCols)
+            var diaryCols = await _diaryManager.GetDiaryCols(_appState.CurrentUser.Id, newCol.Type.Equals(DiaryColumnType.Habit));
+            foreach (var col in diaryCols)
             {
                 if (col.Name.Equals(newCol.Name))
                 {
-                    habitNameUsed = true;
+                    diaryNameUsed = true;
                     break;
                 }
             }
-            if (habitNameUsed)
+            if (diaryNameUsed)
             {
                 messageStore.Add(() => newCol.Name, $"You already track this {diaryOrHabit}");
             }

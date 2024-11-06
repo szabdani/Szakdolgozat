@@ -2,7 +2,7 @@
 
 @using MauiBlazorWeb.Shared.Components.Dialogs.Diary
 @using MauiBlazorWeb.Shared.Components.Dialogs
-@using MauiBlazorWeb.Shared.Components.Images
+@using MauiBlazorWeb.Shared.Components.Icons
 @using Models.Diaries
 @using Interfaces
 
@@ -18,7 +18,7 @@
 else
 {
 	<div class="row">
-		<table class="table table-hover">
+		<table class="table table-hover text-center">
 			<thead class="thead-light">
 				<tr>
 					<th scope="col">Date</th>
@@ -26,13 +26,15 @@ else
 					{
 						<th scope="col">
 							@col.Name
-							<button class="btn btn-warning flex-column" @onclick="() => editHabitDialog.Show(col)">
+							<button class="btn btn-warning" @onclick="() => editHabitDialog.Show(col)">
 								<IconEdit />
 							</button>
 						</th>
 					}
 					<th scope="col">
-						<button type="button" class="btn btn-info w-100" @onclick="()=>newHabitDialog.Show()">Add a new Habit</button>
+						<button class="btn btn-info" @onclick="() => newHabitDialog.Show()">
+							<IconAdd />
+						</button>
 					</th>
 				</tr>
 			</thead>
@@ -43,30 +45,43 @@ else
 						<th scope="row">@date.ToString("yyyy-MM-dd")</th>
 						@foreach (var col in habitCols)
 						{
-							var post = habitPosts.FirstOrDefault(p => p.Diary_log_column_Id == col.Id && p.Date == date);
+							var post = habitPosts.FirstOrDefault(p => p.Diary_log_column_Id.Equals(col.Id) && p.Date.Equals(date));
 							<td @onclick="() => ToggleValue(col.Id, date)">
 								@(post?.Value ?? "")
 							</td>
 						}
 						<td>
-							Delete DialogEntry @date
+							<button class="btn btn-danger" @onclick="() => DeleteRow(date)">
+								<IconDelete />
+							</button>
 						</td>
 					</tr>
 				}
 				<tr>
 					<th scope="row">
-						<button type="button" class="btn btn-info w-100" @onclick="()=>newEntryDialog.Show()">New Post</button>
+						<button type="button" class="btn btn-info w-100" @onclick="()=>newEntryDialog.Show()">
+							<IconAdd />
+						</button>
 					</th>
+					@foreach (var col in habitCols)
+					{
+						<th>
+							@habitPosts.Where(p => p.Diary_log_column_Id.Equals(col.Id) && p.Value == "X").Count()
+						</th>
+					}
 				</tr>
 			</tbody>
 		</table>
 	</div>
 	<div class="row">
 		<div class="col-sm-6" style="background-color: #cde9e9">
-			Statisztika gyakorisagrol
+			Statisztika gyakoriságról<br/>
+			lehet választani adatok, heti/havi/évi/összes felosztáson, és a megjelenésen is<br/>
+			ezeket a táblákat meg kell jegyezni, lehet újakat felvenni, itt maradnak ezen a képernyőn és frissülnek mindig
 		</div>
 		<div class="col-sm-5" style="background-color: #12e9e9">
-			Nezet valtas
+			Nézet váltás<br/>
+			egy szokást ki lehet választani és arról lesz naptár, hogy mikor teljesítették, statisztika x/y alakalommal, xy% gyakoriság
 		</div>
 	</div>
 
@@ -115,6 +130,19 @@ else
 		uniqueDates = await _diaryManager.GetUniquePostDates(_appState.CurrentUser.Id, true);
 
 		await InvokeAsync(StateHasChanged);
+	}
+
+	private async Task DeleteRow(DateTime date)
+	{
+		habitPosts = await _diaryManager.GetDiaryPosts(_appState.CurrentUser.Id, true);
+		foreach (var p in habitPosts.Where(p => p.Date.Equals(date)))
+		{
+			bool fail = !await _diaryManager.DeleteDiaryPost(p);
+			if (fail)
+				throw new Exception($"Sorry, we could not delete post.");
+		}
+
+		await UpdateTables();
 	}
 
 	private async Task ToggleValue(int colId, DateTime date)

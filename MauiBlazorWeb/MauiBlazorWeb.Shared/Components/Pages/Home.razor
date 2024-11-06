@@ -13,20 +13,25 @@
 }
 else
 {
-	<h1>This your dashboard</h1>
-	@if (_appState.ExistingUsers == null)
-	{
-		<p><em>Loading...</em></p>
-	}
-	else
-	{
-		foreach (var acc in _appState.ExistingUsers)
-		{
-			<p>
-				@acc.Username @acc.Gender @acc.Admin
-			</p>
-		}
-	}
+	<div class="row">
+		<div class="col" style="background-color: #cde9e9">
+			Naptár<br />
+			Amelyik nap volt bejegyzés azt teli karikával jelölni, mai napot pirossal.<br />
+			Napra kattintva megnyitja annak a napnak az oldalát
+		</div>
+		<div class="col" style="background-color: #12e9e9">
+			Szokások kilistázva<br/>
+			Lehet köztük görgetni és kipipálással megváltozik a nézetük
+		</div>
+		<div class="col" style="background-color: #f310e9">
+			<div class="row" style="background-color: #e2fef9">
+				Stat kép 1
+			</div>
+			<div class="row" style="background-color: #f211e9">
+				Stat kép 2
+			</div>
+		</div>
+	</div>
 }
 
 @code

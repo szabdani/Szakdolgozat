@@ -2,29 +2,169 @@
 
 @using MauiBlazorWeb.Shared.Components.Dialogs.Diary
 @using MauiBlazorWeb.Shared.Components.Dialogs
+@using MauiBlazorWeb.Shared.Components.Icons
+@using Models.Diaries
 @using Interfaces
+
 @inject IAppState _appState
+@inject IDataAccess _data
+@inject IDiaryManager _diaryManager
 
 @if (!_appState.IsLoggedIn)
 {
-    <h1>This page is only available to users!</h1>
-    <LoginPrompt />
+	<h1>This page is only available to users!</h1>
+	<LoginPrompt />
 }
 else
 {
-	<button type="button" class="btn btn-info w-100" @onclick="()=>newHabitDialog.Show()">Add a new Habit</button>
-	<button type="button" class="btn btn-info w-100" @onclick="()=>editHabitDialog.Show(new Models.Diaries.Diary_log_column())">edit Habit</button>
-	<NewDiaryColDialog RerenderParent="()=> InvokeAsync(StateHasChanged)" @ref=newHabitDialog />
-	<EditDiaryColDialog RerenderParent="()=> InvokeAsync(StateHasChanged)" @ref=editHabitDialog />
+	<div class="row">
+		<table class="table table-hover text-center">
+			<thead class="thead-light">
+				<tr>
+					<th scope="col">Date</th>
+					@foreach (var col in diaryCols)
+					{
+						<th scope="col">
+							@col.Name
+							<button class="btn btn-warning" @onclick="() => editDiaryDialog.Show(col)">
+								<IconEdit />
+							</button>
+						</th>
+					}
+					<th scope="col">
+						<button class="btn btn-info" @onclick="() => newDiaryDialog.Show()">
+							<IconAdd />
+						</button>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var date in uniqueDates)
+				{
+					<tr>
+						<th scope="row">@date.ToString("yyyy-MM-dd")</th>
+						@foreach (var col in diaryCols)
+						{
+							var post = diaryPosts.FirstOrDefault(p => p.Diary_log_column_Id.Equals(col.Id) && p.Date.Equals(date));
+							<td @onclick="() => ToggleValue(col.Id, date)">
+								@(post?.Value ?? "")
+							</td>
+						}
+						<td>
+							<button class="btn btn-danger" @onclick="() => DeleteRow(date)">
+								<IconDelete />
+							</button>
+						</td>
+					</tr>
+				}
+				<tr>
+					<th scope="row">
+						<button type="button" class="btn btn-info w-100" @onclick="()=>newEntryDialog.Show()">
+							<IconAdd />
+						</button>
+					</th>
+					@foreach (var col in diaryCols)
+					{
+						<th>
+							@diaryPosts.Where(p => p.Diary_log_column_Id.Equals(col.Id) && p.Value == "X").Count()
+						</th>
+					}
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="row">
+		<div class="col-sm p-1 me-2" style="background-color: #cde9e9">
+			Naptár<br/>
+			Amelyik nap volt bejegyzés azt teli karikával jelölni, mai napot pirossal.<br/>
+			Napra kattintva megnyitja annak a napnak az oldalát
+		</div>
+		<div class="col-sm p-1 me-2" style="background-color: #12e9e9">
+			Utolsó 7 nap bejegyzései
+		</div>
+		<div class="col-sm p-1">
+			<div class="row p-1 mb-2" style="background-color: #e2fef9">
+				Új oszlop felvétele
+			</div>
+			<div class="row p-1" style="background-color: #f211e9">
+				Statisztika egyes adatokról, lehet köztük léptetni
+			</div>
+		</div>
+	</div>
+
+	<NewDiaryColDialog RerenderParent="UpdateTables" @ref=newDiaryDialog />
+	<EditDiaryColDialog RerenderParent="UpdateTables" @ref=editDiaryDialog />
+	<NewDiaryEntryDialog RerenderParent="UpdateTables" @ref=newEntryDialog />
 }
 
 @code {
-	private NewDiaryColDialog newHabitDialog = new NewDiaryColDialog();
-	private EditDiaryColDialog editHabitDialog = new EditDiaryColDialog();
+	private List<Diary_log_column> diaryCols;
+	private List<Diary_log_post> diaryPosts;
+	private List<DateTime> uniqueDates;
+
+	private NewDiaryColDialog newDiaryDialog;
+	private EditDiaryColDialog editDiaryDialog;
+	private NewDiaryEntryDialog newEntryDialog;
+
+	public Diary()
+	{
+		diaryCols = new List<Diary_log_column>();
+		diaryPosts = new List<Diary_log_post>();
+		uniqueDates = new List<DateTime>();
+
+		newDiaryDialog = new NewDiaryColDialog();
+		editDiaryDialog = new EditDiaryColDialog();
+		newEntryDialog = new NewDiaryEntryDialog();
+	}
 
 	protected override async Task OnInitializedAsync()
 	{
+		await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(true));
+
 		await InvokeAsync(() => _appState.Title = "Diary");
 		await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
+		await UpdateTables();
+
+		await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(false));
+	}
+
+	private async Task UpdateTables()
+	{
+		diaryCols = await _diaryManager.GetDiaryCols(_appState.CurrentUser.Id, false);
+		diaryPosts = await _diaryManager.GetDiaryPosts(_appState.CurrentUser.Id, false);
+		uniqueDates = await _diaryManager.GetUniquePostDates(_appState.CurrentUser.Id, false);
+
+		await InvokeAsync(StateHasChanged);
+	}
+
+	private async Task DeleteRow(DateTime date)
+	{
+		diaryPosts = await _diaryManager.GetDiaryPosts(_appState.CurrentUser.Id, false);
+		foreach (var p in diaryPosts.Where(p => p.Date.Equals(date)))
+		{
+			bool fail = !await _diaryManager.DeleteDiaryPost(p);
+			if (fail)
+				throw new Exception($"Sorry, we could not delete post.");
+		}
+
+		await UpdateTables();
+	}
+
+	private async Task ToggleValue(int colId, DateTime date)
+	{
+		var post = diaryPosts.FirstOrDefault(p => p.Diary_log_column_Id == colId && p.Date == date);
+		if (post == null)
+		{
+			post = new Diary_log_post { Date = date, Value = "X", Diary_log_column_Id = colId };
+			await _diaryManager.InsertDiaryPost(post);
+		}
+		else
+		{
+			post.Value = post.Value == "X" ? "" : "X";
+			await _diaryManager.UpdateDiaryPost(post);
+		}
+
+		await UpdateTables();
 	}
 }
+
