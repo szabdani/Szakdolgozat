@@ -12,75 +12,89 @@
 
 @if (!_appState.IsLoggedIn)
 {
-	<h1>This page is only available to users!</h1>
-	<LoginPrompt />
+	<div class="row">
+		<div class="col m-2" style="background-color: #ffefef">
+			<div class="row">
+				<div class ="col">
+					<h1>This page is only available to users!</h1>
+				</div>
+			</div>
+			<div class="row">
+				<div class ="col">
+					<LoginPrompt />
+				</div>
+			</div>
+		</div>
+	</div>
 }
 else
 {
 	<div class="row">
-		<table class="table table-hover text-center">
-			<thead class="thead-light">
-				<tr>
-					<th scope="col">Date</th>
-					@foreach (var col in habitCols)
-					{
-						<th scope="col">
-							@col.Name
-							<button class="btn btn-warning" @onclick="() => editHabitDialog.Show(col)">
-								<IconEdit />
-							</button>
-						</th>
-					}
-					<th scope="col">
-						<button class="btn btn-info" @onclick="() => newHabitDialog.Show()">
-							<IconAdd />
-						</button>
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-				@foreach (var date in uniqueDates)
-				{
+		<div class="col m-2" style="background-color: #ffefef">
+			<table class="table table-hover text-center">
+				<thead class="thead-light">
 					<tr>
-						<th scope="row">@date.ToString("yyyy-MM-dd")</th>
+						<th scope="col">Date</th>
 						@foreach (var col in habitCols)
 						{
-							var post = habitPosts.FirstOrDefault(p => p.Diary_log_column_Id.Equals(col.Id) && p.Date.Equals(date));
-							<td @onclick="() => ToggleValue(col.Id, date)">
-								@(post?.Value ?? "")
-							</td>
+							<th scope="col">
+								@col.Name
+								<button class="btn btn-warning" @onclick="() => editHabitDialog.Show(col)">
+									<IconEdit />
+								</button>
+							</th>
 						}
-						<td>
-							<button class="btn btn-danger" @onclick="() => DeleteRow(date)">
-								<IconDelete />
+						<th scope="col">
+							<button class="btn btn-info" @onclick="() => newHabitDialog.Show()">
+								<IconAdd />
 							</button>
-						</td>
-					</tr>
-				}
-				<tr>
-					<th scope="row">
-						<button type="button" class="btn btn-info w-100" @onclick="()=>newEntryDialog.Show()">
-							<IconAdd />
-						</button>
-					</th>
-					@foreach (var col in habitCols)
-					{
-						<th>
-							@habitPosts.Where(p => p.Diary_log_column_Id.Equals(col.Id) && p.Value == "X").Count()
 						</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var date in uniqueDates)
+					{
+						<tr>
+							<th scope="row">@date.ToString("yyyy-MM-dd")</th>
+							@foreach (var col in habitCols)
+							{
+								var post = habitPosts.FirstOrDefault(p => p.Diary_log_column_Id.Equals(col.Id) && p.Date.Equals(date));
+								<td @onclick="() => ToggleValue(col.Id, date)">
+									@(post?.Value ?? "")
+								</td>
+							}
+							<td>
+								<button class="btn btn-danger" @onclick="() => DeleteRow(date)">
+									<IconDelete />
+								</button>
+							</td>
+						</tr>
 					}
-				</tr>
-			</tbody>
-		</table>
+					<tr>
+						<th scope="row">
+							<button type="button" class="btn btn-info w-100" @onclick="()=>newEntryDialog.Show()">
+								<IconAdd />
+							</button>
+						</th>
+						@foreach (var col in habitCols)
+						{
+							<th>
+								@habitPosts.Where(p => p.Diary_log_column_Id.Equals(col.Id) && p.Value == "X").Count()
+							</th>
+						}
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
 	<div class="row">
-		<div class="col-sm-6" style="background-color: #cde9e9">
-			Statisztika gyakoriságról<br/>
-			lehet választani adatok, heti/havi/évi/összes felosztáson, és a megjelenésen is<br/>
+		<div class="col m-2" style="background-color: #ffefef">
+			Statisztika gyakoriságról<br />
+			lehet választani adatok, heti/havi/évi/összes felosztáson, és a megjelenésen is<br />
 			ezeket a táblákat meg kell jegyezni, lehet újakat felvenni, itt maradnak ezen a képernyőn és frissülnek mindig
 		</div>
-		<div class="col-sm-5" style="background-color: #12e9e9">
-			Nézet váltás<br/>
+		<div class="col m-2" style="background-color: #ffefef">
+			Nézet váltás<br />
 			egy szokást ki lehet választani és arról lesz naptár, hogy mikor teljesítették, statisztika x/y alakalommal, xy% gyakoriság
 		</div>
 	</div>

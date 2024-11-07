@@ -7,13 +7,25 @@
 
 @if (!_appState.IsLoggedIn)
 {
-	<h1>This page is only available to users!</h1>
-	<LoginPrompt />
+	<div class="row">
+		<div class="col m-2" style="background-color: #ffefef">
+			<div class="row">
+				<div class ="col">
+					<h1>This page is only available to users!</h1>
+				</div>
+			</div>
+			<div class="row">
+				<div class ="col">
+					<LoginPrompt />
+				</div>
+			</div>
+		</div>
+	</div>
 }
 else
 {
 	<div class="row">
-		<div class="col">
+		<div class="col m-2" style="background-color: #ffefef">
 			<div class="row">
 				<label class="col-sm-2">Username:</label>
 				<div class="col-sm-4">
@@ -60,10 +72,11 @@ else
 				</div>
 			</div>
 		</div>
-		<div class="col">
+		<div class="col m-2" style="background-color: #ffefef">
 			Import data
 		</div>
 	</div>
+
 	<EditAccountDialog RerenderParent="RerenderProfile" @ref="usernameEdit">
 		<EditUsernameDialog />
 	</EditAccountDialog>
@@ -79,7 +92,6 @@ else
 	<EditAccountDialog RerenderParent="RerenderProfile" @ref="genderEdit">
 		<EditGenderDialog />
 	</EditAccountDialog>
-
 }
 
 @code {

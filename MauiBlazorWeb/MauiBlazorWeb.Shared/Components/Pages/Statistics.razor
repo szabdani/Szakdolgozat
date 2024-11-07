@@ -6,22 +6,36 @@
 
 @if (!_appState.IsLoggedIn)
 {
-	<h1>This page is only available to users!</h1>
-	<LoginPrompt />
+	<div class="row">
+		<div class="col m-2" style="background-color: #ffefef">
+			<div class="row">
+				<div class="col">
+					<h1>This page is only available to users!</h1>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<LoginPrompt />
+				</div>
+			</div>
+		</div>
+	</div>
 }
 else
 {
 	<div class="row">
-		Heti/hav/évi/összes
+		<div class="col m-2" style="background-color: #ffefef">
+			Heti/hav/évi/összes
+		</div>
 	</div>
 	<div class="row">
-		<div class="col-sm-5" style="background-color: #cde9e9">
+		<div class="col m-2" style="background-color: #ffefef">
 			Diary statisztikái, gráfjai
 		</div>
-		<div class="col-sm-4" style="background-color: #12e9e9">
+		<div class="col m-2" style="background-color: #ffefef">
 			Habit tracker statisztikái, gráfjai
 		</div>
-		<div class="col-sm-3" style="background-color: #f310e9">
+		<div class="col m-2" style="background-color: #ffefef">
 			Új statisztika/gráf felvétele<br/>
 			ki lehet választani melyik adatból milyen megjelenéssel<br/>
 			kezelni lehet a meglévőket, változtatni rajtuk pl. kinézetet

@@ -8,27 +8,35 @@
 
 @if (!_appState.IsLoggedIn)
 {
-	<h1>Welcome to LifeTracker</h1>
-	<LoginPrompt />
+	<div class="row">
+		<div class="col m-2" style="background-color: #ffefef">
+			<h1>Welcome to LifeTracker</h1>
+			<LoginPrompt />
+		</div>
+	</div>
 }
 else
 {
 	<div class="row">
-		<div class="col" style="background-color: #cde9e9">
+		<div class="col m-2" style="background-color: #ffefef">
 			Naptár<br />
 			Amelyik nap volt bejegyzés azt teli karikával jelölni, mai napot pirossal.<br />
 			Napra kattintva megnyitja annak a napnak az oldalát
 		</div>
-		<div class="col" style="background-color: #12e9e9">
+		<div class="col m-2" style="background-color: #ffefef">
 			Szokások kilistázva<br/>
 			Lehet köztük görgetni és kipipálással megváltozik a nézetük
 		</div>
-		<div class="col" style="background-color: #f310e9">
-			<div class="row" style="background-color: #e2fef9">
-				Stat kép 1
+		<div class="col m-2">
+			<div class="row mb-2" style="background-color: #ffefef">
+				<div class = "col">
+					Stat kép 1
+				</div>
 			</div>
-			<div class="row" style="background-color: #f211e9">
-				Stat kép 2
+			<div class="row" style="background-color: #ffefef">
+				<div class="col">
+					Stat kép 2
+				</div>
 			</div>
 		</div>
 	</div>
