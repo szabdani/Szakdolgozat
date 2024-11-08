@@ -1,10 +1,12 @@
 ﻿@page "/"
 
 @using MauiBlazorWeb.Shared.Components.Dialogs
-@using Models
+@using MauiBlazorWeb.Shared.Components.Dialogs.Diary
+@using Models.Diaries
 @using Interfaces
 
 @inject IAppState _appState
+@inject IDiaryManager _diaryManager
 
 @if (!_appState.IsLoggedIn)
 {
@@ -19,13 +21,42 @@ else
 {
 	<div class="row">
 		<div class="col m-2" style="background-color: #ffefef">
-			Naptár<br />
-			Amelyik nap volt bejegyzés azt teli karikával jelölni, mai napot pirossal.<br />
-			Napra kattintva megnyitja annak a napnak az oldalát
+			<div class="row">
+				<div class = "col">
+					<DiaryCalendar/>
+				</div>
+			</div>
+			<div class="row">
+				<div class = "col">
+					
+				</div>
+			</div>
 		</div>
 		<div class="col m-2" style="background-color: #ffefef">
-			Szokások kilistázva<br/>
-			Lehet köztük görgetni és kipipálással megváltozik a nézetük
+			<div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+				<table class="table table-hover text-center">
+					<thead class="thead-light" style="position: sticky; top: 0; z-index: 1; background-color: #ffefef">
+						<tr>
+							<th scope="col">Habits</th>
+							<th scope="col">Did today?</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var col in habitCols)
+						{
+							<tr>
+								<td>@col.Name</td>
+								@{
+									var post = habitPosts.FirstOrDefault(p => p.Diary_log_column_Id.Equals(col.Id) && p.Date.Equals(today.Date));
+									<td @onclick="() => ToggleValue(col.Id)">
+										@(post?.Value ?? "")
+									</td>
+								}
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
 		</div>
 		<div class="col m-2">
 			<div class="row mb-2" style="background-color: #ffefef">
@@ -44,9 +75,53 @@ else
 
 @code
 {
+	private List<Diary_log_column> habitCols;
+	private List<Diary_log_post> habitPosts;
+	private DateTime today;
+
+	public Home()
+	{
+		habitCols = new List<Diary_log_column>();
+		habitPosts = new List<Diary_log_post>();
+		today = DateTime.Now;
+	}
+
 	protected override async Task OnInitializedAsync()
 	{
+		await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(true));
+
 		await InvokeAsync(() => _appState.Title = "Home");
 		await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
+
+		await UpdateTables();
+
+
+		await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(false));
 	}
+
+	private async Task UpdateTables()
+	{
+		habitCols = await _diaryManager.GetDiaryCols(_appState.CurrentUser.Id, true);
+		habitPosts = await _diaryManager.GetDiaryPosts(_appState.CurrentUser.Id, true);
+
+		await InvokeAsync(StateHasChanged);
+	}
+
+	private async Task ToggleValue(int colId)
+	{
+		var post = habitPosts.FirstOrDefault(p => p.Diary_log_column_Id == colId && p.Date == today.Date);
+		if (post == null)
+		{
+			post = new Diary_log_post { Date = today.Date, Value = "X", Diary_log_column_Id = colId };
+			await _diaryManager.InsertDiaryPost(post);
+		}
+		else
+		{
+			post.Value = post.Value == "X" ? "" : "X";
+			await _diaryManager.UpdateDiaryPost(post);
+		}
+
+		await UpdateTables();
+	}
+
 }

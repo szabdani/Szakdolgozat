@@ -1,4 +1,5 @@
 ﻿@using MauiBlazorWeb.Shared.Components.Pages
+@using MauiBlazorWeb.Shared.Components.Icons
 @using Interfaces
 @using Blazored.LocalStorage
 
@@ -24,8 +25,8 @@
     }
 </div>
 <NavLink class="nav-link d-flex align-items-center text-white" @onclick="ToggleDropdown">
-    <img src=@_appState.CurrentUser.PfpPath width="32" height="32" class="rounded-circle me-2">
-    <strong>@_appState.CurrentUser.Username</strong>
+    <IconAccount/>
+    <strong class="mx-2">@_appState.CurrentUser.Username</strong>
 </NavLink>
 
 @code {

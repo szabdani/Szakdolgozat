@@ -30,9 +30,6 @@ namespace MauiBlazorWeb.Shared.Models
         public GenderType Gender { get; set; }
 
         public bool Admin { get; set; } = false;
-
-        public string? PfpPath { get; set; } = "";
-
         public string LoginUsername { get; set; } = "";
         public string LoginPassword { get; set; } = "";
     }

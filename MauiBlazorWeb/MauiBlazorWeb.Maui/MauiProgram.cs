@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Blazored.LocalStorage;
 using MauiBlazorWeb.Shared.Services;
+using Syncfusion.Blazor;
 
 namespace MauiBlazorWeb.Maui
 {
@@ -38,7 +39,10 @@ namespace MauiBlazorWeb.Maui
             // Diary DB accesses
             builder.Services.AddScoped<IDiaryManager, DiaryManager>();
 
-            builder.Services.AddMauiBlazorWebView();
+			// For calendar component
+			builder.Services.AddSyncfusionBlazor();
+
+			builder.Services.AddMauiBlazorWebView();
 
 #if DEBUG
     		builder.Services.AddBlazorWebViewDeveloperTools();

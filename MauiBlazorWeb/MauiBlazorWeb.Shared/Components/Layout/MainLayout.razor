@@ -2,7 +2,7 @@
 @using Models
 @using Interfaces
 @using MauiBlazorWeb.Shared.Components.Dialogs
-@using Blazored.LocalStorage
+@using Blazored.LocalStorage    
 
 @inject ILocalStorageService _localStorage
 @inject NavigationManager Navigation
@@ -74,9 +74,10 @@
             if (!_appState.IsInitialized)
             {
                 await _appState.Init(_localStorage);
-            }
+                Navigation.NavigateTo("", forceLoad: true);
+            } 
             isLoading = false;
-            await RerenderLayout(); 
+            await InvokeAsync(StateHasChanged);
         }  
     }
 
