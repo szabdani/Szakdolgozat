@@ -89,8 +89,6 @@ else
 	protected override async Task OnInitializedAsync()
 	{
 		await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(true));
-		await InvokeAsync(() => _appState.Title = "Home");
-
 		await UpdateTables();
 	}
 
@@ -98,6 +96,7 @@ else
 	{
 		if (firstRender)
 		{
+			await InvokeAsync(() => _appState.Title = "Home");
 			await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
 			await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(false));
 		}

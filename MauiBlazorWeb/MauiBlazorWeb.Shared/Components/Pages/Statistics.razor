@@ -44,9 +44,12 @@ else
 }
 
 @code {
-	protected override async Task OnInitializedAsync()
+	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		await InvokeAsync(() => _appState.Title = "Statistics");
-		await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
+		if (firstRender)
+		{
+			await InvokeAsync(() => _appState.Title = "Statistics");
+			await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
+		}
 	}
 }

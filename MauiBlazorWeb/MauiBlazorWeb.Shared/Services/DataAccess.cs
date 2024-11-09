@@ -25,9 +25,17 @@ namespace MauiBlazorWeb.Shared.Interfaces
 		{
 			using (IDbConnection connection = GetConnection())
 			{
-				var rows = await connection.QueryAsync<T>(sql, parameters);
+				try
+				{
+					var rows = await connection.QueryAsync<T>(sql, parameters);
 
-                return rows.ToList();
+					return rows.ToList();
+				}
+				catch (Exception e)
+				{
+					throw new Exception("Error loading data to the database");
+				}
+				
 			}
 		}
 
@@ -35,7 +43,15 @@ namespace MauiBlazorWeb.Shared.Interfaces
 		{
 			using (IDbConnection connection = GetConnection())
 			{
-                return await connection.ExecuteAsync(sql, parameters);
+				try
+				{
+					return await connection.ExecuteAsync(sql, parameters);
+				}
+				catch (Exception e)
+				{
+					throw new Exception("Error saving data to the database");
+				}
+				
 			}
         }
 	}

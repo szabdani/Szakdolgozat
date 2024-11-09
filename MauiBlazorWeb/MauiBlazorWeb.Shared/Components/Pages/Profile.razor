@@ -111,14 +111,17 @@ else
 		genderEdit = new EditAccountDialog();
 	}
 
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await InvokeAsync(() => _appState.Title = "Profile");
+			await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
+		}
+	}
+
 	public async Task RerenderProfile()
 	{
 		await InvokeAsync(StateHasChanged);
 	}	 
-
-	protected override async Task OnInitializedAsync()
-	{
-		await InvokeAsync(() => _appState.Title = "Profile");
-		await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
-	}
 }

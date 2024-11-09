@@ -73,7 +73,7 @@
                 Navigation.NavigateTo("", forceLoad: true);
             } 
             isLoading = false;
-            await InvokeAsync(StateHasChanged);
+            await InvokeAsync(RerenderLayout);
         }  
     }
 }

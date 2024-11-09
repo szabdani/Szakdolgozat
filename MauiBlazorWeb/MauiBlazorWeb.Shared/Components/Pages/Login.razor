@@ -57,12 +57,6 @@ else
 }
 
 @code {
-    protected override async Task OnInitializedAsync()
-    {
-        await InvokeAsync(() => _appState.Title = "Login");
-        await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
-    }
-
     private LoginRegUser newAccount;
     private EditContext editContext;
     private ValidationMessageStore messageStore;
@@ -84,6 +78,8 @@ else
     {
         if (firstRender)
         {
+            await InvokeAsync(() => _appState.Title = "Login");
+            await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
             if (!_appState.IsLoggedIn)
                 await startUsername.FocusAsync();
         }
