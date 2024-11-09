@@ -23,12 +23,7 @@ else
 		<div class="col m-2" style="background-color: #ffefef">
 			<div class="row">
 				<div class = "col">
-					<Calendar SpecialDates="uniqueDates" OnDayClickAction="OpenDay" />
-				</div>
-			</div>
-			<div class="row">
-				<div class = "col">
-					
+					<Calendar Title="Diary Entries" SpecialDates="uniqueDates" OnDayClickAction="OpenDay" />
 				</div>
 			</div>
 		</div>
@@ -47,8 +42,8 @@ else
 							<tr>
 								<th>@col.Name</th>
 								@{
-									var post = habitPosts.FirstOrDefault(p => p.Diary_log_column_Id.Equals(col.Id) && p.Date.Equals(today.Date));
-									<td @onclick="() => ToggleValue(col.Id)">
+									var post = habitPosts.FirstOrDefault(p => p.Diary_log_column_Id == col.Id && p.Date == DateTime.Now.Date);
+									<td class="tracker-post" @onclick="() => ToggleValue(col.Id)">
 										@(post?.Value ?? "")
 									</td>
 								}
@@ -73,22 +68,14 @@ else
 	</div>
 }
 <style>
-	.lightrow {
-		background-color: #ffefef;
-	}
-
-	.darkrow {
-		background-color: #f2e3e3;
-	}
-
-	td {
+	.tracker-post {
 		vertical-align: middle;
 		background-color: #f9f9f9;
 		cursor: pointer;
 		transition: background-color 0.3s;
 	}
 
-		td:hover {
+		.tracker-post:hover {
 			background-color: #d0f0ff;
 		}
 </style>
@@ -98,13 +85,11 @@ else
 	private List<Diary_log_column> habitCols;
 	private List<Diary_log_post> habitPosts;
 	private List<DateTime> uniqueDates;
-	private DateTime today;
 
 	public Home()
 	{
 		habitCols = new List<Diary_log_column>();
 		habitPosts = new List<Diary_log_post>();
-		today = DateTime.Now;;
 		uniqueDates = new List<DateTime>();
 	}
 
@@ -131,22 +116,14 @@ else
 		habitPosts = await _diaryManager.GetDiaryPosts(_appState.CurrentUser.Id, true);
 
 		await InvokeAsync(StateHasChanged);
+		await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(false));
 	}
 
 	private async Task ToggleValue(int colId)
 	{
-		var post = habitPosts.FirstOrDefault(p => p.Diary_log_column_Id == colId && p.Date == today.Date);
-		if (post == null)
-		{
-			post = new Diary_log_post { Date = today.Date, Value = "X", Diary_log_column_Id = colId };
-			await _diaryManager.InsertDiaryPost(post);
-		}
-		else
-		{
-			post.Value = post.Value == "X" ? "" : "X";
-			await _diaryManager.UpdateDiaryPost(post);
-		}
+		await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(true));
 
+		await _diaryManager.ToggleHabitValue(colId, DateTime.Now.Date);
 		await UpdateTables();
 	}
 

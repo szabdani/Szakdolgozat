@@ -4,6 +4,11 @@
 @inject IAppState _appState
 @inject IDiaryManager _diaryManager
 
+@if (Title is not null)
+{
+    <h3>@Title</h3>
+}
+
 <div class="calendar-container">
     <div class="calendar-nav">
         <button class="btn btn-info" @onclick="ShowPrevMonth">Prev</button>
@@ -35,6 +40,7 @@
 </div>
 
 @code {
+    [Parameter] public string? Title { get; set; }
     [Parameter] public Func<Task>? RerenderParent { get; set; }
     [Parameter] public List<DateTime> SpecialDates { get; set; }
     [Parameter] public Func<DateTime, Task>? OnDayClickAction { get; set; }

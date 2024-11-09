@@ -22,10 +22,10 @@
 {
 	<div class="row">
 		<div class="col">
-			<Calendar RerenderParent="()=> InvokeAsync(StateHasChanged)" SpecialDates="doneDates" OnDayClickAction="Toggle" @ref="calendar" />
+			<Calendar Title="@title" RerenderParent="UpdateDates" SpecialDates="doneDates" OnDayClickAction="Toggle" @ref="calendar" />
 		</div>
 		<div class="col">
-			<table class="table text-center">
+			<table class="table text-center" style="table-layout: fixed;">
 				<thead>
 					<tr>
 						<th scope="col">Time span</th>
@@ -36,23 +36,47 @@
 				<tbody>
 					<tr>
 						<td>This Week</td>
-						<td>x/7</td>
-						<td>y %</td>
+						<td>
+							@doneDates.Where(d => IsDateThisWeek(d)).Count() 
+							/ 
+							7
+						</td>
+						<td>
+							@((doneDates.Where(d => IsDateThisWeek(d)).Count() / (double)7).ToString("0.##%"))
+						</td>
 					</tr>
 					<tr>
 						<td>@calendar.CalendarDate.ToString("MMMM")</td>
-						<td>x / @DateTime.DaysInMonth(calendar.CalendarDate.Year, calendar.CalendarDate.Month)</td>
-						<td>y %</td>
+						<td>
+							@doneDates.Where(d => d.Month == calendar.CalendarDate.Month && d.Year == calendar.CalendarDate.Year).Count()
+							/
+							@DateTime.DaysInMonth(calendar.CalendarDate.Year, calendar.CalendarDate.Month)
+						</td>
+						<td>
+							@((doneDates.Where(d => d.Month == calendar.CalendarDate.Month && d.Year == calendar.CalendarDate.Year).Count() / (double)DateTime.DaysInMonth(calendar.CalendarDate.Year, calendar.CalendarDate.Month)).ToString("0.##%"))
+						</td>
 					</tr>
 					<tr>
 						<td>@calendar.CalendarDate.ToString("yyyy")</td>
-						<td>x / @(DateTime.IsLeapYear(calendar.CalendarDate.Year) ? 366 : 365)</td>
-						<td>y %</td>
+						<td>
+							@doneDates.Where(d => d.Year == calendar.CalendarDate.Year).Count()
+							/ 
+							@(DateTime.IsLeapYear(calendar.CalendarDate.Year) ? 366 : 365)
+						</td>
+						<td>
+							@((doneDates.Where(d => d.Year == calendar.CalendarDate.Year).Count() / (double)(DateTime.IsLeapYear(calendar.CalendarDate.Year) ? 366 : 365)).ToString("0.##%"))
+						</td>
 					</tr>
 					<tr>
 						<td>All time</td>
-						<td>x/7</td>
-						<td>y %</td>
+						<td>
+							@posts.Where(p => p.Value == "X").Count() 
+							/
+							@posts.Count()
+						</td>
+						<td>
+							@((posts.Where(p => p.Value == "X").Count() / (double)posts.Count()).ToString("0.##%"))
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -64,6 +88,7 @@
 	[Parameter] public Func<Task>? RerenderParent { get; set; }
 	[Parameter] public List<Diary_log_column> AllCols { get; set; }
 
+	private string title = "-";
 	private bool isColViewSet = false;
 	private int colId = 0;
 
@@ -85,18 +110,46 @@
 	{
 		posts = await _diaryManager.GetDiaryColumnsPosts(colId);
 		doneDates = posts.Where(p => p.Value == "X").Select(p => p.Date).Distinct().OrderBy(date => date).ToList();
+		await InvokeAsync(StateHasChanged);
+
+		await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(false));
 	}
 
 	private async Task ShowView()
 	{
+		await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(true));
+
+		string? name = AllCols.FirstOrDefault(c => c.Id == colId)?.Name;
+		if(name is not null)
+			title = $"{name} Entries";
+
 		await UpdateDates();
 		isColViewSet = true;
 	}
 
 	private async Task Toggle(DateTime day)
 	{
+		await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(true));
+
 		await _diaryManager.ToggleHabitValue(colId, day);
 		if (RerenderParent is not null)
 			await InvokeAsync(RerenderParent);
+
+		await UpdateDates();
+	}
+
+	private bool IsDateThisWeek(DateTime date)
+	{
+		DateTime today = DateTime.Today;
+
+		int daysSinceMonday = (int)today.DayOfWeek - 1;
+		if (daysSinceMonday < 0) 
+			daysSinceMonday += 7;
+
+
+		DateTime monday = today.AddDays(-daysSinceMonday);
+		DateTime sunday = monday.AddDays(6);
+
+		return date.Date >= monday && date.Date <= sunday;
 	}
 }

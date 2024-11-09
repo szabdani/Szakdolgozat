@@ -88,6 +88,7 @@ else
     private async Task ProcessLogin()
     {
         await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(true));
+
         bool userExists = false;
         messageStore.Clear();
         
@@ -129,6 +130,7 @@ else
         {
             messageStore.Add(() => newAccount.LoginUsername, "This username is not registered.");
         }
+
         await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(false));
     }
 }

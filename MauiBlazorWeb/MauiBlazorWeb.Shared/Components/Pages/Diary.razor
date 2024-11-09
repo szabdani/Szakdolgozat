@@ -58,7 +58,7 @@ else
 							<th scope="row">@date.ToString("yyyy-MM-dd")</th>
 							@foreach (var col in diaryCols)
 							{
-								var post = diaryPosts.FirstOrDefault(p => p.Diary_log_column_Id.Equals(col.Id) && p.Date.Equals(date));
+								var post = diaryPosts.FirstOrDefault(p => p.Diary_log_column_Id == col.Id && p.Date == date);
 								<td @onclick="() => ToggleValue(col.Id, date)">
 									@(post?.Value ?? "")
 								</td>
@@ -79,7 +79,7 @@ else
 						@foreach (var col in diaryCols)
 						{
 							<th>
-								@diaryPosts.Where(p => p.Diary_log_column_Id.Equals(col.Id) && p.Value == "X").Count()
+								@diaryPosts.Where(p => p.Diary_log_column_Id == col.Id && p.Value == "X").Count()
 							</th>
 						}
 					</tr>
@@ -89,7 +89,7 @@ else
 	</div>
 	<div class="row">
 		<div class="col m-2" style="background-color: #ffefef">
-			<Calendar SpecialDates="uniqueDates" OnDayClickAction="OpenDay" />
+			<Calendar Title="Diary Entries" SpecialDates="uniqueDates" OnDayClickAction="OpenDay" />
 		</div>
 		<div class="col m-2" style="background-color: #ffefef">
 			Utolsó 7 nap bejegyzései
@@ -156,12 +156,15 @@ else
 		uniqueDates = await _diaryManager.GetUniquePostDates(_appState.CurrentUser.Id, false);
 
 		await InvokeAsync(StateHasChanged);
+		await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(false));
 	}
 
 	private async Task DeleteRow(DateTime date)
 	{
+		await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(true));
+
 		diaryPosts = await _diaryManager.GetDiaryPosts(_appState.CurrentUser.Id, false);
-		foreach (var p in diaryPosts.Where(p => p.Date.Equals(date)))
+		foreach (var p in diaryPosts.Where(p => p.Date == date))
 		{
 			bool fail = !await _diaryManager.DeleteDiaryPost(p);
 			if (fail)
@@ -173,18 +176,9 @@ else
 
 	private async Task ToggleValue(int colId, DateTime date)
 	{
-		var post = diaryPosts.FirstOrDefault(p => p.Diary_log_column_Id == colId && p.Date == date);
-		if (post == null)
-		{
-			post = new Diary_log_post { Date = date, Value = "X", Diary_log_column_Id = colId };
-			await _diaryManager.InsertDiaryPost(post);
-		}
-		else
-		{
-			post.Value = post.Value == "X" ? "" : "X";
-			await _diaryManager.UpdateDiaryPost(post);
-		}
+		await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(true));
 
+		await _diaryManager.ToggleHabitValue(colId, date);
 		await UpdateTables();
 	}
 
