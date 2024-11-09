@@ -28,8 +28,8 @@
 }
 else
 {
-	<div class="row">
-		<div class="col m-2" style="background-color: #ffefef">
+	<div class="row" style="overflow-x: auto;">
+		<div class="col m-2" style="background-color: #ffefef;">
 			<div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
 				<table class="table table-hover text-center">
 					<thead class="thead-light" style="position: sticky; top: 0; z-index: 1; background-color: #ffefef">
@@ -79,7 +79,7 @@ else
 							</tr>
 						}
 					</tbody>
-					<tfoot style="position: sticky; bottom: 0; z-index: 1; background-color: #ffefef">
+					<tfoot style="position: sticky; bottom: 0; background-color: #ffefef">
 						<tr>
 							<th scope="row">
 								<button type="button" class="btn btn-info w-100" @onclick="()=>newEntryDialog.Show()">

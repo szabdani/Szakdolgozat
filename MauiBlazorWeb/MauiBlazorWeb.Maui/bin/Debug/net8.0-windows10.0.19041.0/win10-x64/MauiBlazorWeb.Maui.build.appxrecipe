@@ -79,6 +79,21 @@
     <AppxPackagedFile Include="C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\f\OpenSans-Regular.ttf">
       <PackagePath>OpenSans-Regular.ttf</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-400.png">
+      <PackagePath>dotnet_bot.scale-400.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-200.png">
+      <PackagePath>dotnet_bot.scale-200.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-150.png">
+      <PackagePath>dotnet_bot.scale-150.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-125.png">
+      <PackagePath>dotnet_bot.scale-125.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-100.png">
+      <PackagePath>dotnet_bot.scale-100.png</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLargeTile.scale-400.png">
       <PackagePath>appiconLargeTile.scale-400.png</PackagePath>
     </AppxPackagedFile>
@@ -217,21 +232,6 @@
     <AppxPackagedFile Include="C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appicon.ico">
       <PackagePath>appicon.ico</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-400.png">
-      <PackagePath>dotnet_bot.scale-400.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-200.png">
-      <PackagePath>dotnet_bot.scale-200.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-150.png">
-      <PackagePath>dotnet_bot.scale-150.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-125.png">
-      <PackagePath>dotnet_bot.scale-125.png</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-100.png">
-      <PackagePath>dotnet_bot.scale-100.png</PackagePath>
-    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\MauiBlazorWeb.Maui.deps.json">
       <PackagePath>MauiBlazorWeb.Maui.deps.json</PackagePath>
     </AppxPackagedFile>
@@ -268,16 +268,16 @@
     <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\konscious.security.cryptography.blake2\1.1.1\lib\net8.0\Konscious.Security.Cryptography.Blake2.dll">
       <PackagePath>Konscious.Security.Cryptography.Blake2.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\microsoft.aspnetcore.authorization\8.0.4\lib\net8.0\Microsoft.AspNetCore.Authorization.dll">
+    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\microsoft.aspnetcore.authorization\8.0.8\lib\net8.0\Microsoft.AspNetCore.Authorization.dll">
       <PackagePath>Microsoft.AspNetCore.Authorization.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\microsoft.aspnetcore.components\8.0.4\lib\net8.0\Microsoft.AspNetCore.Components.dll">
+    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\microsoft.aspnetcore.components\8.0.8\lib\net8.0\Microsoft.AspNetCore.Components.dll">
       <PackagePath>Microsoft.AspNetCore.Components.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\microsoft.aspnetcore.components.forms\8.0.4\lib\net8.0\Microsoft.AspNetCore.Components.Forms.dll">
+    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\microsoft.aspnetcore.components.forms\8.0.8\lib\net8.0\Microsoft.AspNetCore.Components.Forms.dll">
       <PackagePath>Microsoft.AspNetCore.Components.Forms.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\microsoft.aspnetcore.components.web\8.0.4\lib\net8.0\Microsoft.AspNetCore.Components.Web.dll">
+    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\microsoft.aspnetcore.components.web\8.0.8\lib\net8.0\Microsoft.AspNetCore.Components.Web.dll">
       <PackagePath>Microsoft.AspNetCore.Components.Web.dll</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\microsoft.aspnetcore.components.webview\8.0.0\lib\net8.0\Microsoft.AspNetCore.Components.WebView.dll">
@@ -286,7 +286,7 @@
     <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\microsoft.aspnetcore.components.webview.maui\8.0.82\lib\net8.0-windows10.0.19041\Microsoft.AspNetCore.Components.WebView.Maui.dll">
       <PackagePath>Microsoft.AspNetCore.Components.WebView.Maui.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\microsoft.aspnetcore.metadata\8.0.4\lib\net8.0\Microsoft.AspNetCore.Metadata.dll">
+    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\microsoft.aspnetcore.metadata\8.0.8\lib\net8.0\Microsoft.AspNetCore.Metadata.dll">
       <PackagePath>Microsoft.AspNetCore.Metadata.dll</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\microsoft.extensions.configuration\8.0.0\lib\net8.0\Microsoft.Extensions.Configuration.dll">
@@ -346,7 +346,7 @@
     <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\microsoft.io.recyclablememorystream\3.0.1\lib\net6.0\Microsoft.IO.RecyclableMemoryStream.dll">
       <PackagePath>Microsoft.IO.RecyclableMemoryStream.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\microsoft.jsinterop\8.0.4\lib\net8.0\Microsoft.JSInterop.dll">
+    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\microsoft.jsinterop\8.0.8\lib\net8.0\Microsoft.JSInterop.dll">
       <PackagePath>Microsoft.JSInterop.dll</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\microsoft.maui.controls.compatibility\8.0.82\lib\net8.0-windows10.0.19041\Microsoft.Maui.Controls.Compatibility.dll">
@@ -417,39 +417,6 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\mysql.data\9.1.0\lib\net8.0\MySql.Data.dll">
       <PackagePath>MySql.Data.dll</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.buttons\27.1.48\lib\net8.0\Syncfusion.Blazor.Buttons.dll">
-      <PackagePath>Syncfusion.Blazor.Buttons.dll</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.calendars\27.1.48\lib\net8.0\Syncfusion.Blazor.Calendars.dll">
-      <PackagePath>Syncfusion.Blazor.Calendars.dll</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.core\27.1.48\lib\net8.0\Syncfusion.Blazor.Core.dll">
-      <PackagePath>Syncfusion.Blazor.Core.dll</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.data\27.1.48\lib\net8.0\Syncfusion.Blazor.Data.dll">
-      <PackagePath>Syncfusion.Blazor.Data.dll</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.inputs\27.1.48\lib\net8.0\Syncfusion.Blazor.Inputs.dll">
-      <PackagePath>Syncfusion.Blazor.Inputs.dll</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.lists\27.1.48\lib\net8.0\Syncfusion.Blazor.Lists.dll">
-      <PackagePath>Syncfusion.Blazor.Lists.dll</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.popups\27.1.48\lib\net8.0\Syncfusion.Blazor.Popups.dll">
-      <PackagePath>Syncfusion.Blazor.Popups.dll</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.spinner\27.1.48\lib\net8.0\Syncfusion.Blazor.Spinner.dll">
-      <PackagePath>Syncfusion.Blazor.Spinner.dll</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.splitbuttons\27.1.48\lib\net8.0\Syncfusion.Blazor.SplitButtons.dll">
-      <PackagePath>Syncfusion.Blazor.SplitButtons.dll</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\lib\net8.0\Syncfusion.Blazor.Themes.dll">
-      <PackagePath>Syncfusion.Blazor.Themes.dll</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.licensing\27.1.48\lib\net8.0\Syncfusion.Licensing.dll">
-      <PackagePath>Syncfusion.Licensing.dll</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\system.configuration.configurationmanager\8.0.0\lib\net8.0\System.Configuration.ConfigurationManager.dll">
       <PackagePath>System.Configuration.ConfigurationManager.dll</PackagePath>
@@ -618,246 +585,6 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Shared\obj\Debug\net8.0\scopedcss\projectbundle\MauiBlazorWeb.Shared.bundle.scp.css">
       <PackagePath>wwwroot\_content\MauiBlazorWeb.Shared\MauiBlazorWeb.Shared.bundle.scp.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.buttons\27.1.48\staticwebassets\scripts\sf-floating-action-button.min.js">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Buttons\scripts\sf-floating-action-button.min.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.buttons\27.1.48\staticwebassets\scripts\sf-speeddial.min.js">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Buttons\scripts\sf-speeddial.min.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.calendars\27.1.48\staticwebassets\scripts\sf-calendar.min.js">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Calendars\scripts\sf-calendar.min.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.calendars\27.1.48\staticwebassets\scripts\sf-datepicker.min.js">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Calendars\scripts\sf-datepicker.min.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.calendars\27.1.48\staticwebassets\scripts\sf-daterangepicker.min.js">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Calendars\scripts\sf-daterangepicker.min.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.calendars\27.1.48\staticwebassets\scripts\sf-timepicker.min.js">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Calendars\scripts\sf-timepicker.min.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.core\27.1.48\staticwebassets\scripts\popup.min.js">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Core\scripts\popup.min.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.core\27.1.48\staticwebassets\scripts\popupsbase.min.js">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Core\scripts\popupsbase.min.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.core\27.1.48\staticwebassets\scripts\sf-svg-export.min.js">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Core\scripts\sf-svg-export.min.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.core\27.1.48\staticwebassets\scripts\svgbase.min.js">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Core\scripts\svgbase.min.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.core\27.1.48\staticwebassets\scripts\syncfusion-blazor.min.js">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Core\scripts\syncfusion-blazor.min.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.core\27.1.48\staticwebassets\scripts\syncfusion-blazor-base.min.js">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Core\scripts\syncfusion-blazor-base.min.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.data\27.1.48\staticwebassets\scripts\data.min.js">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Data\scripts\data.min.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.inputs\27.1.48\staticwebassets\scripts\sf-colorpicker.min.js">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Inputs\scripts\sf-colorpicker.min.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.inputs\27.1.48\staticwebassets\scripts\sf-maskedtextbox.min.js">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Inputs\scripts\sf-maskedtextbox.min.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.inputs\27.1.48\staticwebassets\scripts\sf-numerictextbox.min.js">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Inputs\scripts\sf-numerictextbox.min.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.inputs\27.1.48\staticwebassets\scripts\sf-otp-input.min.js">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Inputs\scripts\sf-otp-input.min.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.inputs\27.1.48\staticwebassets\scripts\sf-rating.min.js">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Inputs\scripts\sf-rating.min.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.inputs\27.1.48\staticwebassets\scripts\sf-signature.min.js">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Inputs\scripts\sf-signature.min.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.inputs\27.1.48\staticwebassets\scripts\sf-slider.min.js">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Inputs\scripts\sf-slider.min.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.inputs\27.1.48\staticwebassets\scripts\sf-textarea.min.js">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Inputs\scripts\sf-textarea.min.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.inputs\27.1.48\staticwebassets\scripts\sf-textbox.min.js">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Inputs\scripts\sf-textbox.min.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.inputs\27.1.48\staticwebassets\scripts\sf-uploader.min.js">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Inputs\scripts\sf-uploader.min.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.lists\27.1.48\staticwebassets\scripts\sf-listview.min.js">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Lists\scripts\sf-listview.min.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.popups\27.1.48\staticwebassets\scripts\sf-dialog.min.js">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Popups\scripts\sf-dialog.min.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.popups\27.1.48\staticwebassets\scripts\sf-tooltip.min.js">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Popups\scripts\sf-tooltip.min.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.spinner\27.1.48\staticwebassets\scripts\sf-spinner.min.js">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Spinner\scripts\sf-spinner.min.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.spinner\27.1.48\staticwebassets\scripts\spinner.min.js">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Spinner\scripts\spinner.min.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.splitbuttons\27.1.48\staticwebassets\scripts\sf-drop-down-button.min.js">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.SplitButtons\scripts\sf-drop-down-button.min.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.splitbuttons\27.1.48\staticwebassets\scripts\splitbuttonsbase.min.js">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.SplitButtons\scripts\splitbuttonsbase.min.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\bds.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\bds.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\bds-dark.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\bds-dark.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\bds-dark-lite.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\bds-dark-lite.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\bds-lite.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\bds-lite.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\bootstrap.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\bootstrap.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\bootstrap4.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\bootstrap4.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\bootstrap4-lite.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\bootstrap4-lite.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\bootstrap5.3.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\bootstrap5.3.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\bootstrap5.3-dark.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\bootstrap5.3-dark.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\bootstrap5.3-dark-lite.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\bootstrap5.3-dark-lite.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\bootstrap5.3-lite.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\bootstrap5.3-lite.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\bootstrap5.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\bootstrap5.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\bootstrap5-dark.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\bootstrap5-dark.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\bootstrap5-dark-lite.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\bootstrap5-dark-lite.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\bootstrap5-lite.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\bootstrap5-lite.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\bootstrap-dark.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\bootstrap-dark.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\bootstrap-dark-lite.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\bootstrap-dark-lite.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\bootstrap-lite.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\bootstrap-lite.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\customized\material.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\customized\material.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\customized\material-dark.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\customized\material-dark.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\customized\tailwind.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\customized\tailwind.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\customized\tailwind-dark.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\customized\tailwind-dark.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\fabric.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\fabric.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\fabric-dark.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\fabric-dark.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\fabric-dark-lite.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\fabric-dark-lite.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\fabric-lite.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\fabric-lite.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\fluent.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\fluent.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\fluent2.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\fluent2.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\fluent2-dark.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\fluent2-dark.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\fluent2-dark-lite.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\fluent2-dark-lite.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\fluent2-highcontrast.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\fluent2-highcontrast.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\fluent2-highcontrast-lite.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\fluent2-highcontrast-lite.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\fluent2-lite.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\fluent2-lite.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\fluent-dark.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\fluent-dark.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\fluent-dark-lite.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\fluent-dark-lite.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\fluent-lite.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\fluent-lite.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\highcontrast.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\highcontrast.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\highcontrast-lite.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\highcontrast-lite.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\material.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\material.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\material3.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\material3.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\material3-dark.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\material3-dark.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\material3-dark-lite.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\material3-dark-lite.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\material3-lite.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\material3-lite.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\material-dark.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\material-dark.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\material-dark-lite.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\material-dark-lite.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\material-lite.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\material-lite.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\tailwind.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\tailwind.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\tailwind-dark.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\tailwind-dark.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\tailwind-dark-lite.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\tailwind-dark-lite.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\szdan\.nuget\packages\syncfusion.blazor.themes\27.1.48\staticwebassets\tailwind-lite.css">
-      <PackagePath>wwwroot\_content\Syncfusion.Blazor.Themes\tailwind-lite.css</PackagePath>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
