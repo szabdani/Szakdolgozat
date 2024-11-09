@@ -1,0 +1,175 @@
+﻿@using System.Globalization
+@using Interfaces
+
+@inject IAppState _appState
+@inject IDiaryManager _diaryManager
+
+<div class="calendar-container">
+    <div class="calendar-nav">
+        <button class="btn btn-info" @onclick="ShowPrevMonth">Prev</button>
+        <span class="calendar-title">@currentDate.Year. @currentDate.ToString("MMMM") </span>
+        <button class="btn btn-info" @onclick="ShowNextMonth">Next</button>
+    </div>
+
+    <div class="calendar-grid day-header-row">
+        @foreach (var dayName in DayNames)
+        {
+            <div class="day-header">
+                @dayName
+            </div>
+        }
+    </div>
+
+    <div class="calendar-grid">
+        @foreach (var day in calendarDays)
+        {
+            <div class="calendar-day 
+                @(day.Date == DateTime.Now.Date ? "today" : 
+                day.Month == currentDate.Month ? "current-month" : "other-month") 
+                @(SpecialDates.Any(d => d.Date == day.Date) ? "special" : "")"
+                @onclick="() => OnDayClick(day)">
+                @day.Day
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter] public List<DateTime> SpecialDates { get; set; }
+    [Parameter] public Func<DateTime, Task>? OnDayClickAction { get; set; }
+
+    private DateTime currentDate;
+    private List<DateTime> calendarDays;
+    private string[] DayNames;
+
+    public Calendar()
+    {
+        currentDate = DateTime.Now;
+        calendarDays = new List<DateTime>();
+
+        // Starts on Monday instead of Sunday
+        DayNames = CultureInfo.CurrentCulture.DateTimeFormat.AbbreviatedDayNames
+       .Skip(1)
+       .Concat(CultureInfo.CurrentCulture.DateTimeFormat.AbbreviatedDayNames.Take(1))
+       .ToArray();
+
+        SpecialDates = new List<DateTime>();
+
+        GenerateCalendar();
+    }
+
+    private void GenerateCalendar()
+    {
+        calendarDays.Clear();
+        var firstDayOfMonth = new DateTime(currentDate.Year, currentDate.Month, 1);
+        var dayOfWeek = (int)firstDayOfMonth.DayOfWeek;
+
+        // Get the start date for the calendar, starting on Monday
+        if (dayOfWeek == 0)
+            dayOfWeek = 7;
+
+        var startDate = firstDayOfMonth.AddDays(-dayOfWeek + 1);
+
+        // Fill the calendar with 42 days (6 weeks)
+        for (int i = 0; i < 42; i++)
+        {
+            calendarDays.Add(startDate.AddDays(i));
+        }
+    }
+
+    private void ShowPrevMonth()
+    {
+        currentDate = currentDate.AddMonths(-1);
+        GenerateCalendar();
+    }
+
+    private void ShowNextMonth()
+    {
+        currentDate = currentDate.AddMonths(1);
+        GenerateCalendar();
+    }
+
+    private async Task OnDayClick(DateTime day)
+    {
+        if (OnDayClickAction != null)
+        {
+            await OnDayClickAction.Invoke(day);
+        }
+    }
+}
+
+<style>
+    .calendar-container {
+        max-width: 350px;
+        margin: auto;
+        border: 1px solid #ddd;
+        padding: 16px;
+        border-radius: 8px;
+        background-color: #ffffff;
+    }
+
+    .calendar-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        font-size: 1.25rem;
+    }
+
+    .calendar-title {
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 5px;
+    }
+
+    .day-header-row {
+        font-weight: bold;
+        background-color: #e0e0e0;
+        text-align: center;
+        padding: 4px 0;
+    }
+
+    .day-header {
+        width: 40px;
+        text-align: center;
+        padding: 8px 0;
+    }
+
+    .calendar-day {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 40px;
+        width: 40px;
+        border: 1px solid #e0e0e0;
+        background-color: #f9f9f9;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+        .calendar-day:hover {
+            background-color: #d0f0ff;
+        }
+
+    .current-month {
+        color: black;
+    }
+
+    .other-month {
+        color: gray;
+    }
+
+    .today {
+        color: red;
+    }
+
+    .special {
+        background-color: #c9c9c9;
+        font-weight: bold;
+    }
+</style>

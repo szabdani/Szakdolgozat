@@ -18,6 +18,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Shared
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Calendar.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDYWxlbmRhci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Dialogs/Account/EditAccountDialog.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xEaWFsb2dzXEFjY291bnRcRWRpdEFjY291bnREaWFsb2cucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
@@ -64,10 +68,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Dialogs/MessageDialog.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xEaWFsb2dzXE1lc3NhZ2VEaWFsb2cucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/DiaryCalendar.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xEaWFyeUNhbGVuZGFyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Icons/IconAccount.razor]

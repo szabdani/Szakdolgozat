@@ -23,7 +23,7 @@ else
 		<div class="col m-2" style="background-color: #ffefef">
 			<div class="row">
 				<div class = "col">
-					<DiaryCalendar/>
+					<Calendar SpecialDates="uniqueDates" OnDayClickAction="OpenDay" />
 				</div>
 			</div>
 			<div class="row">
@@ -77,18 +77,21 @@ else
 {
 	private List<Diary_log_column> habitCols;
 	private List<Diary_log_post> habitPosts;
+	private List<DateTime> uniqueDates;
 	private DateTime today;
 
 	public Home()
 	{
 		habitCols = new List<Diary_log_column>();
 		habitPosts = new List<Diary_log_post>();
-		today = DateTime.Now;
+		today = DateTime.Now;;
+		uniqueDates = new List<DateTime>();
 	}
 
 	protected override async Task OnInitializedAsync()
 	{
 		await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(true));
+		uniqueDates = await _diaryManager.GetUniquePostDates(_appState.CurrentUser.Id, false);
 		await UpdateTables();
 	}
 
@@ -127,4 +130,8 @@ else
 		await UpdateTables();
 	}
 
+	private async Task OpenDay(DateTime day)
+	{
+		Console.WriteLine($"Day clicked: {day.ToShortDateString()}");
+	}
 }

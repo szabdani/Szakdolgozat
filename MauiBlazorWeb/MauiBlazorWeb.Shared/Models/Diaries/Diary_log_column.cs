@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace MauiBlazorWeb.Shared.Models.Diaries
 {
 	public enum DiaryColumnType {Habit, Words, NumberRange, Other}
+	public enum DiaryTimeSpan{ Week, Month, Year, All }
 	public class Diary_log_column
 	{
 		public int Id { get; set; }

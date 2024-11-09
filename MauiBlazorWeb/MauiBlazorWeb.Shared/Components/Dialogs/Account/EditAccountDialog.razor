@@ -44,8 +44,7 @@
         newAccount.Gender = _appState.CurrentUser.Gender;
     }
 
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
 
     private bool isVisible = false;
     public void Show() => isVisible = true;

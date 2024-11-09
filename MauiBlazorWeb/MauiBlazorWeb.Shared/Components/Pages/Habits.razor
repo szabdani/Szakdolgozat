@@ -31,7 +31,7 @@ else
 	<div class="row" style="overflow-x: auto;">
 		<div class="col m-2" style="background-color: #ffefef;">
 			<div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
-				<table class="table table-hover text-center">
+				<table class="table text-center">
 					<thead class="thead-light" style="position: sticky; top: 0; z-index: 1; background-color: #ffefef">
 						<tr>
 							<th scope="col">Date</th>
@@ -67,15 +67,15 @@ else
 								@foreach (var col in habitCols)
 								{
 									var post = habitPosts.FirstOrDefault(p => p.Diary_log_column_Id.Equals(col.Id) && p.Date.Equals(date));
-									<td @onclick="() => ToggleValue(col.Id, date)">
+									<td class="calendar-day" @onclick="() => ToggleValue(col.Id, date)">
 										@(post?.Value ?? "")
 									</td>
 								}
-								<td>
+								<th>
 									<button class="btn btn-danger" @onclick="() => DeleteRow(date)">
 										<IconDelete />
 									</button>
-								</td>
+								</th>
 							</tr>
 						}
 					</tbody>
@@ -117,6 +117,19 @@ else
 	<EditDiaryColDialog IsHabit="true" RerenderParent="UpdateTables" @ref=editHabitDialog />
 	<NewDiaryEntryDialog IsHabit="true" RerenderParent="UpdateTables" @ref=newEntryDialog />
 }
+
+<style>
+	td {
+		vertical-align: middle;
+		background-color: #f9f9f9;
+		cursor: pointer;
+		transition: background-color 0.3s;
+	}
+
+		td:hover {
+			background-color: #d0f0ff;
+		}
+</style>
 
 @code {
 	private string color = "#ffefef";
