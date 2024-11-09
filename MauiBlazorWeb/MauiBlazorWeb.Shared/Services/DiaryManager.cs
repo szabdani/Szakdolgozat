@@ -86,5 +86,21 @@ namespace MauiBlazorWeb.Shared.Services
             var list = await GetDiaryPosts(accountId, isHabit);
             return list.Select(obj => obj.Date).Distinct().OrderBy(date => date).ToList();
         }
-    }
+
+		public async Task ToggleHabitValue(int colId, DateTime date)
+		{
+            var posts = await GetDiaryColumnsPosts(colId);
+            var post = posts.FirstOrDefault(p => p.Date == date);
+			if (post == null)
+			{
+				post = new Diary_log_post { Date = date, Value = "X", Diary_log_column_Id = colId };
+				await InsertDiaryPost(post);
+			}
+			else
+			{
+				post.Value = post.Value == "X" ? "" : "X";
+				await UpdateDiaryPost(post);
+			}
+		}
+	}
 }

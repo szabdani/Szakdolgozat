@@ -89,7 +89,7 @@ else
 	</div>
 	<div class="row">
 		<div class="col m-2" style="background-color: #ffefef">
-			<Calendar />
+			<Calendar SpecialDates="uniqueDates" OnDayClickAction="OpenDay" />
 		</div>
 		<div class="col m-2" style="background-color: #ffefef">
 			Utolsó 7 nap bejegyzései
@@ -186,6 +186,12 @@ else
 		}
 
 		await UpdateTables();
+	}
+
+	private async Task OpenDay(DateTime day)
+	{
+		// Nem ez lesz
+		Console.WriteLine($"Day clicked: {day.ToShortDateString()}");
 	}
 }
 

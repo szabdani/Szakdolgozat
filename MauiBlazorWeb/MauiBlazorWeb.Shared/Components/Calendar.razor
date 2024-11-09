@@ -7,7 +7,7 @@
 <div class="calendar-container">
     <div class="calendar-nav">
         <button class="btn btn-info" @onclick="ShowPrevMonth">Prev</button>
-        <span class="calendar-title">@currentDate.Year. @currentDate.ToString("MMMM") </span>
+        <span class="calendar-title">@pageDate.Year. @pageDate.ToString("MMMM") </span>
         <button class="btn btn-info" @onclick="ShowNextMonth">Next</button>
     </div>
 
@@ -25,7 +25,7 @@
         {
             <div class="calendar-day 
                 @(day.Date == DateTime.Now.Date ? "today" : 
-                day.Month == currentDate.Month ? "current-month" : "other-month") 
+                day.Month == pageDate.Month ? "current-month" : "other-month") 
                 @(SpecialDates.Any(d => d.Date == day.Date) ? "special" : "")"
                 @onclick="() => OnDayClick(day)">
                 @day.Day
@@ -35,16 +35,19 @@
 </div>
 
 @code {
+    [Parameter] public Func<Task>? RerenderParent { get; set; }
     [Parameter] public List<DateTime> SpecialDates { get; set; }
     [Parameter] public Func<DateTime, Task>? OnDayClickAction { get; set; }
+    public DateTime CalendarDate { get { return pageDate; } }
 
-    private DateTime currentDate;
+
+    private DateTime pageDate;
     private List<DateTime> calendarDays;
     private string[] DayNames;
 
     public Calendar()
     {
-        currentDate = DateTime.Now;
+        pageDate = DateTime.Now;
         calendarDays = new List<DateTime>();
 
         // Starts on Monday instead of Sunday
@@ -61,7 +64,7 @@
     private void GenerateCalendar()
     {
         calendarDays.Clear();
-        var firstDayOfMonth = new DateTime(currentDate.Year, currentDate.Month, 1);
+        var firstDayOfMonth = new DateTime(pageDate.Year, pageDate.Month, 1);
         var dayOfWeek = (int)firstDayOfMonth.DayOfWeek;
 
         // Get the start date for the calendar, starting on Monday
@@ -77,16 +80,20 @@
         }
     }
 
-    private void ShowPrevMonth()
+    private async Task ShowPrevMonth()
     {
-        currentDate = currentDate.AddMonths(-1);
+        pageDate = pageDate.AddMonths(-1);
         GenerateCalendar();
+        if (RerenderParent is not null)
+            await InvokeAsync(RerenderParent);
     }
 
-    private void ShowNextMonth()
+    private async Task ShowNextMonth()
     {
-        currentDate = currentDate.AddMonths(1);
+        pageDate = pageDate.AddMonths(1);
         GenerateCalendar();
+        if (RerenderParent is not null)
+            await InvokeAsync(RerenderParent);
     }
 
     private async Task OnDayClick(DateTime day)
@@ -94,6 +101,7 @@
         if (OnDayClickAction != null)
         {
             await OnDayClickAction.Invoke(day);
+            GenerateCalendar();
         }
     }
 }

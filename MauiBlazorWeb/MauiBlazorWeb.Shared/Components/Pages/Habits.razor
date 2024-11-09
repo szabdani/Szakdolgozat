@@ -54,20 +54,12 @@ else
 					<tbody>
 						@foreach (var date in uniqueDates)
 						{
-							@if (date.Month % 2 == 1)
-							{
-								color = "#ffefef";
-							}
-							else
-							{
-								color = "#efefef";
-							}
-							<tr style="background-color: @color">
+							<tr class="@(date.Month % 2 == 1 ? "lightrow" : "darkrow")">
 								<th scope="row">@date.ToString("yyyy-MM-dd")</th>
 								@foreach (var col in habitCols)
 								{
 									var post = habitPosts.FirstOrDefault(p => p.Diary_log_column_Id.Equals(col.Id) && p.Date.Equals(date));
-									<td class="calendar-day" @onclick="() => ToggleValue(col.Id, date)">
+									<td class="tracker-post" @onclick="() => ToggleValue(col.Id, date)">
 										@(post?.Value ?? "")
 									</td>
 								}
@@ -108,8 +100,7 @@ else
 			ezeket a táblákat meg kell jegyezni, lehet újakat felvenni, itt maradnak ezen a képernyőn és frissülnek mindig
 		</div>
 		<div class="col m-2" style="background-color: #ffefef">
-			Nézet váltás<br />
-			egy szokást ki lehet választani és arról lesz naptár, hogy mikor teljesítették, statisztika x/y alakalommal, xy% gyakoriság
+			<HabitStat AllCols="habitCols" RerenderParent="UpdateTables" @ref="habitStat" />
 		</div>
 	</div>
 
@@ -119,21 +110,27 @@ else
 }
 
 <style>
-	td {
+	.lightrow {
+		background-color: #ffefef;
+	}
+
+	.darkrow {
+		background-color: #f2e3e3;
+	}
+
+	.tracker-post {
 		vertical-align: middle;
 		background-color: #f9f9f9;
 		cursor: pointer;
 		transition: background-color 0.3s;
 	}
 
-		td:hover {
+		.tracker-post:hover {
 			background-color: #d0f0ff;
 		}
 </style>
 
 @code {
-	private string color = "#ffefef";
-
 	private List<Diary_log_column> habitCols;
 	private List<Diary_log_post> habitPosts;
 	private List<DateTime> uniqueDates;
@@ -141,6 +138,8 @@ else
 	private NewDiaryColDialog newHabitDialog;
 	private EditDiaryColDialog editHabitDialog;
 	private NewDiaryEntryDialog newEntryDialog;
+
+	private HabitStat habitStat;
 
 	public Habits()
 	{
@@ -151,6 +150,8 @@ else
 		newHabitDialog = new NewDiaryColDialog();
 		editHabitDialog = new EditDiaryColDialog();
 		newEntryDialog = new NewDiaryEntryDialog();
+
+		habitStat = new HabitStat();
 	}
 
 	protected override async Task OnInitializedAsync()
@@ -175,6 +176,8 @@ else
 		habitPosts = await _diaryManager.GetDiaryPosts(_appState.CurrentUser.Id, true);
 		uniqueDates = await _diaryManager.GetUniquePostDates(_appState.CurrentUser.Id, true);
 
+		await habitStat.UpdateDates();
+
 		await InvokeAsync(StateHasChanged);
 	}
 
@@ -193,18 +196,7 @@ else
 
 	private async Task ToggleValue(int colId, DateTime date)
 	{
-		var post = habitPosts.FirstOrDefault(p => p.Diary_log_column_Id == colId && p.Date == date);
-		if (post == null)
-		{
-			post = new Diary_log_post { Date = date, Value = "X", Diary_log_column_Id = colId };
-			await _diaryManager.InsertDiaryPost(post);
-		}
-		else
-		{
-			post.Value = post.Value == "X" ? "" : "X";
-			await _diaryManager.UpdateDiaryPost(post);
-		}
-
+		await _diaryManager.ToggleHabitValue(colId, date);
 		await UpdateTables();
 	}
 }

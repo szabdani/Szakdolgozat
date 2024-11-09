@@ -16,6 +16,7 @@ namespace MauiBlazorWeb.Shared.Interfaces
 
         Task<List<DateTime>> GetUniquePostDates(int accountId, bool isHabit);
 		Task<List<Diary_log_post>> GetDiaryColumnsPosts(int columnId);
-        
-    }
+
+        Task ToggleHabitValue(int colId, DateTime date);
+	}
 }

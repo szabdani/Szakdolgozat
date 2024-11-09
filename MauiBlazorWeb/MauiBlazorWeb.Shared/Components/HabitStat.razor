@@ -1,0 +1,102 @@
+﻿@using Models.Diaries
+@using Interfaces
+
+@inject IAppState _appState
+@inject IDiaryManager _diaryManager
+
+<div class="row">
+	<div class="col">
+		<InputSelect class="form-control" @bind-Value=colId>
+			<option value=0>Select a Habit</option>
+			@foreach (var c in AllCols)
+			{
+				<option value="@c.Id">@c.Name</option>
+			}
+		</InputSelect>
+	</div>
+	<div class="col">
+		<button class="btn btn-warning" value="Show" @onclick="ShowView" disabled="@(colId == 0)">Show Stats</button>
+	</div>
+</div>
+@if (isColViewSet)
+{
+	<div class="row">
+		<div class="col">
+			<Calendar RerenderParent="()=> InvokeAsync(StateHasChanged)" SpecialDates="doneDates" OnDayClickAction="Toggle" @ref="calendar" />
+		</div>
+		<div class="col">
+			<table class="table text-center">
+				<thead>
+					<tr>
+						<th scope="col">Time span</th>
+						<th scope="col">#</th>
+						<th scope="col">%</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>This Week</td>
+						<td>x/7</td>
+						<td>y %</td>
+					</tr>
+					<tr>
+						<td>@calendar.CalendarDate.ToString("MMMM")</td>
+						<td>x / @DateTime.DaysInMonth(calendar.CalendarDate.Year, calendar.CalendarDate.Month)</td>
+						<td>y %</td>
+					</tr>
+					<tr>
+						<td>@calendar.CalendarDate.ToString("yyyy")</td>
+						<td>x / @(DateTime.IsLeapYear(calendar.CalendarDate.Year) ? 366 : 365)</td>
+						<td>y %</td>
+					</tr>
+					<tr>
+						<td>All time</td>
+						<td>x/7</td>
+						<td>y %</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+}
+
+@code {
+	[Parameter] public Func<Task>? RerenderParent { get; set; }
+	[Parameter] public List<Diary_log_column> AllCols { get; set; }
+
+	private bool isColViewSet = false;
+	private int colId = 0;
+
+	private List<Diary_log_post> posts;
+	private List<DateTime> doneDates;
+
+	private Calendar calendar;
+
+	public HabitStat()
+	{
+		AllCols = new List<Diary_log_column>();
+		posts = new List<Diary_log_post>();
+		doneDates = new List<DateTime>();
+
+		calendar = new Calendar();
+	}
+
+	public async Task UpdateDates()
+	{
+		posts = await _diaryManager.GetDiaryColumnsPosts(colId);
+		doneDates = posts.Where(p => p.Value == "X").Select(p => p.Date).Distinct().OrderBy(date => date).ToList();
+	}
+
+	private async Task ShowView()
+	{
+		await UpdateDates();
+		isColViewSet = true;
+	}
+
+	private async Task Toggle(DateTime day)
+	{
+		await _diaryManager.ToggleHabitValue(colId, day);
+		if (RerenderParent is not null)
+			await InvokeAsync(RerenderParent);
+	}
+}
