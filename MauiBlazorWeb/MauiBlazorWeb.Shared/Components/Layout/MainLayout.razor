@@ -22,15 +22,13 @@
             @_appState.Title
         </div>
         <article class="content px-4">
-            <CustomErrorBoundary @ref="customErrorBoundary">
-                @if (isLoading)
-                {
-                    <LoadingScreen />
-                }
-                <div class= "px-4 py-2 d-grid" style="background-color: #ffe9e9">
-                    @Body
-                </div>
-            </CustomErrorBoundary>
+            @if (isLoading)
+            {
+                <LoadingScreen />
+            }
+            <div class= "px-4 py-2 d-grid" style="background-color: #ffe9e9">
+                @Body
+            </div>
         </article>
     </main>
     <div class="footer">
@@ -77,12 +75,5 @@
             isLoading = false;
             await InvokeAsync(StateHasChanged);
         }  
-    }
-
-    private CustomErrorBoundary? customErrorBoundary;
-
-    protected override void OnParametersSet()
-    {
-        customErrorBoundary?.ClearError();
     }
 }
