@@ -18,18 +18,19 @@ namespace MauiBlazorWeb.Shared.Services
         public string? Title { get; set; }
         private bool isInitialized = false;
         private bool isLoggedIn = false;
-        public bool IsInitialized { get { return isInitialized; } }
-        public bool IsLoggedIn { get { return isLoggedIn; } }
-        public Account CurrentUser { get; set; }
-        public List<Account> ExistingUsers { get; set; }
-        public MainLayout MainLayout { get; set; }
-		
 
+		public bool IsInitialized { get { return isInitialized; } }
+        public bool IsLoggedIn { get { return isLoggedIn; } }
+		public MainLayout MainLayout { get; set; }
+
+		public Account CurrentUser { get; set; }
+        public List<Account> ExistingUsers { get; set; }
+        
 		public AppState()
         {
             ExistingUsers = new List<Account>();
             CurrentUser = new Account();
-            MainLayout = new MainLayout();
+			MainLayout = new MainLayout();
         }
 
         public async Task UpdateExistingUsers()
@@ -71,7 +72,7 @@ namespace MauiBlazorWeb.Shared.Services
             string date = newAccount.Birthdate.ToString("yyyy-MM-dd");
             string rDate = DateTime.Now.ToString("yyyy-MM-dd");
             string gen = newAccount.Gender.ToString();
-            string sql = "Insert into account (username, email, password_hash, password_salt, birthdate, registrationdate, gender) values (@username, @email, @pw_h, @pw_s, @birthdate, @regdate, @gender);";
+            string sql = "Insert into account (username, email, password_hash, password_salt, birthdate, gender, registrationdate) values (@username, @email, @pw_h, @pw_s, @birthdate, @gender, @regdate);";
 
             affectedRows = await _data.SaveData(sql, new
             {
@@ -80,8 +81,8 @@ namespace MauiBlazorWeb.Shared.Services
                 pw_h = pw_hash,
                 pw_s = pw_salt,
                 birthdate = date,
-                regdate = rDate,
-                gender = gen
+                gender = gen,
+                regdate = rDate
             }
             );
 
@@ -126,5 +127,20 @@ namespace MauiBlazorWeb.Shared.Services
 
             return true;
         }
-	}
+
+        public async Task ShowLoadingScreenWhileAwaiting(Func<Task>? action)
+        {
+            await MainLayout.SetLoadingScreen(true);
+
+            try
+            {
+                if (action is not null)
+                    await action();
+            }
+            finally
+            {
+                await MainLayout.SetLoadingScreen(false);
+            }
+        }
+    }
 }

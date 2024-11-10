@@ -13,7 +13,7 @@
                     <h5 class="modal-title">Edit @title</h5>
                     <button type="button" class="btn-close" aria-label="Close" @onclick="Hide"></button>
                 </div>
-                <EditForm EditContext=editContext OnSubmit=EditCol>
+                <EditForm EditContext=editContext OnSubmit=OnEditCol>
                     <DataAnnotationsValidator />
                     <div class="modal-body">
                         <div class="row">
@@ -89,7 +89,7 @@
                     </div>
                     <div class="modal-footer">
                         <input type="submit" class="btn btn-warning flex-column" value="Edit" />
-                        <input class="btn btn-danger flex-column" @onclick="DeleteCol" value="Delete" />
+                        <input class="btn btn-danger flex-column" @onclick="OnDeleteCol" value="Delete" />
                     </div>
                 </EditForm>
             </div>
@@ -133,6 +133,16 @@
 
             await InvokeAsync(StateHasChanged);
         }
+    }
+
+    private async Task OnEditCol()
+    {
+        await _appState.ShowLoadingScreenWhileAwaiting(EditCol);
+    }
+
+    private async Task OnDeleteCol()
+    {
+        await _appState.ShowLoadingScreenWhileAwaiting(DeleteCol);
     }
 
     private async Task EditCol()

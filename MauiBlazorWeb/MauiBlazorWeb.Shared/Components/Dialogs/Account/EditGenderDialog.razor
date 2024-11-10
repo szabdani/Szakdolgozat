@@ -30,15 +30,20 @@
     </EditForm>
 </div>
 <div class="row">
-    <button type="button" class="btn btn-primary" @onclick="Enter">Enter</button>
+    <button type="button" class="btn btn-primary" @onclick="OnEnter">Enter</button>
 </div>
 
 @code {
+    private async Task OnEnter()
+    {
+        await _appState.ShowLoadingScreenWhileAwaiting(Enter);
+    }
+
     private async Task Enter()
     {
         IDataAccess _data = new DataAccess();
         string sql = "Update account set gender = @name where id = @userid;";
-        int affectedRows = await _data.SaveData(sql, new { @name = newAccount.Gender, @userid = _appState.CurrentUser.Id });
+        int affectedRows = await _data.SaveData(sql, new { @name = newAccount.Gender.ToString(), @userid = _appState.CurrentUser.Id });
         if (affectedRows == 1)
         {
             _appState.CurrentUser.Gender = newAccount.Gender;

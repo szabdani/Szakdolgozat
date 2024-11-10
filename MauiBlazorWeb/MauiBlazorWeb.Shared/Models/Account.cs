@@ -21,10 +21,10 @@ namespace MauiBlazorWeb.Shared.Models
         public byte[] Password_salt { get; set; } = new byte[16];
 
         public DateTime Birthdate { get; set; }
-		public DateTime RegistrationDate { get; set; }
-
+		
 		public GenderType Gender { get; set; }
+        public DateTime RegistrationDate { get; set; }
 
-		public bool Admin { get; set; } = false;
+        public bool Admin { get; set; } = false;
     }
 }

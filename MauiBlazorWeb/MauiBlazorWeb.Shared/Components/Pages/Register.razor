@@ -21,7 +21,7 @@ else
 {
     <div class="row">
         <div class="col m-2" style="background-color: #ffefef">
-            <EditForm EditContext=editContext OnValidSubmit=RegisterAccount>
+            <EditForm EditContext=editContext OnValidSubmit=OnRegisterAccount>
                 <DataAnnotationsValidator />
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Username:</label>
@@ -169,10 +169,13 @@ else
         return isTaken;
     }
 
+    private async Task OnRegisterAccount()
+    {
+        await _appState.ShowLoadingScreenWhileAwaiting(RegisterAccount);
+    }
+
     private async Task RegisterAccount()
     {
-        await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(true));
-
         bool success = await _appState.Register(newAccount);
         if (success)
         {
@@ -181,8 +184,6 @@ else
         }
         else
             throw new Exception("Sorry, we could not register your account");
-
-        await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(false));
     }
 }
 

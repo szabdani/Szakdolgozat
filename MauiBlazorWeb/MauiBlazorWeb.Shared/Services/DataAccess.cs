@@ -31,9 +31,9 @@ namespace MauiBlazorWeb.Shared.Interfaces
 
 					return rows.ToList();
 				}
-				catch (Exception)
+				catch (Exception e)
 				{
-					throw new Exception("Error loading data to the database");
+                    throw new Exception($"Error loading data to the database: {e.Message}");
 				}
 				
 			}
@@ -47,10 +47,10 @@ namespace MauiBlazorWeb.Shared.Interfaces
 				{
 					return await connection.ExecuteAsync(sql, parameters);
 				}
-				catch (Exception)
+				catch (Exception e)
 				{
-					throw new Exception("Error saving data to the database");
-				}
+					throw new Exception($"Error saving data to the database: {e.Message}");
+                }
 				
 			}
         }

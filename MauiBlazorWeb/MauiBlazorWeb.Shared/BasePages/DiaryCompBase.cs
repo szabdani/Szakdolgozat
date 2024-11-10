@@ -33,13 +33,38 @@ namespace MauiBlazorWeb.Shared.BasePages
 
 		protected override async Task OnInitializedAsync()
 		{
-            await LoadTask(null, false);
+			await appState.ShowLoadingScreenWhileAwaiting(UpdateTables);
         }
 
-		protected async Task LoadTask(Func<Task>? action, bool callParent = true)
+		public async Task RerenderDiaryComp()
 		{
-			await InvokeAsync(() => appState.MainLayout.SetLoadingScreen(true));
+			await appState.ShowLoadingScreenWhileAwaiting(() => LoadTask(null));
+		}
 
+        public async Task UpdateDiaryComp()
+        {
+           await appState.ShowLoadingScreenWhileAwaiting(UpdateTables);
+        }
+
+		protected virtual async Task UpdateTables()
+		{
+			allCols = await diaryManager.GetDiaryCols(appState.CurrentUser.Id, IsHabit);
+			allPosts = await diaryManager.GetDiaryPosts(appState.CurrentUser.Id, IsHabit);
+		}
+
+		protected async Task DeleteRow(DateTime date)
+		{
+			await appState.ShowLoadingScreenWhileAwaiting( ()=> LoadTask( () => diaryManager.DeleteSameDatePosts(appState.CurrentUser.Id, date, IsHabit)));
+		}
+
+
+		protected async Task ToggleHabitValue(int colId, DateTime day)
+		{
+			await appState.ShowLoadingScreenWhileAwaiting( () => LoadTask( () => diaryManager.ToggleHabitValue(colId, day)));
+		}
+
+		private async Task LoadTask(Func<Task>? action, bool callParent = true)
+		{
 			try
 			{
 				if (action is not null)
@@ -48,38 +73,9 @@ namespace MauiBlazorWeb.Shared.BasePages
 			finally
 			{
 				await UpdateTables();
-				if (callParent && RerenderParent is not null)
+				if (RerenderParent is not null)
 					await InvokeAsync(RerenderParent);
-				await InvokeAsync(() => appState.MainLayout.SetLoadingScreen(false));
 			}
-		}
-
-		public async Task RerenderDiaryComp()
-		{
-			await LoadTask(null);
-		}
-
-        public async Task UpdateDiaryComp()
-        {
-            await LoadTask(null, false);
-        }
-
-
-        protected virtual async Task UpdateTables()
-		{
-			allCols = await diaryManager.GetDiaryCols(appState.CurrentUser.Id, IsHabit);
-			allPosts = await diaryManager.GetDiaryPosts(appState.CurrentUser.Id, IsHabit);
-		}
-
-		protected async Task DeleteRow(DateTime date)
-		{
-			await LoadTask(() => diaryManager.DeleteSameDatePosts(appState.CurrentUser.Id, date, IsHabit));
-		}
-
-
-		protected async Task ToggleHabitValue(int colId, DateTime day)
-		{
-			await LoadTask(() => diaryManager.ToggleHabitValue(colId, day));
 		}
 	}
 }

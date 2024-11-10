@@ -14,7 +14,7 @@
 		</InputSelect>
 	</div>
 	<div class="col">
-		<button class="btn btn-warning" value="Show" @onclick="()=> LoadTask(null)" disabled="@(colId == 0)">Show Stats</button>
+		<button class="btn btn-warning" value="Show" @onclick="RerenderDiaryComp" disabled="@(colId == 0)">Show Stats</button>
 	</div>
 </div>
 @if (isColViewSet)

@@ -14,7 +14,7 @@
                     <h5 class="modal-title">Add a new @diaryOrHabit</h5>
                     <button type="button" class="btn-close" aria-label="Close" @onclick="Hide"></button>
                 </div>
-                <EditForm EditContext=editContext OnSubmit=RegisterColumn>
+                <EditForm EditContext=editContext OnSubmit=OnRegisterColumn>
                     <DataAnnotationsValidator />
                     <div class="modal-body">
                         <div class="row">
@@ -127,6 +127,11 @@
 
             await InvokeAsync(StateHasChanged);
         } 
+    }
+
+    private async Task OnRegisterColumn()
+    {
+        await _appState.ShowLoadingScreenWhileAwaiting(RegisterColumn);
     }
 
     private async Task RegisterColumn()

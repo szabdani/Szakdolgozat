@@ -60,7 +60,7 @@ else
 			<div class="row">
 				<label class="col-sm-2">Birthdate:</label>
 				<div class="col-sm-4">
-					@_appState.CurrentUser.Birthdate.ToShortDateString()
+					@_appState.CurrentUser.Birthdate.ToString("yyyy-MM-dd")
 				</div>
 				<div class="col d-flex align-items-center">
 					<button type="button" class="btn btn-primary" @onclick="()=> birthdateEdit.Show()">Edit</button>
@@ -78,7 +78,7 @@ else
 			<div class="row">
 				<label class="col-sm-2">User since:</label>
 				<div class="col-sm-4">
-					@_appState.CurrentUser.RegistrationDate.ToShortTimeString()
+					@_appState.CurrentUser.RegistrationDate.ToString("yyyy-MM-dd")
 				</div>
 				<div class="col d-flex align-items-center">
 					<button type="button" class="btn btn-danger" @onclick="()=> warning.Show()">Delete Account</button>
@@ -90,7 +90,7 @@ else
 		</div>
 	</div>
 
-	<WarningDialog Title="Deleting your account" OnAcceptAction="DeleteAccount" @ref="warning">
+	<WarningDialog Title="Deleting your account" OnAcceptAction="OnDeleteAccount" @ref="warning">
 		Do you want to delete your account? This 
 	</WarningDialog>
 
@@ -145,11 +145,14 @@ else
 		await InvokeAsync(StateHasChanged);
 	}
 
+	private async Task OnDeleteAccount()
+	{
+		await _appState.ShowLoadingScreenWhileAwaiting(DeleteAccount);
+	}
+
 	private async Task DeleteAccount()
 	{
-		await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(true));
 		bool isCorrect = await _appState.Delete(_localStorage);
-		await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(false));
 
 		if(!isCorrect)
 			throw new Exception($"Sorry, we could not delete your account.");
