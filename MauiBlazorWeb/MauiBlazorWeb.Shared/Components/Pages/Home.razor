@@ -2,6 +2,7 @@
 
 @using MauiBlazorWeb.Shared.Components.Dialogs
 @using MauiBlazorWeb.Shared.Components.Dialogs.Diary
+@using MauiBlazorWeb.Shared.Components.DiaryComps
 @using Models.Diaries
 @using Interfaces
 
@@ -96,7 +97,6 @@ else
 	protected override async Task OnInitializedAsync()
 	{
 		await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(true));
-		uniqueDates = await _diaryManager.GetUniquePostDates(_appState.CurrentUser.Id, false);
 		await UpdateTables();
 	}
 
@@ -114,6 +114,7 @@ else
 	{
 		habitCols = await _diaryManager.GetDiaryCols(_appState.CurrentUser.Id, true);
 		habitPosts = await _diaryManager.GetDiaryPosts(_appState.CurrentUser.Id, true);
+		uniqueDates = await _diaryManager.GetUniquePostDates(_appState.CurrentUser.Id, false);
 
 		await InvokeAsync(StateHasChanged);
 		await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(false));

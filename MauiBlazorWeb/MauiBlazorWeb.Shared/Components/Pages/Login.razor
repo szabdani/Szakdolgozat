@@ -50,18 +50,12 @@ else
             </EditForm>
         </div>
     </div>
-    
-    <MessageDialog @ref="dialog" Title="Login" Link="Profile">
-        <p>Successful login.</p>
-    </MessageDialog>
 }
 
 @code {
     private LoginRegUser newAccount;
     private EditContext editContext;
     private ValidationMessageStore messageStore;
-
-    private MessageDialog dialog;
 
     private ElementReference startUsername;
 
@@ -70,8 +64,6 @@ else
         newAccount = new LoginRegUser();
         editContext = new EditContext(newAccount);
         messageStore = new ValidationMessageStore(editContext);
-
-        dialog = new MessageDialog();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

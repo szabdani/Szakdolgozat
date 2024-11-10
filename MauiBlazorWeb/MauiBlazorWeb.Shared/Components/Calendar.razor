@@ -63,11 +63,14 @@
        .ToArray();
 
         SpecialDates = new List<DateTime>();
-
-        GenerateCalendar();
     }
 
-    private void GenerateCalendar()
+    protected override async Task OnInitializedAsync()
+    {
+        await GenerateCalendar();
+    }
+
+    private async Task GenerateCalendar()
     {
         calendarDays.Clear();
         var firstDayOfMonth = new DateTime(pageDate.Year, pageDate.Month, 1);
@@ -84,22 +87,21 @@
         {
             calendarDays.Add(startDate.AddDays(i));
         }
+
+        if (RerenderParent is not null)
+            await InvokeAsync(RerenderParent);
     }
 
     private async Task ShowPrevMonth()
     {
         pageDate = pageDate.AddMonths(-1);
-        GenerateCalendar();
-        if (RerenderParent is not null)
-            await InvokeAsync(RerenderParent);
+        await GenerateCalendar();
     }
 
     private async Task ShowNextMonth()
     {
         pageDate = pageDate.AddMonths(1);
-        GenerateCalendar();
-        if (RerenderParent is not null)
-            await InvokeAsync(RerenderParent);
+        await GenerateCalendar();
     }
 
     private async Task OnDayClick(DateTime day)
@@ -107,7 +109,7 @@
         if (OnDayClickAction != null)
         {
             await OnDayClickAction.Invoke(day);
-            GenerateCalendar();
+            await GenerateCalendar();
         }
     }
 }

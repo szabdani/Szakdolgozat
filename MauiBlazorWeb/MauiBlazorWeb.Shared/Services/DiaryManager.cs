@@ -81,26 +81,44 @@ namespace MauiBlazorWeb.Shared.Services
 
             return retVal;
         }
+
+        // Ezt kivenni és manuálisan szortírozni ahol csak kell
         public async Task<List<DateTime>> GetUniquePostDates(int accountId, bool isHabit)
         {
             var list = await GetDiaryPosts(accountId, isHabit);
             return list.Select(obj => obj.Date).Distinct().OrderBy(date => date).ToList();
         }
 
+		public async Task DeleteSameDatePosts(int accountId, DateTime date, bool isHabit)
+		{
+			var posts = await GetDiaryPosts(accountId, isHabit);
+			foreach (var p in posts.Where(p => p.Date == date))
+			{
+				bool isCorrect = await DeleteDiaryPost(p);
+				if (!isCorrect)
+					throw new Exception($"Sorry, we could not delete post.");
+			}
+		}
+
 		public async Task ToggleHabitValue(int colId, DateTime date)
 		{
-            var posts = await GetDiaryColumnsPosts(colId);
+            bool isCorrect = true;
+
+			var posts = await GetDiaryColumnsPosts(colId);
             var post = posts.FirstOrDefault(p => p.Date == date);
 			if (post == null)
 			{
 				post = new Diary_log_post { Date = date, Value = "X", Diary_log_column_Id = colId };
-				await InsertDiaryPost(post);
+				isCorrect = await InsertDiaryPost(post);
 			}
 			else
 			{
 				post.Value = post.Value == "X" ? "" : "X";
-				await UpdateDiaryPost(post);
+				isCorrect = await UpdateDiaryPost(post);
 			}
+
+			if (!isCorrect)
+				throw new Exception($"Sorry, we could not toggle the value.");
 		}
 	}
 }

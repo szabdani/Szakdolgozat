@@ -24,7 +24,11 @@
 }
 
 @code {
-    [Parameter] public Func<Task> RerenderParent { get; set; }
+    [Parameter] public Func<Task>? RerenderParent { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private bool isVisible = false;
+
     protected LoginRegUser newAccount;
     protected EditContext editContext;
     protected ValidationMessageStore messageStore;
@@ -44,14 +48,13 @@
         newAccount.Gender = _appState.CurrentUser.Gender;
     }
 
-    [Parameter] public RenderFragment? ChildContent { get; set; }
-
-    private bool isVisible = false;
+    
     public void Show() => isVisible = true;
     public async Task Hide()
     {
         isVisible = false;
         await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
-        await InvokeAsync(RerenderParent);
+        if (RerenderParent is not null)
+            await InvokeAsync(RerenderParent);
     }
 }
