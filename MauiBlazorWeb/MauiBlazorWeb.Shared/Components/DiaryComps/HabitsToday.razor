@@ -1,7 +1,7 @@
 ﻿@inherits DiaryCompBase
 
 @using MauiBlazorWeb.Shared.BasePages
-@using Models.Diaries
+@using MauiBlazorWeb.Shared.Components.Icons
 
 <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
 	<table class="table text-center">
@@ -24,9 +24,31 @@
 					}
 				</tr>
 			}
+			<tr>
+				<td>
+					Add a new Habit!
+				</td>
+				<td>
+					<button class="btn btn-info" @onclick="() => newHabitDialog.Show()">
+						<IconAdd />
+					</button>
+				</td>
+			</tr>
+
 		</tbody>
 	</table>
 </div>
+
+<NewDiaryColDialog IsHabit="IsHabit" RerenderParent="RerenderDiaryComp" @ref=newHabitDialog />
+
+@code {
+	private NewDiaryColDialog newHabitDialog;
+
+	public HabitsToday()
+	{
+		newHabitDialog = new NewDiaryColDialog();
+	}
+}
 
 <style>
 	.tracker-post {

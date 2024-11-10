@@ -30,7 +30,7 @@ else
 {
 	<div class="row" style="overflow-x: auto;">
 		<div class="col m-2" style="background-color: #ffefef;">
-			<AllColumnsTable IsHabit="true" RerenderParent="UpdateDiaryComponents" @ref="table" />
+			<HabitsTable IsHabit="true" RerenderParent="UpdateDiaryComponents" @ref="table" />
 		</div>
 	</div>
 	<div class="row">
@@ -45,12 +45,12 @@ else
 	</div>
 }
 @code {
-	private AllColumnsTable table;
+	private HabitsTable table;
 	private HabitStat stat;
 
 	public Habits()
 	{
-		table = new AllColumnsTable();
+		table = new HabitsTable();
 		stat = new HabitStat();
 	}
 

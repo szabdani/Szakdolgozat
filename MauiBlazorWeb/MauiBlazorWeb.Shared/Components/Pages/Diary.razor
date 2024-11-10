@@ -32,7 +32,7 @@ else
 {
 	<div class="row">
 		<div class="col m-2" style="background-color: #ffefef">
-			<AllColumnsTable IsHabit="false" RerenderParent="UpdateDiaryComponents" @ref="table" />
+			<HabitsTable IsHabit="false" RerenderParent="UpdateDiaryComponents" @ref="table" />
 		</div>
 	</div>
 	<div class="row">
@@ -58,12 +58,12 @@ else
 }
 
 @code {
-	private AllColumnsTable table;
+	private HabitsTable table;
 	private DiaryCalendar calendar;
 
 	public Diary()
 	{
-		table = new AllColumnsTable();
+		table = new HabitsTable();
 		calendar = new DiaryCalendar();
 	}
 
