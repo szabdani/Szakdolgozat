@@ -23,7 +23,7 @@ namespace MauiBlazorWeb.Shared.BasePages
 		{
 			foreach (var c in allDiaryComps)
 			{
-				await c.RerenderDiaryComp();
+				await c.UpdateDiaryComp();
 			}
 
 			await InvokeAsync(StateHasChanged);

@@ -69,8 +69,9 @@ namespace MauiBlazorWeb.Shared.Services
 
             int affectedRows;
             string date = newAccount.Birthdate.ToString("yyyy-MM-dd");
+            string rDate = DateTime.Now.ToString("yyyy-MM-dd");
             string gen = newAccount.Gender.ToString();
-            string sql = "Insert into account (username, email, password_hash, password_salt, birthdate, gender) values (@username, @email, @pw_h, @pw_s, @birthdate, @gender);";
+            string sql = "Insert into account (username, email, password_hash, password_salt, birthdate, registrationdate, gender) values (@username, @email, @pw_h, @pw_s, @birthdate, @regdate, @gender);";
 
             affectedRows = await _data.SaveData(sql, new
             {
@@ -79,6 +80,7 @@ namespace MauiBlazorWeb.Shared.Services
                 pw_h = pw_hash,
                 pw_s = pw_salt,
                 birthdate = date,
+                regdate = rDate,
                 gender = gen
             }
             );
@@ -100,5 +102,29 @@ namespace MauiBlazorWeb.Shared.Services
             isLoggedIn = false;
             await localStorage.RemoveItemAsync("id");
         }
-    }
+
+        public async Task<bool> Delete(ILocalStorageService localStorage)
+        {
+			IDiaryManager diaryManager = new DiaryManager();
+            var cols = await diaryManager.GetDiaryCols(CurrentUser.Id, true);
+            cols.AddRange(await diaryManager.GetDiaryCols(CurrentUser.Id, false));
+
+            foreach (var col in cols)
+            {
+                bool isCorrect = await diaryManager.DeleteDiaryCol(col);
+                if (!isCorrect)
+                    return false;
+            }
+
+            IDataAccess _data = new DataAccess();
+            string sql = "Delete from account where id = @accid;";
+            int affectedRows = await _data.SaveData(sql, new { accid = CurrentUser.Id });
+            if (affectedRows == 0)
+                return false;
+
+            await Logout(localStorage);
+
+            return true;
+        }
+	}
 }

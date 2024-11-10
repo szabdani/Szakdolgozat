@@ -1,9 +1,13 @@
 ﻿@page "/profile"
 
+@using Blazored.LocalStorage
 @using MauiBlazorWeb.Shared.Components.Dialogs.Account
 @using MauiBlazorWeb.Shared.Components.Dialogs
 @using Interfaces
+
 @inject IAppState _appState
+@inject ILocalStorageService _localStorage
+@inject NavigationManager Navigation
 
 @if (!_appState.IsLoggedIn)
 {
@@ -71,11 +75,24 @@ else
 					<button type="button" class="btn btn-primary" @onclick="()=> genderEdit.Show()">Edit</button>
 				</div>
 			</div>
+			<div class="row">
+				<label class="col-sm-2">User since:</label>
+				<div class="col-sm-4">
+					@_appState.CurrentUser.RegistrationDate.ToShortTimeString()
+				</div>
+				<div class="col d-flex align-items-center">
+					<button type="button" class="btn btn-danger" @onclick="()=> warning.Show()">Delete Account</button>
+				</div>
+			</div>
 		</div>
 		<div class="col m-2" style="background-color: #ffefef">
 			Import data
 		</div>
 	</div>
+
+	<WarningDialog Title="Deleting your account" OnAcceptAction="DeleteAccount" @ref="warning">
+		Do you want to delete your account? This 
+	</WarningDialog>
 
 	<EditAccountDialog RerenderParent="RerenderProfile" @ref="usernameEdit">
 		<EditUsernameDialog />
@@ -100,7 +117,8 @@ else
 	private EditAccountDialog emailEdit;
 	private EditAccountDialog birthdateEdit;
 	private EditAccountDialog genderEdit;
-	
+
+	private WarningDialog warning;
 
 	public Profile()
 	{
@@ -109,6 +127,8 @@ else
 		emailEdit = new EditAccountDialog();
 		birthdateEdit = new EditAccountDialog();
 		genderEdit = new EditAccountDialog();
+
+		warning = new WarningDialog();
 	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -120,8 +140,20 @@ else
 		}
 	}
 
-	public async Task RerenderProfile()
+	private async Task RerenderProfile()
 	{
 		await InvokeAsync(StateHasChanged);
-	}	 
+	}
+
+	private async Task DeleteAccount()
+	{
+		await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(true));
+		bool isCorrect = await _appState.Delete(_localStorage);
+		await InvokeAsync(() => _appState.MainLayout.SetLoadingScreen(false));
+
+		if(!isCorrect)
+			throw new Exception($"Sorry, we could not delete your account.");
+
+		Navigation.NavigateTo("", forceLoad: true);
+	}
 }

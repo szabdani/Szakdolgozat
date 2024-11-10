@@ -106,7 +106,7 @@
 
     private async Task OnDayClick(DateTime day)
     {
-        if (OnDayClickAction != null)
+        if (OnDayClickAction is not null)
         {
             await OnDayClickAction.Invoke(day);
             await GenerateCalendar();

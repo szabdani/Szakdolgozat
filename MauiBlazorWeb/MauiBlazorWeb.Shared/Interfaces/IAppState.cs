@@ -14,9 +14,11 @@ namespace MauiBlazorWeb.Shared.Interfaces
         MainLayout MainLayout { get; set; }
 
         Task<bool> Register(LoginRegUser newAccount);
-        Task Login(Account userData, ILocalStorageService localStorage);
+		Task<bool> Delete(ILocalStorageService localStorage);
+		Task Login(Account userData, ILocalStorageService localStorage);
         Task Logout(ILocalStorageService localStorage);
-        Task UpdateExistingUsers();
+       
+		Task UpdateExistingUsers();
 
         Task Init(ILocalStorageService localStorage);
     }

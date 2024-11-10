@@ -1,0 +1,40 @@
+﻿@if (isVisible)
+{
+    <div class="modal fade show" style="display:block" tabindex="-1" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">@Title</h5>
+                    <button type="button" class="btn-close" aria-label="Close" @onclick="Hide"></button>
+                </div>
+                <div class="modal-body">
+                    @ChildContent
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" @onclick="Hide">Close</button>
+                    <button class="btn btn-danger" @onclick="OnAccept">Accept</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
+}
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public string Title { get; set; } = "";
+    [Parameter] public Func<Task>? OnAcceptAction { get; set; }
+
+    public bool isAccepted = false;
+
+    private bool isVisible = false;
+    public void Show() => isVisible = true;
+    public void Hide() => isVisible = false;
+
+    private async Task OnAccept()
+    {
+        if (OnAcceptAction is not null)
+            await OnAcceptAction.Invoke();
+    }
+}
+

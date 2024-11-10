@@ -21,19 +21,10 @@ namespace MauiBlazorWeb.Shared.Models
         public byte[] Password_salt { get; set; } = new byte[16];
 
         public DateTime Birthdate { get; set; }
+		public DateTime RegistrationDate { get; set; }
 
 		public GenderType Gender { get; set; }
 
 		public bool Admin { get; set; } = false;
-
-        public object? GetUserProperty(string propertyName)
-        {
-            var property = typeof(Account).GetProperty(propertyName);
-            if (property != null)
-            {
-                return property;
-            }
-            throw new ArgumentException($"Property '{propertyName}' not found.");
-        }
     }
 }

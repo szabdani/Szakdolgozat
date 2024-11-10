@@ -157,7 +157,7 @@
             }
             else
             {
-                bool isCorrect = await _diaryManager.UpdateDiaryCols(newCol);
+                bool isCorrect = await _diaryManager.UpdateDiaryCol(newCol);
                 if (isCorrect)
                 {
                     newCol = new Diary_log_column();
@@ -173,15 +173,7 @@
 
     private async Task DeleteCol()
     {
-        var posts = await _diaryManager.GetDiaryColumnsPosts(newCol.Id);
-        foreach(var p in posts)
-        {
-            bool fail = !await _diaryManager.DeleteDiaryPost(p);
-            if (fail)
-                throw new Exception($"Sorry, we could not delete post from {newCol.Name}");
-        }
-
-        bool isCorrect = await _diaryManager.DeleteDiaryCols(newCol);
+        bool isCorrect = await _diaryManager.DeleteDiaryCol(newCol);
         if (isCorrect)
         {
             if (RerenderParent is not null)

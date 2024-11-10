@@ -52,6 +52,9 @@
     <Content Update="Components\Dialogs\Diary\NewDiaryColDialog.razor">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>
+    <Content Update="Components\Dialogs\WarningDialog.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
     <Content Update="Components\Icons\IconAccount.razor">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>

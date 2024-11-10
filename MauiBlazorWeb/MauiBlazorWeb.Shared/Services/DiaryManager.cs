@@ -5,30 +5,41 @@ using System.Text;
 using System.Threading.Tasks;
 using MauiBlazorWeb.Shared.Components.Pages;
 using MauiBlazorWeb.Shared.Interfaces;
+using MauiBlazorWeb.Shared.Models;
 using MauiBlazorWeb.Shared.Models.Diaries;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MauiBlazorWeb.Shared.Services
 {
     public class DiaryManager : IDiaryManager
     {
-        public async Task<bool> InsertDiaryCols(Diary_log_column newCol)
+        public async Task<bool> InsertDiaryCol(Diary_log_column newCol)
         {
             IDataAccess _data = new DataAccess();
             string sql = "Insert into Diary_log_column (name, type, Value_range_min, Value_range_max, account_id) values (@name, @type, @min, @max, @accountid);";
             int affectedRows = await _data.SaveData(sql, new { name = newCol.Name, type = newCol.Type.ToString(), min = newCol.Value_range_min, max = newCol.Value_range_max, accountid = newCol.Account_Id });
             return affectedRows != 0;
         }
-        public async Task<bool> UpdateDiaryCols(Diary_log_column oldCol)
+        public async Task<bool> UpdateDiaryCol(Diary_log_column oldCol)
         {
             IDataAccess _data = new DataAccess();
             string sql = "Update Diary_log_column set name = @name, type = @type, Value_range_min = @min, Value_range_max = @max,Account_Id = @userid where id = @colid ;";
             int affectedRows = await _data.SaveData(sql, new { name = oldCol.Name, type = oldCol.Type.ToString(), min = oldCol.Value_range_min, max = oldCol.Value_range_max, userid = oldCol.Account_Id, colid = oldCol.Id });
             return affectedRows != 0;
         }
-        public async Task<bool> DeleteDiaryCols(Diary_log_column oldCol)
+        public async Task<bool> DeleteDiaryCol(Diary_log_column oldCol)
         {
             IDataAccess _data = new DataAccess();
-            string sql = "Delete from Diary_log_column where id = @postid;";
+
+            var posts = await GetDiaryColumnsPosts(oldCol.Id);
+			foreach (var p in posts)
+			{
+				bool isCorrect = await DeleteDiaryPost(p);
+				if (!isCorrect)
+					return isCorrect;
+			}
+
+			string sql = "Delete from Diary_log_column where id = @postid;";
             int affectedRows = await _data.SaveData(sql, new { postid = oldCol.Id });
             return affectedRows != 0;
         }
