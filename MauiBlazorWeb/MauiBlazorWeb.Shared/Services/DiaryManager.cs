@@ -82,13 +82,6 @@ namespace MauiBlazorWeb.Shared.Services
             return retVal;
         }
 
-        // Ezt kivenni és manuálisan szortírozni ahol csak kell
-        public async Task<List<DateTime>> GetUniquePostDates(int accountId, bool isHabit)
-        {
-            var list = await GetDiaryPosts(accountId, isHabit);
-            return list.Select(obj => obj.Date).Distinct().OrderBy(date => date).ToList();
-        }
-
 		public async Task DeleteSameDatePosts(int accountId, DateTime date, bool isHabit)
 		{
 			var posts = await GetDiaryPosts(accountId, isHabit);

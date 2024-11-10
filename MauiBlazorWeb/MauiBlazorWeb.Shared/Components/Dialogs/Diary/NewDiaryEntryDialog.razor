@@ -62,7 +62,9 @@
     private async Task AddPosts()
     {
         messageStore.Clear();
-        var uniqueDates = await _diaryManager.GetUniquePostDates(_appState.CurrentUser.Id, IsHabit);
+
+        var list = await _diaryManager.GetDiaryPosts(_appState.CurrentUser.Id, IsHabit);
+        var uniqueDates = list.Select(obj => obj.Date).Distinct().OrderBy(date => date).ToList();
 
         if (uniqueDates.Any(d => d.Date.Equals(newDate.Date)))
         {

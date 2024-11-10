@@ -14,7 +14,6 @@ namespace MauiBlazorWeb.Shared.Interfaces
         Task<List<Diary_log_column>> GetDiaryCols(int accountId, bool isHabit);
         Task<List<Diary_log_post>> GetDiaryPosts(int accountId, bool isHabit);
 
-        Task<List<DateTime>> GetUniquePostDates(int accountId, bool isHabit);
 		Task<List<Diary_log_post>> GetDiaryColumnsPosts(int columnId);
 
 		Task DeleteSameDatePosts(int accountId, DateTime date, bool isHabit);

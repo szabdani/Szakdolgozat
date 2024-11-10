@@ -37,6 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="bin\" />
     <Folder Include="Data\" />
   </ItemGroup>
 

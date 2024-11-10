@@ -1,0 +1,27 @@
+﻿@inherits DiaryCompBase
+
+@using MauiBlazorWeb.Shared.BasePages
+@using Models.Diaries
+
+<Calendar Title="Diary Entries" SpecialDates="uniqueDates" RerenderParent="RerenderDiaryComp" OnDayClickAction="OpenDay" />
+
+@code {
+	private List<DateTime> uniqueDates;
+
+	public DiaryCalendar()
+	{
+		uniqueDates = new List<DateTime>();
+	}
+
+	protected override async Task UpdateTables()
+	{
+		await base.UpdateTables();
+		uniqueDates = allPosts.Select(obj => obj.Date).Distinct().OrderBy(date => date).ToList();
+	}
+
+	private async Task OpenDay(DateTime day)
+	{
+		// Nem ez lesz
+		Console.WriteLine($"Day clicked: {day.ToShortDateString()}");
+	}
+}

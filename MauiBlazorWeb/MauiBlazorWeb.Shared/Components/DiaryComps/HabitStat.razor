@@ -1,6 +1,7 @@
-﻿@using Models.Diaries
+﻿@inherits DiaryCompBase
 
-@inherits DiaryComp
+@using MauiBlazorWeb.Shared.BasePages
+@using Models.Diaries
 
 <div class="row">
 	<div class="col">
@@ -20,7 +21,7 @@
 {
 	<div class="row">
 		<div class="col">
-			<Calendar Title="@title" RerenderParent="() => LoadTask(null)" SpecialDates="doneDates" OnDayClickAction="Toggle" @ref="calendar" />
+			<Calendar Title="@title" RerenderParent="RerenderDiaryComp" SpecialDates="doneDates" OnDayClickAction="Toggle" @ref="calendar" />
 		</div>
 		<div class="col">
 			<table class="table text-center" style="table-layout: fixed;">
