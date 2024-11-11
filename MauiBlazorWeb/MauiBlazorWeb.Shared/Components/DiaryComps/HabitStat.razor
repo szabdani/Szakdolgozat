@@ -107,11 +107,12 @@
 
 	public HabitStat()
 	{
+		IsHabit = true;
+
 		posts = new List<Diary_log_post>();
 		doneDates = new List<DateTime>();
 
 		calendar = new Calendar();
-
 	}
 
 	protected override async Task UpdateTables()
