@@ -1,13 +1,12 @@
 ﻿@page "/habits"
 
-@inherits DiariesBase
-
-@using MauiBlazorWeb.Shared.BasePages
+@using Bases
 @using MauiBlazorWeb.Shared.Components.Dialogs
 @using MauiBlazorWeb.Shared.Components.DiaryComps
 @using Interfaces
 
 @inject IAppState _appState
+@inject IDiaryCompSubject _diarySubject
 
 @if (!_appState.IsLoggedIn)
 {
@@ -30,7 +29,7 @@ else
 {
 	<div class="row" style="overflow-x: auto;">
 		<div class="col m-2" style="background-color: #ffefef;">
-			<HabitsTable IsHabit="true" RerenderParent="UpdateDiaryComponents" @ref="table" />
+			<HabitsTable IsHabit="true" RerenderParent="_diarySubject.UpdateDiaryComponents" />
 		</div>
 	</div>
 	<div class="row">
@@ -40,27 +39,16 @@ else
 			ezeket a táblákat meg kell jegyezni, lehet újakat felvenni, itt maradnak ezen a képernyőn és frissülnek mindig
 		</div>
 		<div class="col m-2" style="background-color: #ffefef">
-			<HabitStat IsHabit="true" RerenderParent="UpdateDiaryComponents" @ref="stat" />
+			<HabitStat IsHabit="true" RerenderParent="_diarySubject.UpdateDiaryComponents" />
 		</div>
 	</div>
 }
 @code {
-	private HabitsTable table;
-	private HabitStat stat;
-
-	public Habits()
-	{
-		table = new HabitsTable();
-		stat = new HabitStat();
-	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		if (firstRender)
 		{
-			allDiaryComps.Add(table);
-			allDiaryComps.Add(stat);
-
 			await InvokeAsync(() => _appState.Title = "Habit Tracker");
 			await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
 		}

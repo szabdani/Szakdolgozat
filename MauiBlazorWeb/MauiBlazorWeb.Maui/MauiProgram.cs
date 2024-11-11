@@ -32,8 +32,11 @@ namespace MauiBlazorWeb.Maui
             // For keeping up with the state of the app
             builder.Services.AddSingleton<IAppState, AppState>();
 
-            // PW hash
-            builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+			// Subject-Observer for all diary components
+			builder.Services.AddSingleton<IDiaryCompSubject, DiaryCompSubject>();
+
+			// PW hash
+			builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 
             // Diary DB accesses
             builder.Services.AddScoped<IDiaryManager, DiaryManager>();

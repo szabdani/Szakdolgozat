@@ -1,6 +1,6 @@
 ﻿@inherits DiaryCompBase
 
-@using MauiBlazorWeb.Shared.BasePages
+@using Bases
 @using Models.Diaries
 
 <div class="row">
@@ -14,14 +14,14 @@
 		</InputSelect>
 	</div>
 	<div class="col">
-		<button class="btn btn-warning" value="Show" @onclick="RerenderDiaryComp" disabled="@(colId == 0)">Show Stats</button>
+		<button class="btn btn-warning" value="Show" @onclick="RerenderParent" disabled="@(colId == 0)">Show Stats</button>
 	</div>
 </div>
 @if (isColViewSet)
 {
 	<div class="row">
 		<div class="col">
-			<Calendar Title="@title" RerenderParent="RerenderDiaryComp" SpecialDates="doneDates" OnDayClickAction="Toggle" @ref="calendar" />
+			<Calendar Title="@title" RerenderParent="RerenderParent" SpecialDates="doneDates" OnDayClickAction="Toggle" @ref="calendar" />
 		</div>
 		<div class="col">
 			<table class="table text-center" style="table-layout: fixed;">
@@ -36,45 +36,45 @@
 					<tr>
 						<td>This Week</td>
 						<td>
-							@doneDates.Where(d => IsDateThisWeek(d)).Count()
-							/ 
-							7
+							@numPerWeek
+							/
+							@totalPerWeek
 						</td>
 						<td>
-							@((doneDates.Where(d => IsDateThisWeek(d)).Count() / (double)7).ToString("0.##%"))
+							@((numPerWeek / (double)totalPerWeek).ToString("0.##%"))
 						</td>
 					</tr>
 					<tr>
 						<td>@calendar.CalendarDate.ToString("MMMM")</td>
 						<td>
-							@doneDates.Where(d => d.Month == calendar.CalendarDate.Month && d.Year == calendar.CalendarDate.Year).Count()
+							@numPerMonth
 							/
-							@DateTime.DaysInMonth(calendar.CalendarDate.Year, calendar.CalendarDate.Month)
+							@totalPerMonth
 						</td>
 						<td>
-							@((doneDates.Where(d => d.Month == calendar.CalendarDate.Month && d.Year == calendar.CalendarDate.Year).Count() / (double)DateTime.DaysInMonth(calendar.CalendarDate.Year, calendar.CalendarDate.Month)).ToString("0.##%"))
+							@((numPerMonth/ (double)totalPerMonth).ToString("0.##%"))
 						</td>
 					</tr>
 					<tr>
 						<td>@calendar.CalendarDate.ToString("yyyy")</td>
 						<td>
-							@doneDates.Where(d => d.Year == calendar.CalendarDate.Year).Count()
-							/ 
-							@(DateTime.IsLeapYear(calendar.CalendarDate.Year) ? 366 : 365)
+							@numPerYear
+							/
+							@totalPerYear
 						</td>
 						<td>
-							@((doneDates.Where(d => d.Year == calendar.CalendarDate.Year).Count() / (double)(DateTime.IsLeapYear(calendar.CalendarDate.Year) ? 366 : 365)).ToString("0.##%"))
+							@((numPerYear / (double)totalPerYear).ToString("0.##%"))
 						</td>
 					</tr>
 					<tr>
 						<td>All time</td>
 						<td>
-							@posts.Where(p => p.Value == "X").Count() 
+							@numPerAll
 							/
-							@posts.Count()
+							@totalPerAll
 						</td>
 						<td>
-							@((posts.Where(p => p.Value == "X").Count() / (double)posts.Count()).ToString("0.##%"))
+							@((numPerAll / (double)totalPerAll).ToString("0.##%"))
 						</td>
 					</tr>
 				</tbody>
@@ -93,12 +93,25 @@
 
 	private Calendar calendar;
 
+	private int numPerWeek = 0;
+	private int totalPerWeek = 0;
+
+	private int numPerMonth = 0;
+	private int totalPerMonth = 0;
+
+	private int numPerYear = 0;
+	private int totalPerYear = 0;
+
+	private int numPerAll = 0;
+	private int totalPerAll = 0;
+
 	public HabitStat()
 	{
 		posts = new List<Diary_log_post>();
 		doneDates = new List<DateTime>();
 
 		calendar = new Calendar();
+
 	}
 
 	protected override async Task UpdateTables()
@@ -118,6 +131,18 @@
 
 		posts = allPosts.Where(p => p.Diary_log_column_Id == colId).ToList();
 		doneDates = posts.Where(p => p.Value == "X").Select(p => p.Date).Distinct().OrderBy(date => date).ToList();
+
+		numPerWeek = doneDates.Where(d => IsDateThisWeek(d)).Count();
+		totalPerWeek = allDatesSinceReg.Where(d => IsDateThisWeek(d)).Count();
+
+		numPerMonth = doneDates.Where(d => d.Month == calendar.CalendarDate.Month && d.Year == calendar.CalendarDate.Year).Count();
+		totalPerMonth = allDatesSinceReg.Where(d => d.Month == calendar.CalendarDate.Month && d.Year == calendar.CalendarDate.Year).Count();
+
+		numPerYear = doneDates.Where(d => d.Year == calendar.CalendarDate.Year).Count();
+		totalPerYear = allDatesSinceReg.Where(d => d.Year == calendar.CalendarDate.Year).Count();
+
+		numPerAll = doneDates.Count();
+		totalPerAll = allDatesSinceReg.Count();
 	}
 
 	private async Task Toggle(DateTime day)

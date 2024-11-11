@@ -25,6 +25,9 @@ builder.Services.AddScoped<IDiaryManager, DiaryManager>();
 // For keeping up with the state of the app
 builder.Services.AddSingleton<IAppState, AppState>();
 
+// Subject-Observer for all diary components
+builder.Services.AddSingleton<IDiaryCompSubject, DiaryCompSubject>();
+
 builder.Services.AddScoped<IFormFactor, FormFactor>();
 
 var app = builder.Build();

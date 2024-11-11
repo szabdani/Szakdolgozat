@@ -1,6 +1,6 @@
 ﻿@inherits DiaryCompBase
 
-@using MauiBlazorWeb.Shared.BasePages
+@using Bases
 @using MauiBlazorWeb.Shared.Components.Icons
 
 <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
@@ -25,7 +25,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach (var date in uniqueDates)
+			@foreach (var date in allDatesSinceReg)
 			{
 				<tr class="@(date.Month % 2 == 1 ? "lightrow" : "darkrow")">
 					<th scope="row">@date.ToString("yyyy-MM-dd")</th>
@@ -36,20 +36,13 @@
 							@(post?.Value ?? "")
 						</td>
 					}
-					<th>
-						<button class="btn btn-danger" @onclick="() => DeleteRow(date)">
-							<IconDelete />
-						</button>
-					</th>
 				</tr>
 			}
 		</tbody>
 		<tfoot style="position: sticky; bottom: 0; background-color: #ffefef">
 			<tr>
-				<th scope="row">
-					<button type="button" class="btn btn-info w-100" @onclick="()=>newEntryDialog.Show()">
-						<IconAdd />
-					</button>
+				<th>
+					Sum
 				</th>
 				@foreach (var col in allCols)
 				{
@@ -57,36 +50,22 @@
 						@allPosts.Where(p => p.Diary_log_column_Id == col.Id && p.Value == "X").Count()
 					</th>
 				}
-				<th>
-					Sum
-				</th>
 			</tr>
 		</tfoot>
 	</table>
 </div>
 
-<NewDiaryColDialog IsHabit="IsHabit" RerenderParent="RerenderDiaryComp" @ref=newHabitDialog />
-<EditDiaryColDialog IsHabit="IsHabit" RerenderParent="RerenderDiaryComp" @ref=editHabitDialog />
-<NewDiaryEntryDialog IsHabit="IsHabit" RerenderParent="RerenderDiaryComp" @ref=newEntryDialog />
+<NewDiaryColDialog IsHabit="IsHabit" @ref=newHabitDialog />
+<EditDiaryColDialog IsHabit="IsHabit" @ref=editHabitDialog />
 
 @code {
-	private List<DateTime> uniqueDates;
 	private NewDiaryColDialog newHabitDialog;
 	private EditDiaryColDialog editHabitDialog;
-	private NewDiaryEntryDialog newEntryDialog;
 
 	public HabitsTable()
 	{
-		uniqueDates = new List<DateTime>();
 		newHabitDialog = new NewDiaryColDialog();
 		editHabitDialog = new EditDiaryColDialog();
-		newEntryDialog = new NewDiaryEntryDialog();
-	}
-
-	protected override async Task UpdateTables()
-	{
-		await base.UpdateTables();
-		uniqueDates = allPosts.Select(obj => obj.Date).Distinct().OrderBy(date => date).ToList();
 	}
 }
 
@@ -101,12 +80,12 @@
 
 	.tracker-post {
 		vertical-align: middle;
-		background-color: #f9f9f9;
+		background-color: ghostwhite;
 		cursor: pointer;
 		transition: background-color 0.3s;
 	}
 
 		.tracker-post:hover {
-			background-color: #d0f0ff;
+			background-color: powderblue;
 		}
 </style>

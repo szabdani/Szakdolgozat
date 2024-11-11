@@ -1,14 +1,12 @@
 ﻿@page "/"
 
-@inherits DiariesBase
-
-@using MauiBlazorWeb.Shared.BasePages
+@using Bases
 @using MauiBlazorWeb.Shared.Components.Dialogs
 @using MauiBlazorWeb.Shared.Components.DiaryComps
 @using Interfaces
 
 @inject IAppState _appState
-@inject IDiaryManager _diaryManager
+@inject IDiaryCompSubject _diarySubject
 
 @if (!_appState.IsLoggedIn)
 {
@@ -25,14 +23,14 @@ else
 		<div class="col m-2" style="background-color: #ffefef">
 			<div class="row">
 				<div class = "col">
-					<DiaryCalendar RerenderParent="UpdateDiaryComponents" @ref="calendar" />
+					<DiaryCalendar RerenderParent="_diarySubject.UpdateDiaryComponents" />
 				</div>
 			</div>
 		</div>
 		<div class="col m-2" style="background-color: #ffefef">
 			<div class="row">
 				<div class="col">
-					<HabitsToday IsHabit="true" RerenderParent="UpdateDiaryComponents" @ref="habits" />
+					<HabitsToday IsHabit="true" RerenderParent="_diarySubject.UpdateDiaryComponents" />
 				</div>
 			</div>
 		</div>
@@ -53,22 +51,10 @@ else
 
 @code
 {
-	private DiaryCalendar calendar;
-	private HabitsToday habits;
-
-	public Home()
-	{
-		calendar = new DiaryCalendar();
-		habits = new HabitsToday();
-	}
-
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		if (firstRender)
 		{
-			allDiaryComps.Add(calendar);
-			allDiaryComps.Add(habits);
-
 			await InvokeAsync(() => _appState.Title = "Home");
 			await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
 		}

@@ -1,15 +1,12 @@
 ﻿@page "/diary"
 
-@inherits DiariesBase
-
-@using MauiBlazorWeb.Shared.BasePages
+@using Bases
 @using MauiBlazorWeb.Shared.Components.Dialogs
 @using MauiBlazorWeb.Shared.Components.DiaryComps
 @using Interfaces
 
 @inject IAppState _appState
-@inject IDataAccess _data
-@inject IDiaryManager _diaryManager
+@inject IDiaryCompSubject _diarySubject
 
 @if (!_appState.IsLoggedIn)
 {
@@ -32,12 +29,12 @@ else
 {
 	<div class="row">
 		<div class="col m-2" style="background-color: #ffefef">
-			<HabitsTable IsHabit="false" RerenderParent="UpdateDiaryComponents" @ref="table" />
+			<HabitsTable IsHabit="false" RerenderParent="_diarySubject.UpdateDiaryComponents" />
 		</div>
 	</div>
 	<div class="row">
 		<div class="col m-2" style="background-color: #ffefef">
-			<DiaryCalendar RerenderParent="UpdateDiaryComponents" @ref="calendar" />
+			<DiaryCalendar RerenderParent="_diarySubject.UpdateDiaryComponents" />
 		</div>
 		<div class="col m-2" style="background-color: #ffefef">
 			Utolsó 7 nap bejegyzései
@@ -58,21 +55,11 @@ else
 }
 
 @code {
-	private HabitsTable table;
-	private DiaryCalendar calendar;
-
-	public Diary()
-	{
-		table = new HabitsTable();
-		calendar = new DiaryCalendar();
-	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		if (firstRender)
 		{
-			allDiaryComps.Add(table);
-			allDiaryComps.Add(calendar);
 
 			await InvokeAsync(() => _appState.Title = "Diary");
 			await InvokeAsync(() => _appState.MainLayout.RerenderLayout());

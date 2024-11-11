@@ -86,10 +86,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xEaWFyeUNvbXBzXE5ld0RpYXJ5Q29sRGlhbG9nLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/DiaryComps/NewDiaryEntryDialog.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xEaWFyeUNvbXBzXE5ld0RpYXJ5RW50cnlEaWFsb2cucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Icons/IconAccount.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xJY29uc1xJY29uQWNjb3VudC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 

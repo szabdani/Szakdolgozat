@@ -2,7 +2,6 @@
 @using Interfaces
 
 @inject IAppState _appState
-@inject IDiaryManager _diaryManager
 
 @if (Title is not null)
 {
@@ -11,9 +10,9 @@
 
 <div class="calendar-container">
     <div class="calendar-nav">
-        <button class="btn btn-info" @onclick="ShowPrevMonth">Prev</button>
+        <button class="btn btn-info" @onclick="ShowPrevMonth" disabled="@isPrevDisabled">Prev</button>
         <span class="calendar-title">@pageDate.Year. @pageDate.ToString("MMMM") </span>
-        <button class="btn btn-info" @onclick="ShowNextMonth">Next</button>
+        <button class="btn btn-info" @onclick="ShowNextMonth" disabled="@isNextDisabled">Next</button>
     </div>
 
     <div class="calendar-grid day-header-row">
@@ -28,10 +27,15 @@
     <div class="calendar-grid">
         @foreach (var day in calendarDays)
         {
-            <div class="calendar-day 
-                @(day.Date == DateTime.Now.Date ? "today" : 
+            <div class=
+                "
+                calendar-day 
+                @(day.Date == DateTime.Today ? "today" : 
+                day.Date == firstDate ? "reg-day" :
                 day.Month == pageDate.Month ? "current-month" : "other-month") 
-                @(SpecialDates.Any(d => d.Date == day.Date) ? "special" : "")"
+                @(SpecialDates.Any(d => d.Date == day.Date) ? "special" : "")
+                @(day.Date < firstDate || day.Date > DateTime.Today ? "unclickable" : "")
+                "
                 @onclick="() => OnDayClick(day)">
                 @day.Day
             </div>
@@ -46,10 +50,13 @@
     [Parameter] public Func<DateTime, Task>? OnDayClickAction { get; set; }
     public DateTime CalendarDate { get { return pageDate; } }
 
-
     private DateTime pageDate;
     private List<DateTime> calendarDays;
     private string[] DayNames;
+
+    private DateTime firstDate;
+    private bool isPrevDisabled => new DateTime(pageDate.Year, pageDate.Month, 1) <= firstDate;
+    private bool isNextDisabled => new DateTime(pageDate.Year, pageDate.Month + 1, 1) > DateTime.Today;
 
     public Calendar()
     {
@@ -67,6 +74,7 @@
 
     protected override async Task OnInitializedAsync()
     {
+        firstDate = _appState.CurrentUser.RegistrationDate;
         await OnGenerateCalendar();
     }
 
@@ -111,10 +119,13 @@
 
     private async Task OnDayClick(DateTime day)
     {
-        if (OnDayClickAction is not null)
+        if(day.Date >= firstDate && day.Date <= DateTime.Today)
         {
-            await OnDayClickAction.Invoke(day);
-            await OnGenerateCalendar();
+            if (OnDayClickAction is not null)
+            {
+                await OnDayClickAction.Invoke(day);
+                await OnGenerateCalendar();
+            }
         }
     }
 }
@@ -126,7 +137,7 @@
         border: 1px solid #ddd;
         padding: 16px;
         border-radius: 8px;
-        background-color: #ffffff;
+        background-color: white;
     }
 
     .calendar-nav {
@@ -150,7 +161,7 @@
 
     .day-header-row {
         font-weight: bold;
-        background-color: #e0e0e0;
+        background-color: lightgray;
         text-align: center;
         padding: 4px 0;
     }
@@ -167,14 +178,14 @@
         align-items: center;
         height: 40px;
         width: 40px;
-        border: 1px solid #e0e0e0;
-        background-color: #f9f9f9;
+        border: 1px solid lightgray;
+        background-color: ghostwhite;
         cursor: pointer;
         transition: background-color 0.3s;
     }
 
         .calendar-day:hover {
-            background-color: #d0f0ff;
+            background-color: powderblue;
         }
 
     .current-month {
@@ -187,10 +198,22 @@
 
     .today {
         color: red;
+        font-weight: bold;
+    }
+
+    .reg-day {
+        color: blue;
+        font-weight: bold;
     }
 
     .special {
-        background-color: #c9c9c9;
+        background-color: silver;
         font-weight: bold;
+    }
+
+    .unclickable {
+        pointer-events: none;
+        color: lightgray;
+        background-color: whitesmoke;
     }
 </style>

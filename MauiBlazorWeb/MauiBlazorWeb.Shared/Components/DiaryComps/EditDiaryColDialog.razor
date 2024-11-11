@@ -1,8 +1,7 @@
-﻿@using Models.Diaries
-@using Interfaces
-@inject IAppState _appState
-@inject IDataAccess _data
-@inject IDiaryManager _diaryManager
+﻿@inherits DiaryCompBase
+
+@using Bases
+@using Models.Diaries
 
 @if (isVisible)
 {
@@ -99,19 +98,9 @@
 }
 
 @code {
-    [Parameter] public Func<Task>? RerenderParent { get; set; }
-    [Parameter] public bool IsHabit { get; set; } = false;
-
     private string title = "";
     private string diaryOrHabit = "Diary column";
     private bool isVisible = false;
-    public void Show(Diary_log_column col)
-    {
-        newCol = col;
-        title = newCol.Name;
-        isVisible = true;
-    }
-    public void Hide() => isVisible = false;
 
     private Diary_log_column newCol;
     private EditContext editContext;
@@ -122,6 +111,20 @@
         newCol = new Diary_log_column();
         editContext = new EditContext(newCol);
         messageStore = new ValidationMessageStore(editContext);
+    }
+
+    public async Task Show(Diary_log_column col)
+    {
+        newCol = col;
+        title = newCol.Name;
+        isVisible = true;
+
+        await _diarySubject.UpdateDiaryComponents();
+    }
+    public async Task Hide()
+    {
+        isVisible = false;
+        await _diarySubject.UpdateDiaryComponents();
     }
 
     protected override async Task OnInitializedAsync()
@@ -152,8 +155,7 @@
         {
             bool diaryNameUsed = false;
 
-            var diaryCols = await _diaryManager.GetDiaryCols(_appState.CurrentUser.Id, newCol.Type.Equals(DiaryColumnType.Habit));
-            foreach (var col in diaryCols)
+            foreach (var col in allCols)
             {
                 if (col.Name.Equals(newCol.Name))
                 {

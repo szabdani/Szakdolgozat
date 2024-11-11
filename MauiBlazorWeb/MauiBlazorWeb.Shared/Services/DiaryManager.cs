@@ -93,17 +93,6 @@ namespace MauiBlazorWeb.Shared.Services
             return retVal;
         }
 
-		public async Task DeleteSameDatePosts(int accountId, DateTime date, bool isHabit)
-		{
-			var posts = await GetDiaryPosts(accountId, isHabit);
-			foreach (var p in posts.Where(p => p.Date == date))
-			{
-				bool isCorrect = await DeleteDiaryPost(p);
-				if (!isCorrect)
-					throw new Exception($"Sorry, we could not delete post.");
-			}
-		}
-
 		public async Task ToggleHabitValue(int colId, DateTime date)
 		{
             bool isCorrect = true;
