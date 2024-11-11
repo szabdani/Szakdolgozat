@@ -32,7 +32,7 @@
 					@foreach (var col in allCols)
 					{
 						var post = allPosts.FirstOrDefault(p => p.Diary_log_column_Id == col.Id && p.Date == date);
-						<td class="tracker-post" @onclick="() => ToggleHabitValue(col.Id, date)">
+						<td class="tracker-post" @onclick="() => OnToggleHabitValue(col.Id, date)">
 							@(post?.Value ?? "")
 						</td>
 					}

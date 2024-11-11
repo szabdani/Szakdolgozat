@@ -14,14 +14,14 @@
 		</InputSelect>
 	</div>
 	<div class="col">
-		<button class="btn btn-warning" value="Show" @onclick="RerenderParent" disabled="@(colId == 0)">Show Stats</button>
+		<button class="btn btn-warning" value="Show" @onclick="RefreshDiaryComps" disabled="@(colId == 0)">Show Stats</button>
 	</div>
 </div>
 @if (isColViewSet)
 {
 	<div class="row">
 		<div class="col">
-			<Calendar Title="@title" RerenderParent="RerenderParent" SpecialDates="doneDates" OnDayClickAction="Toggle" @ref="calendar" />
+			<Calendar Title="@title"  SpecialDates="doneDates" OnDayClickAction="Toggle" @ref="calendar" />
 		</div>
 		<div class="col">
 			<table class="table text-center" style="table-layout: fixed;">
@@ -147,7 +147,7 @@
 
 	private async Task Toggle(DateTime day)
 	{
-		await ToggleHabitValue(colId, day);
+		await OnToggleHabitValue(colId, day);
 	}
 
 	private bool IsDateThisWeek(DateTime date)

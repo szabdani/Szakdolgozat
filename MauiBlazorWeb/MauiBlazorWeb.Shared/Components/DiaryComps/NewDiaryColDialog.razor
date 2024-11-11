@@ -125,7 +125,7 @@
     public async Task Show()
     {
         isVisible = true;
-        await _diarySubject.UpdateDiaryComponents();
+        await RefreshDiaryComps();
     }
 
     public async Task Hide()
@@ -173,9 +173,7 @@
                     if (isCorrect)
                     {
                         newCol = new Diary_log_column();
-                        if (RerenderParent is not null)
-                            await InvokeAsync(RerenderParent);
-                        Hide();
+                        await Hide();
                     }
                     else
                         throw new Exception($"Sorry, we could not register your {diaryOrHabit}");

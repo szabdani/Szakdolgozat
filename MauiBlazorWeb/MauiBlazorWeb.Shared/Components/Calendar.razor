@@ -45,7 +45,6 @@
 
 @code {
     [Parameter] public string? Title { get; set; }
-    [Parameter] public Func<Task>? RerenderParent { get; set; }
     [Parameter] public List<DateTime> SpecialDates { get; set; }
     [Parameter] public Func<DateTime, Task>? OnDayClickAction { get; set; }
     public DateTime CalendarDate { get { return pageDate; } }
@@ -72,18 +71,13 @@
         SpecialDates = new List<DateTime>();
     }
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         firstDate = _appState.CurrentUser.RegistrationDate;
-        await OnGenerateCalendar();
+        GenerateCalendar();
     }
 
-    private async Task OnGenerateCalendar()
-    {
-        await _appState.ShowLoadingScreenWhileAwaiting(GenerateCalendar);
-    }
-
-    private async Task GenerateCalendar()
+    private void GenerateCalendar()
     {
         calendarDays.Clear();
         var firstDayOfMonth = new DateTime(pageDate.Year, pageDate.Month, 1);
@@ -101,20 +95,18 @@
             calendarDays.Add(startDate.AddDays(i));
         }
 
-        if (RerenderParent is not null)
-            await InvokeAsync(RerenderParent);
     }
 
-    private async Task ShowPrevMonth()
+    private void ShowPrevMonth()
     {
         pageDate = pageDate.AddMonths(-1);
-        await OnGenerateCalendar();
+        GenerateCalendar();
     }
 
-    private async Task ShowNextMonth()
+    private void ShowNextMonth()
     {
         pageDate = pageDate.AddMonths(1);
-        await OnGenerateCalendar();
+        GenerateCalendar();
     }
 
     private async Task OnDayClick(DateTime day)
@@ -124,7 +116,7 @@
             if (OnDayClickAction is not null)
             {
                 await OnDayClickAction.Invoke(day);
-                await OnGenerateCalendar();
+                GenerateCalendar();
             }
         }
     }

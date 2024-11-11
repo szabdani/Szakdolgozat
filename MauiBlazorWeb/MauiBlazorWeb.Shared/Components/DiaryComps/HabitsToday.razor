@@ -18,7 +18,7 @@
 					<th>@col.Name</th>
 					@{
 						var post = allPosts.FirstOrDefault(p => p.Diary_log_column_Id == col.Id && p.Date == DateTime.Now.Date);
-						<td class="tracker-post" @onclick="() => ToggleHabitValue(col.Id,DateTime.Now.Date)">
+						<td class="tracker-post" @onclick="() => OnToggleHabitValue(col.Id,DateTime.Now.Date)">
 							@(post?.Value ?? "")
 						</td>
 					}

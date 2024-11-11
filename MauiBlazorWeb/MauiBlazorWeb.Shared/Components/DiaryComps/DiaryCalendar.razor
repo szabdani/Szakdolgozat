@@ -2,7 +2,7 @@
 
 @using Bases
 
-<Calendar Title="Diary Entries" SpecialDates="uniqueDates"  />
+<Calendar Title="Diary Entries" SpecialDates="uniqueDates" OnDayClickAction="OpenDay" />
 
 @code {
 	private List<DateTime> uniqueDates;
@@ -18,15 +18,9 @@
 		uniqueDates = allPosts.Select(obj => obj.Date).Distinct().OrderBy(date => date).ToList();
 	}
 
-	/*
-		*
-		* OnDayClickAction="OpenDay" a calendar-hoz
-
-
 	private async Task OpenDay(DateTime day)
-		{
+	{
 		// Nem ez lesz
 		Console.WriteLine($"Day clicked: {day.ToShortDateString()}");
 	}
-	*/
 }
