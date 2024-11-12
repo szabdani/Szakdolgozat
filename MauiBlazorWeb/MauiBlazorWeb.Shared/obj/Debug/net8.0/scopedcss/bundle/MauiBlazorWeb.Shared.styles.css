@@ -1,3 +1,5 @@
+@import '_content/Blazor.Bootstrap/Blazor.Bootstrap.bundle.scp.css';
+
 /* _content/MauiBlazorWeb.Shared/Components/Layout/DropUp.razor.rz.scp.css */
 .dropdown-menu[b-zdkrn2xtqc] {
     position: absolute;

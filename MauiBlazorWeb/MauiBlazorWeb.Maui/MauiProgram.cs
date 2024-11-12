@@ -41,6 +41,8 @@ namespace MauiBlazorWeb.Maui
             // Diary DB accesses
             builder.Services.AddScoped<IDiaryManager, DiaryManager>();
 
+			builder.Services.AddBlazorBootstrap();
+
 			builder.Services.AddMauiBlazorWebView();
 
 #if DEBUG

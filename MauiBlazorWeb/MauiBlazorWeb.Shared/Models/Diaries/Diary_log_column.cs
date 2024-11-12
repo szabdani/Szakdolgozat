@@ -18,5 +18,7 @@ namespace MauiBlazorWeb.Shared.Models.Diaries
 		public int Value_range_min { get; set; }
 		public int Value_range_max { get; set; }
 		public int Account_Id { get; set; }
+
+		public bool IsSelected { get; set; } = true;
 	}
 }

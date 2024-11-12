@@ -21,7 +21,7 @@
 {
 	<div class="row">
 		<div class="col">
-			<Calendar Title="@title"  SpecialDates="doneDates" OnDayClickAction="Toggle" @ref="calendar" />
+			<Calendar Title="@title" SpecialDates="doneDates" OnDayClickAction="Toggle" @ref="calendar" />
 		</div>
 		<div class="col">
 			<table class="table text-center" style="table-layout: fixed;">
@@ -33,50 +33,34 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>This Week</td>
-						<td>
-							@numPerWeek
-							/
-							@totalPerWeek
-						</td>
-						<td>
-							@((numPerWeek / (double)totalPerWeek).ToString("0.##%"))
-						</td>
-					</tr>
-					<tr>
-						<td>@calendar.CalendarDate.ToString("MMMM")</td>
-						<td>
-							@numPerMonth
-							/
-							@totalPerMonth
-						</td>
-						<td>
-							@((numPerMonth/ (double)totalPerMonth).ToString("0.##%"))
-						</td>
-					</tr>
-					<tr>
-						<td>@calendar.CalendarDate.ToString("yyyy")</td>
-						<td>
-							@numPerYear
-							/
-							@totalPerYear
-						</td>
-						<td>
-							@((numPerYear / (double)totalPerYear).ToString("0.##%"))
-						</td>
-					</tr>
-					<tr>
-						<td>All time</td>
-						<td>
-							@numPerAll
-							/
-							@totalPerAll
-						</td>
-						<td>
-							@((numPerAll / (double)totalPerAll).ToString("0.##%"))
-						</td>
-					</tr>
+					@foreach (var timeSpan in Enum.GetValues(typeof(TimeSpan)))
+					{
+						<tr>
+								@switch (timeSpan)
+								{
+									case TimeSpan.Week:
+										<td>This Week</td>
+									break;
+									case TimeSpan.Month:
+										<td>@calendar.CalendarDate.ToString("MMMM")</td>
+									break;
+									case TimeSpan.Year:
+										<td>@calendar.CalendarDate.ToString("yyyy")</td>
+									break;
+									case TimeSpan.All:
+										<td>All time</td>
+									break;
+								}
+							<td>
+								@numPer[(TimeSpan)timeSpan]
+								/
+								@totalPer[(TimeSpan)timeSpan]
+							</td>
+							<td>
+								@((numPer[(TimeSpan)timeSpan] / (double)totalPer[(TimeSpan)timeSpan]).ToString("0.##%"))
+							</td>
+						</tr>
+					}
 				</tbody>
 			</table>
 		</div>
@@ -93,17 +77,8 @@
 
 	private Calendar calendar;
 
-	private int numPerWeek = 0;
-	private int totalPerWeek = 0;
-
-	private int numPerMonth = 0;
-	private int totalPerMonth = 0;
-
-	private int numPerYear = 0;
-	private int totalPerYear = 0;
-
-	private int numPerAll = 0;
-	private int totalPerAll = 0;
+	private Dictionary<TimeSpan,int> numPer;
+	private Dictionary<TimeSpan, int> totalPer;
 
 	public HabitStat()
 	{
@@ -111,6 +86,15 @@
 
 		posts = new List<Diary_log_post>();
 		doneDates = new List<DateTime>();
+
+		numPer = new Dictionary<TimeSpan, int>();
+		totalPer = new Dictionary<TimeSpan, int>();
+
+		foreach (var timeSpan in Enum.GetValues(typeof(TimeSpan)))
+		{
+			numPer.Add((TimeSpan)timeSpan, 0);
+			totalPer.Add((TimeSpan)timeSpan, 0);
+		}
 
 		calendar = new Calendar();
 	}
@@ -133,36 +117,15 @@
 		posts = allPosts.Where(p => p.Diary_log_column_Id == colId).ToList();
 		doneDates = posts.Where(p => p.Value == "X").Select(p => p.Date).Distinct().OrderBy(date => date).ToList();
 
-		numPerWeek = doneDates.Where(d => IsDateThisWeek(d)).Count();
-		totalPerWeek = allDatesSinceReg.Where(d => IsDateThisWeek(d)).Count();
-
-		numPerMonth = doneDates.Where(d => d.Month == calendar.CalendarDate.Month && d.Year == calendar.CalendarDate.Year).Count();
-		totalPerMonth = allDatesSinceReg.Where(d => d.Month == calendar.CalendarDate.Month && d.Year == calendar.CalendarDate.Year).Count();
-
-		numPerYear = doneDates.Where(d => d.Year == calendar.CalendarDate.Year).Count();
-		totalPerYear = allDatesSinceReg.Where(d => d.Year == calendar.CalendarDate.Year).Count();
-
-		numPerAll = doneDates.Count();
-		totalPerAll = allDatesSinceReg.Count();
+		foreach (var timeSpan in Enum.GetValues(typeof(TimeSpan)))
+		{
+			numPer[(TimeSpan)timeSpan] = doneDates.Where(d => FilterPostsByTimeSpan(d, calendar.CalendarDate, (TimeSpan)timeSpan)).Count();
+			totalPer[(TimeSpan)timeSpan] = allDatesSinceReg.Where(d => FilterPostsByTimeSpan(d, calendar.CalendarDate, (TimeSpan)timeSpan)).Count();
+		}
 	}
 
 	private async Task Toggle(DateTime day)
 	{
 		await OnToggleHabitValue(colId, day);
-	}
-
-	private bool IsDateThisWeek(DateTime date)
-	{
-		DateTime today = DateTime.Today;
-
-		int daysSinceMonday = (int)today.DayOfWeek - 1;
-		if (daysSinceMonday < 0) 
-			daysSinceMonday += 7;
-
-
-		DateTime monday = today.AddDays(-daysSinceMonday);
-		DateTime sunday = monday.AddDays(6);
-
-		return date.Date >= monday && date.Date <= sunday;
 	}
 }

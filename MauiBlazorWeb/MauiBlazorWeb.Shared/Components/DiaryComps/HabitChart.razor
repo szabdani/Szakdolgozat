@@ -1,12 +1,23 @@
 ﻿@inherits DiaryCompBase
 
 @using Bases
+@using BlazorBootstrap
 
 <div class="row">
 	<div class="col">
-
+		<div class="row">
+			<label>Select Time Span:</label>
+			<InputSelect class="form-control" @bind-Value=timeSpan>
+				@foreach (var t in Enum.GetValues(typeof(TimeSpan)))
+				{
+					<option value="@t">@t</option>
+				}
+			</InputSelect>
+		</div>
+		<div class="row">
+			<BarChart Labels="barChartLabels" Data="barChartData" />
+		</div>
 	</div>
-
 	<div class="col ">
 		<div class="table-responsive">
 			<table class="table w-auto float-end">
@@ -22,7 +33,7 @@
 						<tr>
 							<th>@col.Name</th>
 							<td>
-								
+                                <InputCheckbox @bind-Value="col.IsSelected" @onchange="RefreshDiaryComps" />
 							</td>
 						</tr>
 					}
@@ -33,10 +44,37 @@
 </div>
 
 @code {
-	public HabitChart()
-	{
-		IsHabit = true;
+    private TimeSpan timeSpan;
 
-		// <InputCheckbox class="form-control" />
-	}
+    public HabitChart()
+    {
+        IsHabit = true;
+    }
+    private List<int> countTimes = new List<int>(); // Data for the bar chart
+    private List<string> barChartLabels = new List<string>(); // Labels for the bar chart
+
+    protected override async Task UpdateTables()
+    {
+        await base.UpdateTables();
+        GenerateBarChartData();
+    }
+
+    private void GenerateBarChartData()
+    {
+        countTimes.Clear();
+        barChartLabels.Clear();
+
+        // Loop through selected columns and generate data for the bar chart
+        foreach (var col in allCols.Where(c => c.IsSelected))
+        {
+            int count = 0;
+            var posts = allPosts.Where(p => p.Diary_log_column_Id == col.Id);
+
+            var filteredPosts = posts.Where(p => FilterPostsByTimeSpan(p.Date, DateTime.Today, timeSpan)).ToList();
+            count = filteredPosts.Count(p => p.Value == "X");
+
+            barChartLabels.Add(col.Name); // Add the column name to labels
+            countTimes.Add(count); // Add the count for the column to the data
+        }
+    }
 }

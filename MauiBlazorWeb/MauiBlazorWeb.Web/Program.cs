@@ -16,6 +16,8 @@ builder.Services.AddSingleton<IDataAccess, DataAccess>();
 // Session data
 builder.Services.AddBlazoredLocalStorage();
 
+builder.Services.AddBlazorBootstrap();
+
 // PW hash
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 
