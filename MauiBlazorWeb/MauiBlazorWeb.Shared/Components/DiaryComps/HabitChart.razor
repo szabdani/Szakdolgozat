@@ -6,75 +6,182 @@
 <div class="row">
 	<div class="col">
 		<div class="row">
-			<label>Select Time Span:</label>
-			<InputSelect class="form-control" @bind-Value=timeSpan>
-				@foreach (var t in Enum.GetValues(typeof(TimeSpan)))
-				{
-					<option value="@t">@t</option>
-				}
-			</InputSelect>
-		</div>
-		<div class="row">
-			<BarChart Labels="barChartLabels" Data="barChartData" />
+			<div class="col">
+				<label>Select Time Span:</label>
+				<InputSelect class="form-control" @bind-Value="timeSpan" @bind-Value:after="@RefreshDiaryComps">
+					@foreach (var t in Enum.GetValues(typeof(TimeSpan)))
+					{
+						<option value="@t">@t</option>
+					}
+				</InputSelect>
+			</div>
 		</div>
 	</div>
-	<div class="col ">
+	<div class="col">
 		<div class="table-responsive">
 			<table class="table w-auto float-end">
-				<thead class="thead-light" style="position: sticky; top: 0; background-color: #ffefef">
+				<tbody>
 					<tr>
 						<th scope="col">Habits</th>
-						<th scope="col">Show?</th>
-					</tr>
-				</thead>
-				<tbody>
-					@foreach (var col in allCols)
-					{
-						<tr>
+						@foreach (var col in allCols)
+						{
 							<th>@col.Name</th>
-							<td>
-                                <InputCheckbox @bind-Value="col.IsSelected" @onchange="RefreshDiaryComps" />
+						}
+					</tr>
+					<tr>
+						<th scope="col">Show?</th>
+						@foreach (var col in allCols)
+						{
+							<td class="tracker-post" @onclick="() => OnToggle(col.Id)">
+								@(checkBox[col.Id] ? "X" : "")
 							</td>
-						</tr>
-					}
+						}
+					</tr>
 				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="@((allCols.Count + 1) / 2)">
+							<button class="btn btn-info w-100" value="Show" @onclick="CheckAll">Check All</button>
+						</td>
+						<td colspan="@((allCols.Count + 1) / 2)">
+							<button class="btn btn-info w-100" value="Show" @onclick="UnCheckAll">Uncheck All</button>
+						</td>
+					</tr>
+				</tfoot>
 			</table>
 		</div>
 	</div>
 </div>
+<div class="row">
+	<div class="col">
+		<BarChart @ref="barChart" />
+	</div>
+</div>
 
 @code {
-    private TimeSpan timeSpan;
+	private TimeSpan timeSpan;
 
-    public HabitChart()
-    {
-        IsHabit = true;
-    }
-    private List<int> countTimes = new List<int>(); // Data for the bar chart
-    private List<string> barChartLabels = new List<string>(); // Labels for the bar chart
+	private Dictionary<int, bool> checkBox;
 
-    protected override async Task UpdateTables()
-    {
-        await base.UpdateTables();
-        GenerateBarChartData();
-    }
+	private BarChart barChart;
+	private BarChartOptions barChartOptions;
+	private ChartData chartData;
 
-    private void GenerateBarChartData()
-    {
-        countTimes.Clear();
-        barChartLabels.Clear();
+	private bool isChartInit = false;
 
-        // Loop through selected columns and generate data for the bar chart
-        foreach (var col in allCols.Where(c => c.IsSelected))
-        {
-            int count = 0;
-            var posts = allPosts.Where(p => p.Diary_log_column_Id == col.Id);
+	public HabitChart()
+	{
+		IsHabit = true;
 
-            var filteredPosts = posts.Where(p => FilterPostsByTimeSpan(p.Date, DateTime.Today, timeSpan)).ToList();
-            count = filteredPosts.Count(p => p.Value == "X");
+		checkBox = new Dictionary<int, bool>();
 
-            barChartLabels.Add(col.Name); // Add the column name to labels
-            countTimes.Add(count); // Add the count for the column to the data
-        }
-    }
+		barChart = new BarChart();
+		barChartOptions = new BarChartOptions();
+		barChartOptions.Responsive = true;
+
+		barChartOptions.Scales = new Scales
+		{
+			X = new ChartAxes { Title = new ChartAxesTitle { Text = "Habits", Display = true } },
+			Y = new ChartAxes { Title = new ChartAxesTitle { Text = "Times you did the habit", Display = true } }
+		};
+
+
+		barChartOptions.Plugins.Legend.Display = false;
+
+
+		chartData = new ChartData();
+	}
+
+	private async Task OnToggle(int id)
+	{
+		checkBox[id] = !checkBox[id];
+		await RefreshDiaryComps();
+	}
+
+	private async Task CheckAll()
+	{
+		foreach (var key in checkBox.Keys.ToList())
+		{
+			checkBox[key] = true;
+		}
+		await RefreshDiaryComps();
+	}
+
+	private async Task UnCheckAll()
+	{
+		foreach (var key in checkBox.Keys.ToList())
+		{
+			checkBox[key] = false;
+		}
+		await RefreshDiaryComps();
+	}
+
+	protected override async Task UpdateTables()
+	{
+		await base.UpdateTables();
+
+		foreach (var col in allCols)
+		{
+			if (!checkBox.ContainsKey(col.Id))
+			{
+				checkBox[col.Id] = true;
+			}
+		}
+		GenerateBarChartData();
+
+		if (isChartInit)
+		{
+			await barChart.UpdateAsync(chartData, barChartOptions);
+
+		}
+		else
+		{
+			isChartInit = true;
+			await barChart.InitializeAsync(chartData, barChartOptions);
+		}
+
+	}
+
+	private void GenerateBarChartData()
+	{
+		List<string> labels = new List<string>();
+		List<double?> countTimes = new List<double?>();
+
+		// Loop through selected columns and generate data for the bar chart
+		foreach (var col in allCols.Where(c => checkBox[c.Id]))
+		{
+			double? count = 0;
+			var posts = allPosts.Where(p => p.Diary_log_column_Id == col.Id);
+
+			var filteredPosts = posts.Where(p => FilterPostsByTimeSpan(p.Date, DateTime.Today, timeSpan)).ToList();
+			count = filteredPosts.Count(p => p.Value == "X");
+
+			labels.Add(col.Name); // Add the column name to labels
+			countTimes.Add(count); // Add the count for the column to the data
+		}
+
+
+		var datasets = new List<IChartDataset>();
+		var dataset1 = new BarChartDataset() { Data = countTimes };
+
+		datasets.Add(dataset1);
+
+		chartData = new ChartData{ Labels = labels, Datasets = datasets };
+
+		double total = allDatesSinceReg.Where(d => FilterPostsByTimeSpan(d, DateTime.Today, timeSpan)).Count();
+		barChartOptions.Scales.Y.Max = total;
+	}
 }
+
+<style>
+	.tracker-post {
+		vertical-align: middle;
+		background-color: ghostwhite;
+		cursor: pointer;
+		transition: background-color 0.3s;
+	}
+
+		.tracker-post:hover {
+			background-color: powderblue;
+		}
+</style>
