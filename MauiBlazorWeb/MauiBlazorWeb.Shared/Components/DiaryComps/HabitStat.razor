@@ -21,7 +21,7 @@
 {
 	<div class="row">
 		<div class="col">
-			<Calendar Title="@title" SpecialDates="doneDates" OnDayClickAction="Toggle" @ref="calendar" />
+			<Calendar Title="@title" RerenderParent="RefreshDiaryComps" SpecialDates="doneDates" OnDayClickAction="Toggle" @ref="calendar" />
 		</div>
 		<div class="col">
 			<table class="table text-center" style="table-layout: fixed;">

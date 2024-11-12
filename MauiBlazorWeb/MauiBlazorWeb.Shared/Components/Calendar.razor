@@ -45,6 +45,7 @@
 
 @code {
     [Parameter] public string? Title { get; set; }
+    [Parameter] public Func<Task>? RerenderParent { get; set; }
     [Parameter] public List<DateTime> SpecialDates { get; set; }
     [Parameter] public Func<DateTime, Task>? OnDayClickAction { get; set; }
     public DateTime CalendarDate { get { return pageDate; } }
@@ -97,16 +98,20 @@
 
     }
 
-    private void ShowPrevMonth()
+    private async Task ShowPrevMonth()
     {
         pageDate = pageDate.AddMonths(-1);
         GenerateCalendar();
+        if (RerenderParent is not null)
+            await InvokeAsync(RerenderParent);
     }
 
-    private void ShowNextMonth()
+    private async Task ShowNextMonth()
     {
         pageDate = pageDate.AddMonths(1);
         GenerateCalendar();
+        if (RerenderParent is not null)
+            await InvokeAsync(RerenderParent);
     }
 
     private async Task OnDayClick(DateTime day)

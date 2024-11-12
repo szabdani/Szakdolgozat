@@ -43,8 +43,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\css\caret-up-fill.svg" />
-    <None Include="wwwroot\css\def_user.jpg" />
     <None Include="wwwroot\svg\def_user2.jpg" />
     <None Include="wwwroot\svg\pencil-square.svg" />
   </ItemGroup>
