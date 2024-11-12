@@ -22,7 +22,7 @@ namespace MauiBlazorWeb.Shared.Models
         public string Password1 { get; set; } = "";
 
         [Required(ErrorMessage = "You must repeat your password for confirmation.")]
-        [Compare("Password1", ErrorMessage = "The password are not matching.")]
+        [Compare("Password1", ErrorMessage = "The passwords are not matching.")]
         public string Password2 { get; set; } = "";
 
         public DateTime Birthdate { get; set; } = new DateTime(2000, 1, 1);

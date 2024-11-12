@@ -55,7 +55,7 @@
 
     private DateTime firstDate;
     private bool isPrevDisabled => new DateTime(pageDate.Year, pageDate.Month, 1) <= firstDate;
-    private bool isNextDisabled => new DateTime(pageDate.Year, pageDate.Month + 1, 1) > DateTime.Today;
+    private bool isNextDisabled => new DateTime(pageDate.AddMonths(1).Year, pageDate.AddMonths(1).Month, 1) > DateTime.Today;
 
     public Calendar()
     {

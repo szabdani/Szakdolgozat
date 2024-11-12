@@ -3,6 +3,8 @@
 @using Bases
 @using MauiBlazorWeb.Shared.Components.Icons
 
+@inject IJSRuntime JS
+
 <div class="row">
 	<div class="col">
 		<div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
@@ -24,8 +26,10 @@
 				<tbody>
 					@foreach (var date in allDatesSinceReg)
 					{
-						<tr class="@(date.Month % 2 == 1 ? "lightrow" : "darkrow")">
-							<th scope="row">@date.ToString("yyyy-MM-dd")</th>
+						<tr id="@(date == DateTime.Today ? "last-row" : null)" class="@(date.Month % 2 == 1 ? "lightrow" : "darkrow")">
+							<th scope="row">
+								@date.ToString("yyyy-MM-dd")
+							</th>
 							@foreach (var col in allCols)
 							{
 								var post = allPosts.FirstOrDefault(p => p.Diary_log_column_Id == col.Id && p.Date == date);
@@ -76,6 +80,14 @@
 		newHabitDialog = new NewDiaryColDialog();
 		editHabitDialog = new EditDiaryColDialog();
 	}
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await JS.InvokeVoidAsync("scrollToToday");
+		}
+	}
 }
 
 <style>
@@ -98,3 +110,12 @@
 			background-color: powderblue;
 		}
 </style>
+
+<script>
+	function scrollToToday() {
+		const lastRow = document.getElementById("last-row");
+		if (lastRow) {
+			lastRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+		}
+	}
+</script>
