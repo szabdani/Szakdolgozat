@@ -61,3 +61,8 @@ C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.We
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\obj\Debug\net8.0\MauiBlazorWeb.Web.genruntimeconfig.cache
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\obj\Debug\net8.0\ref\MauiBlazorWeb.Web.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\bin\Debug\net8.0\BlazorBootstrap.dll
+C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\bin\Debug\net8.0\MauiBlazorWeb.Shared.staticwebassets.endpoints.json
+C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\bin\Debug\net8.0\MauiBlazorWeb.Web.staticwebassets.endpoints.json
+C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\obj\Debug\net8.0\staticwebassets\msbuild.MauiBlazorWeb.Web.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

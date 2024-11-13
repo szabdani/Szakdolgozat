@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MauiBlazorWeb.Shared.Bases;
+using MauiBlazorWeb.Shared.Components.Widgets.Bases;
 using MauiBlazorWeb.Shared.Interfaces;
 
 namespace MauiBlazorWeb.Shared.Services
 {
-    public class DiaryCompSubject : IDiaryCompSubject
+	public class DiaryCompSubject : IDiaryCompSubject
 	{
 		protected List<DiaryCompBase> allDiaryComps;
 

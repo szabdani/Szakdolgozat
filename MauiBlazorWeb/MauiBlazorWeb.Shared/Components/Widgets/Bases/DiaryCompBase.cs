@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MauiBlazorWeb.Shared.Components.DiaryComps;
 using MauiBlazorWeb.Shared.Interfaces;
 using MauiBlazorWeb.Shared.Models.Diaries;
 using MauiBlazorWeb.Shared.Services;
 using Microsoft.AspNetCore.Components;
 
-namespace MauiBlazorWeb.Shared.Bases
+namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 {
-	public class DiaryCompBase : ComponentBase
+	public class DiaryCompBase : ComponentBase, IDisposable
 	{
-        protected enum TimeSpan {Week, Month, Year, All }
+		protected enum TimeSpan { Week, Month, Year, All }
 
 		[Inject] protected IAppState _appState { get; set; }
 		[Inject] protected IDiaryManager _diaryManager { get; set; }
@@ -52,13 +51,18 @@ namespace MauiBlazorWeb.Shared.Bases
 			}
 		}
 
+		public void Dispose()
+		{
+			_diarySubject.Detach(this);
+		}
+
 		protected override async Task OnInitializedAsync()
 		{
 			await UpdateDiaryComp();
 		}
 
-        public async Task UpdateDiaryComp()
-        {
+		public async Task UpdateDiaryComp()
+		{
 			await UpdateTables();
 			await InvokeAsync(StateHasChanged);
 		}
@@ -77,44 +81,29 @@ namespace MauiBlazorWeb.Shared.Bases
 
 		protected async Task OnToggleHabitValue(int colId, DateTime day)
 		{
-			await _appState.ShowLoadingScreenWhileAwaiting(() => ToggleHabitValue(colId,day));
+			await _appState.ShowLoadingScreenWhileAwaiting(() => ToggleHabitValue(colId, day));
 		}
 
 		protected async Task RefreshDiaryComps()
 		{
-            await _appState.ShowLoadingScreenWhileAwaiting(_diarySubject.UpdateDiaryComponents);
-        }
+			await _appState.ShowLoadingScreenWhileAwaiting(_diarySubject.UpdateDiaryComponents);
+		}
 
-        protected bool FilterPostsByTimeSpan(DateTime postDate, DateTime refDate, TimeSpan timeSpan)
-        {
-            switch (timeSpan)
-            {
-                case TimeSpan.Week:
-					return IsDateThisWeek(postDate);
+		protected bool FilterPostsByTimeSpan(DateTime postDate, DateTime refDate, TimeSpan timeSpan)
+		{
+			switch (timeSpan)
+			{
+				case TimeSpan.Week:
+					return postDate > refDate.AddDays(-7);
 				case TimeSpan.Month:
-					return (postDate.Month == refDate.Month && postDate.Year == refDate.Year);
+					return postDate.Month == refDate.Month && postDate.Year == refDate.Year;
 				case TimeSpan.Year:
-					return (postDate.Year == refDate.Year);
+					return postDate.Year == refDate.Year;
 				case TimeSpan.All:
-                    return true;
-                default:
-                    return false;
-            }
-        }
-
-        private bool IsDateThisWeek(DateTime date)
-        {
-            DateTime today = DateTime.Today;
-
-            int daysSinceMonday = (int)today.DayOfWeek - 1;
-            if (daysSinceMonday < 0)
-                daysSinceMonday += 7;
-
-
-            DateTime monday = today.AddDays(-daysSinceMonday);
-            DateTime sunday = monday.AddDays(6);
-
-            return date.Date >= monday && date.Date <= sunday;
-        }
-    }
+					return true;
+				default:
+					return false;
+			}
+		}
+	}
 }

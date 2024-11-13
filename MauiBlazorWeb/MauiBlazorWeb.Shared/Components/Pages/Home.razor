@@ -1,12 +1,10 @@
 ﻿@page "/"
 
-@using Bases
 @using MauiBlazorWeb.Shared.Components.Dialogs
-@using MauiBlazorWeb.Shared.Components.DiaryComps
+@using MauiBlazorWeb.Shared.Components.Widgets.Diaries
 @using Interfaces
 
 @inject IAppState _appState
-@inject IDiaryCompSubject _diarySubject
 
 @if (!_appState.IsLoggedIn)
 {

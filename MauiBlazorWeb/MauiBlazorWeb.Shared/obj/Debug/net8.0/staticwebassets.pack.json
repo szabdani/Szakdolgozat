@@ -2,7 +2,7 @@
   "Files": [
     {
       "Id": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\MauiBlazorWeb.Shared.bundle.scp.css",
-      "PackagePath": "staticwebassets\\MauiBlazorWeb.Shared.bundle.scp.css"
+      "PackagePath": "staticwebassets\\MauiBlazorWeb.Shared.q2t8caei05.bundle.scp.css"
     },
     {
       "Id": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\wwwroot\\css\\app.css",
@@ -23,6 +23,10 @@
     {
       "Id": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\MauiBlazorWeb\\MauiBlazorWeb.Shared\\wwwroot\\css\\def_user.jpg",
       "PackagePath": "staticwebassets\\css\\def_user.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.MauiBlazorWeb.Shared.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.MauiBlazorWeb.Shared.Microsoft.AspNetCore.StaticWebAssets.props",
