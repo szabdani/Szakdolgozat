@@ -904,6 +904,24 @@
           "build/Microsoft.NET.ILLink.Tasks.props": {}
         }
       },
+      "Microsoft.NETCore.Platforms/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard1.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/_._": {}
+        }
+      },
+      "Microsoft.NETCore.Targets/1.1.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard1.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/_._": {}
+        }
+      },
       "MySql.Data/9.1.0": {
         "type": "package",
         "dependencies": {
@@ -1025,7 +1043,7 @@
           }
         }
       },
-      "System.IO.Pipelines/8.0.0": {
+      "System.IO.Pipelines/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -1038,7 +1056,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Memory/4.5.4": {
@@ -1052,6 +1070,16 @@
         },
         "runtime": {
           "lib/netcoreapp2.1/_._": {}
+        }
+      },
+      "System.Private.Uri/4.3.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3"
+        },
+        "compile": {
+          "ref/netstandard/_._": {}
         }
       },
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {
@@ -1138,7 +1166,7 @@
           }
         }
       },
-      "System.Text.Encodings.Web/8.0.0": {
+      "System.Text.Encodings.Web/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -1151,7 +1179,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         },
         "runtimeTargets": {
           "runtimes/browser/lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -1160,10 +1188,11 @@
           }
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/9.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
+          "System.IO.Pipelines": "9.0.0",
+          "System.Text.Encodings.Web": "9.0.0"
         },
         "compile": {
           "lib/net8.0/System.Text.Json.dll": {
@@ -1176,7 +1205,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/System.Text.Json.targets": {}
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
       "System.Threading.Tasks.Extensions/4.5.4": {
@@ -2988,7 +3017,9 @@
           "Konscious.Security.Cryptography.Argon2": "1.3.1",
           "Microsoft.AspNetCore.Components.Web": "8.0.8",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "9.1.0"
+          "MySql.Data": "9.1.0",
+          "System.Private.Uri": "4.3.2",
+          "System.Text.Json": "9.0.0"
         },
         "compile": {
           "bin/placeholder/MauiBlazorWeb.Shared.dll": {}
@@ -3901,6 +3932,24 @@
           "build/Microsoft.NET.ILLink.Tasks.props": {}
         }
       },
+      "Microsoft.NETCore.Platforms/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard1.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/_._": {}
+        }
+      },
+      "Microsoft.NETCore.Targets/1.1.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard1.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/_._": {}
+        }
+      },
       "MySql.Data/9.1.0": {
         "type": "package",
         "dependencies": {
@@ -3927,6 +3976,31 @@
           "lib/net8.0/MySql.Data.dll": {
             "related": ".xml"
           }
+        }
+      },
+      "runtime.native.System/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0"
+        },
+        "compile": {
+          "lib/netstandard1.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/_._": {}
+        }
+      },
+      "runtime.unix.System.Private.Uri/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "runtime.native.System": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard/_._": {}
+        },
+        "runtime": {
+          "runtimes/unix/lib/netstandard1.0/System.Private.Uri.dll": {}
         }
       },
       "System.Buffers/4.5.1": {
@@ -3990,7 +4064,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.IO.Pipelines/8.0.0": {
+      "System.IO.Pipelines/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -4003,7 +4077,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Memory/4.5.4": {
@@ -4017,6 +4091,17 @@
         },
         "runtime": {
           "lib/netcoreapp2.1/_._": {}
+        }
+      },
+      "System.Private.Uri/4.3.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
+          "runtime.unix.System.Private.Uri": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard/_._": {}
         }
       },
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {
@@ -4097,7 +4182,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Text.Encodings.Web/8.0.0": {
+      "System.Text.Encodings.Web/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -4110,13 +4195,14 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/9.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
+          "System.IO.Pipelines": "9.0.0",
+          "System.Text.Encodings.Web": "9.0.0"
         },
         "compile": {
           "lib/net8.0/System.Text.Json.dll": {
@@ -4129,7 +4215,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/System.Text.Json.targets": {}
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
       "System.Threading.Tasks.Extensions/4.5.4": {
@@ -5935,7 +6021,9 @@
           "Konscious.Security.Cryptography.Argon2": "1.3.1",
           "Microsoft.AspNetCore.Components.Web": "8.0.8",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "9.1.0"
+          "MySql.Data": "9.1.0",
+          "System.Private.Uri": "4.3.2",
+          "System.Text.Json": "9.0.0"
         },
         "compile": {
           "bin/placeholder/MauiBlazorWeb.Shared.dll": {}
@@ -6848,6 +6936,24 @@
           "build/Microsoft.NET.ILLink.Tasks.props": {}
         }
       },
+      "Microsoft.NETCore.Platforms/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard1.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/_._": {}
+        }
+      },
+      "Microsoft.NETCore.Targets/1.1.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard1.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/_._": {}
+        }
+      },
       "MySql.Data/9.1.0": {
         "type": "package",
         "dependencies": {
@@ -6874,6 +6980,31 @@
           "lib/net8.0/MySql.Data.dll": {
             "related": ".xml"
           }
+        }
+      },
+      "runtime.native.System/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0"
+        },
+        "compile": {
+          "lib/netstandard1.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/_._": {}
+        }
+      },
+      "runtime.unix.System.Private.Uri/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "runtime.native.System": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard/_._": {}
+        },
+        "runtime": {
+          "runtimes/unix/lib/netstandard1.0/System.Private.Uri.dll": {}
         }
       },
       "System.Buffers/4.5.1": {
@@ -6937,7 +7068,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.IO.Pipelines/8.0.0": {
+      "System.IO.Pipelines/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -6950,7 +7081,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Memory/4.5.4": {
@@ -6964,6 +7095,17 @@
         },
         "runtime": {
           "lib/netcoreapp2.1/_._": {}
+        }
+      },
+      "System.Private.Uri/4.3.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
+          "runtime.unix.System.Private.Uri": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard/_._": {}
         }
       },
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {
@@ -7044,7 +7186,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Text.Encodings.Web/8.0.0": {
+      "System.Text.Encodings.Web/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -7057,13 +7199,14 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/9.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
+          "System.IO.Pipelines": "9.0.0",
+          "System.Text.Encodings.Web": "9.0.0"
         },
         "compile": {
           "lib/net8.0/System.Text.Json.dll": {
@@ -7076,7 +7219,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/System.Text.Json.targets": {}
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
       "System.Threading.Tasks.Extensions/4.5.4": {
@@ -8882,7 +9025,9 @@
           "Konscious.Security.Cryptography.Argon2": "1.3.1",
           "Microsoft.AspNetCore.Components.Web": "8.0.8",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "9.1.0"
+          "MySql.Data": "9.1.0",
+          "System.Private.Uri": "4.3.2",
+          "System.Text.Json": "9.0.0"
         },
         "compile": {
           "bin/placeholder/MauiBlazorWeb.Shared.dll": {}
@@ -9795,6 +9940,24 @@
           "build/Microsoft.NET.ILLink.Tasks.props": {}
         }
       },
+      "Microsoft.NETCore.Platforms/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard1.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/_._": {}
+        }
+      },
+      "Microsoft.NETCore.Targets/1.1.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard1.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/_._": {}
+        }
+      },
       "MySql.Data/9.1.0": {
         "type": "package",
         "dependencies": {
@@ -9821,6 +9984,31 @@
           "lib/net8.0/MySql.Data.dll": {
             "related": ".xml"
           }
+        }
+      },
+      "runtime.native.System/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0"
+        },
+        "compile": {
+          "lib/netstandard1.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/_._": {}
+        }
+      },
+      "runtime.unix.System.Private.Uri/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "runtime.native.System": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard/_._": {}
+        },
+        "runtime": {
+          "runtimes/unix/lib/netstandard1.0/System.Private.Uri.dll": {}
         }
       },
       "System.Buffers/4.5.1": {
@@ -9884,7 +10072,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.IO.Pipelines/8.0.0": {
+      "System.IO.Pipelines/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -9897,7 +10085,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Memory/4.5.4": {
@@ -9911,6 +10099,17 @@
         },
         "runtime": {
           "lib/netcoreapp2.1/_._": {}
+        }
+      },
+      "System.Private.Uri/4.3.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
+          "runtime.unix.System.Private.Uri": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard/_._": {}
         }
       },
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {
@@ -9991,7 +10190,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Text.Encodings.Web/8.0.0": {
+      "System.Text.Encodings.Web/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -10004,13 +10203,14 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/9.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
+          "System.IO.Pipelines": "9.0.0",
+          "System.Text.Encodings.Web": "9.0.0"
         },
         "compile": {
           "lib/net8.0/System.Text.Json.dll": {
@@ -10023,7 +10223,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/System.Text.Json.targets": {}
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
       "System.Threading.Tasks.Extensions/4.5.4": {
@@ -11829,7 +12029,9 @@
           "Konscious.Security.Cryptography.Argon2": "1.3.1",
           "Microsoft.AspNetCore.Components.Web": "8.0.8",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "9.1.0"
+          "MySql.Data": "9.1.0",
+          "System.Private.Uri": "4.3.2",
+          "System.Text.Json": "9.0.0"
         },
         "compile": {
           "bin/placeholder/MauiBlazorWeb.Shared.dll": {}
@@ -12742,6 +12944,24 @@
           "build/Microsoft.NET.ILLink.Tasks.props": {}
         }
       },
+      "Microsoft.NETCore.Platforms/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard1.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/_._": {}
+        }
+      },
+      "Microsoft.NETCore.Targets/1.1.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard1.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/_._": {}
+        }
+      },
       "MySql.Data/9.1.0": {
         "type": "package",
         "dependencies": {
@@ -12768,6 +12988,31 @@
           "lib/net8.0/MySql.Data.dll": {
             "related": ".xml"
           }
+        }
+      },
+      "runtime.native.System/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0"
+        },
+        "compile": {
+          "lib/netstandard1.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/_._": {}
+        }
+      },
+      "runtime.unix.System.Private.Uri/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "runtime.native.System": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard/_._": {}
+        },
+        "runtime": {
+          "runtimes/unix/lib/netstandard1.0/System.Private.Uri.dll": {}
         }
       },
       "System.Buffers/4.5.1": {
@@ -12831,7 +13076,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.IO.Pipelines/8.0.0": {
+      "System.IO.Pipelines/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -12844,7 +13089,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Memory/4.5.4": {
@@ -12858,6 +13103,17 @@
         },
         "runtime": {
           "lib/netcoreapp2.1/_._": {}
+        }
+      },
+      "System.Private.Uri/4.3.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
+          "runtime.unix.System.Private.Uri": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard/_._": {}
         }
       },
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {
@@ -12938,7 +13194,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Text.Encodings.Web/8.0.0": {
+      "System.Text.Encodings.Web/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -12951,13 +13207,14 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/9.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
+          "System.IO.Pipelines": "9.0.0",
+          "System.Text.Encodings.Web": "9.0.0"
         },
         "compile": {
           "lib/net8.0/System.Text.Json.dll": {
@@ -12970,7 +13227,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/System.Text.Json.targets": {}
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
       "System.Threading.Tasks.Extensions/4.5.4": {
@@ -14776,7 +15033,9 @@
           "Konscious.Security.Cryptography.Argon2": "1.3.1",
           "Microsoft.AspNetCore.Components.Web": "8.0.8",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "9.1.0"
+          "MySql.Data": "9.1.0",
+          "System.Private.Uri": "4.3.2",
+          "System.Text.Json": "9.0.0"
         },
         "compile": {
           "bin/placeholder/MauiBlazorWeb.Shared.dll": {}
@@ -15689,6 +15948,24 @@
           "build/Microsoft.NET.ILLink.Tasks.props": {}
         }
       },
+      "Microsoft.NETCore.Platforms/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard1.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/_._": {}
+        }
+      },
+      "Microsoft.NETCore.Targets/1.1.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard1.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/_._": {}
+        }
+      },
       "MySql.Data/9.1.0": {
         "type": "package",
         "dependencies": {
@@ -15715,6 +15992,31 @@
           "lib/net8.0/MySql.Data.dll": {
             "related": ".xml"
           }
+        }
+      },
+      "runtime.native.System/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0"
+        },
+        "compile": {
+          "lib/netstandard1.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/_._": {}
+        }
+      },
+      "runtime.unix.System.Private.Uri/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "runtime.native.System": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard/_._": {}
+        },
+        "runtime": {
+          "runtimes/unix/lib/netstandard1.0/System.Private.Uri.dll": {}
         }
       },
       "System.Buffers/4.5.1": {
@@ -15778,7 +16080,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.IO.Pipelines/8.0.0": {
+      "System.IO.Pipelines/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -15791,7 +16093,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Memory/4.5.4": {
@@ -15805,6 +16107,17 @@
         },
         "runtime": {
           "lib/netcoreapp2.1/_._": {}
+        }
+      },
+      "System.Private.Uri/4.3.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
+          "runtime.unix.System.Private.Uri": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard/_._": {}
         }
       },
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {
@@ -15885,7 +16198,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Text.Encodings.Web/8.0.0": {
+      "System.Text.Encodings.Web/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -15898,13 +16211,14 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/9.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
+          "System.IO.Pipelines": "9.0.0",
+          "System.Text.Encodings.Web": "9.0.0"
         },
         "compile": {
           "lib/net8.0/System.Text.Json.dll": {
@@ -15917,7 +16231,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/System.Text.Json.targets": {}
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
       "System.Threading.Tasks.Extensions/4.5.4": {
@@ -17723,7 +18037,9 @@
           "Konscious.Security.Cryptography.Argon2": "1.3.1",
           "Microsoft.AspNetCore.Components.Web": "8.0.8",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "9.1.0"
+          "MySql.Data": "9.1.0",
+          "System.Private.Uri": "4.3.2",
+          "System.Text.Json": "9.0.0"
         },
         "compile": {
           "bin/placeholder/MauiBlazorWeb.Shared.dll": {}
@@ -18636,6 +18952,24 @@
           "build/Microsoft.NET.ILLink.Tasks.props": {}
         }
       },
+      "Microsoft.NETCore.Platforms/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard1.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/_._": {}
+        }
+      },
+      "Microsoft.NETCore.Targets/1.1.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard1.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/_._": {}
+        }
+      },
       "MySql.Data/9.1.0": {
         "type": "package",
         "dependencies": {
@@ -18662,6 +18996,31 @@
           "lib/net8.0/MySql.Data.dll": {
             "related": ".xml"
           }
+        }
+      },
+      "runtime.native.System/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0"
+        },
+        "compile": {
+          "lib/netstandard1.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/_._": {}
+        }
+      },
+      "runtime.unix.System.Private.Uri/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "runtime.native.System": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard/_._": {}
+        },
+        "runtime": {
+          "runtimes/unix/lib/netstandard1.0/System.Private.Uri.dll": {}
         }
       },
       "System.Buffers/4.5.1": {
@@ -18725,7 +19084,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.IO.Pipelines/8.0.0": {
+      "System.IO.Pipelines/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -18738,7 +19097,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Memory/4.5.4": {
@@ -18752,6 +19111,17 @@
         },
         "runtime": {
           "lib/netcoreapp2.1/_._": {}
+        }
+      },
+      "System.Private.Uri/4.3.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
+          "runtime.unix.System.Private.Uri": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard/_._": {}
         }
       },
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {
@@ -18832,7 +19202,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Text.Encodings.Web/8.0.0": {
+      "System.Text.Encodings.Web/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -18845,13 +19215,14 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/9.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
+          "System.IO.Pipelines": "9.0.0",
+          "System.Text.Encodings.Web": "9.0.0"
         },
         "compile": {
           "lib/net8.0/System.Text.Json.dll": {
@@ -18864,7 +19235,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/System.Text.Json.targets": {}
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
       "System.Threading.Tasks.Extensions/4.5.4": {
@@ -20670,7 +21041,9 @@
           "Konscious.Security.Cryptography.Argon2": "1.3.1",
           "Microsoft.AspNetCore.Components.Web": "8.0.8",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "9.1.0"
+          "MySql.Data": "9.1.0",
+          "System.Private.Uri": "4.3.2",
+          "System.Text.Json": "9.0.0"
         },
         "compile": {
           "bin/placeholder/MauiBlazorWeb.Shared.dll": {}
@@ -21583,6 +21956,24 @@
           "build/Microsoft.NET.ILLink.Tasks.props": {}
         }
       },
+      "Microsoft.NETCore.Platforms/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard1.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/_._": {}
+        }
+      },
+      "Microsoft.NETCore.Targets/1.1.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard1.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/_._": {}
+        }
+      },
       "MySql.Data/9.1.0": {
         "type": "package",
         "dependencies": {
@@ -21609,6 +22000,22 @@
           "lib/net8.0/MySql.Data.dll": {
             "related": ".xml"
           }
+        },
+        "native": {
+          "runtimes/win-x64/native/comerr64.dll": {},
+          "runtimes/win-x64/native/gssapi64.dll": {},
+          "runtimes/win-x64/native/k5sprt64.dll": {},
+          "runtimes/win-x64/native/krb5_64.dll": {},
+          "runtimes/win-x64/native/krbcc64.dll": {}
+        }
+      },
+      "runtime.win7.System.Private.Uri/4.3.0": {
+        "type": "package",
+        "compile": {
+          "ref/netstandard/_._": {}
+        },
+        "runtime": {
+          "runtimes/win/lib/netstandard1.0/System.Private.Uri.dll": {}
         }
       },
       "System.Buffers/4.5.1": {
@@ -21664,7 +22071,8 @@
           }
         },
         "runtime": {
-          "lib/net8.0/System.Diagnostics.EventLog.dll": {
+          "runtimes/win/lib/net8.0/System.Diagnostics.EventLog.Messages.dll": {},
+          "runtimes/win/lib/net8.0/System.Diagnostics.EventLog.dll": {
             "related": ".xml"
           }
         },
@@ -21672,7 +22080,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.IO.Pipelines/8.0.0": {
+      "System.IO.Pipelines/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -21685,7 +22093,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Memory/4.5.4": {
@@ -21699,6 +22107,17 @@
         },
         "runtime": {
           "lib/netcoreapp2.1/_._": {}
+        }
+      },
+      "System.Private.Uri/4.3.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
+          "runtime.win7.System.Private.Uri": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard/_._": {}
         }
       },
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {
@@ -21771,7 +22190,7 @@
           }
         },
         "runtime": {
-          "lib/net8.0/System.Text.Encoding.CodePages.dll": {
+          "runtimes/win/lib/net8.0/System.Text.Encoding.CodePages.dll": {
             "related": ".xml"
           }
         },
@@ -21779,7 +22198,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Text.Encodings.Web/8.0.0": {
+      "System.Text.Encodings.Web/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -21792,13 +22211,14 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/9.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
+          "System.IO.Pipelines": "9.0.0",
+          "System.Text.Encodings.Web": "9.0.0"
         },
         "compile": {
           "lib/net8.0/System.Text.Json.dll": {
@@ -21811,7 +22231,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/System.Text.Json.targets": {}
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
       "System.Threading.Tasks.Extensions/4.5.4": {
@@ -21831,7 +22251,7 @@
           }
         },
         "runtime": {
-          "lib/net8.0/System.Windows.Extensions.dll": {
+          "runtimes/win/lib/net8.0/System.Windows.Extensions.dll": {
             "related": ".xml"
           }
         }
@@ -23617,7 +24037,9 @@
           "Konscious.Security.Cryptography.Argon2": "1.3.1",
           "Microsoft.AspNetCore.Components.Web": "8.0.8",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "9.1.0"
+          "MySql.Data": "9.1.0",
+          "System.Private.Uri": "4.3.2",
+          "System.Text.Json": "9.0.0"
         },
         "compile": {
           "bin/placeholder/MauiBlazorWeb.Shared.dll": {}
@@ -24506,7 +24928,7 @@
           "build/Microsoft.NET.ILLink.Tasks.props": {}
         }
       },
-      "Microsoft.NETCore.Platforms/1.1.0": {
+      "Microsoft.NETCore.Platforms/1.1.1": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -24515,7 +24937,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.NETCore.Targets/1.1.0": {
+      "Microsoft.NETCore.Targets/1.1.3": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -24660,7 +25082,7 @@
           }
         }
       },
-      "System.IO.Pipelines/8.0.0": {
+      "System.IO.Pipelines/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -24673,7 +25095,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Memory/4.5.4": {
@@ -24683,6 +25105,16 @@
         },
         "runtime": {
           "lib/netcoreapp2.1/_._": {}
+        }
+      },
+      "System.Private.Uri/4.3.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3"
+        },
+        "compile": {
+          "ref/netstandard/_._": {}
         }
       },
       "System.Reflection/4.3.0": {
@@ -24827,7 +25259,7 @@
           }
         }
       },
-      "System.Text.Encodings.Web/8.0.0": {
+      "System.Text.Encodings.Web/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -24840,7 +25272,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         },
         "runtimeTargets": {
           "runtimes/browser/lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -24849,10 +25281,11 @@
           }
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/9.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
+          "System.IO.Pipelines": "9.0.0",
+          "System.Text.Encodings.Web": "9.0.0"
         },
         "compile": {
           "lib/net8.0/System.Text.Json.dll": {
@@ -24865,7 +25298,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/System.Text.Json.targets": {}
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
       "System.Threading.Tasks/4.3.0": {
@@ -24928,7 +25361,9 @@
           "Konscious.Security.Cryptography.Argon2": "1.3.1",
           "Microsoft.AspNetCore.Components.Web": "8.0.8",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "9.1.0"
+          "MySql.Data": "9.1.0",
+          "System.Private.Uri": "4.3.2",
+          "System.Text.Json": "9.0.0"
         },
         "compile": {
           "bin/placeholder/MauiBlazorWeb.Shared.dll": {}
@@ -25817,7 +26252,7 @@
           "build/Microsoft.NET.ILLink.Tasks.props": {}
         }
       },
-      "Microsoft.NETCore.Platforms/1.1.0": {
+      "Microsoft.NETCore.Platforms/1.1.1": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -25826,7 +26261,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.NETCore.Targets/1.1.0": {
+      "Microsoft.NETCore.Targets/1.1.3": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -26022,7 +26457,7 @@
           }
         }
       },
-      "System.IO.Pipelines/8.0.0": {
+      "System.IO.Pipelines/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -26035,7 +26470,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Memory/4.5.4": {
@@ -26047,11 +26482,11 @@
           "lib/netcoreapp2.1/_._": {}
         }
       },
-      "System.Private.Uri/4.3.0": {
+      "System.Private.Uri/4.3.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
           "runtime.unix.System.Private.Uri": "4.3.0"
         },
         "compile": {
@@ -26198,7 +26633,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Text.Encodings.Web/8.0.0": {
+      "System.Text.Encodings.Web/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -26211,13 +26646,14 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/9.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
+          "System.IO.Pipelines": "9.0.0",
+          "System.Text.Encodings.Web": "9.0.0"
         },
         "compile": {
           "lib/net8.0/System.Text.Json.dll": {
@@ -26230,7 +26666,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/System.Text.Json.targets": {}
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
       "System.Threading.Tasks/4.3.0": {
@@ -26288,7 +26724,9 @@
           "Konscious.Security.Cryptography.Argon2": "1.3.1",
           "Microsoft.AspNetCore.Components.Web": "8.0.8",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "9.1.0"
+          "MySql.Data": "9.1.0",
+          "System.Private.Uri": "4.3.2",
+          "System.Text.Json": "9.0.0"
         },
         "compile": {
           "bin/placeholder/MauiBlazorWeb.Shared.dll": {}
@@ -27177,7 +27615,7 @@
           "build/Microsoft.NET.ILLink.Tasks.props": {}
         }
       },
-      "Microsoft.NETCore.Platforms/1.1.0": {
+      "Microsoft.NETCore.Platforms/1.1.1": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -27186,7 +27624,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.NETCore.Targets/1.1.0": {
+      "Microsoft.NETCore.Targets/1.1.3": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -27382,7 +27820,7 @@
           }
         }
       },
-      "System.IO.Pipelines/8.0.0": {
+      "System.IO.Pipelines/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -27395,7 +27833,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Memory/4.5.4": {
@@ -27407,11 +27845,11 @@
           "lib/netcoreapp2.1/_._": {}
         }
       },
-      "System.Private.Uri/4.3.0": {
+      "System.Private.Uri/4.3.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
           "runtime.unix.System.Private.Uri": "4.3.0"
         },
         "compile": {
@@ -27558,7 +27996,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Text.Encodings.Web/8.0.0": {
+      "System.Text.Encodings.Web/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -27571,13 +28009,14 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/9.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
+          "System.IO.Pipelines": "9.0.0",
+          "System.Text.Encodings.Web": "9.0.0"
         },
         "compile": {
           "lib/net8.0/System.Text.Json.dll": {
@@ -27590,7 +28029,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/System.Text.Json.targets": {}
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
       "System.Threading.Tasks/4.3.0": {
@@ -27648,7 +28087,9 @@
           "Konscious.Security.Cryptography.Argon2": "1.3.1",
           "Microsoft.AspNetCore.Components.Web": "8.0.8",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "9.1.0"
+          "MySql.Data": "9.1.0",
+          "System.Private.Uri": "4.3.2",
+          "System.Text.Json": "9.0.0"
         },
         "compile": {
           "bin/placeholder/MauiBlazorWeb.Shared.dll": {}
@@ -28537,7 +28978,7 @@
           "build/Microsoft.NET.ILLink.Tasks.props": {}
         }
       },
-      "Microsoft.NETCore.Platforms/1.1.0": {
+      "Microsoft.NETCore.Platforms/1.1.1": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -28546,7 +28987,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.NETCore.Targets/1.1.0": {
+      "Microsoft.NETCore.Targets/1.1.3": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -28742,7 +29183,7 @@
           }
         }
       },
-      "System.IO.Pipelines/8.0.0": {
+      "System.IO.Pipelines/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -28755,7 +29196,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Memory/4.5.4": {
@@ -28767,11 +29208,11 @@
           "lib/netcoreapp2.1/_._": {}
         }
       },
-      "System.Private.Uri/4.3.0": {
+      "System.Private.Uri/4.3.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
           "runtime.unix.System.Private.Uri": "4.3.0"
         },
         "compile": {
@@ -28918,7 +29359,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Text.Encodings.Web/8.0.0": {
+      "System.Text.Encodings.Web/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -28931,13 +29372,14 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/9.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
+          "System.IO.Pipelines": "9.0.0",
+          "System.Text.Encodings.Web": "9.0.0"
         },
         "compile": {
           "lib/net8.0/System.Text.Json.dll": {
@@ -28950,7 +29392,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/System.Text.Json.targets": {}
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
       "System.Threading.Tasks/4.3.0": {
@@ -29008,7 +29450,9 @@
           "Konscious.Security.Cryptography.Argon2": "1.3.1",
           "Microsoft.AspNetCore.Components.Web": "8.0.8",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "9.1.0"
+          "MySql.Data": "9.1.0",
+          "System.Private.Uri": "4.3.2",
+          "System.Text.Json": "9.0.0"
         },
         "compile": {
           "bin/placeholder/MauiBlazorWeb.Shared.dll": {}
@@ -29897,7 +30341,7 @@
           "build/Microsoft.NET.ILLink.Tasks.props": {}
         }
       },
-      "Microsoft.NETCore.Platforms/1.1.0": {
+      "Microsoft.NETCore.Platforms/1.1.1": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -29906,7 +30350,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.NETCore.Targets/1.1.0": {
+      "Microsoft.NETCore.Targets/1.1.3": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -30102,7 +30546,7 @@
           }
         }
       },
-      "System.IO.Pipelines/8.0.0": {
+      "System.IO.Pipelines/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -30115,7 +30559,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Memory/4.5.4": {
@@ -30127,11 +30571,11 @@
           "lib/netcoreapp2.1/_._": {}
         }
       },
-      "System.Private.Uri/4.3.0": {
+      "System.Private.Uri/4.3.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
           "runtime.unix.System.Private.Uri": "4.3.0"
         },
         "compile": {
@@ -30278,7 +30722,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Text.Encodings.Web/8.0.0": {
+      "System.Text.Encodings.Web/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -30291,13 +30735,14 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/9.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
+          "System.IO.Pipelines": "9.0.0",
+          "System.Text.Encodings.Web": "9.0.0"
         },
         "compile": {
           "lib/net8.0/System.Text.Json.dll": {
@@ -30310,7 +30755,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/System.Text.Json.targets": {}
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
       "System.Threading.Tasks/4.3.0": {
@@ -30368,7 +30813,9 @@
           "Konscious.Security.Cryptography.Argon2": "1.3.1",
           "Microsoft.AspNetCore.Components.Web": "8.0.8",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "9.1.0"
+          "MySql.Data": "9.1.0",
+          "System.Private.Uri": "4.3.2",
+          "System.Text.Json": "9.0.0"
         },
         "compile": {
           "bin/placeholder/MauiBlazorWeb.Shared.dll": {}
@@ -31257,7 +31704,7 @@
           "build/Microsoft.NET.ILLink.Tasks.props": {}
         }
       },
-      "Microsoft.NETCore.Platforms/1.1.0": {
+      "Microsoft.NETCore.Platforms/1.1.1": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -31266,7 +31713,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.NETCore.Targets/1.1.0": {
+      "Microsoft.NETCore.Targets/1.1.3": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -31462,7 +31909,7 @@
           }
         }
       },
-      "System.IO.Pipelines/8.0.0": {
+      "System.IO.Pipelines/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -31475,7 +31922,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Memory/4.5.4": {
@@ -31487,11 +31934,11 @@
           "lib/netcoreapp2.1/_._": {}
         }
       },
-      "System.Private.Uri/4.3.0": {
+      "System.Private.Uri/4.3.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
           "runtime.unix.System.Private.Uri": "4.3.0"
         },
         "compile": {
@@ -31638,7 +32085,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Text.Encodings.Web/8.0.0": {
+      "System.Text.Encodings.Web/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -31651,13 +32098,14 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/9.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
+          "System.IO.Pipelines": "9.0.0",
+          "System.Text.Encodings.Web": "9.0.0"
         },
         "compile": {
           "lib/net8.0/System.Text.Json.dll": {
@@ -31670,7 +32118,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/System.Text.Json.targets": {}
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
       "System.Threading.Tasks/4.3.0": {
@@ -31728,7 +32176,9 @@
           "Konscious.Security.Cryptography.Argon2": "1.3.1",
           "Microsoft.AspNetCore.Components.Web": "8.0.8",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "9.1.0"
+          "MySql.Data": "9.1.0",
+          "System.Private.Uri": "4.3.2",
+          "System.Text.Json": "9.0.0"
         },
         "compile": {
           "bin/placeholder/MauiBlazorWeb.Shared.dll": {}
@@ -32617,7 +33067,7 @@
           "build/Microsoft.NET.ILLink.Tasks.props": {}
         }
       },
-      "Microsoft.NETCore.Platforms/1.1.0": {
+      "Microsoft.NETCore.Platforms/1.1.1": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -32626,7 +33076,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.NETCore.Targets/1.1.0": {
+      "Microsoft.NETCore.Targets/1.1.3": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -32822,7 +33272,7 @@
           }
         }
       },
-      "System.IO.Pipelines/8.0.0": {
+      "System.IO.Pipelines/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -32835,7 +33285,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Memory/4.5.4": {
@@ -32847,11 +33297,11 @@
           "lib/netcoreapp2.1/_._": {}
         }
       },
-      "System.Private.Uri/4.3.0": {
+      "System.Private.Uri/4.3.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
           "runtime.unix.System.Private.Uri": "4.3.0"
         },
         "compile": {
@@ -32998,7 +33448,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Text.Encodings.Web/8.0.0": {
+      "System.Text.Encodings.Web/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -33011,13 +33461,14 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/9.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
+          "System.IO.Pipelines": "9.0.0",
+          "System.Text.Encodings.Web": "9.0.0"
         },
         "compile": {
           "lib/net8.0/System.Text.Json.dll": {
@@ -33030,7 +33481,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/System.Text.Json.targets": {}
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
       "System.Threading.Tasks/4.3.0": {
@@ -33088,7 +33539,9 @@
           "Konscious.Security.Cryptography.Argon2": "1.3.1",
           "Microsoft.AspNetCore.Components.Web": "8.0.8",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "9.1.0"
+          "MySql.Data": "9.1.0",
+          "System.Private.Uri": "4.3.2",
+          "System.Text.Json": "9.0.0"
         },
         "compile": {
           "bin/placeholder/MauiBlazorWeb.Shared.dll": {}
@@ -33977,7 +34430,7 @@
           "build/Microsoft.NET.ILLink.Tasks.props": {}
         }
       },
-      "Microsoft.NETCore.Platforms/1.1.0": {
+      "Microsoft.NETCore.Platforms/1.1.1": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -33986,7 +34439,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.NETCore.Targets/1.1.0": {
+      "Microsoft.NETCore.Targets/1.1.3": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -34174,7 +34627,7 @@
           }
         }
       },
-      "System.IO.Pipelines/8.0.0": {
+      "System.IO.Pipelines/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -34187,7 +34640,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Memory/4.5.4": {
@@ -34199,11 +34652,11 @@
           "lib/netcoreapp2.1/_._": {}
         }
       },
-      "System.Private.Uri/4.3.0": {
+      "System.Private.Uri/4.3.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
           "runtime.win7.System.Private.Uri": "4.3.0"
         },
         "compile": {
@@ -34350,7 +34803,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Text.Encodings.Web/8.0.0": {
+      "System.Text.Encodings.Web/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -34363,13 +34816,14 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/9.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
+          "System.IO.Pipelines": "9.0.0",
+          "System.Text.Encodings.Web": "9.0.0"
         },
         "compile": {
           "lib/net8.0/System.Text.Json.dll": {
@@ -34382,7 +34836,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/System.Text.Json.targets": {}
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
       "System.Threading.Tasks/4.3.0": {
@@ -34440,7 +34894,9 @@
           "Konscious.Security.Cryptography.Argon2": "1.3.1",
           "Microsoft.AspNetCore.Components.Web": "8.0.8",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "9.1.0"
+          "MySql.Data": "9.1.0",
+          "System.Private.Uri": "4.3.2",
+          "System.Text.Json": "9.0.0"
         },
         "compile": {
           "bin/placeholder/MauiBlazorWeb.Shared.dll": {}
@@ -35329,7 +35785,7 @@
           "build/Microsoft.NET.ILLink.Tasks.props": {}
         }
       },
-      "Microsoft.NETCore.Platforms/1.1.0": {
+      "Microsoft.NETCore.Platforms/1.1.1": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -35338,7 +35794,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.NETCore.Targets/1.1.0": {
+      "Microsoft.NETCore.Targets/1.1.3": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -35483,7 +35939,7 @@
           }
         }
       },
-      "System.IO.Pipelines/8.0.0": {
+      "System.IO.Pipelines/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -35496,7 +35952,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Memory/4.5.4": {
@@ -35506,6 +35962,16 @@
         },
         "runtime": {
           "lib/netcoreapp2.1/_._": {}
+        }
+      },
+      "System.Private.Uri/4.3.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3"
+        },
+        "compile": {
+          "ref/netstandard/_._": {}
         }
       },
       "System.Reflection/4.3.0": {
@@ -35650,7 +36116,7 @@
           }
         }
       },
-      "System.Text.Encodings.Web/8.0.0": {
+      "System.Text.Encodings.Web/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -35663,7 +36129,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         },
         "runtimeTargets": {
           "runtimes/browser/lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -35672,10 +36138,11 @@
           }
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/9.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
+          "System.IO.Pipelines": "9.0.0",
+          "System.Text.Encodings.Web": "9.0.0"
         },
         "compile": {
           "lib/net8.0/System.Text.Json.dll": {
@@ -35688,7 +36155,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/System.Text.Json.targets": {}
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
       "System.Threading.Tasks/4.3.0": {
@@ -35751,7 +36218,9 @@
           "Konscious.Security.Cryptography.Argon2": "1.3.1",
           "Microsoft.AspNetCore.Components.Web": "8.0.8",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "9.1.0"
+          "MySql.Data": "9.1.0",
+          "System.Private.Uri": "4.3.2",
+          "System.Text.Json": "9.0.0"
         },
         "compile": {
           "bin/placeholder/MauiBlazorWeb.Shared.dll": {}
@@ -36640,7 +37109,7 @@
           "build/Microsoft.NET.ILLink.Tasks.props": {}
         }
       },
-      "Microsoft.NETCore.Platforms/1.1.0": {
+      "Microsoft.NETCore.Platforms/1.1.1": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -36649,7 +37118,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.NETCore.Targets/1.1.0": {
+      "Microsoft.NETCore.Targets/1.1.3": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -36845,7 +37314,7 @@
           }
         }
       },
-      "System.IO.Pipelines/8.0.0": {
+      "System.IO.Pipelines/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -36858,7 +37327,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Memory/4.5.4": {
@@ -36870,11 +37339,11 @@
           "lib/netcoreapp2.1/_._": {}
         }
       },
-      "System.Private.Uri/4.3.0": {
+      "System.Private.Uri/4.3.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
           "runtime.unix.System.Private.Uri": "4.3.0"
         },
         "compile": {
@@ -37021,7 +37490,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Text.Encodings.Web/8.0.0": {
+      "System.Text.Encodings.Web/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -37034,13 +37503,14 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/9.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
+          "System.IO.Pipelines": "9.0.0",
+          "System.Text.Encodings.Web": "9.0.0"
         },
         "compile": {
           "lib/net8.0/System.Text.Json.dll": {
@@ -37053,7 +37523,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/System.Text.Json.targets": {}
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
       "System.Threading.Tasks/4.3.0": {
@@ -37111,7 +37581,9 @@
           "Konscious.Security.Cryptography.Argon2": "1.3.1",
           "Microsoft.AspNetCore.Components.Web": "8.0.8",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "9.1.0"
+          "MySql.Data": "9.1.0",
+          "System.Private.Uri": "4.3.2",
+          "System.Text.Json": "9.0.0"
         },
         "compile": {
           "bin/placeholder/MauiBlazorWeb.Shared.dll": {}
@@ -38000,7 +38472,7 @@
           "build/Microsoft.NET.ILLink.Tasks.props": {}
         }
       },
-      "Microsoft.NETCore.Platforms/1.1.0": {
+      "Microsoft.NETCore.Platforms/1.1.1": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -38009,7 +38481,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.NETCore.Targets/1.1.0": {
+      "Microsoft.NETCore.Targets/1.1.3": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -38205,7 +38677,7 @@
           }
         }
       },
-      "System.IO.Pipelines/8.0.0": {
+      "System.IO.Pipelines/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -38218,7 +38690,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Memory/4.5.4": {
@@ -38230,11 +38702,11 @@
           "lib/netcoreapp2.1/_._": {}
         }
       },
-      "System.Private.Uri/4.3.0": {
+      "System.Private.Uri/4.3.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
           "runtime.unix.System.Private.Uri": "4.3.0"
         },
         "compile": {
@@ -38381,7 +38853,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Text.Encodings.Web/8.0.0": {
+      "System.Text.Encodings.Web/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -38394,13 +38866,14 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/9.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
+          "System.IO.Pipelines": "9.0.0",
+          "System.Text.Encodings.Web": "9.0.0"
         },
         "compile": {
           "lib/net8.0/System.Text.Json.dll": {
@@ -38413,7 +38886,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/System.Text.Json.targets": {}
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
       "System.Threading.Tasks/4.3.0": {
@@ -38471,7 +38944,9 @@
           "Konscious.Security.Cryptography.Argon2": "1.3.1",
           "Microsoft.AspNetCore.Components.Web": "8.0.8",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "9.1.0"
+          "MySql.Data": "9.1.0",
+          "System.Private.Uri": "4.3.2",
+          "System.Text.Json": "9.0.0"
         },
         "compile": {
           "bin/placeholder/MauiBlazorWeb.Shared.dll": {}
@@ -39360,7 +39835,7 @@
           "build/Microsoft.NET.ILLink.Tasks.props": {}
         }
       },
-      "Microsoft.NETCore.Platforms/1.1.0": {
+      "Microsoft.NETCore.Platforms/1.1.1": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -39369,7 +39844,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.NETCore.Targets/1.1.0": {
+      "Microsoft.NETCore.Targets/1.1.3": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -39565,7 +40040,7 @@
           }
         }
       },
-      "System.IO.Pipelines/8.0.0": {
+      "System.IO.Pipelines/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -39578,7 +40053,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Memory/4.5.4": {
@@ -39590,11 +40065,11 @@
           "lib/netcoreapp2.1/_._": {}
         }
       },
-      "System.Private.Uri/4.3.0": {
+      "System.Private.Uri/4.3.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
           "runtime.unix.System.Private.Uri": "4.3.0"
         },
         "compile": {
@@ -39741,7 +40216,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Text.Encodings.Web/8.0.0": {
+      "System.Text.Encodings.Web/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -39754,13 +40229,14 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/9.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
+          "System.IO.Pipelines": "9.0.0",
+          "System.Text.Encodings.Web": "9.0.0"
         },
         "compile": {
           "lib/net8.0/System.Text.Json.dll": {
@@ -39773,7 +40249,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/System.Text.Json.targets": {}
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
       "System.Threading.Tasks/4.3.0": {
@@ -39831,7 +40307,9 @@
           "Konscious.Security.Cryptography.Argon2": "1.3.1",
           "Microsoft.AspNetCore.Components.Web": "8.0.8",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "9.1.0"
+          "MySql.Data": "9.1.0",
+          "System.Private.Uri": "4.3.2",
+          "System.Text.Json": "9.0.0"
         },
         "compile": {
           "bin/placeholder/MauiBlazorWeb.Shared.dll": {}
@@ -40720,7 +41198,7 @@
           "build/Microsoft.NET.ILLink.Tasks.props": {}
         }
       },
-      "Microsoft.NETCore.Platforms/1.1.0": {
+      "Microsoft.NETCore.Platforms/1.1.1": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -40729,7 +41207,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.NETCore.Targets/1.1.0": {
+      "Microsoft.NETCore.Targets/1.1.3": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -40925,7 +41403,7 @@
           }
         }
       },
-      "System.IO.Pipelines/8.0.0": {
+      "System.IO.Pipelines/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -40938,7 +41416,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Memory/4.5.4": {
@@ -40950,11 +41428,11 @@
           "lib/netcoreapp2.1/_._": {}
         }
       },
-      "System.Private.Uri/4.3.0": {
+      "System.Private.Uri/4.3.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
           "runtime.unix.System.Private.Uri": "4.3.0"
         },
         "compile": {
@@ -41101,7 +41579,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Text.Encodings.Web/8.0.0": {
+      "System.Text.Encodings.Web/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -41114,13 +41592,14 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/9.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
+          "System.IO.Pipelines": "9.0.0",
+          "System.Text.Encodings.Web": "9.0.0"
         },
         "compile": {
           "lib/net8.0/System.Text.Json.dll": {
@@ -41133,7 +41612,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/System.Text.Json.targets": {}
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
       "System.Threading.Tasks/4.3.0": {
@@ -41191,7 +41670,9 @@
           "Konscious.Security.Cryptography.Argon2": "1.3.1",
           "Microsoft.AspNetCore.Components.Web": "8.0.8",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "9.1.0"
+          "MySql.Data": "9.1.0",
+          "System.Private.Uri": "4.3.2",
+          "System.Text.Json": "9.0.0"
         },
         "compile": {
           "bin/placeholder/MauiBlazorWeb.Shared.dll": {}
@@ -42080,7 +42561,7 @@
           "build/Microsoft.NET.ILLink.Tasks.props": {}
         }
       },
-      "Microsoft.NETCore.Platforms/1.1.0": {
+      "Microsoft.NETCore.Platforms/1.1.1": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -42089,7 +42570,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.NETCore.Targets/1.1.0": {
+      "Microsoft.NETCore.Targets/1.1.3": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -42285,7 +42766,7 @@
           }
         }
       },
-      "System.IO.Pipelines/8.0.0": {
+      "System.IO.Pipelines/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -42298,7 +42779,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Memory/4.5.4": {
@@ -42310,11 +42791,11 @@
           "lib/netcoreapp2.1/_._": {}
         }
       },
-      "System.Private.Uri/4.3.0": {
+      "System.Private.Uri/4.3.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
           "runtime.unix.System.Private.Uri": "4.3.0"
         },
         "compile": {
@@ -42461,7 +42942,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Text.Encodings.Web/8.0.0": {
+      "System.Text.Encodings.Web/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -42474,13 +42955,14 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/9.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
+          "System.IO.Pipelines": "9.0.0",
+          "System.Text.Encodings.Web": "9.0.0"
         },
         "compile": {
           "lib/net8.0/System.Text.Json.dll": {
@@ -42493,7 +42975,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/System.Text.Json.targets": {}
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
       "System.Threading.Tasks/4.3.0": {
@@ -42551,7 +43033,9 @@
           "Konscious.Security.Cryptography.Argon2": "1.3.1",
           "Microsoft.AspNetCore.Components.Web": "8.0.8",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "9.1.0"
+          "MySql.Data": "9.1.0",
+          "System.Private.Uri": "4.3.2",
+          "System.Text.Json": "9.0.0"
         },
         "compile": {
           "bin/placeholder/MauiBlazorWeb.Shared.dll": {}
@@ -43440,7 +43924,7 @@
           "build/Microsoft.NET.ILLink.Tasks.props": {}
         }
       },
-      "Microsoft.NETCore.Platforms/1.1.0": {
+      "Microsoft.NETCore.Platforms/1.1.1": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -43449,7 +43933,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.NETCore.Targets/1.1.0": {
+      "Microsoft.NETCore.Targets/1.1.3": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -43645,7 +44129,7 @@
           }
         }
       },
-      "System.IO.Pipelines/8.0.0": {
+      "System.IO.Pipelines/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -43658,7 +44142,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Memory/4.5.4": {
@@ -43670,11 +44154,11 @@
           "lib/netcoreapp2.1/_._": {}
         }
       },
-      "System.Private.Uri/4.3.0": {
+      "System.Private.Uri/4.3.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
           "runtime.unix.System.Private.Uri": "4.3.0"
         },
         "compile": {
@@ -43821,7 +44305,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Text.Encodings.Web/8.0.0": {
+      "System.Text.Encodings.Web/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -43834,13 +44318,14 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/9.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
+          "System.IO.Pipelines": "9.0.0",
+          "System.Text.Encodings.Web": "9.0.0"
         },
         "compile": {
           "lib/net8.0/System.Text.Json.dll": {
@@ -43853,7 +44338,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/System.Text.Json.targets": {}
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
       "System.Threading.Tasks/4.3.0": {
@@ -43911,7 +44396,9 @@
           "Konscious.Security.Cryptography.Argon2": "1.3.1",
           "Microsoft.AspNetCore.Components.Web": "8.0.8",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "9.1.0"
+          "MySql.Data": "9.1.0",
+          "System.Private.Uri": "4.3.2",
+          "System.Text.Json": "9.0.0"
         },
         "compile": {
           "bin/placeholder/MauiBlazorWeb.Shared.dll": {}
@@ -44800,7 +45287,7 @@
           "build/Microsoft.NET.ILLink.Tasks.props": {}
         }
       },
-      "Microsoft.NETCore.Platforms/1.1.0": {
+      "Microsoft.NETCore.Platforms/1.1.1": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -44809,7 +45296,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.NETCore.Targets/1.1.0": {
+      "Microsoft.NETCore.Targets/1.1.3": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -44997,7 +45484,7 @@
           }
         }
       },
-      "System.IO.Pipelines/8.0.0": {
+      "System.IO.Pipelines/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -45010,7 +45497,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Memory/4.5.4": {
@@ -45022,11 +45509,11 @@
           "lib/netcoreapp2.1/_._": {}
         }
       },
-      "System.Private.Uri/4.3.0": {
+      "System.Private.Uri/4.3.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
           "runtime.win7.System.Private.Uri": "4.3.0"
         },
         "compile": {
@@ -45173,7 +45660,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Text.Encodings.Web/8.0.0": {
+      "System.Text.Encodings.Web/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -45186,13 +45673,14 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/9.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
+          "System.IO.Pipelines": "9.0.0",
+          "System.Text.Encodings.Web": "9.0.0"
         },
         "compile": {
           "lib/net8.0/System.Text.Json.dll": {
@@ -45205,7 +45693,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/System.Text.Json.targets": {}
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
       "System.Threading.Tasks/4.3.0": {
@@ -45263,7 +45751,9 @@
           "Konscious.Security.Cryptography.Argon2": "1.3.1",
           "Microsoft.AspNetCore.Components.Web": "8.0.8",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "9.1.0"
+          "MySql.Data": "9.1.0",
+          "System.Private.Uri": "4.3.2",
+          "System.Text.Json": "9.0.0"
         },
         "compile": {
           "bin/placeholder/MauiBlazorWeb.Shared.dll": {}
@@ -46216,7 +46706,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NETCore.Platforms/1.1.0": {
+      "Microsoft.NETCore.Platforms/1.1.1": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -46225,7 +46715,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.NETCore.Targets/1.1.0": {
+      "Microsoft.NETCore.Targets/1.1.3": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -46475,7 +46965,7 @@
           }
         }
       },
-      "System.IO.Pipelines/8.0.0": {
+      "System.IO.Pipelines/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -46488,7 +46978,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Memory/4.5.4": {
@@ -46498,6 +46988,16 @@
         },
         "runtime": {
           "lib/netcoreapp2.1/_._": {}
+        }
+      },
+      "System.Private.Uri/4.3.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3"
+        },
+        "compile": {
+          "ref/netstandard/_._": {}
         }
       },
       "System.Reflection/4.3.0": {
@@ -46642,7 +47142,7 @@
           }
         }
       },
-      "System.Text.Encodings.Web/8.0.0": {
+      "System.Text.Encodings.Web/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -46655,7 +47155,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         },
         "runtimeTargets": {
           "runtimes/browser/lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -46664,10 +47164,11 @@
           }
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/9.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
+          "System.IO.Pipelines": "9.0.0",
+          "System.Text.Encodings.Web": "9.0.0"
         },
         "compile": {
           "lib/net8.0/System.Text.Json.dll": {
@@ -46680,7 +47181,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/System.Text.Json.targets": {}
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
       "System.Threading.Tasks/4.3.0": {
@@ -46743,7 +47244,9 @@
           "Konscious.Security.Cryptography.Argon2": "1.3.1",
           "Microsoft.AspNetCore.Components.Web": "8.0.8",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "9.1.0"
+          "MySql.Data": "9.1.0",
+          "System.Private.Uri": "4.3.2",
+          "System.Text.Json": "9.0.0"
         },
         "compile": {
           "bin/placeholder/MauiBlazorWeb.Shared.dll": {}
@@ -47682,7 +48185,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NETCore.Platforms/1.1.0": {
+      "Microsoft.NETCore.Platforms/1.1.1": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -47691,7 +48194,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.NETCore.Targets/1.1.0": {
+      "Microsoft.NETCore.Targets/1.1.3": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -47966,7 +48469,7 @@
           }
         }
       },
-      "System.IO.Pipelines/8.0.0": {
+      "System.IO.Pipelines/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -47979,7 +48482,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Memory/4.5.4": {
@@ -47991,11 +48494,11 @@
           "lib/netcoreapp2.1/_._": {}
         }
       },
-      "System.Private.Uri/4.3.0": {
+      "System.Private.Uri/4.3.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
           "runtime.unix.System.Private.Uri": "4.3.0"
         },
         "compile": {
@@ -48142,7 +48645,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Text.Encodings.Web/8.0.0": {
+      "System.Text.Encodings.Web/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -48155,13 +48658,14 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/9.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
+          "System.IO.Pipelines": "9.0.0",
+          "System.Text.Encodings.Web": "9.0.0"
         },
         "compile": {
           "lib/net8.0/System.Text.Json.dll": {
@@ -48174,7 +48678,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/System.Text.Json.targets": {}
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
       "System.Threading.Tasks/4.3.0": {
@@ -48232,7 +48736,9 @@
           "Konscious.Security.Cryptography.Argon2": "1.3.1",
           "Microsoft.AspNetCore.Components.Web": "8.0.8",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "9.1.0"
+          "MySql.Data": "9.1.0",
+          "System.Private.Uri": "4.3.2",
+          "System.Text.Json": "9.0.0"
         },
         "compile": {
           "bin/placeholder/MauiBlazorWeb.Shared.dll": {}
@@ -49171,7 +49677,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NETCore.Platforms/1.1.0": {
+      "Microsoft.NETCore.Platforms/1.1.1": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -49180,7 +49686,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.NETCore.Targets/1.1.0": {
+      "Microsoft.NETCore.Targets/1.1.3": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -49455,7 +49961,7 @@
           }
         }
       },
-      "System.IO.Pipelines/8.0.0": {
+      "System.IO.Pipelines/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -49468,7 +49974,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Memory/4.5.4": {
@@ -49480,11 +49986,11 @@
           "lib/netcoreapp2.1/_._": {}
         }
       },
-      "System.Private.Uri/4.3.0": {
+      "System.Private.Uri/4.3.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
           "runtime.unix.System.Private.Uri": "4.3.0"
         },
         "compile": {
@@ -49631,7 +50137,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Text.Encodings.Web/8.0.0": {
+      "System.Text.Encodings.Web/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -49644,13 +50150,14 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/9.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
+          "System.IO.Pipelines": "9.0.0",
+          "System.Text.Encodings.Web": "9.0.0"
         },
         "compile": {
           "lib/net8.0/System.Text.Json.dll": {
@@ -49663,7 +50170,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/System.Text.Json.targets": {}
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
       "System.Threading.Tasks/4.3.0": {
@@ -49721,7 +50228,9 @@
           "Konscious.Security.Cryptography.Argon2": "1.3.1",
           "Microsoft.AspNetCore.Components.Web": "8.0.8",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "9.1.0"
+          "MySql.Data": "9.1.0",
+          "System.Private.Uri": "4.3.2",
+          "System.Text.Json": "9.0.0"
         },
         "compile": {
           "bin/placeholder/MauiBlazorWeb.Shared.dll": {}
@@ -50660,7 +51169,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NETCore.Platforms/1.1.0": {
+      "Microsoft.NETCore.Platforms/1.1.1": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -50669,7 +51178,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.NETCore.Targets/1.1.0": {
+      "Microsoft.NETCore.Targets/1.1.3": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -50944,7 +51453,7 @@
           }
         }
       },
-      "System.IO.Pipelines/8.0.0": {
+      "System.IO.Pipelines/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -50957,7 +51466,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Memory/4.5.4": {
@@ -50969,11 +51478,11 @@
           "lib/netcoreapp2.1/_._": {}
         }
       },
-      "System.Private.Uri/4.3.0": {
+      "System.Private.Uri/4.3.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
           "runtime.unix.System.Private.Uri": "4.3.0"
         },
         "compile": {
@@ -51120,7 +51629,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Text.Encodings.Web/8.0.0": {
+      "System.Text.Encodings.Web/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -51133,13 +51642,14 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/9.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
+          "System.IO.Pipelines": "9.0.0",
+          "System.Text.Encodings.Web": "9.0.0"
         },
         "compile": {
           "lib/net8.0/System.Text.Json.dll": {
@@ -51152,7 +51662,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/System.Text.Json.targets": {}
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
       "System.Threading.Tasks/4.3.0": {
@@ -51210,7 +51720,9 @@
           "Konscious.Security.Cryptography.Argon2": "1.3.1",
           "Microsoft.AspNetCore.Components.Web": "8.0.8",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "9.1.0"
+          "MySql.Data": "9.1.0",
+          "System.Private.Uri": "4.3.2",
+          "System.Text.Json": "9.0.0"
         },
         "compile": {
           "bin/placeholder/MauiBlazorWeb.Shared.dll": {}
@@ -52149,7 +52661,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NETCore.Platforms/1.1.0": {
+      "Microsoft.NETCore.Platforms/1.1.1": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -52158,7 +52670,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.NETCore.Targets/1.1.0": {
+      "Microsoft.NETCore.Targets/1.1.3": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -52433,7 +52945,7 @@
           }
         }
       },
-      "System.IO.Pipelines/8.0.0": {
+      "System.IO.Pipelines/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -52446,7 +52958,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Memory/4.5.4": {
@@ -52458,11 +52970,11 @@
           "lib/netcoreapp2.1/_._": {}
         }
       },
-      "System.Private.Uri/4.3.0": {
+      "System.Private.Uri/4.3.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
           "runtime.unix.System.Private.Uri": "4.3.0"
         },
         "compile": {
@@ -52609,7 +53121,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Text.Encodings.Web/8.0.0": {
+      "System.Text.Encodings.Web/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -52622,13 +53134,14 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/9.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
+          "System.IO.Pipelines": "9.0.0",
+          "System.Text.Encodings.Web": "9.0.0"
         },
         "compile": {
           "lib/net8.0/System.Text.Json.dll": {
@@ -52641,7 +53154,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/System.Text.Json.targets": {}
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
       "System.Threading.Tasks/4.3.0": {
@@ -52699,7 +53212,9 @@
           "Konscious.Security.Cryptography.Argon2": "1.3.1",
           "Microsoft.AspNetCore.Components.Web": "8.0.8",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "9.1.0"
+          "MySql.Data": "9.1.0",
+          "System.Private.Uri": "4.3.2",
+          "System.Text.Json": "9.0.0"
         },
         "compile": {
           "bin/placeholder/MauiBlazorWeb.Shared.dll": {}
@@ -53638,7 +54153,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NETCore.Platforms/1.1.0": {
+      "Microsoft.NETCore.Platforms/1.1.1": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -53647,7 +54162,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.NETCore.Targets/1.1.0": {
+      "Microsoft.NETCore.Targets/1.1.3": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -53922,7 +54437,7 @@
           }
         }
       },
-      "System.IO.Pipelines/8.0.0": {
+      "System.IO.Pipelines/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -53935,7 +54450,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Memory/4.5.4": {
@@ -53947,11 +54462,11 @@
           "lib/netcoreapp2.1/_._": {}
         }
       },
-      "System.Private.Uri/4.3.0": {
+      "System.Private.Uri/4.3.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
           "runtime.unix.System.Private.Uri": "4.3.0"
         },
         "compile": {
@@ -54098,7 +54613,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Text.Encodings.Web/8.0.0": {
+      "System.Text.Encodings.Web/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -54111,13 +54626,14 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/9.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
+          "System.IO.Pipelines": "9.0.0",
+          "System.Text.Encodings.Web": "9.0.0"
         },
         "compile": {
           "lib/net8.0/System.Text.Json.dll": {
@@ -54130,7 +54646,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/System.Text.Json.targets": {}
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
       "System.Threading.Tasks/4.3.0": {
@@ -54188,7 +54704,9 @@
           "Konscious.Security.Cryptography.Argon2": "1.3.1",
           "Microsoft.AspNetCore.Components.Web": "8.0.8",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "9.1.0"
+          "MySql.Data": "9.1.0",
+          "System.Private.Uri": "4.3.2",
+          "System.Text.Json": "9.0.0"
         },
         "compile": {
           "bin/placeholder/MauiBlazorWeb.Shared.dll": {}
@@ -55127,7 +55645,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NETCore.Platforms/1.1.0": {
+      "Microsoft.NETCore.Platforms/1.1.1": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -55136,7 +55654,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.NETCore.Targets/1.1.0": {
+      "Microsoft.NETCore.Targets/1.1.3": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -55411,7 +55929,7 @@
           }
         }
       },
-      "System.IO.Pipelines/8.0.0": {
+      "System.IO.Pipelines/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -55424,7 +55942,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Memory/4.5.4": {
@@ -55436,11 +55954,11 @@
           "lib/netcoreapp2.1/_._": {}
         }
       },
-      "System.Private.Uri/4.3.0": {
+      "System.Private.Uri/4.3.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
           "runtime.unix.System.Private.Uri": "4.3.0"
         },
         "compile": {
@@ -55587,7 +56105,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Text.Encodings.Web/8.0.0": {
+      "System.Text.Encodings.Web/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -55600,13 +56118,14 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/9.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
+          "System.IO.Pipelines": "9.0.0",
+          "System.Text.Encodings.Web": "9.0.0"
         },
         "compile": {
           "lib/net8.0/System.Text.Json.dll": {
@@ -55619,7 +56138,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/System.Text.Json.targets": {}
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
       "System.Threading.Tasks/4.3.0": {
@@ -55677,7 +56196,9 @@
           "Konscious.Security.Cryptography.Argon2": "1.3.1",
           "Microsoft.AspNetCore.Components.Web": "8.0.8",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "9.1.0"
+          "MySql.Data": "9.1.0",
+          "System.Private.Uri": "4.3.2",
+          "System.Text.Json": "9.0.0"
         },
         "compile": {
           "bin/placeholder/MauiBlazorWeb.Shared.dll": {}
@@ -56619,7 +57140,7 @@
           "buildTransitive/Microsoft.Maui.Resizetizer.targets": {}
         }
       },
-      "Microsoft.NETCore.Platforms/1.1.0": {
+      "Microsoft.NETCore.Platforms/1.1.1": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -56628,7 +57149,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.NETCore.Targets/1.1.0": {
+      "Microsoft.NETCore.Targets/1.1.3": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -56898,7 +57419,7 @@
           }
         }
       },
-      "System.IO.Pipelines/8.0.0": {
+      "System.IO.Pipelines/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.IO.Pipelines.dll": {
@@ -56911,7 +57432,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Memory/4.5.4": {
@@ -56923,11 +57444,11 @@
           "lib/netcoreapp2.1/_._": {}
         }
       },
-      "System.Private.Uri/4.3.0": {
+      "System.Private.Uri/4.3.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
+          "Microsoft.NETCore.Platforms": "1.1.1",
+          "Microsoft.NETCore.Targets": "1.1.3",
           "runtime.win7.System.Private.Uri": "4.3.0"
         },
         "compile": {
@@ -57074,7 +57595,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Text.Encodings.Web/8.0.0": {
+      "System.Text.Encodings.Web/9.0.0": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Text.Encodings.Web.dll": {
@@ -57087,13 +57608,14 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/9.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
+          "System.IO.Pipelines": "9.0.0",
+          "System.Text.Encodings.Web": "9.0.0"
         },
         "compile": {
           "lib/net8.0/System.Text.Json.dll": {
@@ -57106,7 +57628,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/System.Text.Json.targets": {}
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
       "System.Threading.Tasks/4.3.0": {
@@ -57164,7 +57686,9 @@
           "Konscious.Security.Cryptography.Argon2": "1.3.1",
           "Microsoft.AspNetCore.Components.Web": "8.0.8",
           "Microsoft.Extensions.Configuration": "8.0.0",
-          "MySql.Data": "9.1.0"
+          "MySql.Data": "9.1.0",
+          "System.Private.Uri": "4.3.2",
+          "System.Text.Json": "9.0.0"
         },
         "compile": {
           "bin/placeholder/MauiBlazorWeb.Shared.dll": {}
@@ -59094,32 +59618,32 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Microsoft.NETCore.Platforms/1.1.0": {
-      "sha512": "kz0PEW2lhqygehI/d6XsPCQzD7ff7gUJaVGPVETX611eadGsA3A877GdSlU0LRVMCTH/+P3o2iDTak+S08V2+A==",
+    "Microsoft.NETCore.Platforms/1.1.1": {
+      "sha512": "TMBuzAHpTenGbGgk0SMTwyEkyijY/Eae4ZGsFNYJvAr/LDn1ku3Etp3FPxChmDp5HHF3kzJuoaa08N0xjqAJfQ==",
       "type": "package",
-      "path": "microsoft.netcore.platforms/1.1.0",
+      "path": "microsoft.netcore.platforms/1.1.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netstandard1.0/_._",
-        "microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+        "microsoft.netcore.platforms.1.1.1.nupkg.sha512",
         "microsoft.netcore.platforms.nuspec",
         "runtime.json"
       ]
     },
-    "Microsoft.NETCore.Targets/1.1.0": {
-      "sha512": "aOZA3BWfz9RXjpzt0sRJJMjAscAUm3Hoa4UWAfceV9UTYxgwZ1lZt5nO2myFf+/jetYQo4uTP7zS8sJY67BBxg==",
+    "Microsoft.NETCore.Targets/1.1.3": {
+      "sha512": "3Wrmi0kJDzClwAC+iBdUBpEKmEle8FQNsCs77fkiOIw/9oYA07bL1EZNX0kQ2OMN3xpwvl0vAtOCYY3ndDNlhQ==",
       "type": "package",
-      "path": "microsoft.netcore.targets/1.1.0",
+      "path": "microsoft.netcore.targets/1.1.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netstandard1.0/_._",
-        "microsoft.netcore.targets.1.1.0.nupkg.sha512",
+        "microsoft.netcore.targets.1.1.3.nupkg.sha512",
         "microsoft.netcore.targets.nuspec",
         "runtime.json"
       ]
@@ -60422,31 +60946,30 @@
         "system.io.nuspec"
       ]
     },
-    "System.IO.Pipelines/8.0.0": {
-      "sha512": "FHNOatmUq0sqJOkTx+UF/9YK1f180cnW5FVqnQMvYUN0elp6wFzbtPSiqbo1/ru8ICp43JM1i7kKkk6GsNGHlA==",
+    "System.IO.Pipelines/9.0.0": {
+      "sha512": "eA3cinogwaNB4jdjQHOP3Z3EuyiDII7MT35jgtnsA4vkn0LUrrSHsU0nzHTzFzmaFYeKV7MYyMxOocFzsBHpTw==",
       "type": "package",
-      "path": "system.io.pipelines/8.0.0",
+      "path": "system.io.pipelines/9.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "LICENSE.TXT",
+        "PACKAGE.md",
         "THIRD-PARTY-NOTICES.TXT",
         "buildTransitive/net461/System.IO.Pipelines.targets",
         "buildTransitive/net462/_._",
-        "buildTransitive/net6.0/_._",
+        "buildTransitive/net8.0/_._",
         "buildTransitive/netcoreapp2.0/System.IO.Pipelines.targets",
         "lib/net462/System.IO.Pipelines.dll",
         "lib/net462/System.IO.Pipelines.xml",
-        "lib/net6.0/System.IO.Pipelines.dll",
-        "lib/net6.0/System.IO.Pipelines.xml",
-        "lib/net7.0/System.IO.Pipelines.dll",
-        "lib/net7.0/System.IO.Pipelines.xml",
         "lib/net8.0/System.IO.Pipelines.dll",
         "lib/net8.0/System.IO.Pipelines.xml",
+        "lib/net9.0/System.IO.Pipelines.dll",
+        "lib/net9.0/System.IO.Pipelines.xml",
         "lib/netstandard2.0/System.IO.Pipelines.dll",
         "lib/netstandard2.0/System.IO.Pipelines.xml",
-        "system.io.pipelines.8.0.0.nupkg.sha512",
+        "system.io.pipelines.9.0.0.nupkg.sha512",
         "system.io.pipelines.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -60474,17 +60997,17 @@
         "version.txt"
       ]
     },
-    "System.Private.Uri/4.3.0": {
-      "sha512": "I4SwANiUGho1esj4V4oSlPllXjzCZDE+5XXso2P03LW2vOda2Enzh8DWOxwN6hnrJyp314c7KuVu31QYhRzOGg==",
+    "System.Private.Uri/4.3.2": {
+      "sha512": "o1+7RJnu3Ik3PazR7Z7tJhjPdE000Eq2KGLLWhqJJKXj04wrS8lwb1OFtDF9jzXXADhUuZNJZlPc98uwwqmpFA==",
       "type": "package",
-      "path": "system.private.uri/4.3.0",
+      "path": "system.private.uri/4.3.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "ref/netstandard/_._",
-        "system.private.uri.4.3.0.nupkg.sha512",
+        "system.private.uri.4.3.2.nupkg.sha512",
         "system.private.uri.nuspec"
       ]
     },
@@ -60950,45 +61473,42 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Text.Encodings.Web/8.0.0": {
-      "sha512": "yev/k9GHAEGx2Rg3/tU6MQh4HGBXJs70y7j1LaM1i/ER9po+6nnQ6RRqTJn1E7Xu0fbIFK80Nh5EoODxrbxwBQ==",
+    "System.Text.Encodings.Web/9.0.0": {
+      "sha512": "e2hMgAErLbKyUUwt18qSBf9T5Y+SFAL3ZedM8fLupkVj8Rj2PZ9oxQ37XX2LF8fTO1wNIxvKpihD7Of7D/NxZw==",
       "type": "package",
-      "path": "system.text.encodings.web/8.0.0",
+      "path": "system.text.encodings.web/9.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "LICENSE.TXT",
+        "PACKAGE.md",
         "THIRD-PARTY-NOTICES.TXT",
         "buildTransitive/net461/System.Text.Encodings.Web.targets",
         "buildTransitive/net462/_._",
-        "buildTransitive/net6.0/_._",
+        "buildTransitive/net8.0/_._",
         "buildTransitive/netcoreapp2.0/System.Text.Encodings.Web.targets",
         "lib/net462/System.Text.Encodings.Web.dll",
         "lib/net462/System.Text.Encodings.Web.xml",
-        "lib/net6.0/System.Text.Encodings.Web.dll",
-        "lib/net6.0/System.Text.Encodings.Web.xml",
-        "lib/net7.0/System.Text.Encodings.Web.dll",
-        "lib/net7.0/System.Text.Encodings.Web.xml",
         "lib/net8.0/System.Text.Encodings.Web.dll",
         "lib/net8.0/System.Text.Encodings.Web.xml",
+        "lib/net9.0/System.Text.Encodings.Web.dll",
+        "lib/net9.0/System.Text.Encodings.Web.xml",
         "lib/netstandard2.0/System.Text.Encodings.Web.dll",
         "lib/netstandard2.0/System.Text.Encodings.Web.xml",
-        "runtimes/browser/lib/net6.0/System.Text.Encodings.Web.dll",
-        "runtimes/browser/lib/net6.0/System.Text.Encodings.Web.xml",
-        "runtimes/browser/lib/net7.0/System.Text.Encodings.Web.dll",
-        "runtimes/browser/lib/net7.0/System.Text.Encodings.Web.xml",
         "runtimes/browser/lib/net8.0/System.Text.Encodings.Web.dll",
         "runtimes/browser/lib/net8.0/System.Text.Encodings.Web.xml",
-        "system.text.encodings.web.8.0.0.nupkg.sha512",
+        "runtimes/browser/lib/net9.0/System.Text.Encodings.Web.dll",
+        "runtimes/browser/lib/net9.0/System.Text.Encodings.Web.xml",
+        "system.text.encodings.web.9.0.0.nupkg.sha512",
         "system.text.encodings.web.nuspec",
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Text.Json/8.0.4": {
-      "sha512": "bAkhgDJ88XTsqczoxEMliSrpijKZHhbJQldhAmObj/RbrN3sU5dcokuXmWJWsdQAhiMJ9bTayWsL1C9fbbCRhw==",
+    "System.Text.Json/9.0.0": {
+      "sha512": "js7+qAu/9mQvnhA4EfGMZNEzXtJCDxgkgj8ohuxq/Qxv+R56G+ljefhiJHOxTNiw54q8vmABCWUwkMulNdlZ4A==",
       "type": "package",
-      "path": "system.text.json/8.0.4",
+      "path": "system.text.json/9.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -61040,20 +61560,18 @@
         "analyzers/dotnet/roslyn4.4/cs/zh-Hant/System.Text.Json.SourceGeneration.resources.dll",
         "buildTransitive/net461/System.Text.Json.targets",
         "buildTransitive/net462/System.Text.Json.targets",
-        "buildTransitive/net6.0/System.Text.Json.targets",
+        "buildTransitive/net8.0/System.Text.Json.targets",
         "buildTransitive/netcoreapp2.0/System.Text.Json.targets",
         "buildTransitive/netstandard2.0/System.Text.Json.targets",
         "lib/net462/System.Text.Json.dll",
         "lib/net462/System.Text.Json.xml",
-        "lib/net6.0/System.Text.Json.dll",
-        "lib/net6.0/System.Text.Json.xml",
-        "lib/net7.0/System.Text.Json.dll",
-        "lib/net7.0/System.Text.Json.xml",
         "lib/net8.0/System.Text.Json.dll",
         "lib/net8.0/System.Text.Json.xml",
+        "lib/net9.0/System.Text.Json.dll",
+        "lib/net9.0/System.Text.Json.xml",
         "lib/netstandard2.0/System.Text.Json.dll",
         "lib/netstandard2.0/System.Text.Json.xml",
-        "system.text.json.8.0.4.nupkg.sha512",
+        "system.text.json.9.0.0.nupkg.sha512",
         "system.text.json.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -63261,7 +63779,9 @@
       "Microsoft.Extensions.Logging.Debug >= 8.0.0",
       "Microsoft.Maui.Controls >= 8.0.83",
       "Microsoft.Maui.Controls.Compatibility >= 8.0.83",
-      "Microsoft.NET.ILLink.Tasks >= 8.0.11"
+      "Microsoft.NET.ILLink.Tasks >= 8.0.11",
+      "System.Private.Uri >= 4.3.2",
+      "System.Text.Json >= 9.0.0"
     ],
     "net8.0-ios18.0": [
       "Blazor.Bootstrap >= 3.1.1",
@@ -63271,7 +63791,9 @@
       "Microsoft.Extensions.Logging.Debug >= 8.0.0",
       "Microsoft.Maui.Controls >= 8.0.83",
       "Microsoft.Maui.Controls.Compatibility >= 8.0.83",
-      "Microsoft.NET.ILLink.Tasks >= 8.0.11"
+      "Microsoft.NET.ILLink.Tasks >= 8.0.11",
+      "System.Private.Uri >= 4.3.2",
+      "System.Text.Json >= 9.0.0"
     ],
     "net8.0-maccatalyst18.0": [
       "Blazor.Bootstrap >= 3.1.1",
@@ -63281,7 +63803,9 @@
       "Microsoft.Extensions.Logging.Debug >= 8.0.0",
       "Microsoft.Maui.Controls >= 8.0.83",
       "Microsoft.Maui.Controls.Compatibility >= 8.0.83",
-      "Microsoft.NET.ILLink.Tasks >= 8.0.11"
+      "Microsoft.NET.ILLink.Tasks >= 8.0.11",
+      "System.Private.Uri >= 4.3.2",
+      "System.Text.Json >= 9.0.0"
     ],
     "net8.0-windows10.0.19041": [
       "Blazor.Bootstrap >= 3.1.1",
@@ -63290,7 +63814,9 @@
       "Microsoft.Extensions.Configuration >= 8.0.0",
       "Microsoft.Extensions.Logging.Debug >= 8.0.0",
       "Microsoft.Maui.Controls >= 8.0.83",
-      "Microsoft.Maui.Controls.Compatibility >= 8.0.83"
+      "Microsoft.Maui.Controls.Compatibility >= 8.0.83",
+      "System.Private.Uri >= 4.3.2",
+      "System.Text.Json >= 9.0.0"
     ]
   },
   "packageFolders": {
@@ -63405,6 +63931,14 @@
             "target": "Package",
             "version": "[8.0.11, )",
             "autoReferenced": true
+          },
+          "System.Private.Uri": {
+            "target": "Package",
+            "version": "[4.3.2, )"
+          },
+          "System.Text.Json": {
+            "target": "Package",
+            "version": "[9.0.0, )"
           }
         },
         "imports": [
@@ -63482,6 +64016,14 @@
             "target": "Package",
             "version": "[8.0.11, )",
             "autoReferenced": true
+          },
+          "System.Private.Uri": {
+            "target": "Package",
+            "version": "[4.3.2, )"
+          },
+          "System.Text.Json": {
+            "target": "Package",
+            "version": "[9.0.0, )"
           }
         },
         "imports": [
@@ -63547,6 +64089,14 @@
             "target": "Package",
             "version": "[8.0.11, )",
             "autoReferenced": true
+          },
+          "System.Private.Uri": {
+            "target": "Package",
+            "version": "[4.3.2, )"
+          },
+          "System.Text.Json": {
+            "target": "Package",
+            "version": "[9.0.0, )"
           }
         },
         "imports": [
@@ -63607,6 +64157,14 @@
           "Microsoft.Maui.Controls.Compatibility": {
             "target": "Package",
             "version": "[8.0.83, )"
+          },
+          "System.Private.Uri": {
+            "target": "Package",
+            "version": "[4.3.2, )"
+          },
+          "System.Text.Json": {
+            "target": "Package",
+            "version": "[9.0.0, )"
           }
         },
         "imports": [
@@ -63660,138 +64218,5 @@
         "#import": []
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1903",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'System.Private.Uri' 4.3.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-5f2m-466j-3848",
-      "libraryId": "System.Private.Uri",
-      "targetGraphs": [
-        "net8.0-ios18.0/android-arm",
-        "net8.0-ios18.0/android-arm64",
-        "net8.0-ios18.0/android-x64",
-        "net8.0-ios18.0/android-x86",
-        "net8.0-ios18.0/iossimulator-x64",
-        "net8.0-ios18.0/maccatalyst-x64",
-        "net8.0-ios18.0/win10-x64",
-        "net8.0-maccatalyst18.0/android-arm",
-        "net8.0-maccatalyst18.0/android-arm64",
-        "net8.0-maccatalyst18.0/android-x64",
-        "net8.0-maccatalyst18.0/android-x86",
-        "net8.0-maccatalyst18.0/iossimulator-x64",
-        "net8.0-maccatalyst18.0/maccatalyst-x64",
-        "net8.0-maccatalyst18.0/win10-x64",
-        "net8.0-windows10.0.19041/android-arm",
-        "net8.0-windows10.0.19041/android-arm64",
-        "net8.0-windows10.0.19041/android-x64",
-        "net8.0-windows10.0.19041/android-x86",
-        "net8.0-windows10.0.19041/iossimulator-x64",
-        "net8.0-windows10.0.19041/maccatalyst-x64",
-        "net8.0-windows10.0.19041/win10-x64"
-      ]
-    },
-    {
-      "code": "NU1902",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'System.Private.Uri' 4.3.0 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-x5qj-9vmx-7g6g",
-      "libraryId": "System.Private.Uri",
-      "targetGraphs": [
-        "net8.0-ios18.0/android-arm",
-        "net8.0-ios18.0/android-arm64",
-        "net8.0-ios18.0/android-x64",
-        "net8.0-ios18.0/android-x86",
-        "net8.0-ios18.0/iossimulator-x64",
-        "net8.0-ios18.0/maccatalyst-x64",
-        "net8.0-ios18.0/win10-x64",
-        "net8.0-maccatalyst18.0/android-arm",
-        "net8.0-maccatalyst18.0/android-arm64",
-        "net8.0-maccatalyst18.0/android-x64",
-        "net8.0-maccatalyst18.0/android-x86",
-        "net8.0-maccatalyst18.0/iossimulator-x64",
-        "net8.0-maccatalyst18.0/maccatalyst-x64",
-        "net8.0-maccatalyst18.0/win10-x64",
-        "net8.0-windows10.0.19041/android-arm",
-        "net8.0-windows10.0.19041/android-arm64",
-        "net8.0-windows10.0.19041/android-x64",
-        "net8.0-windows10.0.19041/android-x86",
-        "net8.0-windows10.0.19041/iossimulator-x64",
-        "net8.0-windows10.0.19041/maccatalyst-x64",
-        "net8.0-windows10.0.19041/win10-x64"
-      ]
-    },
-    {
-      "code": "NU1903",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'System.Private.Uri' 4.3.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-xhfc-gr8f-ffwc",
-      "libraryId": "System.Private.Uri",
-      "targetGraphs": [
-        "net8.0-ios18.0/android-arm",
-        "net8.0-ios18.0/android-arm64",
-        "net8.0-ios18.0/android-x64",
-        "net8.0-ios18.0/android-x86",
-        "net8.0-ios18.0/iossimulator-x64",
-        "net8.0-ios18.0/maccatalyst-x64",
-        "net8.0-ios18.0/win10-x64",
-        "net8.0-maccatalyst18.0/android-arm",
-        "net8.0-maccatalyst18.0/android-arm64",
-        "net8.0-maccatalyst18.0/android-x64",
-        "net8.0-maccatalyst18.0/android-x86",
-        "net8.0-maccatalyst18.0/iossimulator-x64",
-        "net8.0-maccatalyst18.0/maccatalyst-x64",
-        "net8.0-maccatalyst18.0/win10-x64",
-        "net8.0-windows10.0.19041/android-arm",
-        "net8.0-windows10.0.19041/android-arm64",
-        "net8.0-windows10.0.19041/android-x64",
-        "net8.0-windows10.0.19041/android-x86",
-        "net8.0-windows10.0.19041/iossimulator-x64",
-        "net8.0-windows10.0.19041/maccatalyst-x64",
-        "net8.0-windows10.0.19041/win10-x64"
-      ]
-    },
-    {
-      "code": "NU1903",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'System.Text.Json' 8.0.4 has a known high severity vulnerability, https://github.com/advisories/GHSA-8g4q-xg66-9fp4",
-      "libraryId": "System.Text.Json",
-      "targetGraphs": [
-        "net8.0-android34.0",
-        "net8.0-android34.0/android-arm",
-        "net8.0-android34.0/android-arm64",
-        "net8.0-android34.0/android-x64",
-        "net8.0-android34.0/android-x86",
-        "net8.0-android34.0/iossimulator-x64",
-        "net8.0-android34.0/maccatalyst-x64",
-        "net8.0-android34.0/win10-x64",
-        "net8.0-ios18.0",
-        "net8.0-ios18.0/android-arm",
-        "net8.0-ios18.0/android-arm64",
-        "net8.0-ios18.0/android-x64",
-        "net8.0-ios18.0/android-x86",
-        "net8.0-ios18.0/iossimulator-x64",
-        "net8.0-ios18.0/maccatalyst-x64",
-        "net8.0-ios18.0/win10-x64",
-        "net8.0-maccatalyst18.0",
-        "net8.0-maccatalyst18.0/android-arm",
-        "net8.0-maccatalyst18.0/android-arm64",
-        "net8.0-maccatalyst18.0/android-x64",
-        "net8.0-maccatalyst18.0/android-x86",
-        "net8.0-maccatalyst18.0/iossimulator-x64",
-        "net8.0-maccatalyst18.0/maccatalyst-x64",
-        "net8.0-maccatalyst18.0/win10-x64",
-        "net8.0-windows10.0.19041",
-        "net8.0-windows10.0.19041/android-arm",
-        "net8.0-windows10.0.19041/android-arm64",
-        "net8.0-windows10.0.19041/android-x64",
-        "net8.0-windows10.0.19041/android-x86",
-        "net8.0-windows10.0.19041/iossimulator-x64",
-        "net8.0-windows10.0.19041/maccatalyst-x64",
-        "net8.0-windows10.0.19041/win10-x64"
-      ]
-    }
-  ]
+  }
 }

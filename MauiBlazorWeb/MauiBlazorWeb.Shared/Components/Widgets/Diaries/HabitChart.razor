@@ -60,7 +60,6 @@
 
 @code {
 	private TimeSpan timeSpan;
-
 	private Dictionary<int, bool> checkBox;
 
 	private BarChart barChart;
@@ -85,9 +84,7 @@
 			Y = new ChartAxes { Title = new ChartAxesTitle { Text = "Times you did the habit", Display = true } }
 		};
 
-
 		barChartOptions.Plugins.Legend.Display = false;
-
 
 		chartData = new ChartData();
 	}
@@ -139,7 +136,6 @@
 			isChartInit = true;
 			await barChart.InitializeAsync(chartData, barChartOptions);
 		}
-
 	}
 
 	private void GenerateBarChartData()
@@ -147,17 +143,15 @@
 		List<string> labels = new List<string>();
 		List<double?> countTimes = new List<double?>();
 
-		// Loop through selected columns and generate data for the bar chart
 		foreach (var col in allCols.Where(c => checkBox[c.Id]))
 		{
 			double? count = 0;
 			var posts = allPosts.Where(p => p.Diary_log_column_Id == col.Id);
 
-			var filteredPosts = posts.Where(p => FilterPostsByTimeSpan(p.Date, DateTime.Today, timeSpan)).ToList();
-			count = filteredPosts.Count(p => p.Value == "X");
+			count = posts.Where(p => p.Value == "X" && FilterPostsByTimeSpan(p.Date, DateTime.Today, timeSpan)).Count();
 
-			labels.Add(col.Name); // Add the column name to labels
-			countTimes.Add(count); // Add the count for the column to the data
+			labels.Add(col.Name);
+			countTimes.Add(count);
 		}
 
 

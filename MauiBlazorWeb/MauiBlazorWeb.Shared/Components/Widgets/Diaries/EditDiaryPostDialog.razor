@@ -1,0 +1,162 @@
+﻿@inherits DiaryCompBase
+
+@using Bases
+@using Models.Diaries
+
+@if (isVisible)
+{
+    <div class="modal fade show" style="display:block" tabindex="-1" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editing @col.Name post on @newPost.Date.ToString("yyyy-MM-dd")</h5>
+                    <button type="button" class="btn-close" aria-label="Close" @onclick="Hide"></button>
+                </div>
+                <EditForm EditContext=editContext OnSubmit=OnEditCol>
+                    <DataAnnotationsValidator />
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group row">
+                                    <div class="col">
+                                        <div class="col">
+                                            @switch (col.Type)
+                                            {
+                                                case DiaryColumnType.Words:
+                                                    <div class="form-group row">
+                                                        <label class="col col-form-label">Enter the message</label>
+                                                    </div>
+                                                    <InputText class="form-control" @bind-Value=newPost.Value />
+                                                    break;
+                                                case DiaryColumnType.NumberRange:
+                                                    <div class="form-group row">
+                                                        <label class="col col-form-label">Enter a number between @col.Value_range_min and @col.Value_range_max</label>
+                                                    </div>
+                                                    <InputNumber class="form-control" @bind-Value=inputNumber />
+                                                    break;
+                                            }  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col">
+                                        <ValidationMessage For="@(() => newPost.Value)" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-warning flex-column" value="Edit" />
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
+}
+
+@code {
+    private bool isVisible = false;
+    private bool doesPostNotExist = true;
+    private Diary_log_column col;
+
+    private int inputNumber;
+    private Diary_log_post newPost;
+    private EditContext editContext;
+    private ValidationMessageStore messageStore;
+
+    public EditDiaryPostDialog()
+    {
+        col = new Diary_log_column();
+        newPost = new Diary_log_post();
+        editContext = new EditContext(newPost);
+        messageStore = new ValidationMessageStore(editContext);
+    }
+
+    public async Task Show(int colId, DateTime day)
+    {
+        col = allCols.FirstOrDefault(c => c.Id == colId)!;
+        if(col == null)
+            throw new Exception($"Sorry, we could not find {colId}. id diary column.");
+
+        var post = allPosts.FirstOrDefault(p => p.Diary_log_column_Id == colId && p.Date == day);
+        if (post is not null)
+        {
+            if (col.Type == DiaryColumnType.NumberRange)
+            {
+                inputNumber = Convert.ToInt32(post.Value);
+            }
+            newPost = post;
+            doesPostNotExist = false;
+        }
+        else
+        {
+            newPost = new Diary_log_post { Date = day, Diary_log_column_Id = colId };
+            doesPostNotExist = true;
+        }
+
+        isVisible = true;
+        await RefreshDiaryComps();
+    }
+    public async Task Hide()
+    {
+        isVisible = false;
+        await RefreshDiaryComps();
+    }
+
+    private async Task OnEditCol()
+    {
+        await _appState.ShowLoadingScreenWhileAwaiting(EditCol);
+    }
+
+    private async Task EditCol()
+    {
+        messageStore.Clear();
+        @switch (col.Type)
+        {
+            case DiaryColumnType.Words:
+                {
+                    if (newPost.Value == "")
+                    {
+                        messageStore.Add(() => newPost.Value, $"You must set a message!");
+                        return;
+                    }
+
+                    break;
+                }
+            case DiaryColumnType.NumberRange:   
+                {
+                    if (inputNumber < col.Value_range_min || inputNumber > col.Value_range_max)
+                    {
+                        messageStore.Add(() => newPost.Value, $"The number has to be inside the range!");
+                        return;
+                    }
+                    else
+                    {
+                        newPost.Value = inputNumber.ToString();
+                    }
+                    break;
+                }
+        }
+
+        bool isCorrect = false;
+        if (doesPostNotExist)
+        {
+            isCorrect = await _diaryManager.InsertDiaryPost(newPost);
+        }
+        else
+        {
+            isCorrect = await _diaryManager.UpdateDiaryPost(newPost);
+        }
+
+        if (isCorrect)
+        {
+            newPost = new Diary_log_post();
+            await Hide();
+        }
+        else
+            throw new Exception($"Sorry, we could not edit {col.Name} on {newPost.Date}");
+    }
+}
+

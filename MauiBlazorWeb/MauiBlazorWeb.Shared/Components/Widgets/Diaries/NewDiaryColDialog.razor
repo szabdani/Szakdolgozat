@@ -18,7 +18,7 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group row">
-                                    <label class="col col-form-label">New @diaryOrHabit:</label>
+                                    <label class="col col-form-label">New @diaryOrHabit name:</label>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col">
@@ -36,18 +36,26 @@
                             @if (!IsHabit)
                             {
                                 <div class="form-group row">
-                                    <div class="col">
-                                        <label class="col col-form-label">Choose a type:</label>
+                                    <div class="row">
+                                        <label class="col col-form-label">How would you like to track:</label>
                                     </div>
-                                    <div class="col">
+                                    <div class="row">
                                         <div class="col">
                                             <InputSelect class="form-control" @bind-Value=newCol.Type>
-                                                @foreach (var dType in Enum.GetValues(typeof(DiaryColumnType)))
+                                                @foreach (DiaryColumnType dType in Enum.GetValues(typeof(DiaryColumnType)))
                                                 {
-                                                    if (!dType.Equals(DiaryColumnType.Habit))
+                                                    @switch (dType)
                                                     {
-                                                        <option value="@dType">@dType</option>
-                                                    }   
+                                                        case DiaryColumnType.Habit:
+                                                            <option value="@dType">Select</option>
+                                                            break;
+                                                        case DiaryColumnType.Words:
+                                                            <option value="@dType">By writing a message</option>
+                                                            break;
+                                                        case DiaryColumnType.NumberRange:
+                                                            <option value="@dType">By rating it in a number system</option>
+                                                            break;
+                                                    }  
                                                 }
                                             </InputSelect>
                                         </div>
@@ -55,31 +63,29 @@
                                 </div>
                                 @if (newCol.Type.Equals(DiaryColumnType.NumberRange))
                                 {
-                                    <div class="col">
-                                        <div class="form-group row">
+                                    <div class="form-group row">
+                                        <div class="col">
+                                            <label class="col col-form-label">Minimum:</label>
+                                        </div>
+                                        <div class="col">
                                             <div class="col">
-                                                <label class="col col-form-label">Minimum:</label>
-                                            </div>
-                                            <div class="col">
-                                                <div class="col">
-                                                    <InputNumber class="form-control" @bind-Value=newCol.Value_range_min />
-                                                </div>
+                                                <InputNumber class="form-control" @bind-Value=newCol.Value_range_min />
                                             </div>
                                         </div>
-                                        <div class="form-group row">
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col">
+                                            <label class="col col-form-label">Maximum:</label>
+                                        </div>
+                                        <div class="col">
                                             <div class="col">
-                                                <label class="col col-form-label">Maximum:</label>
-                                            </div>
-                                            <div class="col">
-                                                <div class="col">
-                                                    <InputNumber class="form-control" @bind-Value=newCol.Value_range_max />
-                                                </div>
+                                                <InputNumber class="form-control" @bind-Value=newCol.Value_range_max />
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-                                            <div class="col">
-                                                <ValidationMessage For="@(() => newCol.Value_range_max)" />
-                                            </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col">
+                                            <ValidationMessage For="@(() => newCol.Value_range_max)" />
                                         </div>
                                     </div>
                                 } 
@@ -87,7 +93,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <input type="submit" class="btn btn-warning flex-column" value="Enter" />
+                        <input type="submit" class="btn btn-warning flex-column" value="Enter" disabled="@(!IsHabit && newCol.Type == DiaryColumnType.Habit)" />
                     </div>
                 </EditForm>
             </div>
@@ -131,7 +137,7 @@
     public async Task Hide()
     {
         isVisible = false;
-        await _diarySubject.UpdateDiaryComponents();
+        await RefreshDiaryComps();
     }
 
     private async Task OnRegisterColumn()

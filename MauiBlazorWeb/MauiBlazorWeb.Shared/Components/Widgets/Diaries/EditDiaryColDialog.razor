@@ -33,62 +33,10 @@
                                     </div>
                                 </div>
                             </div>
-                            @if (!IsHabit)
-                            {
-                                <div class="form-group row">
-                                    <div class="col">
-                                        <label class="col col-form-label">Choose a type:</label>
-                                    </div>
-                                    <div class="col">
-                                        <div class="col">
-                                            <InputSelect class="form-control" @bind-Value=newCol.Type>
-                                                @foreach (var dType in Enum.GetValues(typeof(DiaryColumnType)))
-                                                {
-                                                    if (!dType.Equals(DiaryColumnType.Habit))
-                                                    {
-                                                        <option value="@dType">@dType</option>
-                                                    }
-                                                }
-                                            </InputSelect>
-                                        </div>
-                                    </div>
-                                </div>
-                                @if (newCol.Type.Equals(DiaryColumnType.NumberRange))
-                                {
-                                    <div class="col">
-                                        <div class="form-group row">
-                                            <div class="col">
-                                                <label class="col col-form-label">Minimum:</label>
-                                            </div>
-                                            <div class="col">
-                                                <div class="col">
-                                                    <InputNumber class="form-control" @bind-Value=newCol.Value_range_min />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col">
-                                                <label class="col col-form-label">Maximum:</label>
-                                            </div>
-                                            <div class="col">
-                                                <div class="col">
-                                                    <InputNumber class="form-control" @bind-Value=newCol.Value_range_max />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col">
-                                                <ValidationMessage For="@(() => newCol.Value_range_max)" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                            }
                         </div>
                     </div>
                     <div class="modal-footer">
                         <input type="submit" class="btn btn-warning flex-column" value="Edit" />
-                        <input class="btn btn-danger flex-column" @onclick="OnDeleteCol" value="Delete" />
                     </div>
                 </EditForm>
             </div>
@@ -124,7 +72,7 @@
     public async Task Hide()
     {
         isVisible = false;
-        await _diarySubject.UpdateDiaryComponents();
+        await RefreshDiaryComps();
     }
 
     protected override async Task OnInitializedAsync()
@@ -141,11 +89,6 @@
     private async Task OnEditCol()
     {
         await _appState.ShowLoadingScreenWhileAwaiting(EditCol);
-    }
-
-    private async Task OnDeleteCol()
-    {
-        await _appState.ShowLoadingScreenWhileAwaiting(DeleteCol);
     }
 
     private async Task EditCol()
@@ -179,17 +122,6 @@
                     throw new Exception($"Sorry, we could not edit {newCol.Name}");
             }
         }
-    }
-
-    private async Task DeleteCol()
-    {
-        bool isCorrect = await _diaryManager.DeleteDiaryCol(newCol);
-        if (isCorrect)
-        {
-            await Hide();
-        }
-        else
-            throw new Exception($"Sorry, we could not delete {newCol.Name}");
     }
 }
 

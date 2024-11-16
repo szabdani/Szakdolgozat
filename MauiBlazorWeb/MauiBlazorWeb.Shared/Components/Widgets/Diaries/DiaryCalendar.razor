@@ -2,7 +2,7 @@
 
 @using Bases
 
-<Calendar Title="Diary Entries" SpecialDates="uniqueDates" OnDayClickAction="OpenDay" />
+<Calendar Title="Diary Entries" SpecialDates="uniqueDates" OnDayClickAction="OpenDay" FirstDate="firstDate"/>
 
 @code {
 	private List<DateTime> uniqueDates;
@@ -16,7 +16,7 @@
 	protected override async Task UpdateTables()
 	{
 		await base.UpdateTables();
-		uniqueDates = allPosts.Select(obj => obj.Date).Distinct().OrderBy(date => date).ToList();
+		uniqueDates = allPosts.Select(obj => obj.Date).Distinct().ToList();
 	}
 
 	private async Task OpenDay(DateTime day)

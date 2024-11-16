@@ -112,6 +112,14 @@
               "target": "Package",
               "version": "[8.0.11, )",
               "autoReferenced": true
+            },
+            "System.Private.Uri": {
+              "target": "Package",
+              "version": "[4.3.2, )"
+            },
+            "System.Text.Json": {
+              "target": "Package",
+              "version": "[9.0.0, )"
             }
           },
           "imports": [
@@ -189,6 +197,14 @@
               "target": "Package",
               "version": "[8.0.11, )",
               "autoReferenced": true
+            },
+            "System.Private.Uri": {
+              "target": "Package",
+              "version": "[4.3.2, )"
+            },
+            "System.Text.Json": {
+              "target": "Package",
+              "version": "[9.0.0, )"
             }
           },
           "imports": [
@@ -254,6 +270,14 @@
               "target": "Package",
               "version": "[8.0.11, )",
               "autoReferenced": true
+            },
+            "System.Private.Uri": {
+              "target": "Package",
+              "version": "[4.3.2, )"
+            },
+            "System.Text.Json": {
+              "target": "Package",
+              "version": "[9.0.0, )"
             }
           },
           "imports": [
@@ -314,6 +338,14 @@
             "Microsoft.Maui.Controls.Compatibility": {
               "target": "Package",
               "version": "[8.0.83, )"
+            },
+            "System.Private.Uri": {
+              "target": "Package",
+              "version": "[4.3.2, )"
+            },
+            "System.Text.Json": {
+              "target": "Package",
+              "version": "[9.0.0, )"
             }
           },
           "imports": [
@@ -442,6 +474,14 @@
             "MySql.Data": {
               "target": "Package",
               "version": "[9.1.0, )"
+            },
+            "System.Private.Uri": {
+              "target": "Package",
+              "version": "[4.3.2, )"
+            },
+            "System.Text.Json": {
+              "target": "Package",
+              "version": "[9.0.0, )"
             }
           },
           "imports": [

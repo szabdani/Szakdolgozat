@@ -1,8 +1,6 @@
 ﻿@using System.Globalization
 @using Interfaces
 
-@inject IAppState _appState
-
 @if (Title is not null)
 {
     <h3>@Title</h3>
@@ -31,10 +29,10 @@
                 "
                 calendar-day 
                 @(day.Date == DateTime.Today ? "today" : 
-                day.Date == firstDate ? "reg-day" :
+                day.Date == FirstDate ? "reg-day" :
                 day.Month == pageDate.Month ? "current-month" : "other-month") 
                 @(SpecialDates.Any(d => d.Date == day.Date) ? "special" : "")
-                @(day.Date < firstDate || day.Date > DateTime.Today ? "unclickable" : "")
+                @(day.Date < FirstDate || day.Date > DateTime.Today ? "unclickable" : "")
                 "
                 @onclick="() => OnDayClick(day)">
                 @day.Day
@@ -46,6 +44,7 @@
 @code {
     [Parameter] public string? Title { get; set; }
     [Parameter] public Func<Task>? RerenderParent { get; set; }
+    [Parameter] public DateTime FirstDate { get; set; }
     [Parameter] public List<DateTime> SpecialDates { get; set; }
     [Parameter] public Func<DateTime, Task>? OnDayClickAction { get; set; }
     public DateTime CalendarDate { get { return pageDate; } }
@@ -54,8 +53,7 @@
     private List<DateTime> calendarDays;
     private string[] DayNames;
 
-    private DateTime firstDate;
-    private bool isPrevDisabled => new DateTime(pageDate.Year, pageDate.Month, 1) <= firstDate;
+    private bool isPrevDisabled => new DateTime(pageDate.Year, pageDate.Month, 1) <= FirstDate;
     private bool isNextDisabled => new DateTime(pageDate.AddMonths(1).Year, pageDate.AddMonths(1).Month, 1) > DateTime.Today;
 
     public Calendar()
@@ -74,7 +72,6 @@
 
     protected override void OnInitialized()
     {
-        firstDate = _appState.CurrentUser.RegistrationDate;
         GenerateCalendar();
     }
 
@@ -116,7 +113,7 @@
 
     private async Task OnDayClick(DateTime day)
     {
-        if(day.Date >= firstDate && day.Date <= DateTime.Today)
+        if (day.Date >= FirstDate && day.Date <= DateTime.Today)
         {
             if (OnDayClickAction is not null)
             {

@@ -27,11 +27,6 @@ else
 {
 	<div class="row">
 		<div class="col m-2" style="background-color: #ffefef">
-			<HabitsTable IsHabit="false" />
-		</div>
-	</div>
-	<div class="row">
-		<div class="col m-2" style="background-color: #ffefef">
 			<DiaryCalendar />
 		</div>
 		<div class="col m-2" style="background-color: #ffefef">
@@ -40,7 +35,9 @@ else
 		<div class="col m-2">
 			<div class="row mb-2">
 				<div class="col" style="background-color: #ffefef">
-					Új oszlop felvétele
+					<button class="btn btn-info w-100" @onclick="() => newHabitDialog.Show()">
+						Add a new Diary column!
+					</button>
 				</div>
 			</div>
 			<div class="row">
@@ -50,9 +47,23 @@ else
 			</div>
 		</div>
 	</div>
+	<div class="row">
+		<div class="col m-2" style="background-color: #ffefef">
+			<HabitsTable IsHabit="false" />
+		</div>
+	</div>
+
+	<NewDiaryColDialog IsHabit="false" @ref=newHabitDialog />
 }
 
 @code {
+	private NewDiaryColDialog newHabitDialog;
+
+	public Diary()
+	{
+		newHabitDialog = new NewDiaryColDialog();
+	}
+
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		if (firstRender)

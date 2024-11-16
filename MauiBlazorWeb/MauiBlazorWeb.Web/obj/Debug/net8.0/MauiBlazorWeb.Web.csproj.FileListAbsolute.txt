@@ -66,3 +66,7 @@ C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.We
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\obj\Debug\net8.0\staticwebassets.build.endpoints.json
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\obj\Debug\net8.0\staticwebassets\msbuild.MauiBlazorWeb.Web.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\bin\Debug\net8.0\System.IO.Pipelines.dll
+C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\bin\Debug\net8.0\System.Text.Encodings.Web.dll
+C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\bin\Debug\net8.0\System.Text.Json.dll
+C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Web\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll

@@ -2,6 +2,7 @@
 
 @using Bases
 @using MauiBlazorWeb.Shared.Components.Icons
+@using Models.Diaries
 
 @inject IJSRuntime JS
 
@@ -19,6 +20,9 @@
 								<button class="btn btn-warning" @onclick="() => editHabitDialog.Show(col)">
 									<IconEdit />
 								</button>
+								<button class="btn btn-danger" @onclick="() => OnDeleteCol(col)">
+									<IconDelete />
+								</button>
 							</th>
 						}
 					</tr>
@@ -33,9 +37,19 @@
 							@foreach (var col in allCols)
 							{
 								var post = allPosts.FirstOrDefault(p => p.Diary_log_column_Id == col.Id && p.Date == date);
-								<td class="tracker-post" @onclick="() => OnToggleHabitValue(col.Id, date)">
-									@(post?.Value ?? "")
-								</td>
+								@switch (col.Type)
+								{
+									case DiaryColumnType.Habit:
+										<td class="tracker-post" @onclick="() => OnToggleHabitValue(col.Id, date)">
+											@(post?.Value ?? "")
+										</td>
+										break;
+									default:
+										<td class="tracker-post" @onclick="() => editPostDialog.Show(col.Id, date)">
+											@(post?.Value ?? "")
+										</td>
+										break;
+								}
 							}
 						</tr>
 					}
@@ -70,15 +84,18 @@
 
 <NewDiaryColDialog IsHabit="IsHabit" @ref=newHabitDialog />
 <EditDiaryColDialog IsHabit="IsHabit" @ref=editHabitDialog />
+<EditDiaryPostDialog IsHabit="IsHabit" @ref=editPostDialog />
 
 @code {
 	private NewDiaryColDialog newHabitDialog;
 	private EditDiaryColDialog editHabitDialog;
+	private EditDiaryPostDialog editPostDialog;
 
 	public HabitsTable()
 	{
 		newHabitDialog = new NewDiaryColDialog();
 		editHabitDialog = new EditDiaryColDialog();
+		editPostDialog = new EditDiaryPostDialog();
 	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -87,6 +104,19 @@
 		{
 			await JS.InvokeVoidAsync("scrollToToday");
 		}
+	}
+
+	private async Task OnDeleteCol(Diary_log_column col)
+	{
+		await _appState.ShowLoadingScreenWhileAwaiting(() => DeleteCol(col));
+	}
+
+	private async Task DeleteCol(Diary_log_column col)
+	{
+		bool isCorrect = await _diaryManager.DeleteDiaryCol(col);
+		if (!isCorrect)
+			throw new Exception($"Sorry, we could not delete {col.Name}");
+		await RefreshDiaryComps();
 	}
 }
 

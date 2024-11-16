@@ -5,7 +5,7 @@
 
 <div class="row">
 	<div class="col">
-		<InputSelect class="form-control" @bind-Value=colId>
+		<InputSelect class="form-control" @bind-Value=colId @bind-Value:after="@RefreshDiaryComps">
 			<option value=0>Select a Habit</option>
 			@foreach (var c in allCols)
 			{
@@ -13,15 +13,12 @@
 			}
 		</InputSelect>
 	</div>
-	<div class="col">
-		<button class="btn btn-warning" value="Show" @onclick="RefreshDiaryComps" disabled="@(colId == 0)">Show Stats</button>
-	</div>
 </div>
 @if (isColViewSet)
 {
 	<div class="row">
 		<div class="col">
-			<Calendar Title="@title" RerenderParent="RefreshDiaryComps" SpecialDates="doneDates" OnDayClickAction="Toggle" @ref="calendar" />
+			<Calendar Title="@title" RerenderParent="RefreshDiaryComps" SpecialDates="doneDates" FirstDate="firstDate" OnDayClickAction="Toggle" @ref="calendar" />
 		</div>
 		<div class="col">
 			<table class="table text-center" style="table-layout: fixed;">
@@ -33,7 +30,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					@foreach (var timeSpan in Enum.GetValues(typeof(TimeSpan)))
+					@foreach (TimeSpan timeSpan in Enum.GetValues(typeof(TimeSpan)))
 					{
 						<tr>
 								@switch (timeSpan)
@@ -52,12 +49,12 @@
 									break;
 								}
 							<td>
-								@numPer[(TimeSpan)timeSpan]
+								@numPer[timeSpan]
 								/
-								@totalPer[(TimeSpan)timeSpan]
+								@totalPer[timeSpan]
 							</td>
 							<td>
-								@((numPer[(TimeSpan)timeSpan] / (double)totalPer[(TimeSpan)timeSpan]).ToString("0.##%"))
+								@((numPer[timeSpan] / (double)totalPer[timeSpan]).ToString("0.##%"))
 							</td>
 						</tr>
 					}
@@ -72,7 +69,6 @@
 	private bool isColViewSet = false;
 	private int colId = 0;
 
-	private List<Diary_log_post> posts;
 	private List<DateTime> doneDates;
 
 	private Calendar calendar;
@@ -84,16 +80,15 @@
 	{
 		IsHabit = true;
 
-		posts = new List<Diary_log_post>();
 		doneDates = new List<DateTime>();
 
 		numPer = new Dictionary<TimeSpan, int>();
 		totalPer = new Dictionary<TimeSpan, int>();
 
-		foreach (var timeSpan in Enum.GetValues(typeof(TimeSpan)))
+		foreach (TimeSpan timeSpan in Enum.GetValues(typeof(TimeSpan)))
 		{
-			numPer.Add((TimeSpan)timeSpan, 0);
-			totalPer.Add((TimeSpan)timeSpan, 0);
+			numPer.Add(timeSpan, 0);
+			totalPer.Add(timeSpan, 0);
 		}
 
 		calendar = new Calendar();
@@ -107,20 +102,21 @@
 		if (name is not null)
 		{
 			title = $"{name} Entries";
+
+			var posts = allPosts.Where(p => p.Diary_log_column_Id == colId).ToList();
+			doneDates = posts.Where(p => p.Value == "X").Select(p => p.Date).Distinct().ToList();
+
+			foreach (TimeSpan timeSpan in Enum.GetValues(typeof(TimeSpan)))
+			{
+				numPer[timeSpan] = doneDates.Where(d => FilterPostsByTimeSpan(d, calendar.CalendarDate, timeSpan)).Count();
+				totalPer[timeSpan] = allDatesSinceReg.Where(d => FilterPostsByTimeSpan(d, calendar.CalendarDate, timeSpan)).Count();
+			}
+
 			isColViewSet = true;
 		}
 		else
 		{
 			isColViewSet = false;
-		}
-
-		posts = allPosts.Where(p => p.Diary_log_column_Id == colId).ToList();
-		doneDates = posts.Where(p => p.Value == "X").Select(p => p.Date).Distinct().OrderBy(date => date).ToList();
-
-		foreach (var timeSpan in Enum.GetValues(typeof(TimeSpan)))
-		{
-			numPer[(TimeSpan)timeSpan] = doneDates.Where(d => FilterPostsByTimeSpan(d, calendar.CalendarDate, (TimeSpan)timeSpan)).Count();
-			totalPer[(TimeSpan)timeSpan] = allDatesSinceReg.Where(d => FilterPostsByTimeSpan(d, calendar.CalendarDate, (TimeSpan)timeSpan)).Count();
 		}
 	}
 
