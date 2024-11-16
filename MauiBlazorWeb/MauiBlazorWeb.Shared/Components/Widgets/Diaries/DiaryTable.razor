@@ -71,29 +71,18 @@
 		</div>
 	</div>
 </div>
-<div class="row">
-	<div class="col m-2">
-		Add a new Habit! 
-		<button class="btn btn-info" @onclick="() => newHabitDialog.Show()">
-			<IconAdd />
-		</button>
-	</div>
-</div>
 
 
-
-<NewDiaryColDialog IsHabit="IsHabit" @ref=newHabitDialog />
 <EditDiaryColDialog IsHabit="IsHabit" @ref=editHabitDialog />
 <EditDiaryPostDialog IsHabit="IsHabit" @ref=editPostDialog />
 
 @code {
-	private NewDiaryColDialog newHabitDialog;
 	private EditDiaryColDialog editHabitDialog;
 	private EditDiaryPostDialog editPostDialog;
 
-	public HabitsTable()
+	public DiaryTable()
 	{
-		newHabitDialog = new NewDiaryColDialog();
+		
 		editHabitDialog = new EditDiaryColDialog();
 		editPostDialog = new EditDiaryPostDialog();
 	}

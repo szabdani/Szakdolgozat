@@ -1,0 +1,99 @@
+﻿@inherits DiaryCompBase
+
+@using Bases
+@using MauiBlazorWeb.Shared.Components.Icons
+@using Models.Diaries
+
+@inject IJSRuntime JS
+
+<div class="row">
+	<div class="col">
+		<div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+			<table class="table table-striped text-center">
+				<thead class="thead-light" style="position: sticky; top: 0; background-color: #ffefef">
+					<tr>
+						<th scope="col">Date</th>
+						@foreach (var col in allCols)
+						{
+							<th scope="col">
+								@col.Name
+							</th>
+						}
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var date in allDatesSinceReg.Where(d => FilterPostsByTimeSpan(d, DateTime.Today, TimeSpan.Week)).OrderByDescending(d => d))
+					{
+						<tr>
+
+							@if (date == DateTime.Today)
+							{
+								<th scope="row">Today</th>
+							}
+							else if (date == DateTime.Today.AddDays(-1))
+							{
+								<th scope="row">Yesterday</th>
+							}
+							else
+							{
+								<th scope="row">@((DateTime.Today - date).Days) days ago</th>
+							}
+
+							@foreach (var col in allCols)
+							{
+								var post = allPosts.FirstOrDefault(p => p.Diary_log_column_Id == col.Id && p.Date == date);
+								@switch (col.Type)
+								{
+									case DiaryColumnType.Habit:
+										<td class="tracker-post" @onclick="() => OnToggleHabitValue(col.Id, date)">
+											@(post?.Value ?? "")
+										</td>
+										break;
+									default:
+										<td class="tracker-post" @onclick="() => editPostDialog.Show(col.Id, date)">
+											@(post?.Value ?? "")
+										</td>
+										break;
+								}
+							}
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<EditDiaryPostDialog IsHabit="IsHabit" @ref=editPostDialog />
+
+@code {
+	private EditDiaryPostDialog editPostDialog;
+
+	public WeeklyDiary()
+	{
+		editPostDialog = new EditDiaryPostDialog();
+	}
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await JS.InvokeVoidAsync("scrollToToday");
+		}
+	}
+
+}
+
+<style>
+	.tracker-post {
+		vertical-align: middle;
+		background-color: ghostwhite;
+		cursor: pointer;
+		transition: background-color 0.3s;
+	}
+
+		.tracker-post:hover {
+			background-color: powderblue;
+		}
+</style>
+

@@ -25,9 +25,16 @@
 }
 else
 {
+	<div class="row">
+		<div class="col m-2">
+			<button class="btn btn-info" @onclick="() => newHabitDialog.Show()">
+				Add a new Habit!
+			</button>
+		</div>
+	</div>
 	<div class="row" style="overflow-x: auto;">
 		<div class="col m-2" style="background-color: #ffefef;">
-			<HabitsTable IsHabit="true" />
+			<DiaryTable IsHabit="true" />
 		</div>
 	</div>
 	<div class="row">
@@ -38,8 +45,13 @@ else
 			<HabitStat />
 		</div>
 	</div>
+
+	<NewDiaryColDialog IsHabit="true" @ref=newHabitDialog />
 }
+
 @code {
+	private NewDiaryColDialog newHabitDialog = new NewDiaryColDialog();
+
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		if (firstRender)

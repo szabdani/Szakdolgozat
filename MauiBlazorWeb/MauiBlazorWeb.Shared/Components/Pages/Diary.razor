@@ -30,9 +30,9 @@ else
 			<DiaryCalendar />
 		</div>
 		<div class="col m-2" style="background-color: #ffefef">
-			Utolsó 7 nap bejegyzései
+			<WeeklyDiary/>
 		</div>
-		<div class="col m-2">
+		<div class="col m-2 w-100">
 			<div class="row mb-2">
 				<div class="col" style="background-color: #ffefef">
 					<button class="btn btn-info w-100" @onclick="() => newHabitDialog.Show()">
@@ -49,7 +49,7 @@ else
 	</div>
 	<div class="row">
 		<div class="col m-2" style="background-color: #ffefef">
-			<HabitsTable IsHabit="false" />
+			<DiaryTable IsHabit="false" />
 		</div>
 	</div>
 

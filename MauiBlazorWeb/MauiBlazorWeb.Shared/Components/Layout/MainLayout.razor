@@ -5,15 +5,15 @@
 @using Blazored.LocalStorage    
 
 @inject ILocalStorageService _localStorage
-@inject NavigationManager Navigation
 @inject IAppState _appState
+@inject IJSRuntime JS
 
 <PageTitle>
     LifeTracker - @_appState.Title
 </PageTitle>
 
 <div class="page">
-    <div class="sidebar">
+    <div class="sidebar" style="z-index: 1001;">
         <NavMenu @ref="navmenu"/>
     </div>
 
@@ -70,7 +70,7 @@
             if (!_appState.IsInitialized)
             {
                 await _appState.Init(_localStorage);
-                Navigation.NavigateTo("", forceLoad: true);
+                await JS.InvokeVoidAsync("location.reload");
             } 
             isLoading = false;
             await InvokeAsync(RerenderLayout);
