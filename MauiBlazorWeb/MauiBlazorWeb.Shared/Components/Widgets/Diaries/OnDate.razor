@@ -1,0 +1,68 @@
+﻿@page "/{date:datetime}"
+
+@using MauiBlazorWeb.Shared.Components.Dialogs
+@using MauiBlazorWeb.Shared.Components.Widgets.Diaries
+@using Interfaces
+
+@inject IAppState _appState
+
+@if (!_appState.IsLoggedIn)
+{
+	<div class="row">
+		<div class="col m-2" style="background-color: #ffefef">
+			<div class="row">
+				<div class="col">
+					<h1>This page is only available to users!</h1>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<LoginPrompt />
+				</div>
+			</div>
+		</div>
+	</div>
+}
+else
+{
+	if (Date < _appState.CurrentUser.RegistrationDate || Date > DateTime.Today)
+	{
+		<div class="row">
+			<div class="col m-2" style="background-color: #ffefef">
+				<div class="row">
+					<div class="col">
+						<h1>
+							This page is unavilable because of the chosen date!<br/>
+							Choose a date between today and the date of your account's registration.
+						</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+	else
+	{
+		<div class="row">
+			<div class="col m-2" style="background-color: #ffefef">
+				<DiaryOnDate Date="Date" />
+			</div>
+			<div class="col m-2" style="background-color: #ffefef">
+				<HabitsOnDate Date="Date" />
+			</div>
+		</div>
+	}
+}
+
+@code {
+    [Parameter]
+    public DateTime Date { get; set; }
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await InvokeAsync(() => _appState.Title = $"On {Date.ToString("yyyy-MM-dd")}");
+			await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
+		}
+	}
+}
+

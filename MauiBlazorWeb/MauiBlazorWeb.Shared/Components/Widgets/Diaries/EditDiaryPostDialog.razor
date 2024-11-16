@@ -12,7 +12,7 @@
                     <h5 class="modal-title">Editing @col.Name post on @newPost.Date.ToString("yyyy-MM-dd")</h5>
                     <button type="button" class="btn-close" aria-label="Close" @onclick="Hide"></button>
                 </div>
-                <EditForm EditContext=editContext OnSubmit=OnEditCol>
+                <EditForm EditContext=editContext OnSubmit=OnEditPost>
                     <DataAnnotationsValidator />
                     <div class="modal-body">
                         <div class="row">
@@ -48,6 +48,7 @@
                     </div>
                     <div class="modal-footer">
                         <input type="submit" class="btn btn-warning flex-column" value="Edit" />
+                        <button type="button" class="btn btn-danger" @onclick="OnDeletePost">Delete</button>
                     </div>
                 </EditForm>
             </div>
@@ -105,12 +106,35 @@
         await RefreshDiaryComps();
     }
 
-    private async Task OnEditCol()
+    private async Task OnDeletePost()
     {
-        await _appState.ShowLoadingScreenWhileAwaiting(EditCol);
+        await _appState.ShowLoadingScreenWhileAwaiting(DeletePost);
     }
 
-    private async Task EditCol()
+    private async Task DeletePost()
+    {
+        if (doesPostNotExist)
+        {
+            await Hide();
+            return;
+        }
+
+        bool isCorrect = await _diaryManager.DeleteDiaryPost(newPost);
+        if (isCorrect)
+        {
+            newPost = new Diary_log_post();
+            await Hide();
+        }
+        else  
+            throw new Exception($"Sorry, we could not delete {col.Name}"); 
+    }
+
+    private async Task OnEditPost()
+    {
+        await _appState.ShowLoadingScreenWhileAwaiting(EditPost);
+    }
+
+    private async Task EditPost()
     {
         messageStore.Clear();
         @switch (col.Type)

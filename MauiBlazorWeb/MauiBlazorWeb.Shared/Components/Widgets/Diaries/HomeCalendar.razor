@@ -3,12 +3,12 @@
 @using Bases
 @inject NavigationManager Navigation
 
-<Calendar Title="Diary Entries" SpecialDates="uniqueDates" OnDayClickAction="OpenDay" FirstDate="firstDate"/>
+<Calendar Title="Complete diary days" SpecialDates="uniqueDates" OnDayClickAction="OpenDay" FirstDate="firstDate"/>
 
 @code {
 	private List<DateTime> uniqueDates;
 
-	public DiaryCalendar()
+	public HomeCalendar()
 	{
 		IsHabit = false;
 		uniqueDates = new List<DateTime>();
@@ -17,6 +17,8 @@
 	protected override async Task UpdateTables()
 	{
 		await base.UpdateTables();
+		//var posts = allPosts.Where(p => p.Diary_log_column_Id == colId).ToList();
+		//doneDates = posts.Where(p => p.Value == "X").Select(p => p.Date).Distinct().ToList();
 		uniqueDates = allPosts.Select(obj => obj.Date).Distinct().ToList();
 	}
 

@@ -17,8 +17,8 @@
 				<tr>
 					<th>@col.Name</th>
 					@{
-						var post = allPosts.FirstOrDefault(p => p.Diary_log_column_Id == col.Id && p.Date == DateTime.Now.Date);
-						<td class="tracker-post" @onclick="() => OnToggleHabitValue(col.Id,DateTime.Now.Date)">
+						var post = allPosts.FirstOrDefault(p => p.Diary_log_column_Id == col.Id && p.Date == Date);
+						<td class="tracker-post" @onclick="() => OnToggleHabitValue(col.Id,Date)">
 							@(post?.Value ?? "")
 						</td>
 					}
@@ -42,9 +42,10 @@
 <NewDiaryColDialog IsHabit="IsHabit" @ref=newHabitDialog />
 
 @code {
+	[Parameter] public DateTime Date { get; set; }
 	private NewDiaryColDialog newHabitDialog;
 
-	public HabitsToday()
+	public HabitsOnDate()
 	{
 		IsHabit = true;
 		newHabitDialog = new NewDiaryColDialog();
