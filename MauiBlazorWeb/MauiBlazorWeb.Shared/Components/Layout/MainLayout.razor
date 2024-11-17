@@ -13,7 +13,7 @@
 </PageTitle>
 
 <div class="page">
-    <div class="sidebar" style="z-index: 1001;">
+    <div class="sidebar" style="z-index: 1001; min-width: 200px;">
         <NavMenu @ref="navmenu"/>
     </div>
 
@@ -26,14 +26,14 @@
             {
                 <LoadingScreen />
             }
-            <div class= "px-4 py-2 d-grid" style="background-color: #ffe9e9">
+            <div class="px-4 py-2 d-grid" style="background-color: #ffe9e9">
                 @Body
             </div>
         </article>
+        <div class="footer">
+            <Footer />
+        </div>
     </main>
-    <div class="footer">
-        <Footer />
-    </div>
 </div>
 
 @code {

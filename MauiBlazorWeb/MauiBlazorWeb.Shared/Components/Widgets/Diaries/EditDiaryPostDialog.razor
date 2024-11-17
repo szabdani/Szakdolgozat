@@ -26,7 +26,13 @@
                                                     <div class="form-group row">
                                                         <label class="col col-form-label">Enter the message</label>
                                                     </div>
-                                                    <InputText class="form-control" @bind-Value=newPost.Value />
+                                                    <textarea class="form-control"
+                                                              @bind="newPost.Value"
+                                                              rows=" 2"
+                                                              placeholder="Sample text."
+                                                              style="resize:vertical;"
+                                                              oninput="this.style.height = 'auto'; this.style.height = (this.scrollHeight) + 'px';">
+                                                    </textarea>
                                                     break;
                                                 case DiaryColumnType.NumberRange:
                                                     <div class="form-group row">

@@ -7,7 +7,6 @@ using MauiBlazorWeb.Shared.Components.Pages;
 using MauiBlazorWeb.Shared.Interfaces;
 using MauiBlazorWeb.Shared.Models;
 using MauiBlazorWeb.Shared.Models.Diaries;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MauiBlazorWeb.Shared.Services
 {

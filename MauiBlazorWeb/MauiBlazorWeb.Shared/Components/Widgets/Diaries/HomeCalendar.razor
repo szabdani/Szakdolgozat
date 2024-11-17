@@ -17,9 +17,9 @@
 	protected override async Task UpdateTables()
 	{
 		await base.UpdateTables();
-		//var posts = allPosts.Where(p => p.Diary_log_column_Id == colId).ToList();
-		//doneDates = posts.Where(p => p.Value == "X").Select(p => p.Date).Distinct().ToList();
-		uniqueDates = allPosts.Select(obj => obj.Date).Distinct().ToList();
+
+		uniqueDates = new List<DateTime>();
+		uniqueDates = allDatesSinceReg.Where(date => allCols.All(col => allPosts.Any(p => p.Date == date && p.Diary_log_column_Id == col.Id))).ToList();
 	}
 
 	private async Task OpenDay(DateTime day)
