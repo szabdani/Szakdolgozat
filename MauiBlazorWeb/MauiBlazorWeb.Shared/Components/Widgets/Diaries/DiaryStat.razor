@@ -2,180 +2,282 @@
 
 @using Bases
 @using BlazorBootstrap
+@using Models.Diaries
+@using MauiBlazorWeb.Shared.Components.Widgets.Diaries
 
 <div class="row">
-	<div class="container-fluid">
-		<LineChart @ref="lineChart" Width="800" />
+	<div class="col">
+		<LineChart @ref="lineChart" />
 	</div>
+	<div class="col">
+		<div class="row">
+			<div class="col">
+				<label>Select Time Span:</label>
+				<InputSelect class="form-control" @bind-Value="timeSpan" @bind-Value:after="@RefreshDiaryComps">
+					@foreach (var t in Enum.GetValues(typeof(TimeSpan)))
+					{
+						<option value="@t">@t</option>
+					}
+				</InputSelect>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="table-responsive">
+					<table class="table float-end">
+						<tbody>
+							<tr>
+								<th scope="col">Habits</th>
+								@foreach (var col in numCols)
+								{
+									<th>@col.Name</th>
+								}
+							</tr>
+							<tr>
+								<th scope="col">Average</th>
+								@foreach (var col in numCols)
+								{
+									if (isAverageCorrect[col.Id])
+									{
+										<th>
+											@averages[col.Id].ToString("0.##")
+										</th>
 
-	<div class="mt-5">
-		<Button Type="ButtonType.Button" Class="mb-2" Color="ButtonColor.Primary" Size="ButtonSize.Small" @onclick="async () => await RandomizeAsync()"> Randomize </Button>
-		<Button Type="ButtonType.Button" Class="mb-2" Color="ButtonColor.Primary" Size="ButtonSize.Small" @onclick="async () => await AddDatasetAsync()" Disabled="@(datasetsCount >= 12)"> Add Dataset </Button>
-		<Button Type="ButtonType.Button" Class="mb-2" Color="ButtonColor.Primary" Size="ButtonSize.Small" @onclick="async () => await AddDataAsync()"> Add Data </Button>
-		<Button Type="ButtonType.Button" Class="mb-2" Color="ButtonColor.Primary" Size="ButtonSize.Small" @onclick="async () => await ShowHorizontalLineChartAsync()"> Horizontal Line Chart </Button>
-		<Button Type="ButtonType.Button" Class="mb-2" Color="ButtonColor.Primary" Size="ButtonSize.Small" @onclick="async () => await ShowVerticalLineChartAsync()"> Vertical Line Chart </Button>
+									}
+									else
+									{
+										<th>
+											-
+										</th>
+									}
+								}
+							</tr>
+							<tr>
+								<th scope="col">Show?</th>
+								@foreach (var col in numCols)
+								{
+									<td class="tracker-post" @onclick="() => OnToggle(col.Id)">
+										@(checkBox[col.Id] ? "X" : "")
+									</td>
+								}
+							</tr>
+						</tbody>
+						<tfoot>
+							<tr>
+								<td colspan="@((numCols.Count + 1) / 2)">
+									<button class="btn btn-info w-100" value="Show" @onclick="CheckAll">Check All</button>
+								</td>
+								<td colspan="@((numCols.Count + 1) / 2)">
+									<button class="btn btn-info w-100" value="Show" @onclick="UnCheckAll">Uncheck All</button>
+								</td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<button class="btn btn-info w-100" @onclick="() => newHabitDialog.Show()">
+					Add a new Diary column!
+				</button>
+			</div>
+		</div>
 	</div>
 </div>
+<NewDiaryColDialog IsHabit="false" @ref=newHabitDialog />
 
 @code {
-    private LineChart lineChart = default!;
-    private LineChartOptions lineChartOptions = default!;
-    private ChartData chartData = default!;
+	private NewDiaryColDialog newHabitDialog;
+	private List<Diary_log_column> numCols;
 
-    private int datasetsCount;
-    private int labelsCount;
+	private TimeSpan timeSpan;
+	private Dictionary<int, bool> checkBox;
+	private Dictionary<int, bool> isAverageCorrect;
+	private Dictionary<int, double> averages;
 
-    private Random random = new();
+	private LineChart lineChart;
+	private LineChartOptions lineChartOptions;
+	private ChartData chartData;
 
-    protected override void OnInitialized()
-    {
-        chartData = new ChartData { Labels = GetDefaultDataLabels(6), Datasets = GetDefaultDataSets(3) };
-        lineChartOptions = new() { Responsive = true, Interaction = new Interaction { Mode = InteractionMode.Index } };
-        lineChartOptions.Scales.Y!.Max = 250;
-    }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-
-            await InvokeAsync(() => _appState.Title = "Sports");
-            await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
+	private bool isChartInit = false;
 
 
+	public DiaryStat()
+	{
+		newHabitDialog = new NewDiaryColDialog();
+		IsHabit = false;
 
-            await lineChart.InitializeAsync(chartData, lineChartOptions);
-        }
-        await base.OnAfterRenderAsync(firstRender);
-    }
+		numCols = new List<Diary_log_column>();
 
-    private async Task RandomizeAsync()
-    {
-        if (chartData is null || chartData.Datasets is null || !chartData.Datasets.Any()) return;
+		checkBox = new Dictionary<int, bool>();
+		isAverageCorrect = new Dictionary<int, bool>();
+		averages = new Dictionary<int, double>();
 
-        var newDatasets = new List<IChartDataset>();
+		lineChart = new LineChart();
+		lineChartOptions = new LineChartOptions();
+		lineChartOptions.Responsive = true;
 
-        foreach (var dataset in chartData.Datasets)
-        {
-            if (dataset is LineChartDataset lineChartDataset
-                && lineChartDataset is not null
-                && lineChartDataset.Data is not null)
-            {
-                var count = lineChartDataset.Data.Count;
+		chartData = new ChartData();
+	}
 
-                var newData = new List<double?>();
-                for (var i = 0; i < count; i++)
-                {
-                    newData.Add(random.Next(200));
-                }
+	private async Task OnToggle(int id)
+	{
+		checkBox[id] = !checkBox[id];
+		await RefreshDiaryComps();
+	}
 
-                lineChartDataset.Data = newData;
-                newDatasets.Add(lineChartDataset);
-            }
-        }
+	private async Task CheckAll()
+	{
+		foreach (var key in checkBox.Keys.ToList())
+		{
+			checkBox[key] = true;
+		}
+		await RefreshDiaryComps();
+	}
 
-        chartData.Datasets = newDatasets;
+	private async Task UnCheckAll()
+	{
+		foreach (var key in checkBox.Keys.ToList())
+		{
+			checkBox[key] = false;
+		}
+		await RefreshDiaryComps();
+	}
 
-        await lineChart.UpdateValuesAsync(chartData);
-    }
+	protected override async Task UpdateTables()
+	{
+		await base.UpdateTables();
 
-    private async Task AddDatasetAsync()
-    {
-        if (chartData is null || chartData.Datasets is null) return;
+		numCols = allCols.Where(c => c.Type == Models.Diaries.DiaryColumnType.NumberRange).ToList();
 
-        var chartDataset = GetRandomLineChartDataset();
-        chartData = await lineChart.AddDatasetAsync(chartData, chartDataset, lineChartOptions);
-    }
+		foreach (var col in numCols)
+		{
+			List<Diary_log_post> posts = allPosts.Where(p => p.Diary_log_column_Id == col.Id && FilterPostsByTimeSpan(p.Date, DateTime.Today, timeSpan)).ToList();
+			if (posts.Count != 0)
+			{
+				isAverageCorrect[col.Id] = true;
+				double avg = posts.Average(p => Convert.ToInt32(p.Value));
+				averages[col.Id] = avg;
+			}
+			else
+			{
+				isAverageCorrect[col.Id] = false;
+			}
+		}
 
-    private async Task AddDataAsync()
-    {
-        if (chartData is null || chartData.Datasets is null)
-            return;
+		foreach (var col in numCols)
+		{
+			if (!checkBox.ContainsKey(col.Id))
+			{
+				checkBox[col.Id] = true;
+			}
+		}
 
-        var data = new List<IChartDatasetData>();
-        foreach (var dataset in chartData.Datasets)
-        {
-            if (dataset is LineChartDataset lineChartDataset)
-                data.Add(new LineChartDatasetData(lineChartDataset.Label, random.Next(200)));
-        }
 
-        chartData = await lineChart.AddDataAsync(chartData, GetNextDataLabel(), data);
-    }
+		GenerateLineChartData();
 
-    private async Task ShowHorizontalLineChartAsync()
-    {
-        lineChartOptions.IndexAxis = "y";
-        await lineChart.UpdateAsync(chartData, lineChartOptions);
-    }
+		if (isChartInit)
+		{
+			await lineChart.UpdateAsync(chartData, lineChartOptions);
 
-    private async Task ShowVerticalLineChartAsync()
-    {
-        lineChartOptions.IndexAxis = "x";
-        await lineChart.UpdateAsync(chartData, lineChartOptions);
-    }
+		}
+		else
+		{
+			isChartInit = true;
+			await lineChart.InitializeAsync(chartData, lineChartOptions);
+		}
 
-    #region Data Preparation
+	}
 
-    private List<IChartDataset> GetDefaultDataSets(int numberOfDatasets)
-    {
-        var datasets = new List<IChartDataset>();
+	private void GenerateLineChartData()
+	{
+		var datasets = new List<IChartDataset>();
+		var dateStrings = new List<string>();
 
-        for (var index = 0; index < numberOfDatasets; index++)
-        {
-            datasets.Add(GetRandomLineChartDataset());
-        }
+		bool first = true;
+		foreach (var dateInTimeSpan in allDatesSinceReg.Where(d => FilterPostsByTimeSpan(d.Date, DateTime.Today, timeSpan)))
+		{
+			string dateString;
+			if (first)
+			{
+				dateString = dateInTimeSpan.ToString("yyyy MMM dd");
+				first = false;
+			}
+			else
+			{
+				switch (timeSpan)
+				{
+					case TimeSpan.Year:
+						dateString = dateInTimeSpan.ToString("MMM dd");
+						break;
+					case TimeSpan.All:
+						dateString = dateInTimeSpan.ToString("yyyy MMM dd");
+						break;
+					default:
+						dateString = dateInTimeSpan.ToString("dd");
+						break;
+				}
+			}
+			
+			dateStrings.Add(dateString);
+		}
 
-        return datasets;
-    }
+		if (numCols.Count == 0)
+		{ 
+			chartData = new ChartData { Labels = dateStrings, Datasets = datasets };
+			return;
+		}
 
-    private LineChartDataset GetRandomLineChartDataset()
-    {
-        var c = ColorUtility.CategoricalTwelveColors[datasetsCount].ToColor();
 
-        datasetsCount += 1;
+		int i = 0;
+		foreach (var col in numCols.Where(c => checkBox[c.Id]))
+		{
+			var c = ColorUtility.CategoricalTwelveColors[i++].ToColor();
 
-        return new LineChartDataset
-            {
-                Label = $"Team {datasetsCount}",
-                Data = GetRandomData(),
-                BackgroundColor = c.ToRgbString(),
-                BorderColor = c.ToRgbString(),
-                BorderWidth = 2,
-                HoverBorderWidth = 4,
-                // PointBackgroundColor = c.ToRgbString(),
-                // PointRadius = 0, // hide points
-                // PointHoverRadius = 4,
-            };
-    }
+			var dataset = new LineChartDataset
+				{
+					Label = col.Name,
+					BackgroundColor = c.ToRgbString(),
+					BorderColor = c.ToRgbString(),
+					BorderWidth = 2,
+					HoverBorderWidth = 4,
+					SpanGaps = true
+				};
 
-    private List<double?> GetRandomData()
-    {
-        var data = new List<double?>();
-        for (var index = 0; index < labelsCount; index++)
-        {
-            data.Add(random.Next(200));
-        }
+			var data = new List<double?>();
+			foreach (var dateInTimeSpan in allDatesSinceReg.Where(d => FilterPostsByTimeSpan(d.Date, DateTime.Today, timeSpan)))
+			{
+				double? num = null;
+				var post = allPosts.FirstOrDefault(p => p.Diary_log_column_Id == col.Id && p.Date == dateInTimeSpan);
+				if (post is not null)
+					num = Convert.ToInt32(post.Value);
 
-        return data;
-    }
+				data.Add(num);
+			}
 
-    private List<string> GetDefaultDataLabels(int numberOfLabels)
-    {
-        var labels = new List<string>();
-        for (var index = 0; index < numberOfLabels; index++)
-        {
-            labels.Add(GetNextDataLabel());
-        }
+			dataset.Data = data;
+			datasets.Add(dataset);
+		}
 
-        return labels;
-    }
+		chartData = new ChartData { Labels = dateStrings, Datasets = datasets };
 
-    private string GetNextDataLabel()
-    {
-        labelsCount += 1;
-        return $"Day {labelsCount}";
-    }
+		double total = allDatesSinceReg.Where(d => FilterPostsByTimeSpan(d, DateTime.Today, timeSpan)).Count();
 
-    #endregion Data Preparation
-
+		lineChartOptions.Scales.Y.Min = numCols.Min(c => c.Value_range_min);
+		lineChartOptions.Scales.Y.Max = numCols.Max(c => c.Value_range_max);
+	}
 }
+
+<style>
+	.tracker-post {
+		vertical-align: middle;
+		background-color: ghostwhite;
+		cursor: pointer;
+		transition: background-color 0.3s;
+	}
+
+		.tracker-post:hover {
+			background-color: powderblue;
+		}
+</style>

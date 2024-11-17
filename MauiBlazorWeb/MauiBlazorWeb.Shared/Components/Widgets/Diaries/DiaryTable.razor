@@ -75,7 +75,7 @@
 							</th>
 							@foreach (var col in allCols)
 							{
-								if (col.Type == DiaryColumnType.NumberRange)
+								if (col.Type == DiaryColumnType.NumberRange && allPosts.Where(p => p.Diary_log_column_Id == col.Id).Count() != 0)
 								{
 									<th>
 										@allPosts.Where(p => p.Diary_log_column_Id == col.Id).Average(p => Convert.ToInt32(p.Value)).ToString("0.##")
