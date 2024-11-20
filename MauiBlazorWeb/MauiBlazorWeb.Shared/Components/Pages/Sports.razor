@@ -1,7 +1,9 @@
 ﻿@page "/sports"
 
 @using MauiBlazorWeb.Shared.Components.Dialogs
+@using MauiBlazorWeb.Shared.Components.Widgets.Sport
 @using Interfaces
+
 @inject IAppState _appState
 
 @if (!_appState.IsLoggedIn)
@@ -25,7 +27,7 @@ else
 {
 	<div class="row">
 		<div class="col m-2" style="background-color: #ffefef">
-			Sports...
+			<SportsHome />
 		</div>
 	</div>
 }

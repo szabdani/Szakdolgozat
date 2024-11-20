@@ -1,0 +1,142 @@
+﻿@inherits SportCompBase
+
+@using Bases
+@using Models.Sports
+
+@if (isVisible)
+{
+    <div class="modal fade show" style="display:block" tabindex="-1" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit @newSport.Name</h5>
+                    <button type="button" class="btn-close" aria-label="Close" @onclick="Hide"></button>
+                </div>
+                <EditForm EditContext=editContext OnSubmit=OnEditSport>
+                    <DataAnnotationsValidator />
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group row">
+                                    <label class="col col-form-label">New Sport name:</label>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col">
+                                        <InputText class="form-control" @bind-Value=newSport.Name />
+                                    </div>
+                                    <div class="col">
+                                        <label>
+                                            <InputCheckbox @bind-Value="isPublic" />
+                                            Want the Sport to be public?
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col">
+                                        <ValidationMessage For="@(() => newSport.Name)" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-warning flex-column" value="Enter" />
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
+}
+
+@code {
+    private bool isVisible = false;
+    private bool isPublic = true;
+    private string oldName = "";
+
+    private Sport newSport;
+    private EditContext editContext;
+    private ValidationMessageStore messageStore;
+
+    public EditSportDialog()
+    {
+        newSport = new Sport();
+        editContext = new EditContext(newSport);
+        messageStore = new ValidationMessageStore(editContext);
+    }
+
+    public async Task Show(Sport sport)
+    {
+        newSport = sport;
+        oldName = newSport.Name;
+        if (newSport.Status == SportStatus.Public)
+            isPublic = true;
+        else
+            isPublic = false;
+
+
+        isVisible = true;
+        await RefreshSportComps();
+    }
+
+    public async Task Hide()
+    {
+        isVisible = false;
+        await RefreshSportComps();
+    }
+
+    private async Task OnEditSport()
+    {
+        await _appState.ShowLoadingScreenWhileAwaiting(EditSport);
+    }
+
+    private async Task EditSport()
+    {
+        messageStore.Clear();
+        if (newSport.Name == "")
+        {
+            messageStore.Add(() => newSport.Name, $"You must set a name!");
+        }
+        else
+        {
+            bool nameUsed = false;
+
+            foreach (var s in allSports)
+            {
+                if (s.Name.Equals(newSport.Name) && newSport.Name != oldName)
+                {
+                    nameUsed = true;
+                    break;
+                }
+            }
+
+            if (nameUsed)
+            {
+                messageStore.Add(() => newSport.Name, $"A sport with this name already exists!");
+            }
+            else
+            {
+                newSport.Creator_Account_Id = _appState.CurrentUser.Id;
+                if (isPublic)
+                {
+                    newSport.Status = SportStatus.Public;
+                }
+                else
+                {
+                    newSport.Status = SportStatus.Private;
+                }
+
+                
+
+                bool isCorrect = await _sportManager.UpdateSport(newSport);
+                if (isCorrect)
+                {
+                    newSport = new Sport();
+                    await Hide();
+                }
+                else
+                    throw new Exception($"Sorry, we could not register your Sport");
+            }
+        }
+    }
+}

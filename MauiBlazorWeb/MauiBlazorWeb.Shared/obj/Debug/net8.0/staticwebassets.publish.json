@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "w6r+9jrRIaiLCk/O9O0YO+1V+TdfxHpCQDrLcbkD8UY=",
+  "Hash": "L6uSozFX/bTJKWsMbx3KZU8pHdsb5LF+e5gOK80gsOs=",
   "Source": "MauiBlazorWeb.Shared",
   "BasePath": "_content/MauiBlazorWeb.Shared",
   "Mode": "Default",
@@ -1178,7 +1178,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 10 Nov 2024 10:03:01 GMT"
+          "Value": "Sun, 17 Nov 2024 11:16:46 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1215,7 +1215,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 10 Nov 2024 10:03:01 GMT"
+          "Value": "Sun, 17 Nov 2024 11:16:46 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1264,7 +1264,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 12 Nov 2024 10:27:08 GMT"
+          "Value": "Sun, 17 Nov 2024 11:16:46 GMT"
         },
         {
           "Name": "Link",
@@ -1305,7 +1305,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 12 Nov 2024 10:27:08 GMT"
+          "Value": "Sun, 17 Nov 2024 11:16:46 GMT"
         },
         {
           "Name": "Link",

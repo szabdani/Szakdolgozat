@@ -10,26 +10,26 @@ namespace MauiBlazorWeb.Shared.Services
 {
 	public class SubjectComp : ISubjectComp
 	{
-		protected List<ObserverComp> allDiaryComps;
+		protected List<ObserverComp> allObservers;
 
 		public SubjectComp()
 		{
-			allDiaryComps = new List<ObserverComp>();
+			allObservers = new List<ObserverComp>();
 		}
 
 		public void Attach(ObserverComp observer)
 		{
-			allDiaryComps.Add(observer);
+			allObservers.Add(observer);
 		}
 
 		public void Detach(ObserverComp observer)
 		{
-			allDiaryComps.Remove(observer);
+			allObservers.Remove(observer);
 		}
 
 		public async Task UpdateObservers()
 		{
-			foreach (var c in allDiaryComps)
+			foreach (var c in allObservers)
 			{
 				await c.UpdateObserver();
 			}

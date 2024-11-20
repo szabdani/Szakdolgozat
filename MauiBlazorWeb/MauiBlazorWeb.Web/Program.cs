@@ -23,6 +23,8 @@ builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 
 // Diary DB accesses
 builder.Services.AddScoped<IDiaryManager, DiaryManager>();
+// Sport DB accesses
+builder.Services.AddScoped<ISportManager, SportManager>();
 
 // For keeping up with the state of the app
 builder.Services.AddSingleton<IAppState, AppState>();

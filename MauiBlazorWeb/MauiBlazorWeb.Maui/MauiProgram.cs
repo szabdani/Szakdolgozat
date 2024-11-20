@@ -40,6 +40,8 @@ namespace MauiBlazorWeb.Maui
 
             // Diary DB accesses
             builder.Services.AddScoped<IDiaryManager, DiaryManager>();
+			// Sport DB accesses
+			builder.Services.AddScoped<ISportManager, SportManager>();
 
 			builder.Services.AddBlazorBootstrap();
 

@@ -1,0 +1,71 @@
+﻿@inherits SportCompBase
+
+@using Bases
+@using Models.Sports
+
+@inject NavigationManager Navigation
+
+<div class="row">
+	@foreach(var sport in usersSports)
+	{
+		<div class="col-12 col-md-3 m-2" style="background-color: navajowhite">
+			<SportSummary CurrentSport= "sport" />
+		</div>
+	}
+	<div class="col-12 col-md-3 m-2" style="background-color: navajowhite">
+		<div class="row">
+			<div class="col">
+				<InputSelect class="form-control" @bind-Value=sportId>
+					<option value=0>Select an existing Sport</option>
+					@foreach (var s in notTrackedSports)
+					{
+						<option value="@s.Id">@s.Name</option>
+					}
+				</InputSelect>
+			</div>
+			<div class="col">
+				<button class="btn btn-info" @onclick="() => newSportDialog.Show()">Or add a new Sport!</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<button class="btn btn-info" @onclick="AddSport" disabled="@(sportId == 0)">Start tracking!</button>
+			</div>
+		</div>
+	</div>
+</div>
+<NewSportDialog @ref=newSportDialog />
+
+@code {
+	private List<Sport> usersSports;
+	private List<Sport> notTrackedSports;
+
+	private int sportId = 0;
+
+	private NewSportDialog newSportDialog;
+
+	public SportsHome()
+	{
+		usersSports = new List<Sport>();
+		notTrackedSports = new List<Sport>();
+
+		newSportDialog = new NewSportDialog();
+	}
+
+	protected override async Task UpdateTables()
+	{
+		await base.UpdateTables();
+		usersSports = await _sportManager.GetAccountsSports(_appState.CurrentUser.Id);
+		notTrackedSports = allSports.Where(sport => !usersSports.Any(s => s.Id == sport.Id)).ToList();
+	}
+
+	private async Task AddSport()
+	{
+		Account_does_Sport newAccountDoes = new Account_does_Sport {Account_Id = _appState.CurrentUser.Id, Sport_Id = sportId };
+		bool isCorrect = await _sportManager.InsertAccountDoesSport(newAccountDoes);
+		if (!isCorrect)
+			throw new Exception($"Sorry, we could not add {allSports.Where(s => s.Id == sportId).First().Name} to your account");
+
+		Navigation.Refresh(true);
+	}
+}

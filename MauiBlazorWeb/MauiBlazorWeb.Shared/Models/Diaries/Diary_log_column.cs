@@ -13,7 +13,7 @@ namespace MauiBlazorWeb.Shared.Models.Diaries
 	{
 		public int Id { get; set; }
 
-		[Required(ErrorMessage = "You must set a name for the habit.")]
+		[Required(ErrorMessage = "You must set a name.")]
 		public string Name { get; set; } = "";
 		public DiaryColumnType Type { get; set; }
 		public int Value_range_min { get; set; } = 0;

@@ -1,0 +1,89 @@
+﻿@inherits SportCompBase
+
+@using Bases
+@using Models.Sports
+@using MauiBlazorWeb.Shared.Components.Dialogs
+@using MauiBlazorWeb.Shared.Components.Icons
+
+@inject NavigationManager Navigation
+
+<div class="row">
+	<div class="col-auto" style="word-wrap: break-word;">
+		<h3>@CurrentSport.Name</h3>
+	</div>
+	<div class="col w-auto float-end">
+		@if (CurrentSport.Creator_Account_Id == _appState.CurrentUser.Id)
+		{
+			<button class="btn btn-warning" @onclick="()=> editSportDialog.Show(CurrentSport)">
+				<IconEdit />
+			</button>
+			<button class="btn btn-danger" @onclick="() => warningDelete.Show()">
+				<IconDelete />
+			</button>
+		}
+		<button class="btn btn-info float-end" @onclick="()=> warningUnFollow.Show()">Unfollow</button>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col">
+
+	</div>
+</div>
+
+<WarningDialog Title="Unfollowing a Sport" OnAcceptAction="OnUnfollow" @ref="warningUnFollow">
+	By unfollowing @CurrentSport.Name you will lose all your routines and workouts for this Sport?<br/>
+	This action can not be undone!
+</WarningDialog>
+<EditSportDialog @ref=editSportDialog />
+<WarningDialog Title="Unfollowing a Sport" OnAcceptAction="OnDeleteSport" @ref="warningDelete">
+	Do you want to delete @CurrentSport.Name?<br />
+	This action can not be undone!
+</WarningDialog>
+<EditSportDialog @ref=editSportDialog />
+
+@code {
+	[Parameter]
+	public Sport CurrentSport { get; set; }
+
+	private WarningDialog warningUnFollow;
+	private WarningDialog warningDelete;
+	private EditSportDialog editSportDialog;
+
+	public SportSummary()
+	{
+		CurrentSport = new Sport();
+
+		warningUnFollow = new WarningDialog();
+		warningDelete = new WarningDialog();
+		editSportDialog = new EditSportDialog();
+	}
+
+	private async Task OnUnfollow()
+	{
+		await _appState.ShowLoadingScreenWhileAwaiting(Unfollow);
+		Navigation.Refresh(true);
+	}
+
+	private async Task Unfollow()
+	{
+		var accountDoes = await _sportManager.GetAccountDoesSport(_appState.CurrentUser.Id, CurrentSport.Id);
+		bool isCorrect = await _sportManager.DeleteAccountDoesSport(accountDoes.First());
+		if (!isCorrect)
+			throw new Exception($"Sorry, we could not unfollow {CurrentSport.Name}.");
+	}
+
+	private async Task OnDeleteSport()
+	{
+		await _appState.ShowLoadingScreenWhileAwaiting(DeleteSport);
+		Navigation.Refresh(true);
+	}
+
+	private async Task DeleteSport()
+	{
+		await Unfollow();
+		bool isCorrect = await _sportManager.DeleteSport(CurrentSport);
+		if (!isCorrect)
+			throw new Exception($"Sorry, we could not delete {CurrentSport.Name}.");
+	}
+}

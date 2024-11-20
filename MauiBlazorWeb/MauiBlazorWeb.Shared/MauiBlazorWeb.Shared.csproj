@@ -40,7 +40,6 @@
 
   <ItemGroup>
     <Folder Include="bin\" />
-    <Folder Include="Components\Widgets\Sport\" />
   </ItemGroup>
 
   <ItemGroup>
