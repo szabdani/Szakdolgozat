@@ -33,7 +33,7 @@ namespace MauiBlazorWeb.Maui
             builder.Services.AddSingleton<IAppState, AppState>();
 
 			// Subject-Observer for all diary components
-			builder.Services.AddSingleton<IDiaryCompSubject, DiaryCompSubject>();
+			builder.Services.AddScoped<ISubjectComp, SubjectComp>();
 
 			// PW hash
 			builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();

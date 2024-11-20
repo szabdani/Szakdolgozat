@@ -1,4 +1,4 @@
-﻿@page "/{date:datetime}"
+﻿@page "/{Date:datetime}"
 
 @using MauiBlazorWeb.Shared.Components.Dialogs
 @using MauiBlazorWeb.Shared.Components.Widgets.Diaries
@@ -58,6 +58,7 @@ else
     public DateTime Date { get; set; }
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
+		await base.OnAfterRenderAsync(firstRender);
 		if (firstRender)
 		{
 			await InvokeAsync(() => _appState.Title = $"On {Date.ToString("yyyy-MM-dd")}");

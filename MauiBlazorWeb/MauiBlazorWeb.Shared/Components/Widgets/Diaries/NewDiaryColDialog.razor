@@ -119,6 +119,7 @@
 
     protected override async Task OnInitializedAsync()
     {
+        await base.OnInitializedAsync();
         if (IsHabit)
         {
             newCol.Type = DiaryColumnType.Habit;

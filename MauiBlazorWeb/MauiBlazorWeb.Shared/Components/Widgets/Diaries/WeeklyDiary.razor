@@ -22,7 +22,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					@foreach (var date in allDatesSinceReg.Where(d => FilterPostsByTimeSpan(d, DateTime.Today, TimeSpan.Week)).OrderByDescending(d => d))
+					@foreach (var date in allDatesSinceReg.Where(d => FilterPostsByTimePeriod(d, DateTime.Today, TimePeriod.Week)).OrderByDescending(d => d))
 					{
 						<tr>
 
@@ -39,7 +39,7 @@
 								<th scope="row">@((DateTime.Today - date).Days) days ago</th>
 							}
 
-							@foreach (var col in allCols)
+							@foreach (var col in allCols.OrderBy(col => col.Type))
 							{
 								var post = allPosts.FirstOrDefault(p => p.Diary_log_column_Id == col.Id && p.Date == date);
 								@switch (col.Type)
@@ -73,15 +73,6 @@
 	{
 		editPostDialog = new EditDiaryPostDialog();
 	}
-
-	protected override async Task OnAfterRenderAsync(bool firstRender)
-	{
-		if (firstRender)
-		{
-			await JS.InvokeVoidAsync("scrollToToday");
-		}
-	}
-
 }
 
 <style>

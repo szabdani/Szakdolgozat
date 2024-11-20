@@ -34,7 +34,7 @@
 							<th scope="row">
 								@date.ToString("yyyy-MM-dd")
 							</th>
-							@foreach (var col in allCols)
+							@foreach (var col in allCols.OrderBy(col => col.Type))
 							{
 								var post = allPosts.FirstOrDefault(p => p.Diary_log_column_Id == col.Id && p.Date == date);
 								@switch (col.Type)
@@ -73,7 +73,7 @@
 							<th>
 								Average
 							</th>
-							@foreach (var col in allCols)
+							@foreach (var col in allCols.OrderBy(col => col.Type))
 							{
 								if (col.Type == DiaryColumnType.NumberRange && allPosts.Where(p => p.Diary_log_column_Id == col.Id).Count() != 0)
 								{
@@ -115,6 +115,7 @@
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
+		await base.OnAfterRenderAsync(firstRender);
 		if (firstRender)
 		{
 			await JS.InvokeVoidAsync("scrollToToday", IsHabit);

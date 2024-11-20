@@ -13,7 +13,6 @@ namespace MauiBlazorWeb.Shared.Interfaces
 
         Task<List<Diary_log_column>> GetDiaryCols(int accountId, bool isHabit);
         Task<List<Diary_log_post>> GetDiaryPosts(int accountId, bool isHabit);
-
 		Task<List<Diary_log_post>> GetDiaryColumnsPosts(int columnId);
 
 		Task ToggleHabitValue(int colId, DateTime date);

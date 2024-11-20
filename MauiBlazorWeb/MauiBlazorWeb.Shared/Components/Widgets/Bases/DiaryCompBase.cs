@@ -10,15 +10,11 @@ using Microsoft.AspNetCore.Components;
 
 namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 {
-	public class DiaryCompBase : ComponentBase, IDisposable
+	public enum TimePeriod { Week, Month, Year, All }
+	public class DiaryCompBase : ObserverComp
 	{
-		protected enum TimeSpan { Week, Month, Year, All }
-
 		[Inject] protected IAppState _appState { get; set; }
 		[Inject] protected IDiaryManager _diaryManager { get; set; }
-
-		[Inject] protected IDiaryCompSubject _diarySubject { get; set; }
-
 		[Parameter] public bool IsHabit { get; set; }
 
 		protected List<Diary_log_column> allCols;
@@ -31,7 +27,6 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 		{
 			_appState = new AppState();
 			_diaryManager = new DiaryManager();
-			_diarySubject = new DiaryCompSubject();
 
 			allCols = new List<Diary_log_column>();
 			allPosts = new List<Diary_log_post>();
@@ -41,7 +36,7 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 
 		protected override void OnInitialized()
 		{
-			_diarySubject.Attach(this);
+			base.OnInitialized();
 
 			firstDate = _appState.CurrentUser.RegistrationDate;
 
@@ -51,20 +46,10 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 			}
 		}
 
-		public void Dispose()
-		{
-			_diarySubject.Detach(this);
-		}
-
-		protected override async Task OnInitializedAsync()
-		{
-			await UpdateDiaryComp();
-		}
-
-		public async Task UpdateDiaryComp()
+		public override async Task UpdateObserver()
 		{
 			await UpdateTables();
-			await InvokeAsync(StateHasChanged);
+			await base.UpdateObserver();
 		}
 
 		protected virtual async Task UpdateTables()
@@ -76,7 +61,7 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 		private async Task ToggleHabitValue(int colId, DateTime day)
 		{
 			await _diaryManager.ToggleHabitValue(colId, day);
-			await _diarySubject.UpdateDiaryComponents();
+			await _subject.UpdateObservers();
 		}
 
 		protected async Task OnToggleHabitValue(int colId, DateTime day)
@@ -86,20 +71,20 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 
 		protected async Task RefreshDiaryComps()
 		{
-			await _appState.ShowLoadingScreenWhileAwaiting(_diarySubject.UpdateDiaryComponents);
+			await _appState.ShowLoadingScreenWhileAwaiting(_subject.UpdateObservers);
 		}
 
-		protected bool FilterPostsByTimeSpan(DateTime postDate, DateTime refDate, TimeSpan timeSpan)
+		protected bool FilterPostsByTimePeriod(DateTime postDate, DateTime refDate, TimePeriod timeSpan)
 		{
 			switch (timeSpan)
 			{
-				case TimeSpan.Week:
+				case TimePeriod.Week:
 					return postDate > refDate.AddDays(-7);
-				case TimeSpan.Month:
+				case TimePeriod.Month:
 					return postDate.Month == refDate.Month && postDate.Year == refDate.Year;
-				case TimeSpan.Year:
+				case TimePeriod.Year:
 					return postDate.Year == refDate.Year;
-				case TimeSpan.All:
+				case TimePeriod.All:
 					return true;
 				default:
 					return false;

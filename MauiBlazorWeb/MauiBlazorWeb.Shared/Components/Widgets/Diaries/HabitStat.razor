@@ -30,21 +30,21 @@
 					</tr>
 				</thead>
 				<tbody>
-					@foreach (TimeSpan timeSpan in Enum.GetValues(typeof(TimeSpan)))
+					@foreach (TimePeriod timeSpan in Enum.GetValues(typeof(TimePeriod)))
 					{
 						<tr>
 								@switch (timeSpan)
 								{
-									case TimeSpan.Week:
+									case TimePeriod.Week:
 										<td>Last 7 days:</td>
 									break;
-									case TimeSpan.Month:
+								case TimePeriod.Month:
 										<td>@calendar.CalendarDate.ToString("MMMM")</td>
 									break;
-									case TimeSpan.Year:
+									case TimePeriod.Year:
 										<td>@calendar.CalendarDate.ToString("yyyy")</td>
 									break;
-									case TimeSpan.All:
+								case TimePeriod.All:
 										<td>All time</td>
 									break;
 								}
@@ -73,8 +73,8 @@
 
 	private Calendar calendar;
 
-	private Dictionary<TimeSpan,int> numPer;
-	private Dictionary<TimeSpan, int> totalPer;
+	private Dictionary<TimePeriod, int> numPer;
+	private Dictionary<TimePeriod, int> totalPer;
 
 	public HabitStat()
 	{
@@ -82,10 +82,10 @@
 
 		doneDates = new List<DateTime>();
 
-		numPer = new Dictionary<TimeSpan, int>();
-		totalPer = new Dictionary<TimeSpan, int>();
+		numPer = new Dictionary<TimePeriod, int>();
+		totalPer = new Dictionary<TimePeriod, int>();
 
-		foreach (TimeSpan timeSpan in Enum.GetValues(typeof(TimeSpan)))
+		foreach (TimePeriod timeSpan in Enum.GetValues(typeof(TimePeriod)))
 		{
 			numPer.Add(timeSpan, 0);
 			totalPer.Add(timeSpan, 0);
@@ -106,10 +106,10 @@
 			var posts = allPosts.Where(p => p.Diary_log_column_Id == colId).ToList();
 			doneDates = posts.Where(p => p.Value == "X").Select(p => p.Date).Distinct().ToList();
 
-			foreach (TimeSpan timeSpan in Enum.GetValues(typeof(TimeSpan)))
+			foreach (TimePeriod timeSpan in Enum.GetValues(typeof(TimePeriod)))
 			{
-				numPer[timeSpan] = doneDates.Where(d => FilterPostsByTimeSpan(d, calendar.CalendarDate, timeSpan)).Count();
-				totalPer[timeSpan] = allDatesSinceReg.Where(d => FilterPostsByTimeSpan(d, calendar.CalendarDate, timeSpan)).Count();
+				numPer[timeSpan] = doneDates.Where(d => FilterPostsByTimePeriod(d, calendar.CalendarDate, timeSpan)).Count();
+				totalPer[timeSpan] = allDatesSinceReg.Where(d => FilterPostsByTimePeriod(d, calendar.CalendarDate, timeSpan)).Count();
 			}
 
 			isColViewSet = true;

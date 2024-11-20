@@ -42,6 +42,7 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         newAccount.Username = _appState.CurrentUser.Username;
         newAccount.Email = _appState.CurrentUser.Email;
         newAccount.Birthdate = _appState.CurrentUser.Birthdate;

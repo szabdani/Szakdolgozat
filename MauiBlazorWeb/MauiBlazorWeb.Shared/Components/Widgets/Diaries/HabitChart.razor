@@ -9,7 +9,7 @@
 			<div class="col">
 				<label>Select Time Span:</label>
 				<InputSelect class="form-control" @bind-Value="timeSpan" @bind-Value:after="@RefreshDiaryComps">
-					@foreach (var t in Enum.GetValues(typeof(TimeSpan)))
+					@foreach (var t in Enum.GetValues(typeof(TimePeriod)))
 					{
 						<option value="@t">@t</option>
 					}
@@ -41,10 +41,10 @@
 				<tfoot>
 					<tr>
 						<td colspan="@((allCols.Count + 1) / 2)">
-							<button class="btn btn-info w-100" value="Show" @onclick="CheckAll">Check All</button>
+							<button class="btn btn-info w-100" value="Show" @onclick="CheckAll">Show All</button>
 						</td>
 						<td colspan="@((allCols.Count + 1) / 2)">
-							<button class="btn btn-info w-100" value="Show" @onclick="UnCheckAll">Uncheck All</button>
+							<button class="btn btn-info w-100" value="Show" @onclick="UnCheckAll">Hide All</button>
 						</td>
 					</tr>
 				</tfoot>
@@ -54,12 +54,12 @@
 </div>
 <div class="row">
 	<div class="col">
-		<BarChart @ref="barChart" />
+		<BarChart @ref="barChart"/>
 	</div>
 </div>
 
 @code {
-	private TimeSpan timeSpan;
+	private TimePeriod timeSpan;
 	private Dictionary<int, bool> checkBox;
 
 	private BarChart barChart;
@@ -87,6 +87,17 @@
 		barChartOptions.Plugins.Legend.Display = false;
 
 		chartData = new ChartData();
+	}
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		await base.OnAfterRenderAsync(firstRender);
+		if (firstRender)
+		{
+			await UpdateTables();
+			await barChart.InitializeAsync(chartData, barChartOptions);
+			isChartInit = true;
+		}
 	}
 
 	private async Task OnToggle(int id)
@@ -125,17 +136,9 @@
 			}
 		}
 		GenerateBarChartData();
-
+		
 		if (isChartInit)
-		{
 			await barChart.UpdateAsync(chartData, barChartOptions);
-
-		}
-		else
-		{
-			isChartInit = true;
-			await barChart.InitializeAsync(chartData, barChartOptions);
-		}
 	}
 
 	private void GenerateBarChartData()
@@ -148,7 +151,7 @@
 			double? count = 0;
 			var posts = allPosts.Where(p => p.Diary_log_column_Id == col.Id);
 
-			count = posts.Where(p => p.Value == "X" && FilterPostsByTimeSpan(p.Date, DateTime.Today, timeSpan)).Count();
+			count = posts.Where(p => p.Value == "X" && FilterPostsByTimePeriod(p.Date, DateTime.Today, timeSpan)).Count();
 
 			labels.Add(col.Name);
 			countTimes.Add(count);
@@ -162,7 +165,7 @@
 
 		chartData = new ChartData{ Labels = labels, Datasets = datasets };
 
-		double total = allDatesSinceReg.Where(d => FilterPostsByTimeSpan(d, DateTime.Today, timeSpan)).Count();
+		double total = allDatesSinceReg.Where(d => FilterPostsByTimePeriod(d, DateTime.Today, timeSpan)).Count();
 		barChartOptions.Scales.Y.Max = total;
 	}
 }

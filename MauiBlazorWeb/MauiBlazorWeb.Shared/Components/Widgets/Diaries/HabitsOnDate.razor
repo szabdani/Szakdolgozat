@@ -8,7 +8,7 @@
 		<thead class="thead-light" style="position: sticky; top: 0; background-color: #ffefef">
 			<tr>
 				<th scope="col">Habits</th>
-				<th scope="col">Did today?</th>
+				<th scope="col">Completed?</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -25,12 +25,12 @@
 				</tr>
 			}
 			<tr>
-				<td>
-					Add a new Habit!
-				</td>
+				<th>
+					@Date.ToString("yyyy-MM-dd")
+				</th>
 				<td>
 					<button class="btn btn-info" @onclick="() => newHabitDialog.Show()">
-						<IconAdd />
+						Add a new Habit!
 					</button>
 				</td>
 			</tr>

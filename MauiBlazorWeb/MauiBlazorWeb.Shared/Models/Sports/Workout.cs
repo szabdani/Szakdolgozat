@@ -10,6 +10,7 @@ namespace MauiBlazorWeb.Shared.Models.Sports
     public class Workout
     {
         public int Id { get; set; }
+        public bool IsDone { get; set; }
         public DateTime Starttime { get; set; }
         public DateTime Finishtime { get; set; }
         public string? Notes { get; set; }

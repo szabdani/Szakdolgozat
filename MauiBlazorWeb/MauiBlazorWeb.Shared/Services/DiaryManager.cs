@@ -42,6 +42,8 @@ namespace MauiBlazorWeb.Shared.Services
             int affectedRows = await _data.SaveData(sql, new { postid = oldCol.Id });
             return affectedRows != 0;
         }
+
+
         public async Task<bool> InsertDiaryPost(Diary_log_post newPost)
         {
             IDataAccess _data = new DataAccess();
@@ -65,6 +67,7 @@ namespace MauiBlazorWeb.Shared.Services
             return affectedRows != 0;
         }
 
+
         public async Task<List<Diary_log_column>> GetDiaryCols(int accountId, bool isHabit)
         {
             IDataAccess _data = new DataAccess();
@@ -73,7 +76,6 @@ namespace MauiBlazorWeb.Shared.Services
             string sql = $"Select * from Diary_log_column where Account_id = @userid and type {relation} 'Habit';";
             return await _data.LoadData<Diary_log_column, dynamic>(sql, new { @userid = accountId });
         }
-
         public async Task<List<Diary_log_post>> GetDiaryColumnsPosts(int columnId)
         {
             IDataAccess _data = new DataAccess();
@@ -91,6 +93,7 @@ namespace MauiBlazorWeb.Shared.Services
 
             return retVal;
         }
+
 
 		public async Task ToggleHabitValue(int colId, DateTime date)
 		{

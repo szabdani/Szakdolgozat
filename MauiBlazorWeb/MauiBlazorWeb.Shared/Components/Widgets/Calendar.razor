@@ -26,15 +26,15 @@
         @foreach (var day in calendarDays)
         {
             <div class=
-                "
+            "
                 calendar-day 
                 @(day.Date == DateTime.Today ? "today" : 
                 day.Date == FirstDate ? "reg-day" :
                 day.Month == pageDate.Month ? "current-month" : "other-month") 
                 @(SpecialDates.Any(d => d.Date == day.Date) ? "special" : "")
                 @(day.Date < FirstDate || day.Date > DateTime.Today ? "unclickable" : "")
-                "
-                @onclick="() => OnDayClick(day)">
+            "
+            @onclick="() => OnDayClick(day)">
                 @day.Day
             </div>
         }
@@ -72,6 +72,7 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         GenerateCalendar();
     }
 
