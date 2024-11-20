@@ -14,9 +14,9 @@ namespace MauiBlazorWeb.Shared.Models.Sports
 		public SetsType Type { get; set; }
         public int Reps { get; set; }
         public int RPE { get; set; }
-        public int Weight { get; set; }
+        public double Weight { get; set; }
         public TimeSpan Length { get; set; }
-		public int Distance { get; set; }
+		public double Distance { get; set; }
 		public int Exercise_Id { get; set; }
 		public int Workout_Id { get; set; }
 	}

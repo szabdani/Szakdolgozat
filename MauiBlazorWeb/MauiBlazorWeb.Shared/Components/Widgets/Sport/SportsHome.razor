@@ -55,6 +55,7 @@
 	protected override async Task UpdateTables()
 	{
 		await base.UpdateTables();
+
 		usersSports = await _sportManager.GetAccountsSports(_appState.CurrentUser.Id);
 		notTrackedSports = allSports.Where(sport => !usersSports.Any(s => s.Id == sport.Id)).ToList();
 	}

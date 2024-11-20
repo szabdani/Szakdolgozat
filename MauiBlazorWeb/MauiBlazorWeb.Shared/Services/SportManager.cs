@@ -73,15 +73,15 @@ namespace MauiBlazorWeb.Shared.Services
 		public async Task<bool> InsertRoutine(Routine newRoutine)
 		{
 			IDataAccess _data = new DataAccess();
-			string sql = "Insert into Routine (name, notes, status) values (@name, @notes, @status);";
-			int affectedRows = await _data.SaveData(sql, new { name = newRoutine.Name, notes = newRoutine.Notes, status = newRoutine.Status.ToString() });
+			string sql = "Insert into Routine (name, notes, status, Account_does_Sport_Id) values (@name, @notes, @status, @aid);";
+			int affectedRows = await _data.SaveData(sql, new { name = newRoutine.Name, notes = newRoutine.Notes, status = newRoutine.Status.ToString(), aid = newRoutine.Account_does_Sport_Id });
 			return affectedRows != 0;
 		}
 		public async Task<bool> UpdateRoutine(Routine oldRoutine)
 		{
 			IDataAccess _data = new DataAccess();
-			string sql = "Update Routine set name = @name, notes = @notes, status = @status where id = @colid ;";
-			int affectedRows = await _data.SaveData(sql, new { name = oldRoutine.Name, notes = oldRoutine.Notes, status = oldRoutine.Status.ToString(), olid = oldRoutine.Id });
+			string sql = "Update Routine set name = @name, notes = @notes, status = @status, Account_does_Sport_Id = @aid where id = @colid ;";
+			int affectedRows = await _data.SaveData(sql, new { name = oldRoutine.Name, notes = oldRoutine.Notes, status = oldRoutine.Status.ToString(), aid = oldRoutine.Account_does_Sport_Id, colid = oldRoutine.Id });
 			return affectedRows != 0;
 		}
 		public async Task<bool> DeleteRoutine(Routine oldRoutine)
@@ -94,16 +94,15 @@ namespace MauiBlazorWeb.Shared.Services
 		public async Task<bool> InsertExercise(Exercise newExercise)
 		{
 			IDataAccess _data = new DataAccess();
-			string sql = "Insert into Exercise (name, notes, rest, type, status, creator_account_id) values (@name, @notes, @rest, @type, @status, @accountid);";
-			int affectedRows = await _data.SaveData(sql, new { name = newExercise.Name, notes = newExercise.Notes, rest = newExercise.Rest, type = newExercise.Type.ToString(), status = newExercise.Status.ToString(), accountid = newExercise.Creator_Account_Id });
+			string sql = "Insert into Exercise (name, notes, rest, type, status, creator_account_id, sport_id) values (@name, @notes, @rest, @type, @status, @accountid, @sid);";
+			int affectedRows = await _data.SaveData(sql, new { name = newExercise.Name, notes = newExercise.Notes, rest = newExercise.Rest.ToString(@"hh\:mm\:ss"), type = newExercise.Type.ToString(), status = newExercise.Status.ToString(), accountid = newExercise.Creator_Account_Id, sid = newExercise.Sport_Id });
 			return affectedRows != 0;
 		}
 		public async Task<bool> UpdateExercise(Exercise oldExercise)
 		{
 			IDataAccess _data = new DataAccess();
-			string sql = "Update Exercise set name = @name, notes = @notes, rest = @rest, type = @type, status = @status, creator_Account_Id = @userid where id = @colid ;";
-			// Rest TimeSpan -> TIME hogy megy majd!?
-			int affectedRows = await _data.SaveData(sql, new { name = oldExercise.Name, notes = oldExercise.Notes, rest = oldExercise.Rest, type = oldExercise.Type.ToString(), status = oldExercise.Status.ToString(), userid = oldExercise.Creator_Account_Id, colid = oldExercise.Id });
+			string sql = "Update Exercise set name = @name, notes = @notes, rest = @rest, type = @type, status = @status, creator_Account_Id = @userid, sport_id = @sid where id = @colid;";
+			int affectedRows = await _data.SaveData(sql, new { name = oldExercise.Name, notes = oldExercise.Notes, rest = oldExercise.Rest.ToString(@"hh\:mm\:ss"), type = oldExercise.Type.ToString(), status = oldExercise.Status.ToString(), userid = oldExercise.Creator_Account_Id, sid = oldExercise.Sport_Id, colid = oldExercise.Id });
 			return affectedRows != 0;
 		}
 		public async Task<bool> DeleteExercise(Exercise oldExercise)
@@ -116,16 +115,39 @@ namespace MauiBlazorWeb.Shared.Services
 		public async Task<bool> InsertSet(Sets newSet)
 		{
 			IDataAccess _data = new DataAccess();
-			string sql = "Insert into Sets (isDone, type, reps, rpe, weight, length, distance, exercise_id, workout_id) values (@isDone, @type, @reps, @rpe, @weight, @length, @distance, @exid, @workid);";
-			int affectedRows = await _data.SaveData(sql, new { isDone = newSet.IsDone, type = newSet.Type.ToString(), reps = newSet.Reps, rpe = newSet.RPE, weight = newSet.Weight, length = newSet.Length, distance = newSet.Distance, exid = newSet.Exercise_Id, workid = newSet.Workout_Id });
+			string sql = "Insert into Sets (isDone, type, reps, RPE, weight, length, distance, Exercise_id, Workout_id) values (@isDone, @type, @reps, @rpe, @weight, @length, @distance, @exid, @workid);";
+			int affectedRows = await _data.SaveData(sql, 
+				new { 
+					isDone = newSet.IsDone, 
+					type = newSet.Type.ToString(), 
+					reps = newSet.Reps, 
+					rpe = newSet.RPE, 
+					weight = newSet.Weight, 
+					length = newSet.Length.ToString(@"hh\:mm\:ss"), 
+					distance = newSet.Distance, 
+					exid = newSet.Exercise_Id, 
+					workid = newSet.Workout_Id 
+				});
 			return affectedRows != 0;
 		}
 		public async Task<bool> UpdateSet(Sets oldSet)
 		{
 			IDataAccess _data = new DataAccess();
-			string sql = "Update Sets set isDone = @isDone, type = @type, reps = @reps, rpe = @rpe, weight = @weight, length = @length, distance = @distance, exercise_id = @exid, workout_id = @workid where id = @colid ;";
-			// Rest TimeSpan -> TIME hogy megy majd!?
-			int affectedRows = await _data.SaveData(sql, new { isDone = oldSet.IsDone, type = oldSet.Type.ToString(), reps = oldSet.Reps, rpe = oldSet.RPE, weight = oldSet.Weight, length = oldSet.Length, distance = oldSet.Distance, exid = oldSet.Exercise_Id, workid = oldSet.Workout_Id });
+			string sql = "Update Sets set isDone = @isDone, type = @type, reps = @reps, RPE = @rpe, weight = @weight, length = @length, distance = @distance, Exercise_id = @exid, Workout_id = @workid where id = @colid ;";
+			int affectedRows = await _data.SaveData(sql,
+				new
+				{
+					isDone = oldSet.IsDone,
+					type = oldSet.Type.ToString(),
+					reps = oldSet.Reps,
+					rpe = oldSet.RPE,
+					weight = oldSet.Weight,
+					length = oldSet.Length.ToString(@"hh\:mm\:ss"),
+					distance = oldSet.Distance,
+					exid = oldSet.Exercise_Id,
+					workid = oldSet.Workout_Id,
+					colid = oldSet.Id
+				});
 			return affectedRows != 0;
 		}
 		public async Task<bool> DeleteSet(Sets oldSet)
@@ -147,7 +169,7 @@ namespace MauiBlazorWeb.Shared.Services
 		public async Task<bool> UpdateWorkout(Workout oldWorkout)
 		{
 			IDataAccess _data = new DataAccess();
-			string sql = "Update Workout set isDone = @isdone, starttime = @starttime, finishtime = @finishtime, notes = @notes, isroutineexample = @isroutine, routine_Id = @rid, Account_does_Sport_Id = @aid where id = @colid ;";
+			string sql = "Update Workout set isDone = @isdone, starttime = @starttime, finishtime= @finishtime, notes = @notes, isroutineexample = @isroutine, routine_id = @rid, account_does_sport_id = @aid where id = @colid ;";
 			int affectedRows = await _data.SaveData(sql, new { isdone = oldWorkout.IsDone, starttime = oldWorkout.Starttime.ToString("yyyy-MM-dd hh:mm:ss"), finishtime = oldWorkout.Finishtime.ToString("yyyy-MM-dd hh:mm:ss"), notes = oldWorkout.Notes, isroutine = oldWorkout.IsRoutineExample, rid = oldWorkout.Routine_Id, aid = oldWorkout.Account_does_Sport_Id, colid = oldWorkout.Id });
 			return affectedRows != 0;
 		}

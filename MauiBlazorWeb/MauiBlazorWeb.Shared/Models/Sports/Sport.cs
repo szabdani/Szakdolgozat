@@ -12,6 +12,6 @@ namespace MauiBlazorWeb.Shared.Models.Sports
         public int Id { get; set; }
 		public string Name { get; set; } = "";
 		public SportStatus Status { get; set; }
-		public int Creator_Account_Id { get; set; }
+		public int? Creator_Account_Id { get; set; }
 	}
 }
