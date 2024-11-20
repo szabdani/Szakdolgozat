@@ -7,7 +7,7 @@
 
 @inject NavigationManager Navigation
 
-<div class="row">
+<div class="row" style="background-color: lightgrey">
 	<div class="col-auto" style="word-wrap: break-word;">
 		<h3>@CurrentSport.Name</h3>
 	</div>
@@ -21,15 +21,32 @@
 				<IconDelete />
 			</button>
 		}
-		<button class="btn btn-info float-end" @onclick="()=> warningUnFollow.Show()">Unfollow</button>
+		<button class="btn btn-secondary float-end" @onclick="()=> warningUnFollow.Show()">Unfollow</button>
 	</div>
 </div>
 
-<div class="row">
+<div class="row my-1">
 	<div class="col">
-
+		<div class="row">
+			<div class="col">
+				<button class="btn btn-primary" @onclick="StartWorkout">
+					Start workout <IconAdd />
+				</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				Routines:  allata sorban felsorolva nevük | Start | Edit
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<button class="btn btn-info" @onclick="GoToPage">Go to @CurrentSport.Name page</button>
+			</div>
+		</div>
 	</div>
 </div>
+
 
 <WarningDialog Title="Unfollowing a Sport" OnAcceptAction="OnUnfollow" @ref="warningUnFollow">
 	By unfollowing @CurrentSport.Name you will lose all your routines and workouts for this Sport?<br/>
@@ -59,6 +76,17 @@
 		editSportDialog = new EditSportDialog();
 	}
 
+	private void GoToPage()
+	{
+		Navigation.NavigateTo($"sports/id={CurrentSport.Id}", forceLoad: true);
+	}
+
+	private void StartWorkout()
+	{
+		Navigation.NavigateTo($"new-workout/id={CurrentSport.Id}", forceLoad: true);
+	}
+
+
 	private async Task OnUnfollow()
 	{
 		await _appState.ShowLoadingScreenWhileAwaiting(Unfollow);
@@ -67,8 +95,12 @@
 
 	private async Task Unfollow()
 	{
-		var accountDoes = await _sportManager.GetAccountDoesSport(_appState.CurrentUser.Id, CurrentSport.Id);
-		bool isCorrect = await _sportManager.DeleteAccountDoesSport(accountDoes.First());
+		var list = await _sportManager.GetAccountDoesSport(_appState.CurrentUser.Id, CurrentSport.Id);
+		var accountDoes = list.FirstOrDefault();
+		if (accountDoes == null)
+			throw new Exception($"Sorry, we could not unfollow {CurrentSport.Name}.");
+
+		bool isCorrect = await _sportManager.DeleteAccountDoesSport(accountDoes);
 		if (!isCorrect)
 			throw new Exception($"Sorry, we could not unfollow {CurrentSport.Name}.");
 	}

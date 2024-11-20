@@ -5,31 +5,45 @@
 
 @inject NavigationManager Navigation
 
+
+@for(int i=0; i < usersSports.Count/3+1; i++)
+{
+	<div class="row">
+		@for (int j=0; j < 3; j++)
+		{
+			if (i*3+j < usersSports.Count)
+			{
+				<div class="col m-2" style="background-color: navajowhite">
+					<SportSummary CurrentSport="usersSports[i*3+j]" />
+				</div>
+			}
+		}
+	</div>
+}
+
 <div class="row">
-	@foreach(var sport in usersSports)
-	{
-		<div class="col-12 col-md-3 m-2" style="background-color: navajowhite">
-			<SportSummary CurrentSport= "sport" />
-		</div>
-	}
-	<div class="col-12 col-md-3 m-2" style="background-color: navajowhite">
+	<div class="col-auto">
 		<div class="row">
-			<div class="col">
-				<InputSelect class="form-control" @bind-Value=sportId>
-					<option value=0>Select an existing Sport</option>
-					@foreach (var s in notTrackedSports)
-					{
-						<option value="@s.Id">@s.Name</option>
-					}
-				</InputSelect>
-			</div>
-			<div class="col">
-				<button class="btn btn-info" @onclick="() => newSportDialog.Show()">Or add a new Sport!</button>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col">
-				<button class="btn btn-info" @onclick="AddSport" disabled="@(sportId == 0)">Start tracking!</button>
+			<div class="col m-2" style="background-color: navajowhite">
+				<div class="row">
+					<div class="col">
+						<InputSelect class="form-control" @bind-Value=sportId>
+							<option value=0>Select an existing Sport</option>
+							@foreach (var s in notTrackedSports)
+							{
+								<option value="@s.Id">@s.Name</option>
+							}
+						</InputSelect>
+					</div>
+					<div class="col">
+						<button class="btn btn-info" @onclick="() => newSportDialog.Show()">Or add a new Sport!</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<button class="btn btn-info" @onclick="AddSport" disabled="@(sportId == 0)">Start tracking!</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -65,7 +79,7 @@
 		Account_does_Sport newAccountDoes = new Account_does_Sport {Account_Id = _appState.CurrentUser.Id, Sport_Id = sportId };
 		bool isCorrect = await _sportManager.InsertAccountDoesSport(newAccountDoes);
 		if (!isCorrect)
-			throw new Exception($"Sorry, we could not add {allSports.Where(s => s.Id == sportId).First().Name} to your account");
+			throw new Exception($"Sorry, we could not add Sport with id:{sportId} to your account");
 
 		Navigation.Refresh(true);
 	}

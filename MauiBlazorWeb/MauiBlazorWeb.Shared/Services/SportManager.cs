@@ -208,8 +208,10 @@ namespace MauiBlazorWeb.Shared.Services
 			foreach (var a in accountDoesSports)
 			{
 				string sql = $"Select * from Sport where id = @id;";
-				var sport = await _data.LoadData<Sport, dynamic>(sql, new { id = a.Sport_Id });
-				sports.Add(sport.First());
+				var list = await _data.LoadData<Sport, dynamic>(sql, new { id = a.Sport_Id });
+				var sport = list.FirstOrDefault();
+				if( sport != null )
+					sports.Add(sport);
 			}
 			return sports;
 		}

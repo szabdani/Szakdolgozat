@@ -14,7 +14,6 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 	{
 		[Inject] protected IAppState _appState { get; set; }
 		[Inject] protected ISportManager _sportManager { get; set; }
-		[Parameter] public Account_does_Sport CurrentAccountDoesSport { get; set; }
 
 		protected List<MauiBlazorWeb.Shared.Models.Sports.Sport> allSports;
 
@@ -26,7 +25,6 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 			_appState = new AppState();
 			_sportManager = new SportManager();
 
-			CurrentAccountDoesSport = new Account_does_Sport();
 			allSports = new List<MauiBlazorWeb.Shared.Models.Sports.Sport>();
 
 			allDatesSinceReg = new List<DateTime>();
