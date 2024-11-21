@@ -1,0 +1,46 @@
+﻿@page "/exercise/id={ExerciseId:int}"
+@inherits SportCompBase
+
+@using Bases
+@using MauiBlazorWeb.Shared.Components.Dialogs
+@using Models.Sports
+
+@if (!_appState.IsLoggedIn)
+{
+	<NotLoggedIn />
+}
+else
+{
+	<h3>sportpage</h3>
+}
+
+@code {
+	[Parameter, EditorRequired]
+	public int ExerciseId { get; set; }
+
+	private Exercise exercise;
+	private Sport sport;
+
+	public ExercisePage()
+	{
+		exercise = new Exercise();
+		sport = new Sport();
+	}
+	protected override async Task ValidateParameters()
+	{
+		await base.ValidateParameters();
+
+		exercise = await ValidateExercise(ExerciseId);
+		sport = ValidateSport(exercise.Sport_Id);
+	}
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		await base.OnAfterRenderAsync(firstRender);
+		if (firstRender)
+		{
+			await InvokeAsync(() => _appState.Title = $"{sport.Name}'s {exercise.Name} exercise");
+			await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
+		}
+	}
+}

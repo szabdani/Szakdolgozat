@@ -90,8 +90,7 @@ else
 	{
 		await base.UpdateTables();
 
-		var list = await _sportManager.GetAccountDoesSport(AccountDoesId);
-		var first = list.FirstOrDefault();
+		var first = allAccountDoesSports.FirstOrDefault(a => a.Id == AccountDoesId);
 		if (first != null)
 			accountDoes = first;
 

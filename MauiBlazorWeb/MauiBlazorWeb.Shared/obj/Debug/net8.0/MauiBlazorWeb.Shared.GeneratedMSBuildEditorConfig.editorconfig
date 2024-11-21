@@ -192,6 +192,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xXaWRnZXRzXFNwb3J0XE5ld1Nwb3J0RGlhbG9nLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Widgets/Sport/Pages/ExercisePage.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xXaWRnZXRzXFNwb3J0XFBhZ2VzXEV4ZXJjaXNlUGFnZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Widgets/Sport/Pages/NewRoutinePage.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xXaWRnZXRzXFNwb3J0XFBhZ2VzXE5ld1JvdXRpbmVQYWdlLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -204,8 +208,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xXaWRnZXRzXFNwb3J0XFBhZ2VzXFNwb3J0UGFnZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Widgets/Sport/Pages/WorkoutPage.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xXaWRnZXRzXFNwb3J0XFBhZ2VzXFdvcmtvdXRQYWdlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Widgets/Sport/RoutineTable.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xXaWRnZXRzXFNwb3J0XFJvdXRpbmVUYWJsZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Widgets/Sport/SportsCalendar.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xXaWRnZXRzXFNwb3J0XFNwb3J0c0NhbGVuZGFyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Widgets/Sport/SportsHome.razor]
@@ -214,6 +226,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Widgets/Sport/SportSummary.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xXaWRnZXRzXFNwb3J0XFNwb3J0U3VtbWFyeS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Widgets/Sport/WorkoutBox.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xXaWRnZXRzXFNwb3J0XFdvcmtvdXRCb3gucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Widgets/Sport/WorkoutsListed.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xXaWRnZXRzXFNwb3J0XFdvcmtvdXRzTGlzdGVkLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/_Imports.razor]

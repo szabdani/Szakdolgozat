@@ -1,0 +1,40 @@
+﻿@inherits SportCompBase
+
+@using Bases
+@using Models.Sports
+@inject NavigationManager Navigation
+
+<Calendar Title="Workouts" SpecialDates="uniqueDates" OnDayClickAction="OpenDay" FirstDate="firstDate"/>
+
+@code {
+	[Parameter, EditorRequired]
+	public int AccountDoesId { get; set; }
+	private Account_does_Sport accountDoesSport;
+	private List<DateTime> uniqueDates;
+
+	public SportsCalendar()
+	{
+		accountDoesSport = new Account_does_Sport();
+		uniqueDates = new List<DateTime>();
+	}
+
+	protected override async Task ValidateParameters()
+	{
+		await base.ValidateParameters();
+		accountDoesSport = ValidateAccountDoesSport(AccountDoesId);
+	}
+
+	protected override async Task UpdateTables()
+	{
+		await base.UpdateTables();
+		var list = await _sportManager.GetWorkouts(accountDoesSport);
+
+		uniqueDates = list.Select(obj => obj.Starttime).Distinct().ToList();
+	}
+
+	private async Task OpenDay(DateTime day)
+	{
+		Navigation.NavigateTo(day.ToString("yyyy-MM-dd"));
+		await Task.CompletedTask;
+	}
+}

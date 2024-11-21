@@ -1,4 +1,4 @@
-﻿@page "/new-routine/id={AccountDoesId:int}"
+﻿@page "/workout/id={WorkoutId:int}"
 @inherits SportCompBase
 
 @using Bases
@@ -16,17 +16,25 @@ else
 
 @code {
 	[Parameter, EditorRequired]
-	public int AccountDoesId { get; set; }
-	private Account_does_Sport accountDoesSport;
+	public int WorkoutId { get; set; }
 
-	public NewRoutinePage()
+	private Account_does_Sport accountDoesSport;
+	private Sport sport;
+	private Workout workout;
+
+	public WorkoutPage()
 	{
 		accountDoesSport = new Account_does_Sport();
+		sport = new Sport();
+		workout = new Workout();
 	}
 	protected override async Task ValidateParameters()
 	{
 		await base.ValidateParameters();
-		accountDoesSport = ValidateAccountDoesSport(AccountDoesId);
+
+		workout = await ValidateWorkout(WorkoutId);
+		accountDoesSport = ValidateAccountDoesSport(workout.Account_does_Sport_Id);
+		sport = ValidateSport(accountDoesSport.Sport_Id);
 	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -34,12 +42,8 @@ else
 		await base.OnAfterRenderAsync(firstRender);
 		if (firstRender)
 		{
-			var sport = allSports.FirstOrDefault(s => s.Id == accountDoesSport.Sport_Id);
-			if (sport != null)
-			{
-				await InvokeAsync(() => _appState.Title = $"New {sport.Name} Routine");
-				await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
-			}
+			await InvokeAsync(() => _appState.Title = $"{sport.Name} workout on {workout.Starttime.ToString("yyyy-MM-dd")}");
+			await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
 		}
 	}
 }

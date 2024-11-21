@@ -16,6 +16,7 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 		[Inject] protected ISportManager _sportManager { get; set; }
 
 		protected List<MauiBlazorWeb.Shared.Models.Sports.Sport> allSports;
+		protected List<Account_does_Sport> allAccountDoesSports;
 		protected bool hasInvalidParameter = false;
 
 		protected DateTime firstDate;
@@ -27,6 +28,7 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 			_sportManager = new SportManager();
 
 			allSports = new List<MauiBlazorWeb.Shared.Models.Sports.Sport>();
+			allAccountDoesSports = new List<Account_does_Sport>();
 
 			allDatesSinceReg = new List<DateTime>();
 		}
@@ -52,14 +54,31 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 			await Task.CompletedTask;
 		}
 
-		protected async Task<Account_does_Sport> ValidateAccountDoesSport(int AccountDoesId)
+		protected MauiBlazorWeb.Shared.Models.Sports.Sport ValidateSport(int SportId)
+		{
+			var retVal = new MauiBlazorWeb.Shared.Models.Sports.Sport();
+
+			if (SportId != 0)
+			{
+				var first = allSports.FirstOrDefault(s => s.Id == SportId);
+				if (first == null)
+					hasInvalidParameter = true;
+				else
+					retVal = first;
+			}
+			else
+				hasInvalidParameter = true;
+
+			return retVal;
+		}
+
+		protected Account_does_Sport ValidateAccountDoesSport(int AccountDoesId)
 		{
 			var retVal = new Account_does_Sport();
 
 			if (AccountDoesId != 0)
 			{
-				var list = await _sportManager.GetAccountDoesSport(AccountDoesId);
-				var first = list.FirstOrDefault();
+				var first = allAccountDoesSports.FirstOrDefault(a => a.Id == AccountDoesId);
 				if (first == null)
 					hasInvalidParameter = true;
 				else
@@ -88,9 +107,64 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 					hasInvalidParameter = true;
 				else
 				{
-					var listAccDoes = await _sportManager.GetAccountDoesSport(first.Account_does_Sport_Id);
-					var firstAccDoes = listAccDoes.FirstOrDefault();
+					if (first.Status == SportStatus.Deleted)
+						hasInvalidParameter = true;
+					else 
+					{
+						var firstAccDoes = allAccountDoesSports.FirstOrDefault(a => a.Id == first.Account_does_Sport_Id);
+						if (firstAccDoes == null || firstAccDoes.Account_Id != _appState.CurrentUser.Id)
+							hasInvalidParameter = true;
+						else
+							retVal = first;
+					}
+				}
+			}
+			else
+				hasInvalidParameter = true;
+
+			return retVal;
+		}
+
+		protected async Task<Workout> ValidateWorkout(int WorkoutId)
+		{
+			var retVal = new Workout();
+
+			if (WorkoutId != 0)
+			{
+				var list = await _sportManager.GetWorkout(WorkoutId);
+				var first = list.FirstOrDefault();
+				if (first == null)
+					hasInvalidParameter = true;
+				else
+				{
+					var firstAccDoes = allAccountDoesSports.FirstOrDefault(a => a.Id == first.Account_does_Sport_Id);
 					if (firstAccDoes == null || firstAccDoes.Account_Id != _appState.CurrentUser.Id)
+						hasInvalidParameter = true;
+					else
+						retVal = first;
+				}
+			}
+			else
+				hasInvalidParameter = true;
+
+			return retVal;
+		}
+
+		protected async Task<Exercise> ValidateExercise(int ExerciseId)
+		{
+			var retVal = new Exercise();
+
+			if (ExerciseId != 0)
+			{
+				var list = await _sportManager.GetExercise(ExerciseId);
+				var first = list.FirstOrDefault();
+				if (first == null)
+					hasInvalidParameter = true;
+				else
+				{
+					if(first.Status == SportStatus.Deleted)
+						hasInvalidParameter= true;
+					else if(first.Status == SportStatus.Private && first.Creator_Account_Id != _appState.CurrentUser.Id)
 						hasInvalidParameter = true;
 					else
 						retVal = first;
@@ -111,6 +185,7 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 		protected virtual async Task UpdateTables()
 		{
 			allSports = await _sportManager.GetAllSports(_appState.CurrentUser.Id);
+			allAccountDoesSports = await _sportManager.GetAccountDoesSports(_appState.CurrentUser.Id);
 		}
 
 		protected async Task RefreshSportComps()
