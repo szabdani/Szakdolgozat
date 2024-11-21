@@ -223,6 +223,13 @@ namespace MauiBlazorWeb.Shared.Services
 			string sql = $"Select * from Account_does_Sport where (Account_Id = @aid AND  Sport_Id = @sid);";
 			return await _data.LoadData<Account_does_Sport, dynamic>(sql, new { aid = accountId, sid = sportId });
 		}
+		public async Task<List<Account_does_Sport>> GetAccountDoesSport(int accountDoesSportId)
+		{
+			IDataAccess _data = new DataAccess();
+
+			string sql = $"Select * from Account_does_Sport where Id = @id;";
+			return await _data.LoadData<Account_does_Sport, dynamic>(sql, new { id = accountDoesSportId });
+		}
 		public async Task<List<Account_does_Sport>> GetAccountDoesSports(int accountId)
 		{
 			IDataAccess _data = new DataAccess();
@@ -231,6 +238,13 @@ namespace MauiBlazorWeb.Shared.Services
 			return await _data.LoadData<Account_does_Sport, dynamic>(sql, new { id = accountId });
 		}
 
+		public async Task<List<Routine>> GetRoutine(int routineId)
+		{
+			IDataAccess _data = new DataAccess();
+
+			string sql = $"Select * from Routine where Id = @id;";
+			return await _data.LoadData<Routine, dynamic>(sql, new { id = routineId });
+		}
 		public async Task<List<Routine>> GetRoutines(Account_does_Sport accountDoesSport)
 		{
 			IDataAccess _data = new DataAccess();

@@ -1,14 +1,22 @@
-﻿@page "/sports/id={SportId:int}"
+﻿@page "/sports/id={AccountDoesId:int}"
 @inherits SportCompBase
 
 @using Bases
+@using MauiBlazorWeb.Shared.Components.Dialogs
 @using Models.Sports
 
-<h3>SportPage</h3>
+@if (!_appState.IsLoggedIn)
+{
+	<NotLoggedIn/>
+}
+else
+{
+	<h3>sportpage</h3>
+}
 
 @code {
-	[Parameter]
-	public int SportId { get; set; }
+	[Parameter, EditorRequired]
+	public int AccountDoesId { get; set; }
 	private Account_does_Sport accountDoesSport;
 
 	public SportPage()
@@ -16,11 +24,16 @@
 		accountDoesSport = new Account_does_Sport();
 	}
 
-	protected override async Task OnInitializedAsync()
+	protected override async Task ValidateParameters()
 	{
-		await base.OnInitializedAsync();
+		accountDoesSport = await ValidateAccountDoesSport(AccountDoesId);
+	}
 
-		var list = await _sportManager.GetAccountDoesSport(_appState.CurrentUser.Id, SportId);
+	protected override async Task UpdateTables()
+	{
+		await base.UpdateTables();
+
+		var list = await _sportManager.GetAccountDoesSport(AccountDoesId);
 		var first = list.FirstOrDefault();
 		if (first != null)
 			accountDoesSport = first;
@@ -31,7 +44,7 @@
 		await base.OnAfterRenderAsync(firstRender);
 		if (firstRender)
 		{
-			var sport = allSports.FirstOrDefault(s => s.Id == SportId);
+			var sport = allSports.FirstOrDefault(s => s.Id == accountDoesSport.Sport_Id);
 			if (sport != null)
 			{
 				await InvokeAsync(() => _appState.Title = sport.Name);

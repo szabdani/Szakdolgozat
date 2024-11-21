@@ -1,0 +1,55 @@
+﻿@page "/new-routine/id={AccountDoesId:int}"
+@inherits SportCompBase
+
+@using Bases
+@using MauiBlazorWeb.Shared.Components.Dialogs
+@using Models.Sports
+
+@if (!_appState.IsLoggedIn)
+{
+	<NotLoggedIn />
+}
+else
+{
+	<h3>sportpage</h3>
+}
+
+@code {
+	[Parameter, EditorRequired]
+	public int AccountDoesId { get; set; }
+	private Account_does_Sport accountDoesSport;
+
+	public NewRoutinePage()
+	{
+		accountDoesSport = new Account_does_Sport();
+	}
+	protected override async Task ValidateParameters()
+	{
+		accountDoesSport = await ValidateAccountDoesSport(AccountDoesId);
+	}
+
+
+	protected override async Task UpdateTables()
+	{
+		await base.UpdateTables();
+
+		var list = await _sportManager.GetAccountDoesSport(AccountDoesId);
+		var first = list.FirstOrDefault();
+		if (first != null)
+			accountDoesSport = first;
+	}
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		await base.OnAfterRenderAsync(firstRender);
+		if (firstRender)
+		{
+			var sport = allSports.FirstOrDefault(s => s.Id == accountDoesSport.Sport_Id);
+			if (sport != null)
+			{
+				await InvokeAsync(() => _appState.Title = $"New {sport.Name} Routine");
+				await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
+			}
+		}
+	}
+}

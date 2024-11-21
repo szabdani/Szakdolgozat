@@ -8,20 +8,7 @@
 
 @if (!_appState.IsLoggedIn)
 {
-	<div class="row">
-		<div class="col m-2" style="background-color: #ffefef">
-			<div class="row">
-				<div class="col">
-					<h1>This page is only available to users!</h1>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col">
-					<LoginPrompt />
-				</div>
-			</div>
-		</div>
-	</div>
+	<NotLoggedIn />
 }
 else
 {
@@ -54,7 +41,7 @@ else
 }
 
 @code {
-    [Parameter]
+	[Parameter, EditorRequired]
     public DateTime Date { get; set; }
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{

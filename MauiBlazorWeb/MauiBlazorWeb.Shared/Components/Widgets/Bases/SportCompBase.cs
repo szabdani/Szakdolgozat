@@ -16,6 +16,7 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 		[Inject] protected ISportManager _sportManager { get; set; }
 
 		protected List<MauiBlazorWeb.Shared.Models.Sports.Sport> allSports;
+		protected bool hasInvalidParameter = false;
 
 		protected DateTime firstDate;
 		protected List<DateTime> allDatesSinceReg;
@@ -40,6 +41,65 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 			{
 				allDatesSinceReg.Add(date);
 			}
+		}
+
+		protected override async Task OnParametersSetAsync()
+		{
+			await ValidateParameters();
+		}
+		protected virtual async Task ValidateParameters()
+		{
+			await Task.CompletedTask;
+		}
+
+		protected async Task<Account_does_Sport> ValidateAccountDoesSport(int AccountDoesId)
+		{
+			var retVal = new Account_does_Sport();
+
+			if (AccountDoesId != 0)
+			{
+				var list = await _sportManager.GetAccountDoesSport(AccountDoesId);
+				var first = list.FirstOrDefault();
+				if (first == null)
+					hasInvalidParameter = true;
+				else
+				{
+					if (first.Account_Id != _appState.CurrentUser.Id)
+						hasInvalidParameter = true;
+					else
+						retVal = first;
+				}
+			}
+			else
+				hasInvalidParameter = true;
+
+			return retVal;
+		}
+
+		protected async Task<Routine> ValidateRoutine(int RoutineId)
+		{
+			var retVal = new Routine();
+
+			if (RoutineId != 0)
+			{
+				var list = await _sportManager.GetRoutine(RoutineId);
+				var first = list.FirstOrDefault();
+				if (first == null)
+					hasInvalidParameter = true;
+				else
+				{
+					var listAccDoes = await _sportManager.GetAccountDoesSport(first.Account_does_Sport_Id);
+					var firstAccDoes = listAccDoes.FirstOrDefault();
+					if (firstAccDoes == null || firstAccDoes.Account_Id != _appState.CurrentUser.Id)
+						hasInvalidParameter = true;
+					else
+						retVal = first;
+				}
+			}
+			else
+				hasInvalidParameter = true;
+
+			return retVal;
 		}
 
 		public override async Task UpdateObserver()

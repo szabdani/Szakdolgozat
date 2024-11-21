@@ -36,7 +36,7 @@
 		</div>
 		<div class="row">
 			<div class="col">
-				Routines:  allata sorban felsorolva nevük | Start | Edit
+				<RoutineTable AccountDoesId="accountDoes.Id" />
 			</div>
 		</div>
 		<div class="row">
@@ -52,20 +52,23 @@
 	By unfollowing @CurrentSport.Name you will lose all your routines and workouts for this Sport?<br/>
 	This action can not be undone!
 </WarningDialog>
-<EditSportDialog @ref=editSportDialog />
-<WarningDialog Title="Unfollowing a Sport" OnAcceptAction="OnDeleteSport" @ref="warningDelete">
+
+<WarningDialog Title="Deleting a Sport" OnAcceptAction="OnDeleteSport" @ref="warningDelete">
 	Do you want to delete @CurrentSport.Name?<br />
 	This action can not be undone!
 </WarningDialog>
+
 <EditSportDialog @ref=editSportDialog />
 
 @code {
-	[Parameter]
+	[Parameter, EditorRequired]
 	public Sport CurrentSport { get; set; }
 
 	private WarningDialog warningUnFollow;
 	private WarningDialog warningDelete;
 	private EditSportDialog editSportDialog;
+
+	private Account_does_Sport accountDoes;
 
 	public SportSummary()
 	{
@@ -74,6 +77,18 @@
 		warningUnFollow = new WarningDialog();
 		warningDelete = new WarningDialog();
 		editSportDialog = new EditSportDialog();
+
+		accountDoes = new Account_does_Sport();
+	}
+
+	protected override async Task UpdateTables()
+	{
+		await base.UpdateTables();
+
+		var list = await _sportManager.GetAccountDoesSport(_appState.CurrentUser.Id, CurrentSport.Id);
+		var first = list.FirstOrDefault();
+		if (first != null)
+			accountDoes = first;
 	}
 
 	private void GoToPage()
@@ -83,9 +98,11 @@
 
 	private void StartWorkout()
 	{
-		Navigation.NavigateTo($"new-workout/id={CurrentSport.Id}", forceLoad: true);
+		if(accountDoes == null)
+			throw new Exception($"Sorry, this Sport is not followed.");
+		else
+			Navigation.NavigateTo($"new-workout/id={accountDoes.Id}", forceLoad: true);
 	}
-
 
 	private async Task OnUnfollow()
 	{
@@ -95,9 +112,7 @@
 
 	private async Task Unfollow()
 	{
-		var list = await _sportManager.GetAccountDoesSport(_appState.CurrentUser.Id, CurrentSport.Id);
-		var accountDoes = list.FirstOrDefault();
-		if (accountDoes == null)
+		if(accountDoes == null)
 			throw new Exception($"Sorry, we could not unfollow {CurrentSport.Name}.");
 
 		bool isCorrect = await _sportManager.DeleteAccountDoesSport(accountDoes);

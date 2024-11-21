@@ -1,0 +1,140 @@
+﻿@inherits SportCompBase
+
+@using Bases
+@using Models.Sports
+@using MauiBlazorWeb.Shared.Components.Dialogs
+@using MauiBlazorWeb.Shared.Components.Icons
+
+@inject NavigationManager Navigation
+
+@if (routines.Count == 0)
+{
+	<div class="row">
+		<div class="col">
+			You have no routines yet!
+		</div>
+		<div class="col">
+			<button class="btn btn-primary" @onclick="CreateRoutine">
+				Create one! <IconAdd />
+			</button>
+		</div>
+	</div>
+}
+else
+{
+	<div class="row">
+		<div class="table-responsive" style="max-height: 400px;">
+			<table class="table table-striped text-center">
+				<thead class="thead-light" style="position: sticky; top: 0; background-color: #ffefef">
+					<tr>
+						<th scope="col" colspan="4">
+							Routines
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var r in routines)
+					{
+						<tr>
+							<th>
+								@r.Name
+							</th>
+							<td>
+								<button class="btn btn-primary" @onclick="() => StartRoutine(r.Id)">
+									Start
+								</button>
+							</td>
+							<td>
+								<button class="btn btn-warning" @onclick="() => EditRoutine(r.Id)">
+									<IconEdit />
+								</button>
+							</td>
+							<td>
+								<button class="btn btn-danger" @onclick="() => OpenDelete(r.Id)">
+									<IconDelete />
+								</button>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+}
+
+<WarningDialog Title="Deleting a Routine" OnAcceptAction="OnDeleteRoutine" @ref="warningDelete">
+	Do you want to delete @name routine?<br />
+	This action can not be undone!
+</WarningDialog>
+
+@code {
+	[Parameter, EditorRequired]
+	public int AccountDoesId { get; set; }
+
+	private Account_does_Sport accountDoes;
+	private List<Routine> routines;
+
+	private WarningDialog warningDelete;
+	private int delId;
+	private string name = "";
+
+	public RoutineTable()
+	{
+		accountDoes = new Account_does_Sport();
+		routines = new List<Routine>();
+
+		warningDelete = new WarningDialog();
+	}
+
+	protected override async Task UpdateTables()
+	{
+		await base.UpdateTables();
+
+		var list = await _sportManager.GetAccountDoesSport(AccountDoesId);
+		var first = list.FirstOrDefault();
+		if (first != null)
+			accountDoes = first;
+
+		routines = await _sportManager.GetRoutines(accountDoes);
+	}
+
+	private void CreateRoutine()
+	{
+		Navigation.NavigateTo($"new-routine/id={AccountDoesId}", forceLoad: true);
+	}
+
+	private void StartRoutine(int routineId)
+	{
+		Navigation.NavigateTo($"new-workout/routineid={routineId}", forceLoad: true);
+	}
+
+	private void EditRoutine(int routineId)
+	{
+		Navigation.NavigateTo($"edit-routine/id={AccountDoesId}", forceLoad: true);
+	}
+
+	private void OpenDelete(int routineId)
+	{
+		var first = routines.FirstOrDefault(r => r.Id == delId);
+		if(first == null)
+			throw new Exception($"Sorry, routine with id:{delId} does not exist.");
+
+		delId = routineId;
+		name = first.Name;
+		warningDelete.Show();
+	}
+
+	private async Task OnDeleteRoutine()
+	{
+		await _appState.ShowLoadingScreenWhileAwaiting(() => DeleteRoutine(delId));
+	}
+
+	private async Task DeleteRoutine(int routineId)
+	{
+		var first = routines.FirstOrDefault(r => r.Id == routineId);
+		if (first == null)
+			throw new Exception($"Sorry, routine with id:{routineId} does not exist.");
+
+		await _sportManager.DeleteRoutine(first);
+	}
+}

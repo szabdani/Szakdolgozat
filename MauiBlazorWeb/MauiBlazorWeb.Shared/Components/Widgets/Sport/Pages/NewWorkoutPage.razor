@@ -1,0 +1,69 @@
+﻿@page "/new-workout/id={AccountDoesId:int}"
+@page "/new-workout/routineid={RoutineId:int}"
+@inherits SportCompBase
+
+@using Bases
+@using MauiBlazorWeb.Shared.Components.Dialogs
+@using Models.Sports
+
+@if (!_appState.IsLoggedIn)
+{
+	<NotLoggedIn/>
+}
+else if (hasInvalidParameter)
+{
+	<h3>This is not a valid path to New Workout</h3>
+}
+else
+{
+	<h3>SportPage</h3>
+}
+
+
+@code {
+	[Parameter]
+	public int AccountDoesId { get; set; } = 0;
+	[Parameter]
+	public int RoutineId { get; set; } = 0;
+
+	private Account_does_Sport accountDoesSport;
+	private Routine routine;
+
+	public NewWorkoutPage()
+	{
+		accountDoesSport = new Account_does_Sport();
+		routine = new Routine();
+	}
+
+	protected override async Task ValidateParameters()
+	{
+		if (AccountDoesId == 0 && RoutineId == 0)
+			hasInvalidParameter = true;
+
+		if (AccountDoesId != 0 && RoutineId != 0)
+			hasInvalidParameter = true;
+
+		if (AccountDoesId != 0)
+		{
+			accountDoesSport = await ValidateAccountDoesSport(AccountDoesId);
+		}
+		else if (RoutineId != 0)
+		{
+			routine = await ValidateRoutine(RoutineId);
+		}
+	}
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		await base.OnAfterRenderAsync(firstRender);
+		if (firstRender)
+		{
+			var sport = allSports.FirstOrDefault(s => s.Id == accountDoesSport.Sport_Id);
+			if (sport != null)
+			{
+				await InvokeAsync(() => _appState.Title = $"New {sport.Name} Workout");
+				await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
+			}
+		}
+	}
+}
