@@ -7,21 +7,31 @@
 
 @if (!_appState.IsLoggedIn)
 {
-	<NotLoggedIn/>
+	<NotLoggedIn />
+}
+else if (hasInvalidParameter)
+{
+	<h3>This is not a valid path to a Sport Page</h3>
 }
 else
 {
 	<div class="row">
-		<div class="col-auto">
+		<div class="col-auto m-2" style="background-color: navajowhite; max-width: 400px">
 			<div class="row">
 				<SportsCalendar AccountDoesId="AccountDoesId" />
 			</div>
 			<div class="row">
-				<SportsCalendar AccountDoesId="AccountDoesId" />
+				<SportStat AccountDoesId="AccountDoesId" />
+			</div>
+			<div class="row">
+				<RoutineTable AccountDoesId="AccountDoesId" />
+			</div>
+			<div class="row">
+				<ExerciseLibrary AccountDoesId="AccountDoesId" />
 			</div>
 		</div>
-		<div class="col">
-
+		<div class="col m-2" style="background-color: navajowhite">
+			<WorkoutsListed />
 		</div>
 	</div>
 }
@@ -30,16 +40,19 @@ else
 	[Parameter, EditorRequired]
 	public int AccountDoesId { get; set; }
 	private Account_does_Sport accountDoesSport;
+	private Sport sport;
 
 	public SportPage()
 	{
 		accountDoesSport = new Account_does_Sport();
+		sport = new Sport();
 	}
 
 	protected override async Task ValidateParameters()
 	{
 		await base.ValidateParameters();
 		accountDoesSport = ValidateAccountDoesSport(AccountDoesId);
+		sport = ValidateSport(accountDoesSport.Sport_Id);
 	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -47,12 +60,12 @@ else
 		await base.OnAfterRenderAsync(firstRender);
 		if (firstRender)
 		{
-			var sport = allSports.FirstOrDefault(s => s.Id == accountDoesSport.Sport_Id);
-			if (sport != null)
-			{
+			if (!hasInvalidParameter)
 				await InvokeAsync(() => _appState.Title = sport.Name);
-				await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
-			}
+			else
+				await InvokeAsync(() => _appState.Title = "Invalid Sport");
+
+			await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
 		}
 	}
 }

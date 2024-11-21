@@ -13,11 +13,6 @@
 		<div class="col">
 			You have no routines yet!
 		</div>
-		<div class="col">
-			<button class="btn btn-primary" @onclick="CreateRoutine">
-				Create one! <IconAdd />
-			</button>
-		</div>
 	</div>
 }
 else
@@ -61,6 +56,14 @@ else
 		</div>
 	</div>
 }
+
+<div class="row">
+	<div class="col">
+		<button class="btn btn-primary" @onclick="CreateRoutine">
+			<IconAdd /> Create a new routine!
+		</button>
+	</div>
+</div>
 
 <WarningDialog Title="Deleting a Routine" OnAcceptAction="OnDeleteRoutine" @ref="warningDelete">
 	Do you want to delete @name routine?<br />

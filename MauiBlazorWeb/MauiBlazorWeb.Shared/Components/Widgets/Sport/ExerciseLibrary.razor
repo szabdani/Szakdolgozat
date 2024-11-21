@@ -1,0 +1,16 @@
+﻿@inherits SportCompBase
+
+@using Bases
+@using Models.Sports
+
+<div class="col-auto m-2" style="background-color: navajowhite">
+
+</div>
+<h3>Exercise Library: Filterek típus alapján select-ek?</h3>
+<h2>Felsorolva az összes exercise a sporton belül, scrollable</h2>
+<h2>Footerben széles button: Add new exercise!</h2>
+
+@code {
+	[Parameter, EditorRequired]
+	public int AccountDoesId { get; set; }
+}

@@ -30,18 +30,20 @@
 		<div class="row">
 			<div class="col">
 				<button class="btn btn-primary" @onclick="StartWorkout">
-					Start workout <IconAdd />
+					<IconAdd /> Start workout
 				</button>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col">
-				<RoutineTable AccountDoesId="accountDoes.Id" />
+				<button class="btn btn-info" @onclick="GoToPage">Go to @sport.Name page</button>
 			</div>
 		</div>
+	</div>
+	<div class="col">
 		<div class="row">
 			<div class="col">
-				<button class="btn btn-info" @onclick="GoToPage">Go to @sport.Name page</button>
+				<RoutineTable AccountDoesId="accountDoes.Id" />
 			</div>
 		</div>
 	</div>
@@ -86,11 +88,6 @@
 		await base.ValidateParameters();
 
 		sport = ValidateSport(SportId);
-	}
-
-	protected override async Task UpdateTables()
-	{
-		await base.UpdateTables();
 
 		var list = await _sportManager.GetAccountDoesSport(_appState.CurrentUser.Id, sport.Id);
 		var first = list.FirstOrDefault();
@@ -100,7 +97,7 @@
 
 	private void GoToPage()
 	{
-		Navigation.NavigateTo($"sports/id={sport.Id}", forceLoad: true);
+		Navigation.NavigateTo($"sports/id={accountDoes.Id}", forceLoad: true);
 	}
 
 	private void StartWorkout()

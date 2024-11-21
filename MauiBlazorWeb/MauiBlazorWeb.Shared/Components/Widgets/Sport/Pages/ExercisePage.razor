@@ -9,9 +9,16 @@
 {
 	<NotLoggedIn />
 }
+else if (hasInvalidParameter)
+{
+	<h3>This is not a valid path to an Exercise Page</h3>
+}
 else
 {
-	<h3>sportpage</h3>
+
+	<div class="col-auto m-2" style="background-color: navajowhite">
+		exercise page
+	</div>
 }
 
 @code {
@@ -39,7 +46,11 @@ else
 		await base.OnAfterRenderAsync(firstRender);
 		if (firstRender)
 		{
-			await InvokeAsync(() => _appState.Title = $"{sport.Name}'s {exercise.Name} exercise");
+			if (!hasInvalidParameter)
+				await InvokeAsync(() => _appState.Title = $"{sport.Name}'s {exercise.Name} exercise");
+			else
+				await InvokeAsync(() => _appState.Title = "Invalid Exercise");
+
 			await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
 		}
 	}

@@ -9,24 +9,34 @@
 {
 	<NotLoggedIn />
 }
+else if (hasInvalidParameter)
+{
+	<h3>This is not a valid path to a New Routine page</h3>
+}
 else
 {
-	<h3>sportpage</h3>
+
+	<div class="col-auto m-2" style="background-color: navajowhite">
+		newroutine
+	</div>
 }
 
 @code {
 	[Parameter, EditorRequired]
 	public int AccountDoesId { get; set; }
 	private Account_does_Sport accountDoesSport;
+	private Sport sport;
 
 	public NewRoutinePage()
 	{
 		accountDoesSport = new Account_does_Sport();
+		sport = new Sport();
 	}
 	protected override async Task ValidateParameters()
 	{
 		await base.ValidateParameters();
 		accountDoesSport = ValidateAccountDoesSport(AccountDoesId);
+		sport = ValidateSport(accountDoesSport.Sport_Id);
 	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -34,12 +44,12 @@ else
 		await base.OnAfterRenderAsync(firstRender);
 		if (firstRender)
 		{
-			var sport = allSports.FirstOrDefault(s => s.Id == accountDoesSport.Sport_Id);
-			if (sport != null)
-			{
+			if (!hasInvalidParameter)
 				await InvokeAsync(() => _appState.Title = $"New {sport.Name} Routine");
-				await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
-			}
+			else
+				await InvokeAsync(() => _appState.Title = "Invalid New Routine");
+
+			await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
 		}
 	}
 }

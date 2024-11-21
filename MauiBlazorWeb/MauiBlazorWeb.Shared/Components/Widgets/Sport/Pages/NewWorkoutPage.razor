@@ -12,11 +12,13 @@
 }
 else if (hasInvalidParameter)
 {
-	<h3>This is not a valid path to New Workout</h3>
+	<h3>This is not a valid path to a New Workout page</h3>
 }
 else
 {
-	<h3>SportPage</h3>
+	<div class="col-auto m-2" style="background-color: navajowhite">
+		new workout
+	</div>
 }
 
 
@@ -27,11 +29,13 @@ else
 	public int RoutineId { get; set; } = 0;
 
 	private Account_does_Sport accountDoesSport;
+	private Sport sport;
 	private Routine routine;
 
 	public NewWorkoutPage()
 	{
 		accountDoesSport = new Account_does_Sport();
+		sport = new Sport();
 		routine = new Routine();
 	}
 
@@ -47,10 +51,13 @@ else
 		if (AccountDoesId != 0)
 		{
 			accountDoesSport = ValidateAccountDoesSport(AccountDoesId);
+			sport = ValidateSport(accountDoesSport.Sport_Id);
 		}
 		else if (RoutineId != 0)
 		{
 			routine = await ValidateRoutine(RoutineId);
+			accountDoesSport = ValidateAccountDoesSport(routine.Account_does_Sport_Id);
+			sport = ValidateSport(accountDoesSport.Sport_Id);
 		}
 	}
 
@@ -59,12 +66,12 @@ else
 		await base.OnAfterRenderAsync(firstRender);
 		if (firstRender)
 		{
-			var sport = allSports.FirstOrDefault(s => s.Id == accountDoesSport.Sport_Id);
-			if (sport != null)
-			{
+			if (!hasInvalidParameter)
 				await InvokeAsync(() => _appState.Title = $"New {sport.Name} Workout");
-				await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
-			}
+			else
+				await InvokeAsync(() => _appState.Title = "Invalid New Workout");
+			
+			await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
 		}
 	}
 }
