@@ -1098,3 +1098,7 @@ C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Ma
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\stamp\_ResolveLibraryProjectImports.stamp
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\BlazorBootstrap.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.Private.CoreLib.dll
+C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\staticwebassets.build.endpoints.json
+C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\staticwebassets\msbuild.MauiBlazorWeb.Maui.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\staticwebassets.upToDateCheck.txt
+C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\staticwebassets.publish.endpoints.json

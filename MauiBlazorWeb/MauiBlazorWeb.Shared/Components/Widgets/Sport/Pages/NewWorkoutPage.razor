@@ -4,6 +4,8 @@
 
 @using Bases
 @using MauiBlazorWeb.Shared.Components.Dialogs
+@using MauiBlazorWeb.Shared.Components.Widgets.Sport.Dialogs
+@using MauiBlazorWeb.Shared.Components.Icons
 @using Models.Sports
 
 @if (!_appState.IsLoggedIn)
@@ -16,11 +18,52 @@ else if (hasInvalidParameter)
 }
 else
 {
-	<div class="col-auto m-2" style="background-color: navajowhite">
-		new workout
+	<div class="row">
+		<div class="col m-2" style="background-color: navajowhite">
+			<div class="row">
+				<div class="col">
+					<h5>
+						Workout duration: @(clock.Hours == 0 ? clock.ToString(@"mm\:ss") : clock.ToString(@"hh:\mm\:ss"))
+					</h5>
+				</div>
+				<div class="col-auto float-end">
+					<button class="btn btn-primary" @onclick="OnFinishWorkout">
+						Finish Workout
+					</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					@if (exercises.Count == 0)
+					{
+						<h3>
+							Pick an exercise to start tracking
+						</h3>
+					}
+					else
+					{
+						@foreach (var ex in exercises)
+						{
+							<h3>
+								@ex.Name
+							</h3>
+							<WorkoutExercise Exercise="ex"/>
+						}
+					}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col justify-content-center">
+					<button class="btn btn-primary" @onclick="() => addExerciseDialog.Show()">
+						<IconAdd/> Add an Exercise
+					</button>
+				</div>
+			</div>
+		</div>
 	</div>
 }
 
+<AddExerciseDialog AccountDoesId="AccountDoesId" ExerciseList="exercises" @ref="addExerciseDialog" />
 
 @code {
 	[Parameter]
@@ -32,11 +75,44 @@ else
 	private Sport sport;
 	private Routine routine;
 
+	private Workout workout;
+	private List<Exercise> exercises;
+
+	private Timer timer;
+	private TimeSpan clock;
+
+	private AddExerciseDialog addExerciseDialog;
+
 	public NewWorkoutPage()
 	{
 		accountDoesSport = new Account_does_Sport();
 		sport = new Sport();
 		routine = new Routine();
+
+		workout = new Workout();
+		exercises = new List<Exercise>();
+
+		addExerciseDialog = new AddExerciseDialog();
+	}
+
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+
+		timer = new Timer(OnTick, null, 0, 1000);
+		clock = TimeSpan.Zero;
+	}
+
+	private void OnTick(object? state)
+	{
+		clock = clock.Add(TimeSpan.FromSeconds(1));
+		InvokeAsync(StateHasChanged);
+	}
+
+	public override void Dispose()
+	{
+		timer?.Dispose();
+		base.Dispose();
 	}
 
 	protected override async Task ValidateParameters()
@@ -59,6 +135,7 @@ else
 			sport = ValidateSport(accountDoesSport.Sport_Id);
 		}
 
+		workout = new Workout { Starttime = DateTime.UtcNow, IsDone = false, IsRoutineExample = false };
 		await base.ValidateParameters();
 	}
 
@@ -71,8 +148,19 @@ else
 				await InvokeAsync(() => _appState.Title = $"New {sport.Name} Workout");
 			else
 				await InvokeAsync(() => _appState.Title = "Invalid New Workout");
-			
+
 			await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
 		}
+	}
+
+	private async Task OnFinishWorkout()
+	{
+		timer?.Dispose();
+		await _appState.ShowLoadingScreenWhileAwaiting(FinishWorkout);
+	}
+
+	private async Task FinishWorkout()
+	{
+
 	}
 }

@@ -6,76 +6,89 @@
 @using MauiBlazorWeb.Shared.Components.Dialogs
 @using MauiBlazorWeb.Shared.Components.Icons
 
-<div class="row">
-	<div class="col-auto" style="word-wrap: break-word;">
-		<h3>Exercise library</h3>
-	</div>
-	<div class="col-auto float-end">
-		<InputSelect class="form-control" @bind-Value="filterType" @bind-Value:after="@RefreshSportComps">
-			<option value="-1">All</option>
-			@foreach (var t in Enum.GetValues(typeof(ExerciseType)))
-			{
-				<option value="@((int)t)">@t</option>
-			}
-		</InputSelect>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col">
-		<div class="table-responsive" style="max-height: 400px;">
-			<table class="table table-striped text-center">
-				<thead class="thead-light" style="position: sticky; top: 0; background-color: navajowhite">
-					<tr>
-						<th>
-							Name
-						</th>
-						<th>
-							Type
-						</th>
-						<th>
-							Open
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					@foreach (var ex in filteredExercises)
-					{
-						<tr>
-							<td>
-								@ex.Name
-							</td>
-							<td>
-								@ex.Type
-							</td>
-							<td>
-								@if (ex.Creator_Account_Id == _appState.CurrentUser.Id)
-								{
-									<button class="btn btn-warning" @onclick="() => editExerciseDialog.Show(ex)">
-										<IconEdit />
-									</button>
-									<button class="btn btn-danger" @onclick="() => OpenDeleteExercise(ex)">
-										<IconDelete />
-									</button>
-								}
-								<button class="btn btn-info" @onclick="() => exerciseDialog.Show(ex)">
-									<IconAdd />
-								</button>
-							</td>
-						</tr>
-					}
-					<tr>
-						<td colspan="3">
-							<button class="btn btn-info" @onclick="() => newExerciseDialog.Show()">
-								Add a new Exercise! <IconAdd />
-							</button>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+@if (allExercises.Count == 0 && IsInWorkout)
+{
+	<h4>
+		Sorry, there are no exercises for this Sport.<br/>
+		You can add exercises by exiting this workout and going to the Sport's page.
+	</h4>
+}
+else
+{
+	<div class="row">
+		<div class="col-auto" style="word-wrap: break-word;">
+			<h3>Exercise library</h3>
+		</div>
+		<div class="col-auto float-end">
+			<InputSelect class="form-control" @bind-Value="filterType" @bind-Value:after="@RefreshSportComps">
+				<option value="-1">All</option>
+				@foreach (var t in Enum.GetValues(typeof(ExerciseType)))
+				{
+					<option value="@((int)t)">@t</option>
+				}
+			</InputSelect>
 		</div>
 	</div>
-</div>
+
+	<div class="row">
+		<div class="col">
+			<div class="table-responsive" style="max-height: 400px;">
+				<table class="table table-striped text-center">
+					<thead class="thead-light" style="position: sticky; top: 0; background-color: navajowhite">
+						<tr>
+							<th>
+								Name
+							</th>
+							<th>
+								Type
+							</th>
+							<th>
+								Open
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var ex in filteredExercises)
+						{
+							<tr>
+								<td>
+									@ex.Name
+								</td>
+								<td>
+									@ex.Type
+								</td>
+								<td>
+									@if (ex.Creator_Account_Id == _appState.CurrentUser.Id && !IsInWorkout)
+									{
+										<button class="btn btn-warning" @onclick="() => editExerciseDialog.Show(ex)">
+											<IconEdit />
+										</button>
+										<button class="btn btn-danger" @onclick="() => OpenDeleteExercise(ex)">
+											<IconDelete />
+										</button>
+									}
+									<button class="btn btn-info" @onclick="() => OnAdd(ex)">
+										<IconAdd />
+									</button>
+								</td>
+							</tr>
+						}
+						@if (!IsInWorkout)
+						{
+							<tr>
+								<td colspan="3">
+									<button class="btn btn-info" @onclick="() => newExerciseDialog.Show()">
+										Add a new Exercise! <IconAdd />
+									</button>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+}
 
 <WarningDialog Title="Deleting an Exercise" OnAcceptAction="OnDeleteExercise" @ref="warningDelete">
 	Do you want to delete @selectedExercise.Name?<br />
@@ -87,8 +100,10 @@
 <EditExerciseDialog AccountDoes="accountDoes" @ref="editExerciseDialog" />
 
 @code {
-	[Parameter, EditorRequired]
-	public int AccountDoesId { get; set; }
+	[Parameter, EditorRequired] public int AccountDoesId { get; set; }
+	[Parameter, EditorRequired] public bool IsInWorkout { get; set; }
+	[Parameter] public Func<Exercise, Task>? OnAddAction { get; set; }
+
 	private Account_does_Sport accountDoes;
 
 	private int filterType = -1;
@@ -131,6 +146,21 @@
 			filteredExercises = allExercises.Where(ex => (int)ex.Type == filterType).ToList();
 		else
 			filteredExercises = allExercises;
+	}
+
+	private async Task OnAdd(Exercise ex)
+	{
+		if (!IsInWorkout)
+		{
+			await exerciseDialog.Show(ex);
+		}
+		else
+		{
+			if (OnAddAction is not null)
+			{
+				await OnAddAction.Invoke(ex);
+			}
+		}
 	}
 
 	private void OpenDeleteExercise(Exercise ex)

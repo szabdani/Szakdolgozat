@@ -1,0 +1,41 @@
+﻿@inherits SportCompBase
+
+@using Bases
+@using Models.Sports
+@using MauiBlazorWeb.Shared.Components.Icons
+
+@if (isVisible)
+{
+    <div class="modal fade show" style="display:block" tabindex="-1" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Select an exercise to add to your workout</h5>
+                    <button type="button" class="btn-close" aria-label="Close" @onclick="Hide"></button>
+                </div>
+                <div class="modal-body">
+                    <ExerciseLibrary AccountDoesId="AccountDoesId" IsInWorkout="true" OnAddAction="Add"/>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-info" @onclick="Hide">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
+}
+
+@code {
+    [Parameter] public int AccountDoesId { get; set; } = 0;
+    [Parameter, EditorRequired] public List<Exercise> ExerciseList { get; set; }
+    private bool isVisible = false;
+
+    public void Show() => isVisible = true;
+    public void Hide() => isVisible = false;
+
+    private async Task Add(Exercise ex)
+    {
+        ExerciseList.Add(ex);
+        Hide();
+    }
+}

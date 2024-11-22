@@ -91,17 +91,8 @@
         messageStore = new ValidationMessageStore(editContext);
     }
 
-    public async Task Show()
-    {
-        isVisible = true;
-        await RefreshSportComps();
-    }
-
-    public async Task Hide()
-    {
-        isVisible = false;
-        await RefreshSportComps();
-    }
+    public void Show() => isVisible = true;
+    public void Hide() => isVisible = false;
 
     private async Task OnInsertExercise()
     {
@@ -151,7 +142,7 @@
                 if (isCorrect)
                 {
                     newExercise = new Exercise();
-                    await Hide();
+                    Hide();
                 }
                 else
                     throw new Exception($"Sorry, we could not register your Exercise");

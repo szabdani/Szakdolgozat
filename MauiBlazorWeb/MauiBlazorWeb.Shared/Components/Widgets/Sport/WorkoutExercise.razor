@@ -1,0 +1,19 @@
+﻿@inherits SportCompBase
+
+@using Bases
+@using Models.Sports
+
+<h3>Exercise: neve végén meg Reorder és Delete</h3>
+<h2>Ha van Routine notes, majd alatta mostani exercise notes</h2>
+<h2>Settek táblában felsorolva</h2>
+
+@code {
+	[Parameter, EditorRequired] public Exercise Exercise { get; set; }
+	private List<Sets> sets;
+
+	public WorkoutExercise()
+	{
+		Exercise = new Exercise();
+		sets = new List<Sets>();
+	}
+}

@@ -2,6 +2,7 @@
 
 @using Bases
 @using Models.Sports
+@using MauiBlazorWeb.Shared.Components.Icons
 
 @if (isVisible)
 {
@@ -13,7 +14,15 @@
                     <button type="button" class="btn-close" aria-label="Close" @onclick="Hide"></button>
                 </div>
                 <div class="modal-body">
-                    contetn
+                    <div class="row">
+                        Adatok, Naptár az alkalmakról, és megnyitja az aznapi workoutot
+                    </div>
+                    <div class="row">
+                        LineChart fejlődés alapján
+                    </div>
+                    <div class="row">
+                        Table a Workout-okról amikor volt ez a feladat
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-info" @onclick="Hide">Close</button>
@@ -28,9 +37,23 @@
     private Exercise exercise { get; set; }
     private bool isVisible = false;
 
+    private Account_does_Sport accountDoes;
+
     public ExerciseDialog()
     {
         exercise = new Exercise();
+
+        accountDoes = new Account_does_Sport();
+    }
+
+    protected override async Task ValidateParameters()
+    {
+        var list = await _sportManager.GetAccountDoesSport(_appState.CurrentUser.Id, exercise.Sport_Id);
+        var first = list.FirstOrDefault();
+        if (first != null)
+            accountDoes = first;
+
+        await base.ValidateParameters();
     }
 
     public async Task Show(Exercise ex)

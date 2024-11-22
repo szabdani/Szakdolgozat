@@ -3,7 +3,10 @@
 
 @using Bases
 @using MauiBlazorWeb.Shared.Components.Dialogs
+@using MauiBlazorWeb.Shared.Components.Icons
 @using Models.Sports
+
+@inject NavigationManager Navigation
 
 @if (!_appState.IsLoggedIn)
 {
@@ -20,10 +23,17 @@ else
 			<SportsCalendar AccountDoesId="AccountDoesId" />
 		</div>
 		<div class="col m-2" style="background-color: navajowhite">
-			<SportStat AccountDoesId="AccountDoesId" />
+			<div class="row">
+				<SportStat AccountDoesId="AccountDoesId" />
+			</div>
+			<div class="row">
+				<button class="btn btn-primary" @onclick="StartWorkout">
+					<IconAdd /> Start a new workout
+				</button>
+			</div>
 		</div>
 		<div class="col m-2" style="background-color: navajowhite">
-			<ExerciseLibrary AccountDoesId="AccountDoesId" />
+			<ExerciseLibrary AccountDoesId="AccountDoesId" IsInWorkout="false"/>
 		</div>
 	</div>
 	<div class="row">
@@ -54,6 +64,14 @@ else
 		sport = ValidateSport(accountDoesSport.Sport_Id);
 
 		await base.ValidateParameters();
+	}
+
+	private void StartWorkout()
+	{
+		if (accountDoesSport == null)
+			throw new Exception($"Sorry, this Sport is not followed.");
+		else
+			Navigation.NavigateTo($"new-workout/id={accountDoesSport.Id}", forceLoad: true);
 	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
