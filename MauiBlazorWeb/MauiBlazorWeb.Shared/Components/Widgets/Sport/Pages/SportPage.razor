@@ -17,18 +17,18 @@ else
 {
 	<div class="row">
 		<div class="col-auto m-2" style="background-color: navajowhite; max-width: 400px">
-			<div class="row">
-				<SportsCalendar AccountDoesId="AccountDoesId" />
-			</div>
-			<div class="row">
-				<SportStat AccountDoesId="AccountDoesId" />
-			</div>
-			<div class="row">
-				<RoutineTable AccountDoesId="AccountDoesId" />
-			</div>
-			<div class="row">
-				<ExerciseLibrary AccountDoesId="AccountDoesId" />
-			</div>
+			<SportsCalendar AccountDoesId="AccountDoesId" />
+		</div>
+		<div class="col m-2" style="background-color: navajowhite">
+			<SportStat AccountDoesId="AccountDoesId" />
+		</div>
+		<div class="col m-2" style="background-color: navajowhite">
+			<ExerciseLibrary AccountDoesId="AccountDoesId" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-auto m-2" style="background-color: navajowhite; max-width: 400px">
+			<RoutineTable AccountDoesId="AccountDoesId" />
 		</div>
 		<div class="col m-2" style="background-color: navajowhite">
 			<WorkoutsListed />
@@ -50,9 +50,10 @@ else
 
 	protected override async Task ValidateParameters()
 	{
-		await base.ValidateParameters();
 		accountDoesSport = ValidateAccountDoesSport(AccountDoesId);
 		sport = ValidateSport(accountDoesSport.Sport_Id);
+
+		await base.ValidateParameters();
 	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)

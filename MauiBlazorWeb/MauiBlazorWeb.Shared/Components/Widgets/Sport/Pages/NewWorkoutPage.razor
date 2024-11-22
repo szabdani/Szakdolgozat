@@ -41,7 +41,6 @@ else
 
 	protected override async Task ValidateParameters()
 	{
-		await base.ValidateParameters();
 		if (AccountDoesId == 0 && RoutineId == 0)
 			hasInvalidParameter = true;
 
@@ -59,6 +58,8 @@ else
 			accountDoesSport = ValidateAccountDoesSport(routine.Account_does_Sport_Id);
 			sport = ValidateSport(accountDoesSport.Sport_Id);
 		}
+
+		await base.ValidateParameters();
 	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)

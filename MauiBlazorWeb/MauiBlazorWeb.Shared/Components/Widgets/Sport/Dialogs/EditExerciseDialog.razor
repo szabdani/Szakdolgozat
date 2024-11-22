@@ -1,0 +1,169 @@
+﻿@inherits SportCompBase
+
+@using Bases
+@using Models.Sports
+
+@if (isVisible)
+{
+    <div class="modal fade show" style="display:block" tabindex="-1" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit @newExercise.Name</h5>
+                    <button type="button" class="btn-close" aria-label="Close" @onclick="Hide"></button>
+                </div>
+                <EditForm EditContext=editContext OnSubmit=OnEditExercise>
+                    <DataAnnotationsValidator />
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group row">
+                                    <label class="col col-form-label">Edit @oldName name:</label>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col">
+                                        <InputText class="form-control" @bind-Value=newExercise.Name />
+                                    </div>
+                                    <div class="col">
+                                        <label>
+                                            <InputCheckbox @bind-Value="isPublic" />
+                                            Want the Exercise to be public?
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col col-form-label">Exercise type:</label>
+                                    <div class="col">
+                                        <InputSelect class="form-control" @bind-Value="newExercise.Type">
+                                            @foreach (var t in Enum.GetValues(typeof(ExerciseType)))
+                                            {
+                                                <option value="@t">@t</option>
+                                            }
+                                        </InputSelect>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col col-form-label">Give a description (optional)</label>
+                                </div>
+                                <div class="form-group row">
+                                    <textarea class="form-control"
+                                                @bind="newExercise.Notes"
+                                                rows=" 2"
+                                                placeholder="Write something about this exercise"
+                                                style="resize:vertical;"
+                                                oninput="this.style.height = 'auto'; this.style.height = (this.scrollHeight) + 'px';">
+                                        </textarea>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col">
+                                        <ValidationMessage For="@(() => newExercise.Name)" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-warning flex-column" value="Enter" />
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
+}
+
+@code {
+    [Parameter, EditorRequired]
+    public Account_does_Sport AccountDoes { get; set; }
+    private bool isVisible = false;
+    private bool isPublic = true;
+    private string oldName = "";
+
+    private Exercise newExercise;
+    private EditContext editContext;
+    private ValidationMessageStore messageStore;
+
+    public EditExerciseDialog()
+    {
+        AccountDoes = new Account_does_Sport();
+
+        newExercise = new Exercise();
+        editContext = new EditContext(newExercise);
+        messageStore = new ValidationMessageStore(editContext);
+    }
+
+    public async Task Show(Exercise exercise)
+    {
+        newExercise = exercise;
+        oldName = newExercise.Name;
+        if (newExercise.Status == SportStatus.Public)
+            isPublic = true;
+        else
+            isPublic = false;
+
+        isVisible = true;
+        await RefreshSportComps();
+    }
+
+    public async Task Hide()
+    {
+        isVisible = false;
+        await RefreshSportComps();
+    }
+
+    private async Task OnEditExercise()
+    {
+        await _appState.ShowLoadingScreenWhileAwaiting(EditExercise);
+    }
+
+    private async Task EditExercise()
+    {
+        messageStore.Clear();
+        if (newExercise.Name == "")
+        {
+            messageStore.Add(() => newExercise.Name, $"You must set a name!");
+        }
+        else
+        {
+            bool nameUsed = false;
+            var list = await _sportManager.GetExercises(AccountDoes.Account_Id, AccountDoes.Sport_Id);
+
+            foreach (var s in list)
+            {
+                if (s.Name.Equals(newExercise.Name) && newExercise.Name != oldName)
+                {
+                    nameUsed = true;
+                    break;
+                }
+            }
+
+            if (nameUsed)
+            {
+                messageStore.Add(() => newExercise.Name, $"An exercise with this name already exists!");
+            }
+            else
+            {
+                newExercise.Creator_Account_Id = AccountDoes.Account_Id;
+                newExercise.Sport_Id = AccountDoes.Sport_Id;
+
+                if (isPublic)
+                {
+                    newExercise.Status = SportStatus.Public;
+                }
+                else
+                {
+                    newExercise.Status = SportStatus.Private;
+                }
+
+                bool isCorrect = await _sportManager.UpdateExercise(newExercise);
+                if (isCorrect)
+                {
+                    newExercise = new Exercise();
+                    await Hide();
+                }
+                else
+                    throw new Exception($"Sorry, we could not register your Exercise");
+            }
+        }
+    }
+}

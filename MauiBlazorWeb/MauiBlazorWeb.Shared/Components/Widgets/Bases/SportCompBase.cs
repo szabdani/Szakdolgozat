@@ -51,7 +51,7 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 		}
 		protected virtual async Task ValidateParameters()
 		{
-			await Task.CompletedTask;
+			await UpdateTables();
 		}
 
 		protected MauiBlazorWeb.Shared.Models.Sports.Sport ValidateSport(int SportId)

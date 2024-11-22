@@ -4,6 +4,7 @@
 @using Models.Sports
 @using MauiBlazorWeb.Shared.Components.Dialogs
 @using MauiBlazorWeb.Shared.Components.Icons
+@using MauiBlazorWeb.Shared.Components.Widgets.Sport.Dialogs
 
 @inject NavigationManager Navigation
 
@@ -85,14 +86,14 @@
 
 	protected override async Task ValidateParameters()
 	{
-		await base.ValidateParameters();
-
 		sport = ValidateSport(SportId);
 
 		var list = await _sportManager.GetAccountDoesSport(_appState.CurrentUser.Id, sport.Id);
 		var first = list.FirstOrDefault();
 		if (first != null)
 			accountDoes = first;
+
+		await base.ValidateParameters();
 	}
 
 	private void GoToPage()

@@ -34,9 +34,10 @@ else
 	}
 	protected override async Task ValidateParameters()
 	{
-		await base.ValidateParameters();
 		accountDoesSport = ValidateAccountDoesSport(AccountDoesId);
 		sport = ValidateSport(accountDoesSport.Sport_Id);
+
+		await base.ValidateParameters();
 	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)

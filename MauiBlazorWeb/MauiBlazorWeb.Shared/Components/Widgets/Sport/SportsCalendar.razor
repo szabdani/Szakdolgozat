@@ -20,8 +20,9 @@
 
 	protected override async Task ValidateParameters()
 	{
-		await base.ValidateParameters();
 		accountDoesSport = ValidateAccountDoesSport(AccountDoesId);
+
+		await base.ValidateParameters();
 	}
 
 	protected override async Task UpdateTables()

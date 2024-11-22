@@ -17,7 +17,7 @@ else
 {
 
 	<div class="col-auto m-2" style="background-color: navajowhite">
-		exercise page
+		Ha dialogban mutatom, akkor ez az oldal felesleges
 	</div>
 }
 
@@ -35,10 +35,10 @@ else
 	}
 	protected override async Task ValidateParameters()
 	{
-		await base.ValidateParameters();
-
 		exercise = await ValidateExercise(ExerciseId);
 		sport = ValidateSport(exercise.Sport_Id);
+
+		await base.ValidateParameters();
 	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
