@@ -2,6 +2,7 @@
 
 @using Bases
 @using Models.Sports
+@using BlazorBootstrap
 
 @if (isVisible)
 {
@@ -26,8 +27,7 @@
                                     </div>
                                     <div class="col">
                                         <label>
-                                            <InputCheckbox @bind-Value="isPublic" />
-                                            Want the Sport to be public?
+                                            <Switch @bind-Value="isPublic" Label="Public Sport?" />
                                         </label>
                                     </div>
                                 </div>

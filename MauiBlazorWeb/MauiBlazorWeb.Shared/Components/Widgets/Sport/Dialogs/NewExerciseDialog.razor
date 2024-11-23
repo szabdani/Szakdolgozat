@@ -2,6 +2,7 @@
 
 @using Bases
 @using Models.Sports
+@using BlazorBootstrap
 
 @if (isVisible)
 {
@@ -26,8 +27,7 @@
                                     </div>
                                     <div class="col">
                                         <label>
-                                            <InputCheckbox @bind-Value="isPublic" />
-                                            Want the Exercise to be public?
+                                            <Switch @bind-Value="isPublic" Label="Public Exercise?" />
                                         </label>
                                     </div>
                                 </div>
@@ -91,8 +91,17 @@
         messageStore = new ValidationMessageStore(editContext);
     }
 
-    public void Show() => isVisible = true;
-    public void Hide() => isVisible = false;
+    public async Task Show()
+    {
+        isVisible = true;
+        await RefreshSportComps();
+    }
+
+    public async Task Hide()
+    {
+        isVisible = false;
+        await RefreshSportComps();
+    }
 
     private async Task OnInsertExercise()
     {
@@ -142,7 +151,7 @@
                 if (isCorrect)
                 {
                     newExercise = new Exercise();
-                    Hide();
+                    await Hide();
                 }
                 else
                     throw new Exception($"Sorry, we could not register your Exercise");

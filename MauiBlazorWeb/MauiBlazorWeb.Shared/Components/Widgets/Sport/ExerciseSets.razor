@@ -1,0 +1,262 @@
+﻿@inherits SportCompBase
+
+@using Bases
+@using Models.Sports
+@using MauiBlazorWeb.Shared.Components.Icons
+@using BlazorBootstrap
+
+<div class="row">
+	<table class="table table-striped text-center">
+		<thead class="thead-light">
+			<tr>
+				<th>Set</th>
+				@switch (Exercise.Type)
+				{
+					case ExerciseType.Bodyweight:
+						<th>Reps</th>
+						<th>RPE</th>
+						break;
+					case ExerciseType.Machine:
+						<th>KG</th>
+						<th>Reps</th>
+						<th>RPE</th>
+						break;
+					case ExerciseType.Timed:
+						<th>Hours</th>
+						<th>Minutes</th>
+						<th>Seconds</th>
+						break;
+					case ExerciseType.Distanced:
+						<th>KM</th>
+						<th>Hours</th>
+						<th>Minutes</th>
+						<th>Seconds</th>
+						break;
+					default:
+						break;
+				}
+				<th>Done</th>
+				<th>Del</th>
+			</tr>
+		</thead>
+		<tbody>
+			@{int i = 1;}
+			@foreach (var set in sets)
+			{
+				<tr class="@(set.IsDone ? "done" : "undone")">
+					<th class="tracker-post" @onclick="() => CycleSetType(set)">
+						@switch (set.Type)
+						{
+							case SetsType.Normal:
+								@(i++);
+								break;
+							case SetsType.Warmup:
+								<div class="text-danger">
+									W
+								</div>
+								break;
+							case SetsType.Drop:
+								<div class="text-info">
+									D
+								</div>
+								break;
+						}
+					</th>
+
+					@switch (Exercise.Type)
+					{
+						case ExerciseType.Bodyweight:
+							<td>
+								<NumberInput TValue="int?" @bind-Value=set.Reps EnableMinMax="true" Min="0" Style="background-color: inherit" />
+							</td>
+							<td>
+								<NumberInput TValue="int?" @bind-Value=set.RPE EnableMinMax="true" Min="0" Max="10" Style="background-color: inherit" />
+							</td>
+							break;
+						case ExerciseType.Machine:
+							<td>
+								<NumberInput TValue="double?" @bind-Value=set.Weight EnableMinMax="true" Min="0" Style="background-color: inherit" />
+							</td>
+							<td>
+								<NumberInput TValue="int?" @bind-Value=set.Reps EnableMinMax="true" Min="0" Style="background-color: inherit" />
+							</td>
+							<td>
+								<NumberInput TValue="int?" @bind-Value=set.RPE EnableMinMax="true" Min="0" Max="10" Style="background-color: inherit" />
+							</td>
+							break;
+						case ExerciseType.Timed:
+							<td>
+								<NumberInput TValue="int" @bind-Value=set.LengthHours EnableMinMax="true" Min="0" Max="99" Style="background-color: inherit" />
+							</td>
+							<td>
+								<NumberInput TValue="int" @bind-Value=set.LengthMinutes EnableMinMax="true" Min="0" Max="59" Style="background-color: inherit" />
+							</td>
+							<td>
+								<NumberInput TValue="int" @bind-Value=set.LengthSeconds EnableMinMax="true" Min="0" Max="59" Style="background-color: inherit" />
+							</td>
+							break;
+						case ExerciseType.Distanced:
+							<td>
+								<NumberInput TValue="double?" @bind-Value=set.Distance EnableMinMax="true" Min="0" Style="background-color: inherit" />
+							</td>
+							<td>
+								<NumberInput TValue="int" @bind-Value=set.LengthHours EnableMinMax="true" Min="0" Max="99" Style="background-color: inherit" />
+							</td>
+							<td>
+								<NumberInput TValue="int" @bind-Value=set.LengthMinutes EnableMinMax="true" Min="0" Max="59" Style="background-color: inherit" />
+							</td>
+							<td>
+								<NumberInput TValue="int" @bind-Value=set.LengthSeconds EnableMinMax="true" Min="0" Max="59" Style="background-color: inherit" />
+							</td>
+							break;
+						default:
+							break;
+					}
+
+					<td class="@(set.IsDone ? "done" : "tracker-post")" @onclick="() => ToggleSetDone(set)">
+						@if (set.IsDone)
+						{
+							<IconDone />
+						}
+						else
+						{
+							<IconDash />
+						}
+					</td>
+					<td class="delete" @onclick="() => Test(set)">
+						Ha lesz workout DB-ben akkor lehet tesztelni
+					</td>
+					<td class="delete" @onclick="() => DeleteSet(set)">
+						<IconDelete />
+					</td>
+				</tr>
+			}
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="@addColspan">
+					<button class="btn btn-info" @onclick="AddSet">
+						Add a new Set! <IconAdd />
+					</button>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+</div>
+
+
+
+
+
+@code {
+	[Parameter, EditorRequired] public Workout Workout { get; set; }
+	[Parameter, EditorRequired] public Exercise Exercise { get; set; }
+
+	private List<Sets> sets;
+	private int addColspan;
+
+	public ExerciseSets()
+	{
+		Workout = new Workout();
+		Exercise = new Exercise();
+
+		sets = new List<Sets>();
+	}
+
+	protected override async Task OnInitializedAsync()
+	{
+		await base.OnInitializedAsync();
+
+		@switch (Exercise.Type)
+		{
+			case ExerciseType.Bodyweight:
+				addColspan = 5;
+				break;
+			case ExerciseType.Machine:
+				addColspan = 6;
+				break;
+			case ExerciseType.Timed:
+				addColspan = 4;
+				break;
+			case ExerciseType.Distanced:
+				addColspan = 5;
+				break;
+			case ExerciseType.Other:
+				addColspan = 3;
+				break;
+		}
+
+		AddSet();
+	}
+
+	private void CycleSetType(Sets set)
+	{
+		if (set.Type == SetsType.Drop)
+			set.Type = SetsType.Normal;
+		else
+			set.Type++;
+	}
+
+	private void ToggleSetDone(Sets set)
+	{
+		set.IsDone = !set.IsDone;
+	}
+
+	private void DeleteSet(Sets set)
+	{
+		sets.Remove(set);
+	}
+
+	private async Task Test(Sets set)
+	{
+		await _sportManager.InsertSet(set);
+		var lsit = await _sportManager.GetSetsByWorkout(Workout.Id);
+		sets.AddRange(lsit);
+	}
+
+	private void AddSet()
+	{
+		Sets newSet = new Sets { Exercise_Id = Exercise.Id, Workout_Id = Workout.Id };
+		sets.Add(newSet);
+	}
+
+	public async Task<bool> ValidateSets()
+	{
+		await Task.CompletedTask;
+		return false;
+	}
+}
+
+<style>
+	.tracker-post {
+		vertical-align: middle;
+		cursor: pointer;
+		transition: background-color 0.3s;
+	}
+
+		.tracker-post:hover {
+			background-color: powderblue;
+		}
+
+	.undone {
+		vertical-align: middle;
+		transition: background-color 0.3s;
+	}
+
+	.done {
+		vertical-align: middle;
+		transition: background-color 0.3s;
+		background-color: lightgreen;
+	}
+
+	.delete {
+		vertical-align: middle;
+		cursor: pointer;
+		transition: background-color 0.3s;
+		background-color: red;
+	}
+
+		.delete:hover {
+			background-color: lightcoral;
+		}
+</style>

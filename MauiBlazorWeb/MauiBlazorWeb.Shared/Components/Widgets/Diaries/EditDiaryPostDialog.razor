@@ -37,9 +37,9 @@
                                                     break;
                                                 case DiaryColumnType.NumberRange:
                                                     <div class="form-group row">
-                                                        <label class="col col-form-label">Enter a number between @col.Value_range_min and @col.Value_range_max</label>
+                                                        <label class="col col-form-label">Enter rating: @inputNumber</label>
                                                     </div>
-                                                    <NumberInput TValue="int" @bind-Value=inputNumber EnableMinMax="true" Min="col.Value_range_min" Max="col.Value_range_max" />
+                                                    <RangeInput TValue="int" @bind-Value="inputNumber" Min="col.Value_range_min" Max="col.Value_range_max" />
                                                     break;
                                             }  
                                         </div>

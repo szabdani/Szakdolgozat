@@ -19,47 +19,151 @@ else if (hasInvalidParameter)
 else
 {
 	<div class="row">
-		<div class="col m-2" style="background-color: navajowhite">
-			<div class="row">
+		<div class="col-auto m-2 float-end">
+			<div class="row" style="background-color: darkgrey">
 				<div class="col">
-					<h5>
-						Workout duration: @(clock.Hours == 0 ? clock.ToString(@"mm\:ss") : clock.ToString(@"hh:\mm\:ss"))
-					</h5>
-				</div>
-				<div class="col-auto float-end">
-					<button class="btn btn-primary" @onclick="OnFinishWorkout">
-						Finish Workout
-					</button>
-				</div>
-			</div>
-
-			@if (exercises.Count == 0)
-			{
-				<div class="row">
-					<div class="col d-flex justify-content-center">
-						<h3>
-							Pick an exercise to start tracking
-						</h3>
-					</div>
-				</div>
-			}
-			else
-			{
-				@foreach (var ex in exercises)
-				{
 					<div class="row">
-						<div class="col d-flex justify-content-center">
-							<WorkoutExercise Workout="workout" Exercise="ex" @ref="exerciseBoxRefs[ex.Id]"/>
+						<div class="col-auto">
+							<h4>
+								Workout duration: @(clock.Hours == 0 ? clock.ToString(@"mm\:ss") : clock.ToString(@"hh:\mm\:ss"))
+							</h4>
+						</div>
+						<div class="col-auto float-end">
+							<button class="btn btn-primary" @onclick="OnFinishWorkout">
+								Finish Workout
+							</button>
 						</div>
 					</div>
-				}
-			}
-
+				</div>
+			</div>
+			<div class="row" style="background-color: lightgray">
+				<div class="col">
+					<table class="table table-striped text-center">
+						@if (exercises.Count != 0)
+						{
+							<thead class="thead-light">
+								<tr>
+									<th>Name</th>
+									<th colspan="2">Reorder</th>
+									<th>Del</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var ex in exercises)
+								{
+									<tr>
+										<td>
+											@ex.Name
+										</td>
+										<td>
+											@if (exercises.First() != ex)
+											{
+												<button class="btn btn-info" @onclick="() => MoveExerciseUp(ex)">
+													<IconUp />
+												</button>
+											}
+											else
+											{
+												<IconDash />
+											}
+										</td>
+										<td>
+											@if (exercises.Last() != ex)
+											{
+												<button class="btn btn-info" @onclick="() => MoveExerciseDown(ex)">
+													<IconDown />
+												</button>
+											}
+											else
+											{
+												<IconDash />
+											}
+										</td>
+										<td>
+											<button class="btn btn-danger" @onclick="() => RemoveExercise(ex)">
+												<IconDelete />
+											</button>
+										</td>
+									</tr>
+								}
+							</tbody>
+						}
+						else
+						{
+							<thead class="thead-light">
+								<tr>
+									<th colspan="4">Pick an exercise to start tracking</th>
+								</tr>
+							</thead>
+						}
+						<tfoot>
+							<tr>
+								<td colspan="4">
+									<button class="btn btn-primary" @onclick="() => addExerciseDialog.Show()">
+										<IconAdd /> Add an Exercise
+									</button>
+								</td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="col m-2">
+			<div class="row" style="background-color: darkgrey">
+				<div class="col text-danger">
+					<h4>
+						This workout is not saved! If you leave the page all data will be lost!
+					</h4>
+				</div>
+			</div>
 			<div class="row">
-				<div class="col d-flex justify-content-center">
-					<button class="btn btn-primary" @onclick="() => addExerciseDialog.Show()">
-						<IconAdd/> Add an Exercise
-					</button>
+				<div class="col">
+					<div class="row">
+						<div class="col">
+							@if (exercises.Count != 0)
+							{
+								@foreach (var ex in exercises)
+								{
+									<div class="row" style="background-color: lightgrey">
+										<div class="col">
+											<div class="row">
+												<div class="col">
+													<h4>@ex.Name</h4>
+												</div>
+												<div class="col-auto float-end">
+													<button class="btn btn-danger" @onclick="() => RemoveExercise(ex)">
+														<IconDelete />
+													</button>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col">
+													<h5 class="text-secondary">Ha van Routine notes, majd alatta ide kell írni</h5>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col">
+													<textarea class="form-control"
+													@bind="ex.Notes"
+													rows="1"
+													placeholder="Add notes here"
+													style="resize:vertical; background-color: lightgrey"
+													oninput="this.style.height = 'auto'; this.style.height = (this.scrollHeight) + 'px';">
+													</textarea>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row" style="background-color: navajowhite">
+										<div class="col">
+											<ExerciseSets Workout="workout" Exercise="ex" @ref="exerciseBoxRefs[ex.Id]" />
+										</div>
+									</div>
+								}
+							}
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -67,6 +171,7 @@ else
 }
 
 <AddExerciseDialog AccountDoesId="AccountDoesId" ExerciseList="exercises" @ref="addExerciseDialog" />
+
 
 @code {
 	[Parameter]
@@ -86,7 +191,7 @@ else
 
 	private AddExerciseDialog addExerciseDialog;
 
-	private Dictionary<int, WorkoutExercise> exerciseBoxRefs;
+	private Dictionary<int, ExerciseSets> exerciseBoxRefs;
 
 	public NewWorkoutPage()
 	{
@@ -99,7 +204,7 @@ else
 
 		addExerciseDialog = new AddExerciseDialog();
 
-		exerciseBoxRefs = new Dictionary<int, WorkoutExercise>();
+		exerciseBoxRefs = new Dictionary<int, ExerciseSets>();
 	}
 
 	protected override void OnInitialized()
@@ -158,6 +263,28 @@ else
 
 			await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
 		}
+	}
+
+	private void RemoveExercise(Exercise ex)
+	{
+		exercises.Remove(ex);
+		exerciseBoxRefs.Remove(ex.Id);
+	}
+
+	private void MoveExerciseUp(Exercise ex)
+	{
+		var index = exercises.IndexOf(ex);
+		var temp = exercises[index];
+		exercises[index] = exercises[index - 1];
+		exercises[index - 1] = temp;
+	}
+
+	private void MoveExerciseDown(Exercise ex)
+	{
+		var index = exercises.IndexOf(ex);
+		var temp = exercises[index];
+		exercises[index] = exercises[index + 1];
+		exercises[index + 1] = temp;
 	}
 
 	private async Task OnFinishWorkout()
