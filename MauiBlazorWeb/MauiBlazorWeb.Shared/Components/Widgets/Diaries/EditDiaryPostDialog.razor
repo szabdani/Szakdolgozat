@@ -2,6 +2,7 @@
 
 @using Bases
 @using Models.Diaries
+@using BlazorBootstrap
 
 @if (isVisible)
 {
@@ -38,7 +39,7 @@
                                                     <div class="form-group row">
                                                         <label class="col col-form-label">Enter a number between @col.Value_range_min and @col.Value_range_max</label>
                                                     </div>
-                                                    <InputNumber class="form-control" @bind-Value=inputNumber />
+                                                    <NumberInput TValue="int" @bind-Value=inputNumber EnableMinMax="true" Min="col.Value_range_min" Max="col.Value_range_max" />
                                                     break;
                                             }  
                                         </div>

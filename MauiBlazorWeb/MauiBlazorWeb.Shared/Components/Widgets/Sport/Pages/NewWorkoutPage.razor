@@ -32,28 +32,31 @@ else
 					</button>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col">
-					@if (exercises.Count == 0)
-					{
+
+			@if (exercises.Count == 0)
+			{
+				<div class="row">
+					<div class="col d-flex justify-content-center">
 						<h3>
 							Pick an exercise to start tracking
 						</h3>
-					}
-					else
-					{
-						@foreach (var ex in exercises)
-						{
-							<h3>
-								@ex.Name
-							</h3>
-							<WorkoutExercise Exercise="ex"/>
-						}
-					}
+					</div>
 				</div>
-			</div>
+			}
+			else
+			{
+				@foreach (var ex in exercises)
+				{
+					<div class="row">
+						<div class="col d-flex justify-content-center">
+							<WorkoutExercise Workout="workout" Exercise="ex" @ref="exerciseBoxRefs[ex.Id]"/>
+						</div>
+					</div>
+				}
+			}
+
 			<div class="row">
-				<div class="col justify-content-center">
+				<div class="col d-flex justify-content-center">
 					<button class="btn btn-primary" @onclick="() => addExerciseDialog.Show()">
 						<IconAdd/> Add an Exercise
 					</button>
@@ -83,6 +86,8 @@ else
 
 	private AddExerciseDialog addExerciseDialog;
 
+	private Dictionary<int, WorkoutExercise> exerciseBoxRefs;
+
 	public NewWorkoutPage()
 	{
 		accountDoesSport = new Account_does_Sport();
@@ -93,6 +98,8 @@ else
 		exercises = new List<Exercise>();
 
 		addExerciseDialog = new AddExerciseDialog();
+
+		exerciseBoxRefs = new Dictionary<int, WorkoutExercise>();
 	}
 
 	protected override void OnInitialized()
@@ -159,8 +166,30 @@ else
 		await _appState.ShowLoadingScreenWhileAwaiting(FinishWorkout);
 	}
 
+	private async Task<bool> ValidateExercises()
+	{
+		bool isValid = true;
+
+		foreach (var box in exerciseBoxRefs)
+		{ 
+			isValid = await box.Value.ValidateSets();
+			if (!isValid)
+				break;
+		}	
+
+		return isValid;
+	}
+
 	private async Task FinishWorkout()
 	{
-
+		bool isValid = await ValidateExercises();
+		if (!isValid)
+		{
+			
+		}
+		else
+		{
+			workout.IsDone = true;
+		}
 	}
 }

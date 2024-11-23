@@ -76,8 +76,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xJY29uc1xJY29uQWRkLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Icons/IconDash.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xJY29uc1xJY29uRGFzaC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Icons/IconDelete.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xJY29uc1xJY29uRGVsZXRlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Icons/IconDone.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xJY29uc1xJY29uRG9uZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Dani/BME/felev_7/szakdoga/Program/Szakdolgozat/MauiBlazorWeb/MauiBlazorWeb.Shared/Components/Icons/IconEdit.razor]

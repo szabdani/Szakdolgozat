@@ -123,7 +123,7 @@ namespace MauiBlazorWeb.Shared.Services
 					reps = newSet.Reps, 
 					rpe = newSet.RPE, 
 					weight = newSet.Weight, 
-					length = newSet.Length.ToString(@"hh\:mm\:ss"), 
+					length = newSet.Length?.ToString(@"hh\:mm\:ss"), 
 					distance = newSet.Distance, 
 					exid = newSet.Exercise_Id, 
 					workid = newSet.Workout_Id 
@@ -142,7 +142,7 @@ namespace MauiBlazorWeb.Shared.Services
 					reps = oldSet.Reps,
 					rpe = oldSet.RPE,
 					weight = oldSet.Weight,
-					length = oldSet.Length.ToString(@"hh\:mm\:ss"),
+					length = oldSet.Length?.ToString(@"hh\:mm\:ss"),
 					distance = oldSet.Distance,
 					exid = oldSet.Exercise_Id,
 					workid = oldSet.Workout_Id,

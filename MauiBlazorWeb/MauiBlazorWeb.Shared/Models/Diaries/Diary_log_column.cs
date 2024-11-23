@@ -16,8 +16,8 @@ namespace MauiBlazorWeb.Shared.Models.Diaries
 		[Required(ErrorMessage = "You must set a name.")]
 		public string Name { get; set; } = "";
 		public DiaryColumnType Type { get; set; }
-		public int Value_range_min { get; set; } = 0;
-		public int Value_range_max { get; set; } = 10;
+		public int Value_range_min { get; set; }
+		public int Value_range_max { get; set; }
 		public int Account_Id { get; set; }
 	}
 }

@@ -2,6 +2,7 @@
 
 @using Bases
 @using Models.Diaries
+@using BlazorBootstrap
 
 @if (isVisible)
 {
@@ -69,7 +70,7 @@
                                         </div>
                                         <div class="col">
                                             <div class="col">
-                                                <InputNumber class="form-control" @bind-Value=newCol.Value_range_min />
+                                                <NumberInput TValue="int" @bind-Value="@newCol.Value_range_min" />
                                             </div>
                                         </div>
                                     </div>
@@ -79,7 +80,7 @@
                                         </div>
                                         <div class="col">
                                             <div class="col">
-                                                <InputNumber class="form-control" @bind-Value=newCol.Value_range_max />
+                                                <NumberInput TValue="int" @bind-Value="@newCol.Value_range_max" />
                                             </div>
                                         </div>
                                     </div>

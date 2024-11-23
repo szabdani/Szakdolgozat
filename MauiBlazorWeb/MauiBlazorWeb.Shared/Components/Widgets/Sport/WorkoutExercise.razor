@@ -2,18 +2,227 @@
 
 @using Bases
 @using Models.Sports
+@using MauiBlazorWeb.Shared.Components.Icons
+@using BlazorBootstrap
 
-<h3>Exercise: neve végén meg Reorder és Delete</h3>
-<h2>Ha van Routine notes, majd alatta mostani exercise notes</h2>
-<h2>Settek táblában felsorolva</h2>
+<div class="row">
+	<div class="col">
+		<div class="row">
+			<div class="col">
+				<h3>Exercise: neve végén meg Reorder és Delete</h3>
+				<h2>Ha van Routine notes, majd alatta mostani exercise notes</h2>
+				<h2>Settek táblában felsorolva</h2>
+			</div>
+		</div>
+		<div class="row">
+			<table class="table table-striped text-center">
+				<thead class="thead-light">
+					<tr>
+						<th>
+							Set
+						</th>
+						@switch (Exercise.Type)
+						{
+							case ExerciseType.Bodyweight:
+								<th>Reps</th>
+								<th>RPE</th>
+								<th>Done</th>
+								break;
+							case ExerciseType.Machine:
+								<th>KG</th>
+								<th>Reps</th>
+								<th>RPE</th>
+								<th>Done</th>
+								break;
+							case ExerciseType.Timed:
+								<th>Time</th>
+								<th>Done</th>
+								break;
+							case ExerciseType.Distanced:
+								<th>KM</th>
+								<th>Time</th>
+								<th>Done</th>
+								break;
+							case ExerciseType.Other:
+								<th>Done</th>
+								break;
+						}
+					</tr>
+				</thead>
+				<tbody>
+					@{int i = 1;}
+					@foreach (var set in sets)
+					{
+						<tr class="@(set.IsDone ? "done" : "undone")">
+							<th class="tracker-post" @onclick="() => CycleSetType(set)">
+								@switch (set.Type)
+								{
+									case SetsType.Normal:
+										@(i++);
+										break;
+									case SetsType.Warmup:
+										<div class="text-danger">
+											W
+										</div>
+										break;
+									case SetsType.Drop:
+										<div class="text-info">
+											D
+										</div>
+										break;
+								}
+							</th>
+
+							@switch (Exercise.Type)
+							{
+								case ExerciseType.Machine:
+									<td>
+										<NumberInput TValue="double?" @bind-Value=set.Weight EnableMinMax="true" Min="0" />
+									</td>
+									continue;
+								case ExerciseType.Bodyweight:
+									<td>
+										<NumberInput TValue="int?" @bind-Value=set.Reps EnableMinMax="true" Min="0" />
+									</td>
+									<td>
+										<NumberInput TValue="int?" @bind-Value=set.RPE EnableMinMax="true" Min="0" Max="10" />
+									</td>
+									break;
+								case ExerciseType.Distanced:
+									<td>
+										<NumberInput TValue="double?" @bind-Value=set.Distance EnableMinMax="true" Min="0" />
+									</td>
+									continue;
+								case ExerciseType.Timed:
+									<th>Time</th>
+									break;
+								default:
+									break;
+							}
+
+							<td class="@(set.IsDone ? "done" : "tracker-post")" @onclick="() => ToggleSetDone(set)">
+								@if (set.IsDone)
+								{
+									<IconDone />
+								}
+								else
+								{
+									<IconDash />
+								}
+							</td>
+							<td class="@(set.IsDone ? "done" : "tracker-post")" @onclick="() => DeleteSet(set)">
+								<IconDelete />
+							</td>
+						</tr>
+					}
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="@addColspan">
+							<button class="btn btn-info" @onclick="AddSet">
+								Add a new Set! <IconAdd />
+							</button>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+</div>
+
+
+
+
 
 @code {
+	[Parameter, EditorRequired] public Workout Workout { get; set; }
 	[Parameter, EditorRequired] public Exercise Exercise { get; set; }
 	private List<Sets> sets;
 
+	private int addColspan;
+
 	public WorkoutExercise()
 	{
+		Workout = new Workout();
 		Exercise = new Exercise();
 		sets = new List<Sets>();
 	}
+
+	protected override async Task OnInitializedAsync()
+	{
+		await base.OnInitializedAsync();
+
+		@switch (Exercise.Type)
+		{
+			case ExerciseType.Bodyweight:
+				addColspan = 4;
+				break;
+			case ExerciseType.Machine:
+				addColspan = 5;
+				break;
+			case ExerciseType.Timed:
+				addColspan = 3;
+				break;
+			case ExerciseType.Distanced:
+				addColspan = 4;
+				break;
+			case ExerciseType.Other:
+				addColspan = 2;
+				break;
+		}
+
+		AddSet();
+	}
+
+	private void CycleSetType(Sets set)
+	{
+		if (set.Type == SetsType.Drop)
+			set.Type = SetsType.Normal;
+		else
+			set.Type++;
+	}
+
+	private void ToggleSetDone(Sets set)
+	{
+		set.IsDone = !set.IsDone;
+	}
+
+	private void DeleteSet(Sets set)
+	{
+		sets.Remove(set);
+	}
+
+	private void AddSet()
+	{
+		Sets newSet = new Sets { Exercise_Id = Exercise.Id, Workout_Id = Workout.Id };
+		sets.Add(newSet);
+	}
+
+	public async Task<bool> ValidateSets()
+	{
+		await Task.CompletedTask;
+		return false;
+	}
 }
+
+<style>
+	.tracker-post {
+		vertical-align: middle;
+		cursor: pointer;
+		transition: background-color 0.3s;
+	}
+
+		.tracker-post:hover {
+			background-color: powderblue;
+		}
+
+	.undone {
+		transition: background-color 0.3s;
+	}
+
+	.done {
+		vertical-align: middle;
+		transition: background-color 0.3s;
+		background-color: lightgreen;
+	}
+</style>

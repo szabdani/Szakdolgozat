@@ -73,17 +73,19 @@ else
 								</td>
 							</tr>
 						}
+					</tbody>
 						@if (!IsInWorkout)
 						{
-							<tr>
-								<td colspan="3">
-									<button class="btn btn-info" @onclick="() => newExerciseDialog.Show()">
-										Add a new Exercise! <IconAdd />
-									</button>
-								</td>
-							</tr>
+							<tfoot>
+								<tr>
+									<td colspan="3">
+										<button class="btn btn-info" @onclick="() => newExerciseDialog.Show()">
+											Add a new Exercise! <IconAdd />
+										</button>
+									</td>
+								</tr>
+							</tfoot>
 						}
-					</tbody>
 				</table>
 			</div>
 		</div>
