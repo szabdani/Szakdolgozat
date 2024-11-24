@@ -2,11 +2,95 @@
 
 @using Bases
 @using Models.Sports
+@using MauiBlazorWeb.Shared.Components.Icons
 
-<h3>Workout box: header - Workout name | Routine name | Date | alatta sorban Notes egy ideig kiírva majd cut</h3>
-<h2>Workout content: Feladat nevek és Settek száma felsorolva 2xA db táblázatban</h2>
-<h2>Legalján széles button: See workout!</h2>
+<div class="row" style="background-color: #ffefef">
+	<div class="col">
+		<div class="row h4 fw-bold">
+			<div class="col-auto">
+				@(workout.Name ?? "Unnamed workout")
+			</div>
+			<div class="col-auto">
+				@workout.Duration.ToString(@"hh\:mm\:ss")
+			</div>
+			@if (workout.Routine_Id is not null)
+			{
+				<div class="col-auto">
+					Routine: @routine.Name
+				</div>
+			}
+			<div class="col-auto">
+				@workout.Starttime.ToString("yyyy-MM-dd HH:mm")
+			</div>
+
+			<div class="col-auto float-end">
+				<button class="btn btn-info" @onclick="() => GoToWorkout(workout)">
+					<IconAdd />
+				</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				@(workout.Notes ?? "-")
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="row" style="background-color: lightslategray">
+	@foreach (var ex in exercises)
+	{
+		<div class="col m-1 h5" style="background-color: floralwhite">
+			@numberOfSets[ex.Id] Set@(numberOfSets[ex.Id] > 1 ? "s" : "") of @ex.Name
+		</div>
+	}
+</div>
 
 @code {
+	[Parameter, EditorRequired]
+	public int WorkoutId { get; set; } = 0;
 
+	private Workout workout;
+	private Routine routine;
+
+	private Dictionary<int, int> numberOfSets;
+	private List<Exercise> exercises;
+
+	public WorkoutBox()
+	{
+		workout = new Workout();
+		routine = new Routine();
+
+		exercises = new List<Exercise>();
+		numberOfSets = new Dictionary<int, int>();
+	}
+
+	protected override async Task UpdateTables()
+	{
+		await base.UpdateTables();
+
+		workout = await ValidateWorkout(WorkoutId);
+		if (workout.Routine_Id is not null)
+			routine = await ValidateRoutine((int)workout.Routine_Id);
+
+		var sets = await _sportManager.GetSetsByWorkout(workout.Id);
+		var exIds = sets.Select(s => s.Exercise_Id).Distinct().ToList();
+
+		exercises = new List<Exercise>();
+		numberOfSets = new Dictionary<int, int>();
+
+		foreach (var id in exIds)
+		{
+			List<Exercise> exList = await _sportManager.GetExercise(id);
+			exercises.Add(exList.First());
+
+			numberOfSets[id] = sets.Where(s => s.Exercise_Id == id).Count();
+		}
+	}
+
+	private void GoToWorkout(Workout workout)
+	{
+		navigation.NavigateTo($"workout/id={workout.Id}", true);
+	}
 }

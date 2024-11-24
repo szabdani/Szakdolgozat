@@ -2,9 +2,102 @@
 
 @using Bases
 @using Models.Sports
+@using MauiBlazorWeb.Shared.Components.Icons
 
-<h3>WorkoutsListed foreach workout in accountdoes show the workoutBox</h3>
+<div class="row">
+	<div class="col">
+		<div class="row" style="background-color: darkgrey">
+			<div class="col">
+				<h3>All your @sport.Name workouts</h3>
+			</div>
+		</div>
+		<div class="row" style="background-color: lightgrey">
+			<div class="col">
+				@if (doneWorkouts.Count == 0 && undoneWorkouts.Count == 0)
+				{
+					<h5>You have no workouts.</h5>
+				}
+				else
+				{
+					if (doneWorkouts.Count != 0)
+					{
+						<div class="row" style="background-color: lightgreen">
+							<div class="col text-center">
+								<h3>Completed workouts</h3>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								@foreach (var workout in doneWorkouts)
+								{
+									<div class="row mb-2">
+										<div class="col m-2">
+											<WorkoutBox WorkoutId="workout.Id" />
+										</div>
+									</div>
+								}
+							</div>
+						</div>
+					}
+					if (undoneWorkouts.Count != 0)
+					{
+						<div class="row" style="background-color: lightcoral">
+							<div class="col text-center">
+								<h3>Unfinished workouts</h3>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								@foreach (var workout in undoneWorkouts)
+								{
+									<div class="row mb-2">
+										<div class="col m-2">
+											<WorkoutBox WorkoutId="workout.Id" />
+										</div>
+									</div>
+								}
+							</div>
+						</div>
+					}
+				}
+			</div>
+		</div>
+	</div>
+</div>
 
 @code {
+	[Parameter, EditorRequired]
+	public int AccountDoesId { get; set; } = 0;
 
+	private Sport sport;
+	private Account_does_Sport accountDoes;
+	private List<Workout> doneWorkouts;
+	private List<Workout> undoneWorkouts;
+
+	public WorkoutsListed()
+	{
+		sport = new Sport();
+		accountDoes = new Account_does_Sport();
+		doneWorkouts = new List<Workout>();
+		undoneWorkouts = new List<Workout>();
+	}
+
+	protected override async Task UpdateTables()
+	{
+		await base.UpdateTables();
+
+		accountDoes = ValidateAccountDoesSport(AccountDoesId);
+		sport = ValidateSport(accountDoes.Sport_Id);
+
+		var allWorkouts = await _sportManager.GetWorkouts(AccountDoesId);
+		var justWorkouts = allWorkouts.Where(w => !w.IsRoutineExample).OrderByDescending(w => w.Starttime).ToList();
+
+		doneWorkouts = justWorkouts.Where(w => w.IsDone).ToList();
+		undoneWorkouts = justWorkouts.Where(w => !w.IsDone).ToList();
+	}
+
+	private void GoToWorkout(Workout workout)
+	{
+		navigation.NavigateTo($"workout/id={workout.Id}", true);
+	}
 }

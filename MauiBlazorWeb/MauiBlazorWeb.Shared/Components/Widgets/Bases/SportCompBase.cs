@@ -186,6 +186,7 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 		{
 			Workout newWorkout = new Workout
 			{
+				Name = "New Workout",
 				Starttime = DateTime.Now,
 				IsDone = false,
 				IsRoutineExample = isRoutineExample,
@@ -203,7 +204,21 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 			var list = await _sportManager.GetWorkouts(accountDoesId);
 			int insertedId = list.Last().Id;
 
-			navigation.NavigateTo($"new-workout/id={insertedId}", true);
+			navigation.NavigateTo($"workout/id={insertedId}", true);
+		}
+
+		public async Task OnDiscardWorkout(Workout workout)
+		{
+			await _appState.ShowLoadingScreenWhileAwaiting(() => DiscardWorkout(workout));
+		}
+
+		private async Task DiscardWorkout(Workout workout)
+		{
+			bool isCorrect = await _sportManager.DeleteWorkout(workout);
+			if (!isCorrect)
+				throw new Exception($"Sorry, we could not discard your Workout");
+
+			navigation.NavigateTo("", true);
 		}
 
 		public override async Task UpdateObserver()

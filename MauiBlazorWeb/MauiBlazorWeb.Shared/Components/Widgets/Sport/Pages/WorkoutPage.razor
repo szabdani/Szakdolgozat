@@ -3,45 +3,322 @@
 
 @using Bases
 @using MauiBlazorWeb.Shared.Components.Dialogs
+@using MauiBlazorWeb.Shared.Components.Widgets.Sport.Dialogs
+@using MauiBlazorWeb.Shared.Components.Icons
 @using Models.Sports
 
 @if (!_appState.IsLoggedIn)
 {
-	<NotLoggedIn />
+	<NotLoggedIn/>
 }
 else if (hasInvalidParameter)
 {
-	<h3>This is not a valid path to a Workout Page</h3>
+	<h3>This is not a valid path to a New Workout page</h3>
 }
 else
 {
+	<div class="row">
+		<div class="col-auto m-2 float-end">
+			<div class="row" style="background-color: darkgrey">
+				<div class="col">
+					<div class="row">
+						<div class="col-auto">
+							<h4>
+								Workout duration: @(clock.Hours == 0 ? clock.ToString(@"mm\:ss") : clock.ToString(@"hh:\mm\:ss"))
+							</h4>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-auto">
+							<button class="btn btn-danger" @onclick="() => OnDiscardWorkout(workout)">
+								Discard Workout
+							</button>
+						</div>
+						<div class="col-auto float-end">
+							@if (workout.IsDone)
+							{
+								<button class="btn btn-warning" @onclick="OnResumeWorkout">
+									Resume Workout
+								</button>
+							}
+							else
+							{
+								<button class="btn btn-success" @onclick="OnFinishWorkout">
+									Finish Workout
+								</button>
+							}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row" style="background-color: lightgray">
+				<div class="col">
+					<table class="table table-striped text-center">
+						@if (exercises.Count != 0)
+						{
+							<thead class="thead-light">
+								<tr>
+									<th>Name</th>
+									<th colspan="2">Reorder</th>
+									<th>Del</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var ex in exercises)
+								{
+									<tr>
+										<td>
+											@ex.Name
+										</td>
+										<td>
+											@if (exercises.First() != ex)
+											{
+												<button class="btn btn-info" @onclick="() => MoveExercise(ex, true)">
+													<IconUp />
+												</button>
+											}
+											else
+											{
+												<IconDash />
+											}
+										</td>
+										<td>
+											@if (exercises.Last() != ex)
+											{
+												<button class="btn btn-info" @onclick="() => MoveExercise(ex, false)">
+													<IconDown />
+												</button>
+											}
+											else
+											{
+												<IconDash />
+											}
+										</td>
+										<td>
+											<button class="btn btn-danger" @onclick="() => OnRemoveExercise(ex)">
+												<IconDelete />
+											</button>
+										</td>
+									</tr>
+								}
+							</tbody>
+						}
+						else
+						{
+							<thead class="thead-light">
+								<tr>
+									<th colspan="4">Pick an exercise to start tracking</th>
+								</tr>
+							</thead>
+						}
+						<tfoot>
+							<tr>
+								<td colspan="4">
+									<button class="btn btn-primary" @onclick="() => addExerciseDialog.Show()">
+										<IconAdd /> Add an Exercise
+									</button>
+								</td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="col m-2">
+			<div class="row mb-2" style="background-color: darkgrey">
+				<div class="row">
+					<div class="col">
+						<h3>
+							<InputText class="form-control" @bind-Value=workout.Name @bind-Value:after="UpdateWorkout"
+							style="background-color: inherit; border: none; font-size: inherit; font-weight: bold" />
+						</h3>
 
-	<div class="col-auto m-2" style="background-color: navajowhite">
-		sima workout
+					</div>
+					<div class="col-auto float-end align">
+						<h4>
+							Date: @workout.Starttime.ToString("yyyy-MM-dd HH:mm")
+						</h4>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<textarea class="form-control"
+						@bind="workout.Notes"
+						@bind:after="UpdateWorkout"
+						rows="1"
+						placeholder="Write something about this workout"
+						style="resize:vertical; background-color: lightgrey"
+						oninput="this.style.height = 'auto'; this.style.height = (this.scrollHeight) + 'px';">
+						</textarea>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="row">
+						<div class="col">
+							@if (exercises.Count != 0)
+							{
+								@foreach (var ex in exercises)
+								{
+									<div class="row" style="background-color: lightgrey">
+										<div class="col">
+											<div class="row">
+												<div class="col">
+													<h4>@ex.Name</h4>
+												</div>
+												<div class="col-auto float-end">
+													<button class="btn btn-danger" @onclick="() => OnRemoveExercise(ex)">
+														<IconDelete />
+													</button>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col">
+													<h5 class="text-secondary">Ha van Routine notes, majd alatta ide kell írni</h5>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col">
+													<textarea class="form-control"
+													@bind="ex.Notes"
+													rows="1"
+													placeholder="Add notes here"
+													style="resize:vertical; background-color: inherit"
+													oninput="this.style.height = 'auto'; this.style.height = (this.scrollHeight) + 'px';">
+													</textarea>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row" style="background-color: navajowhite">
+										<div class="col">
+											<ExerciseSets WorkoutId="WorkoutId" ExerciseId="ex.Id" @ref="exerciseBoxRefs[ex.Id]" />
+										</div>
+									</div>
+								}
+							}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 }
 
+<AddExerciseDialog AccountDoesId="accountDoesSport.Id" WorkoutId="WorkoutId" ExerciseIds="exercises.Select(e => e.Id).ToList()" @ref="addExerciseDialog" />
+
+<WarningDialog Title="Invalid Set in Workout" @ref="warning">
+	@if (exercises.Count == 0)
+	{
+		<p>
+			Your workout has no exercises!<br />
+			Either add exercises or discard the workout.
+		</p>
+	}
+	else
+	{
+		<p>
+			Your workout has at least one unfinished set!<br />
+			Either finish it or delete it.
+		</p>
+	}
+
+</WarningDialog>
+
 @code {
 	[Parameter, EditorRequired]
-	public int WorkoutId { get; set; }
+	public int WorkoutId { get; set; } = 0;
 
 	private Account_does_Sport accountDoesSport;
 	private Sport sport;
+	private Routine routine;
+
 	private Workout workout;
+	private List<Exercise> exercises;
+	private List<Sets> sets;
+
+	private Timer timer;
+	private TimeSpan clock;
+
+	private AddExerciseDialog addExerciseDialog;
+	private WarningDialog warning;
+
+	private IDisposable? navHandler;
+
+	private Dictionary<int, ExerciseSets> exerciseBoxRefs;
 
 	public WorkoutPage()
 	{
 		accountDoesSport = new Account_does_Sport();
 		sport = new Sport();
+		routine = new Routine();
+
 		workout = new Workout();
+		sets = new List<Sets>();
+		exercises = new List<Exercise>();
+
+		addExerciseDialog = new AddExerciseDialog();
+		warning = new WarningDialog();
+
+		exerciseBoxRefs = new Dictionary<int, ExerciseSets>();
 	}
+
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+
+		timer = new Timer(OnTick, null, 0, 1000);
+		clock = TimeSpan.Zero;
+	}
+
+	private void OnTick(object? state)
+	{
+		clock = clock.Add(TimeSpan.FromSeconds(1));
+		InvokeAsync(StateHasChanged);
+	}
+
+	public override void Dispose()
+	{
+		timer?.Dispose();
+		navHandler?.Dispose();
+		base.Dispose();
+	}
+
 	protected override async Task ValidateParameters()
 	{
 		workout = await ValidateWorkout(WorkoutId);
+		if (workout.Duration != TimeSpan.Zero)
+			clock = workout.Duration;
+
 		accountDoesSport = ValidateAccountDoesSport(workout.Account_does_Sport_Id);
 		sport = ValidateSport(accountDoesSport.Sport_Id);
 
+		if (workout.Routine_Id is not null)
+			routine = await ValidateRoutine((int)workout.Routine_Id);
+
 		await base.ValidateParameters();
+	}
+
+	protected override async Task UpdateTables()
+	{
+		await base.UpdateTables();
+
+		sets = await _sportManager.GetSetsByWorkout(workout.Id);
+		var exIds = sets.Select(s => s.Exercise_Id).Distinct().ToList();
+
+		if (exIds.Count != 0)
+		{
+			foreach (var id in exIds)
+			{
+				List<Exercise> exList = await _sportManager.GetExercise(id);
+				Exercise ex = exList.First();
+				if (!exercises.Select(e => e.Id).ToList().Contains(ex.Id))
+				{
+					exercises.Add(ex);
+				}
+			}
+		}
 	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -49,12 +326,113 @@ else
 		await base.OnAfterRenderAsync(firstRender);
 		if (firstRender)
 		{
+			navHandler = navigation.RegisterLocationChangingHandler(OnLocationChanging);
+
 			if (!hasInvalidParameter)
-				await InvokeAsync(() => _appState.Title = $"{sport.Name} workout on {workout.Starttime.ToString("yyyy-MM-dd")}");
+				await InvokeAsync(() => _appState.Title = "Workout");
 			else
-				await InvokeAsync(() => _appState.Title = "Invalid Workout");
+				await InvokeAsync(() => _appState.Title = "Invalid New Workout");
 
 			await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
 		}
+	}
+
+	private ValueTask OnLocationChanging(LocationChangingContext context)
+	{
+		if (!workout.IsDone && !hasInvalidParameter)
+		{
+			Task.Run(async () =>
+			{
+				timer.Dispose();
+				workout.Duration = clock;
+
+				bool isCorrect = await _sportManager.UpdateWorkout(workout);
+				if (!isCorrect)
+					throw new Exception($"Sorry, we could not save your Workout");
+			}).ConfigureAwait(false);
+		}
+
+		return ValueTask.CompletedTask;
+	}
+
+	private async Task OnRemoveExercise(Exercise ex)
+	{
+		await _appState.ShowLoadingScreenWhileAwaiting(()=> RemoveExercise(ex));
+	}
+
+	private async Task OnFinishWorkout()
+	{
+		await _appState.ShowLoadingScreenWhileAwaiting(FinishWorkout);
+	}
+
+	private async Task OnResumeWorkout()
+	{
+		await _appState.ShowLoadingScreenWhileAwaiting(ResumeWorkout);
+	}
+
+	private async Task RemoveExercise(Exercise ex)
+	{
+		await exerciseBoxRefs[ex.Id].DeleteSets();
+		exerciseBoxRefs.Remove(ex.Id);
+
+		await RefreshSportComps();
+	}
+
+	private void MoveExercise(Exercise ex, bool moveUp)
+	{
+		int dir = moveUp ? -1 : 1;
+		int index = exercises.IndexOf(ex);
+
+		Exercise temp = exercises[index];
+		exercises[index] = exercises[index + dir];
+		exercises[index + dir] = temp;
+	}
+
+	private bool ValidateExercises()
+	{
+		bool isValid = true;
+
+		foreach (var box in exerciseBoxRefs)
+		{
+			isValid = box.Value.ValidateSets();
+			if (!isValid)
+				break;
+		}
+
+		return isValid;
+	}
+
+	private async Task FinishWorkout()
+	{
+		bool isCorrect =  ValidateExercises();
+		if (!isCorrect || exercises.Count == 0)
+		{
+			warning.Show();
+		}
+		else
+		{
+			timer?.Dispose();
+			workout.Duration = clock;
+			workout.IsDone = true;
+
+			await UpdateWorkout();
+
+			// Settek Exercise alapján olyan sorrendben jelenjenek majd meg, mint ahogy most vannak
+			// Jelzés hogy vége a workoutnak
+		}
+	}
+
+	private async Task UpdateWorkout()
+	{
+		bool isCorrect = await _sportManager.UpdateWorkout(workout);
+		if (!isCorrect)
+			throw new Exception($"Sorry, we could not update your Workout");
+	}
+
+	private async Task ResumeWorkout()
+	{
+		timer = new Timer(OnTick, null, 0, 1000);
+		workout.IsDone = false;
+		await UpdateWorkout();
 	}
 }

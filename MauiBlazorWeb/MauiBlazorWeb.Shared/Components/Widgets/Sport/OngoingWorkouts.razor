@@ -1,0 +1,90 @@
+﻿@inherits SportCompBase
+
+@using Bases
+@using Models.Sports
+@using MauiBlazorWeb.Shared.Components.Icons
+
+<div class="row">
+	<div class="col">
+		<div class="row">
+			<div class="col">
+				<h4>Your ongoing workouts</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				@if (workouts.Count == 0)
+				{
+					<h5>You have no unfinished workouts.</h5>
+				}
+				else
+				{
+					<div class="table-responsive" style="max-height: 400px;">
+						<table class="table table-striped text-center">
+							<thead class="thead-light" style="position: sticky; top: 0; background-color: navajowhite">
+								<tr>
+									<th>Name</th>
+									<th>Sport</th>
+									<th>Date</th>
+									<th colspan="2">Finish</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var workout in workouts)
+								{
+									<tr>
+										<td>@workout.Name</td>
+										<td>@sportNames[workout.Account_does_Sport_Id]</td>
+										<td>@workout.Starttime.ToString("yyyy-MM-dd HH:mm")</td>
+										<td>
+											<button class="btn btn-danger" @onclick="() => OnDiscardWorkout(workout) ">
+												<IconDelete/>
+											</button>
+										</td>
+										<td>
+											<button class="btn btn-info" @onclick="() => GoToWorkout(workout)">
+												<IconAdd />
+											</button>
+										</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+				}
+			</div>
+		</div>
+	</div>	
+</div>
+
+@code {
+	private List<Workout> workouts;
+	private Dictionary<int, string> sportNames;
+
+	public OngoingWorkouts()
+	{
+		workouts = new List<Workout>();
+		sportNames = new Dictionary<int, string>();
+	}
+
+	protected override async Task UpdateTables()
+	{
+		await base.UpdateTables();
+
+		workouts = new List<Workout>();
+		sportNames = new Dictionary<int, string>();
+
+		foreach (var aSports in allAccountDoesSports)
+		{
+			sportNames[aSports.Id] = allSports.Where(s => s.Id == aSports.Sport_Id).Select(s => s.Name).First();
+
+			var list = await _sportManager.GetWorkouts(aSports.Id);
+			workouts.AddRange(list.Where(w => !w.IsDone));
+		}
+	}
+
+	private void GoToWorkout(Workout workout)
+	{
+		navigation.NavigateTo($"workout/id={workout.Id}", true);
+	}
+}
