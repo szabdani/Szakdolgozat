@@ -10,14 +10,14 @@ namespace MauiBlazorWeb.Shared.Models.Sports
 	public class Sets
     {
         public int Id { get; set; }
-		public bool IsDone { get; set; }
-		public SetsType Type { get; set; }
+		public bool IsDone { get; set; } = false;
+		public SetsType Type { get; set; } = SetsType.Normal;
         public int? Reps { get; set; }
         public int? RPE { get; set; }
         public double? Weight { get; set; }
-		public int LengthHours { get; set; } = 0;
-		public int LengthMinutes{ get; set; } = 0;
-		public int LengthSeconds { get; set; } = 0;
+		public int LengthHours { get; set; }
+		public int LengthMinutes{ get; set; } 
+		public int LengthSeconds { get; set; } 
 		public TimeSpan Length 
 		{
 			set 

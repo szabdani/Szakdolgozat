@@ -1,6 +1,7 @@
 ﻿@inherits SportCompBase
 
 @using Bases
+@using MauiBlazorWeb.Shared.Components.Dialogs
 @using Models.Sports
 @using MauiBlazorWeb.Shared.Components.Icons
 @using BlazorBootstrap
@@ -10,7 +11,7 @@
 		<thead class="thead-light">
 			<tr>
 				<th>Set</th>
-				@switch (Exercise.Type)
+				@switch (exercise.Type)
 				{
 					case ExerciseType.Bodyweight:
 						<th>Reps</th>
@@ -63,7 +64,7 @@
 						}
 					</th>
 
-					@switch (Exercise.Type)
+					@switch (exercise.Type)
 					{
 						case ExerciseType.Bodyweight:
 							<td>
@@ -123,9 +124,6 @@
 							<IconDash />
 						}
 					</td>
-					<td class="delete" @onclick="() => Test(set)">
-						Ha lesz workout DB-ben akkor lehet tesztelni
-					</td>
 					<td class="delete" @onclick="() => DeleteSet(set)">
 						<IconDelete />
 					</td>
@@ -144,30 +142,54 @@
 	</table>
 </div>
 
-
-
-
+<WarningDialog Title="Unfinished Set" @ref="warning">
+	<p>Your set is not finished!</p>
+	@switch (exercise.Type)
+	{
+		case ExerciseType.Bodyweight:
+			<p>You must set a correct value for the number of Reps!</p>
+			break;
+		case ExerciseType.Machine:
+			<p>You must set correct values for the number of Reps and the Weight!</p>
+			break;
+		case ExerciseType.Timed:
+			<p>You must set a correct value for the time!</p>
+			break;
+		case ExerciseType.Distanced:
+			<p>You must set a correct value for the time or the distance!</p>
+			break;
+		default:
+			break;
+	}
+</WarningDialog>
 
 @code {
-	[Parameter, EditorRequired] public Workout Workout { get; set; }
-	[Parameter, EditorRequired] public Exercise Exercise { get; set; }
+	[Parameter, EditorRequired] public int WorkoutId { get; set; }
+	[Parameter, EditorRequired] public int ExerciseId { get; set; }
+
+	private Workout workout;
+	private Exercise exercise;
 
 	private List<Sets> sets;
 	private int addColspan;
 
+	private WarningDialog warning;
+
 	public ExerciseSets()
 	{
-		Workout = new Workout();
-		Exercise = new Exercise();
+		workout = new Workout();
+		exercise = new Exercise();
 
 		sets = new List<Sets>();
+		warning = new WarningDialog();
 	}
 
-	protected override async Task OnInitializedAsync()
+	protected override async Task ValidateParameters()
 	{
-		await base.OnInitializedAsync();
+		exercise = await ValidateExercise(ExerciseId);
+		workout = await ValidateWorkout(WorkoutId);
 
-		@switch (Exercise.Type)
+		@switch (exercise.Type)
 		{
 			case ExerciseType.Bodyweight:
 				addColspan = 5;
@@ -186,44 +208,111 @@
 				break;
 		}
 
-		AddSet();
+		await base.ValidateParameters();
 	}
 
-	private void CycleSetType(Sets set)
+	protected override async Task UpdateTables()
+	{
+		await base.UpdateTables();
+
+		sets = await _sportManager.GetSetsByBoth(ExerciseId, WorkoutId);
+	}
+
+
+	private async Task CycleSetType(Sets set)
 	{
 		if (set.Type == SetsType.Drop)
 			set.Type = SetsType.Normal;
 		else
 			set.Type++;
+
+		bool isCorrect = await _sportManager.UpdateSet(set);
+		if (!isCorrect)
+			throw new Exception($"Sorry, we could not update your Set");
+
+		await RefreshSportComps();
 	}
 
-	private void ToggleSetDone(Sets set)
+	private async Task ToggleSetDone(Sets set)
 	{
-		set.IsDone = !set.IsDone;
+		bool isCorrect = true;
+		@switch (exercise.Type)
+		{
+			case ExerciseType.Bodyweight:
+				if (set.Reps is null)
+				{
+					isCorrect = false;
+					warning.Show();
+				}
+				break;
+			case ExerciseType.Machine:
+				if (set.Reps is null || set.Weight is null)
+				{
+					isCorrect = false;
+					warning.Show();
+				}
+				break;
+			case ExerciseType.Timed:
+				if (set.LengthHours == 0 && set.LengthMinutes == 0 && set.LengthSeconds == 0)
+				{
+					isCorrect = false;
+					warning.Show();
+				}
+				break;
+			case ExerciseType.Distanced:
+				if (set.Distance is null && (set.LengthHours == 0 && set.LengthMinutes == 0 && set.LengthSeconds == 0))
+				{
+					isCorrect = false;
+					warning.Show();
+				}
+				break;
+			default:
+				break;
+		}
+
+		if(isCorrect)
+		{
+			set.IsDone = !set.IsDone;
+			isCorrect = await _sportManager.UpdateSet(set);
+			if (!isCorrect)
+				throw new Exception($"Sorry, we could not update your Set");
+
+			await RefreshSportComps();
+		}
 	}
 
-	private void DeleteSet(Sets set)
+	private async Task DeleteSet(Sets set)
 	{
-		sets.Remove(set);
+		bool isCorrect = await _sportManager.DeleteSet(set);
+		if (!isCorrect)
+			throw new Exception($"Sorry, we could not delete your Set");
+
+		await RefreshSportComps();
 	}
 
-	private async Task Test(Sets set)
+	private async Task AddSet()
 	{
-		await _sportManager.InsertSet(set);
-		var lsit = await _sportManager.GetSetsByWorkout(Workout.Id);
-		sets.AddRange(lsit);
+		Sets newSet = new Sets { Exercise_Id = ExerciseId, Workout_Id = WorkoutId };
+		
+		bool isCorrect = await _sportManager.InsertSet(newSet);
+		if (!isCorrect)
+			throw new Exception($"Sorry, we could not insert your Set");
+
+		await RefreshSportComps();
 	}
 
-	private void AddSet()
+	public bool ValidateSets()
 	{
-		Sets newSet = new Sets { Exercise_Id = Exercise.Id, Workout_Id = Workout.Id };
-		sets.Add(newSet);
-	}
-
-	public async Task<bool> ValidateSets()
-	{
-		await Task.CompletedTask;
-		return false;
+		bool retVal = true;
+		foreach(var set in sets)
+		{
+			if (!set.IsDone)
+			{
+				retVal = false;
+				break;
+			}
+		}
+		return retVal;
 	}
 }
 

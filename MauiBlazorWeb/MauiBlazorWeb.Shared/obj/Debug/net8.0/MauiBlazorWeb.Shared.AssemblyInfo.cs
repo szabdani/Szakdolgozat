@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MauiBlazorWeb.Shared")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+712dcc386ac937f70bfe2b41a49dfb6689d1afc0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+56faa64aefad0e3deeccaa9812d3414acfe9c0bf")]
 [assembly: System.Reflection.AssemblyProductAttribute("MauiBlazorWeb.Shared")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MauiBlazorWeb.Shared")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

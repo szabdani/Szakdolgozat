@@ -2,7 +2,6 @@
 
 @using Bases
 @using Models.Sports
-@inject NavigationManager Navigation
 
 <Calendar Title="Workouts" SpecialDates="uniqueDates" OnDayClickAction="OpenDay" FirstDate="firstDate"/>
 
@@ -28,7 +27,7 @@
 	protected override async Task UpdateTables()
 	{
 		await base.UpdateTables();
-		var list = await _sportManager.GetWorkouts(accountDoesSport);
+		var list = await _sportManager.GetWorkouts(accountDoesSport.Id);
 
 		uniqueDates = list.Select(obj => obj.Starttime).Distinct().ToList();
 	}

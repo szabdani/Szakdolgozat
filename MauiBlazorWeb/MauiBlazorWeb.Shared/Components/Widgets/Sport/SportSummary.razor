@@ -6,8 +6,6 @@
 @using MauiBlazorWeb.Shared.Components.Icons
 @using MauiBlazorWeb.Shared.Components.Widgets.Sport.Dialogs
 
-@inject NavigationManager Navigation
-
 <div class="row" style="background-color: lightgrey">
 	<div class="col-auto" style="word-wrap: break-word;">
 		<h3>@sport.Name</h3>
@@ -30,7 +28,7 @@
 	<div class="col">
 		<div class="row">
 			<div class="col">
-				<button class="btn btn-primary" @onclick="StartWorkout">
+				<button class="btn btn-primary" @onclick="StartWorkoutPage">
 					<IconAdd /> Start a new workout
 				</button>
 			</div>
@@ -98,21 +96,21 @@
 
 	private void GoToPage()
 	{
-		Navigation.NavigateTo($"sports/id={accountDoes.Id}", forceLoad: true);
+		navigation.NavigateTo($"sports/id={accountDoes.Id}", forceLoad: true);
 	}
 
-	private void StartWorkout()
+	private async Task StartWorkoutPage()
 	{
-		if(accountDoes == null)
+		if (accountDoes == null)
 			throw new Exception($"Sorry, this Sport is not followed.");
 		else
-			Navigation.NavigateTo($"new-workout/id={accountDoes.Id}", forceLoad: true);
+			await OnStartWorkout(accountDoes.Id);
 	}
 
 	private async Task OnUnfollow()
 	{
 		await _appState.ShowLoadingScreenWhileAwaiting(Unfollow);
-		Navigation.Refresh(true);
+		navigation.Refresh(true);
 	}
 
 	private async Task Unfollow()
@@ -128,7 +126,7 @@
 	private async Task OnDeleteSport()
 	{
 		await _appState.ShowLoadingScreenWhileAwaiting(DeleteSport);
-		Navigation.Refresh(true);
+		navigation.Refresh(true);
 	}
 
 	private async Task DeleteSport()

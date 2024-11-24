@@ -29,7 +29,8 @@ namespace MauiBlazorWeb.Shared.Services
 
 		public async Task UpdateObservers()
 		{
-			foreach (var c in allObservers)
+			var snapshot= allObservers.ToList();
+			foreach (var c in snapshot)
 			{
 				await c.UpdateObserver();
 			}

@@ -182,7 +182,6 @@ else
 		if (!isCorrect)
 			throw new Exception($"Sorry, we could not delete {selectedExercise.Name}.");
 
-		warningDelete.Hide();
 		await RefreshSportComps();
 	}
 }

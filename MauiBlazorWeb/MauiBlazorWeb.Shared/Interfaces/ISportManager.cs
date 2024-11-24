@@ -33,9 +33,10 @@ namespace MauiBlazorWeb.Shared.Interfaces
 		Task<List<Exercise>> GetExercises(int accountId, int sportId);
 		Task<List<Routine>> GetRoutine(int routineId);
 		Task<List<Routine>> GetRoutines(Account_does_Sport accountDoesSport);
+		Task<List<Sets>> GetSetsByBoth(int exerciseId, int workoutId);
 		Task<List<Sets>> GetSetsByExercise(int exerciseId);
 		Task<List<Sets>> GetSetsByWorkout(int workoutId);
 		Task<List<Workout>> GetWorkout(int workoutId);
-		Task<List<Workout>> GetWorkouts(Account_does_Sport accountDoesSport);
+		Task<List<Workout>> GetWorkouts(int accountDoesSportId);
 	}
 }

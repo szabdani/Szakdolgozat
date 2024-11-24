@@ -1,5 +1,4 @@
-﻿@page "/new-workout/id={AccountDoesId:int}"
-@page "/new-workout/routineid={RoutineId:int}"
+﻿@page "/new-workout/id={WorkoutId:int}"
 @inherits SportCompBase
 
 @using Bases
@@ -58,7 +57,7 @@ else
 										<td>
 											@if (exercises.First() != ex)
 											{
-												<button class="btn btn-info" @onclick="() => MoveExerciseUp(ex)">
+												<button class="btn btn-info" @onclick="() => MoveExercise(ex, true)">
 													<IconUp />
 												</button>
 											}
@@ -70,7 +69,7 @@ else
 										<td>
 											@if (exercises.Last() != ex)
 											{
-												<button class="btn btn-info" @onclick="() => MoveExerciseDown(ex)">
+												<button class="btn btn-info" @onclick="() => MoveExercise(ex, false)">
 													<IconDown />
 												</button>
 											}
@@ -157,7 +156,7 @@ else
 									</div>
 									<div class="row" style="background-color: navajowhite">
 										<div class="col">
-											<ExerciseSets Workout="workout" Exercise="ex" @ref="exerciseBoxRefs[ex.Id]" />
+											<ExerciseSets WorkoutId="WorkoutId" ExerciseId="ex.Id" @ref="exerciseBoxRefs[ex.Id]" />
 										</div>
 									</div>
 								}
@@ -170,14 +169,29 @@ else
 	</div>
 }
 
-<AddExerciseDialog AccountDoesId="AccountDoesId" ExerciseList="exercises" @ref="addExerciseDialog" />
+<AddExerciseDialog AccountDoesId="accountDoesSport.Id" WorkoutId="WorkoutId" @ref="addExerciseDialog" />
 
+<WarningDialog Title="Invalid Set in Workout" @ref="warning">
+	@if (exercises.Count == 0)
+	{
+		<p>
+			Your workout has no exercises!<br />
+			Either add exercises or discard the workout.
+		</p>
+	}
+	else
+	{
+		<p>
+			Your workout has at least one unfinished set!<br />
+			Either finish it or delete it.
+		</p>
+	}
+
+</WarningDialog>
 
 @code {
-	[Parameter]
-	public int AccountDoesId { get; set; } = 0;
-	[Parameter]
-	public int RoutineId { get; set; } = 0;
+	[Parameter, EditorRequired]
+	public int WorkoutId { get; set; } = 0;
 
 	private Account_does_Sport accountDoesSport;
 	private Sport sport;
@@ -185,11 +199,13 @@ else
 
 	private Workout workout;
 	private List<Exercise> exercises;
+	private List<Sets> sets;
 
 	private Timer timer;
 	private TimeSpan clock;
 
 	private AddExerciseDialog addExerciseDialog;
+	private WarningDialog warning;
 
 	private Dictionary<int, ExerciseSets> exerciseBoxRefs;
 
@@ -200,9 +216,11 @@ else
 		routine = new Routine();
 
 		workout = new Workout();
+		sets = new List<Sets>();
 		exercises = new List<Exercise>();
 
 		addExerciseDialog = new AddExerciseDialog();
+		warning = new WarningDialog();
 
 		exerciseBoxRefs = new Dictionary<int, ExerciseSets>();
 	}
@@ -229,26 +247,34 @@ else
 
 	protected override async Task ValidateParameters()
 	{
-		if (AccountDoesId == 0 && RoutineId == 0)
-			hasInvalidParameter = true;
-
-		if (AccountDoesId != 0 && RoutineId != 0)
-			hasInvalidParameter = true;
-
-		if (AccountDoesId != 0)
-		{
-			accountDoesSport = ValidateAccountDoesSport(AccountDoesId);
-			sport = ValidateSport(accountDoesSport.Sport_Id);
-		}
-		else if (RoutineId != 0)
-		{
-			routine = await ValidateRoutine(RoutineId);
-			accountDoesSport = ValidateAccountDoesSport(routine.Account_does_Sport_Id);
-			sport = ValidateSport(accountDoesSport.Sport_Id);
-		}
-
-		workout = new Workout { Starttime = DateTime.UtcNow, IsDone = false, IsRoutineExample = false };
+		workout = await ValidateWorkout(WorkoutId);
+		accountDoesSport = ValidateAccountDoesSport(workout.Account_does_Sport_Id);
+		sport = ValidateSport(accountDoesSport.Sport_Id);
+		
+		if (workout.Routine_Id is not null)
+			routine = await ValidateRoutine((int)workout.Routine_Id);
+		
 		await base.ValidateParameters();
+	}
+
+	protected override async Task UpdateTables()
+	{
+		await base.UpdateTables();
+
+		sets = await _sportManager.GetSetsByWorkout(workout.Id);
+		var exIds = sets.Select(obj => obj.Exercise_Id).Distinct().ToList();
+
+		if (exIds.Count != 0)
+		{
+			List<Exercise> list = new List<Exercise>();
+			foreach (var id in exIds)
+			{
+				List<Exercise> exList = await _sportManager.GetExercise(id);
+				Exercise ex = exList.First();
+				list.Add(ex);
+			}
+			exercises = list;
+		}
 	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -271,35 +297,28 @@ else
 		exerciseBoxRefs.Remove(ex.Id);
 	}
 
-	private void MoveExerciseUp(Exercise ex)
+	private void MoveExercise(Exercise ex, bool moveUp)
 	{
-		var index = exercises.IndexOf(ex);
-		var temp = exercises[index];
-		exercises[index] = exercises[index - 1];
-		exercises[index - 1] = temp;
-	}
+		int dir = moveUp ? -1 : 1;
+		int index = exercises.IndexOf(ex);
 
-	private void MoveExerciseDown(Exercise ex)
-	{
-		var index = exercises.IndexOf(ex);
-		var temp = exercises[index];
-		exercises[index] = exercises[index + 1];
-		exercises[index + 1] = temp;
+		Exercise temp = exercises[index];
+		exercises[index] = exercises[index + dir];
+		exercises[index + dir] = temp;
 	}
 
 	private async Task OnFinishWorkout()
 	{
-		timer?.Dispose();
 		await _appState.ShowLoadingScreenWhileAwaiting(FinishWorkout);
 	}
 
-	private async Task<bool> ValidateExercises()
+	private bool ValidateExercises()
 	{
 		bool isValid = true;
 
 		foreach (var box in exerciseBoxRefs)
 		{ 
-			isValid = await box.Value.ValidateSets();
+			isValid = box.Value.ValidateSets();
 			if (!isValid)
 				break;
 		}	
@@ -309,14 +328,20 @@ else
 
 	private async Task FinishWorkout()
 	{
-		bool isValid = await ValidateExercises();
-		if (!isValid)
+		bool isCorrect =  ValidateExercises();
+		if (!isCorrect || exercises.Count == 0)
 		{
-			
+			warning.Show();
 		}
 		else
 		{
+			timer?.Dispose();
 			workout.IsDone = true;
+			workout.Duration = clock;
+
+			isCorrect = await _sportManager.UpdateWorkout(workout);
+			if (!isCorrect)
+				throw new Exception($"Sorry, we could not save your Workout");
 		}
 	}
 }

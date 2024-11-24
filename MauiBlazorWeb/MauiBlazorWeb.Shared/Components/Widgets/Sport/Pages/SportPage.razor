@@ -6,8 +6,6 @@
 @using MauiBlazorWeb.Shared.Components.Icons
 @using Models.Sports
 
-@inject NavigationManager Navigation
-
 @if (!_appState.IsLoggedIn)
 {
 	<NotLoggedIn />
@@ -27,7 +25,7 @@ else
 				<SportStat AccountDoesId="AccountDoesId" />
 			</div>
 			<div class="row">
-				<button class="btn btn-primary" @onclick="StartWorkout">
+				<button class="btn btn-primary" @onclick="StartWorkoutPage">
 					<IconAdd /> Start a new workout
 				</button>
 			</div>
@@ -66,12 +64,12 @@ else
 		await base.ValidateParameters();
 	}
 
-	private void StartWorkout()
+	private async Task StartWorkoutPage()
 	{
 		if (accountDoesSport == null)
 			throw new Exception($"Sorry, this Sport is not followed.");
 		else
-			Navigation.NavigateTo($"new-workout/id={accountDoesSport.Id}", forceLoad: true);
+			await OnStartWorkout(accountDoesSport.Id);
 	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)

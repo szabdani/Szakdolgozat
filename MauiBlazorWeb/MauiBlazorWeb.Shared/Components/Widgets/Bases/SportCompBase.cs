@@ -14,6 +14,7 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 	{
 		[Inject] protected IAppState _appState { get; set; }
 		[Inject] protected ISportManager _sportManager { get; set; }
+		[Inject] protected NavigationManager navigation { get; set; }
 
 		protected List<MauiBlazorWeb.Shared.Models.Sports.Sport> allSports;
 		protected List<Account_does_Sport> allAccountDoesSports;
@@ -174,6 +175,35 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 				hasInvalidParameter = true;
 
 			return retVal;
+		}
+
+		public async Task OnStartWorkout(int accountDoesId, int routineId = 0, bool isRoutineExample = false)
+		{
+			await _appState.ShowLoadingScreenWhileAwaiting(() => StartWorkout(accountDoesId, routineId, isRoutineExample));
+		}
+
+		public async Task StartWorkout(int accountDoesId, int routineId, bool isRoutineExample)
+		{
+			Workout newWorkout = new Workout
+			{
+				Starttime = DateTime.Now,
+				IsDone = false,
+				IsRoutineExample = isRoutineExample,
+				Account_does_Sport_Id = accountDoesId
+			};
+
+			if (routineId != 0)
+				newWorkout.Routine_Id = routineId;
+
+
+			bool isCorrect = await _sportManager.InsertWorkout(newWorkout);
+			if (!isCorrect)
+				throw new Exception($"Sorry, we could not save your Workout");
+
+			var list = await _sportManager.GetWorkouts(accountDoesId);
+			int insertedId = list.Last().Id;
+
+			navigation.NavigateTo($"new-workout/id={insertedId}", forceLoad: true);
 		}
 
 		public override async Task UpdateObserver()

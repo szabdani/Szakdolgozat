@@ -7,6 +7,7 @@ using MauiBlazorWeb.Shared.Components.Pages;
 using MauiBlazorWeb.Shared.Interfaces;
 using MauiBlazorWeb.Shared.Models;
 using MauiBlazorWeb.Shared.Models.Sports;
+using Org.BouncyCastle.Asn1;
 
 namespace MauiBlazorWeb.Shared.Services
 {
@@ -46,7 +47,7 @@ namespace MauiBlazorWeb.Shared.Services
 			string sql;
 			int affectedRows;
 
-			var workouts = await GetWorkouts(oldSport);
+			var workouts = await GetWorkouts(oldSport.Id);
 			var routines = await GetRoutines(oldSport);
 
 			foreach (var routine in routines)
@@ -115,6 +116,10 @@ namespace MauiBlazorWeb.Shared.Services
 		public async Task<bool> InsertSet(Sets newSet)
 		{
 			IDataAccess _data = new DataAccess();
+
+			TimeSpan len = new TimeSpan(newSet.LengthHours, newSet.LengthMinutes, newSet.LengthSeconds);
+			string lenStr = len.ToString(@"hh\:mm\:ss");
+
 			string sql = "Insert into Sets (isDone, type, reps, RPE, weight, length, distance, Exercise_id, Workout_id) values (@isDone, @type, @reps, @rpe, @weight, @length, @distance, @exid, @workid);";
 			int affectedRows = await _data.SaveData(sql, 
 				new { 
@@ -123,7 +128,7 @@ namespace MauiBlazorWeb.Shared.Services
 					reps = newSet.Reps, 
 					rpe = newSet.RPE, 
 					weight = newSet.Weight, 
-					length = $"{newSet.LengthHours}:{newSet.LengthMinutes}:{newSet.LengthSeconds}", 
+					length = lenStr, 
 					distance = newSet.Distance, 
 					exid = newSet.Exercise_Id, 
 					workid = newSet.Workout_Id 
@@ -133,6 +138,9 @@ namespace MauiBlazorWeb.Shared.Services
 		public async Task<bool> UpdateSet(Sets oldSet)
 		{
 			IDataAccess _data = new DataAccess();
+
+			TimeSpan len = new TimeSpan(oldSet.LengthHours, oldSet.LengthMinutes, oldSet.LengthSeconds);
+			string lenStr = len.ToString(@"hh\:mm\:ss");
 			string sql = "Update Sets set isDone = @isDone, type = @type, reps = @reps, RPE = @rpe, weight = @weight, length = @length, distance = @distance, Exercise_id = @exid, Workout_id = @workid where id = @colid ;";
 			int affectedRows = await _data.SaveData(sql,
 				new
@@ -142,7 +150,7 @@ namespace MauiBlazorWeb.Shared.Services
 					reps = oldSet.Reps,
 					rpe = oldSet.RPE,
 					weight = oldSet.Weight,
-					length = $"{oldSet.LengthHours}:{oldSet.LengthMinutes}:{oldSet.LengthSeconds}",
+					length = lenStr,
 					distance = oldSet.Distance,
 					exid = oldSet.Exercise_Id,
 					workid = oldSet.Workout_Id,
@@ -162,15 +170,15 @@ namespace MauiBlazorWeb.Shared.Services
 		public async Task<bool> InsertWorkout(Workout newWorkout)
 		{
 			IDataAccess _data = new DataAccess();
-			string sql = "Insert into Workout (isDone, starttime, finishtime, notes, isroutineexample, routine_id, account_does_sport_id) values (@isDone, @starttime, @finishtime, @notes, @isroutine, @rid, @aid);";
-			int affectedRows = await _data.SaveData(sql, new { isdone = newWorkout.IsDone, starttime = newWorkout.Starttime.ToString("yyyy-MM-dd hh:mm:ss"), finishtime = newWorkout.Finishtime.ToString("yyyy-MM-dd hh:mm:ss"), notes = newWorkout.Notes, isroutine = newWorkout.IsRoutineExample, rid = newWorkout.Routine_Id, aid = newWorkout.Account_does_Sport_Id });
+			string sql = "Insert into Workout (isDone, starttime, duration, notes, isroutineexample, routine_id, account_does_sport_id) values (@isDone, @starttime, @duration, @notes, @isroutine, @rid, @aid);";
+			int affectedRows = await _data.SaveData(sql, new { isdone = newWorkout.IsDone, starttime = newWorkout.Starttime.ToString("yyyy-MM-dd hh:mm:ss"), duration = newWorkout.Duration.ToString(@"hh\:mm\:ss"), notes = newWorkout.Notes, isroutine = newWorkout.IsRoutineExample, rid = newWorkout.Routine_Id, aid = newWorkout.Account_does_Sport_Id });
 			return affectedRows != 0;
 		}
 		public async Task<bool> UpdateWorkout(Workout oldWorkout)
 		{
 			IDataAccess _data = new DataAccess();
-			string sql = "Update Workout set isDone = @isdone, starttime = @starttime, finishtime= @finishtime, notes = @notes, isroutineexample = @isroutine, routine_id = @rid, account_does_sport_id = @aid where id = @colid ;";
-			int affectedRows = await _data.SaveData(sql, new { isdone = oldWorkout.IsDone, starttime = oldWorkout.Starttime.ToString("yyyy-MM-dd hh:mm:ss"), finishtime = oldWorkout.Finishtime.ToString("yyyy-MM-dd hh:mm:ss"), notes = oldWorkout.Notes, isroutine = oldWorkout.IsRoutineExample, rid = oldWorkout.Routine_Id, aid = oldWorkout.Account_does_Sport_Id, colid = oldWorkout.Id });
+			string sql = "Update Workout set isDone = @isdone, starttime = @starttime, duration= @duration, notes = @notes, isroutineexample = @isroutine, routine_id = @rid, account_does_sport_id = @aid where id = @colid ;";
+			int affectedRows = await _data.SaveData(sql, new { isdone = oldWorkout.IsDone, starttime = oldWorkout.Starttime.ToString("yyyy-MM-dd hh:mm:ss"), duration = oldWorkout.Duration.ToString(@"hh\:mm\:ss"), notes = oldWorkout.Notes, isroutine = oldWorkout.IsRoutineExample, rid = oldWorkout.Routine_Id, aid = oldWorkout.Account_does_Sport_Id, colid = oldWorkout.Id });
 			return affectedRows != 0;
 		}
 		public async Task<bool> DeleteWorkout(Workout oldWorkout)
@@ -256,7 +264,7 @@ namespace MauiBlazorWeb.Shared.Services
 		{
 			IDataAccess _data = new DataAccess();
 
-			string sql = $"Select * from Exercise where Sport_id = @id;";
+			string sql = $"Select * from Exercise where id = @id;";
 			return await _data.LoadData<Exercise, dynamic>(sql, new { id = exerciseId });
 		}
 		public async Task<List<Exercise>> GetExercises(int accountId, int sportId)
@@ -275,12 +283,12 @@ namespace MauiBlazorWeb.Shared.Services
 			string sql = $"Select * from Workout where Id = @id;";
 			return await _data.LoadData<Workout, dynamic>(sql, new { id = workoutId});
 		}
-		public async Task<List<Workout>> GetWorkouts(Account_does_Sport accountDoesSport)
+		public async Task<List<Workout>> GetWorkouts(int accountDoesSportId)
 		{
 			IDataAccess _data = new DataAccess();
 
 			string sql = $"Select * from Workout where Account_does_Sport_Id = @id;";
-			return await _data.LoadData<Workout, dynamic>(sql, new { id = accountDoesSport.Id });
+			return await _data.LoadData<Workout, dynamic>(sql, new { id = accountDoesSportId });
 		}
 
 		public async Task<List<Sets>> GetSetsByExercise(int exerciseId)
@@ -297,6 +305,14 @@ namespace MauiBlazorWeb.Shared.Services
 
 			string sql = $"Select * from Sets where Workout_Id = @wid;";
 			return await _data.LoadData<Sets, dynamic>(sql, new { wid = workoutId });
+		}
+
+		public async Task<List<Sets>> GetSetsByBoth(int exerciseId, int workoutId)
+		{
+			IDataAccess _data = new DataAccess();
+
+			string sql = $"Select * from Sets where Workout_Id = @wid and  Exercise_Id = @eid ;";
+			return await _data.LoadData<Sets, dynamic>(sql, new { wid = workoutId, eid = exerciseId });
 		}
 	}
 }

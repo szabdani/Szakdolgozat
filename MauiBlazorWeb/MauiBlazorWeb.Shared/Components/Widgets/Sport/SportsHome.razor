@@ -4,9 +4,6 @@
 @using Models.Sports
 @using MauiBlazorWeb.Shared.Components.Widgets.Sport.Dialogs
 
-@inject NavigationManager Navigation
-
-
 @for(int i=0; i < usersSports.Count/3+1; i++)
 {
 	<div class="row">
@@ -82,6 +79,6 @@
 		if (!isCorrect)
 			throw new Exception($"Sorry, we could not add Sport with id:{sportId} to your account");
 
-		Navigation.Refresh(true);
+		navigation.Refresh(true);
 	}
 }
