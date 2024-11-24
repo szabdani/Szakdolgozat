@@ -98,9 +98,17 @@ else
 		routines = await _sportManager.GetRoutines(accountDoes);
 	}
 
-	private void CreateRoutine()
+	private async Task CreateRoutine()
 	{
-		navigation.NavigateTo($"new-routine/id={AccountDoesId}", true);
+		Routine newRoutine = new Routine { Name="New Routine", Account_does_Sport_Id = AccountDoesId };
+		bool isCorrect = await _sportManager.InsertRoutine(newRoutine);
+		if(!isCorrect)
+			throw new Exception($"Sorry, we could not insert Routine");
+		await UpdateTables();
+
+		Routine last = routines.Last();
+
+		await OnStartWorkout(AccountDoesId, last.Id, true);
 	}
 
 	private async Task StartRoutine(int routineId)
@@ -108,9 +116,12 @@ else
 		await OnStartWorkout(AccountDoesId, routineId);
 	}
 
-	private void EditRoutine(int routineId)
+	private async Task EditRoutine(int routineId)
 	{
-		navigation.NavigateTo($"edit-routine/id={AccountDoesId}", true);
+		var list = await _sportManager.GetWorkouts(AccountDoesId);
+		Workout exampleWorkout = list.First(w => w.Routine_Id == routineId && w.IsRoutineExample);
+
+		navigation.NavigateTo($"workout/id={exampleWorkout.Id}", true);
 	}
 
 	private void OpenDelete(int routineId)

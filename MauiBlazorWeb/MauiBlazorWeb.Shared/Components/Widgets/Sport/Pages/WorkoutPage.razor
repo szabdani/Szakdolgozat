@@ -13,7 +13,7 @@
 }
 else if (hasInvalidParameter)
 {
-	<h3>This is not a valid path to a New Workout page</h3>
+	<h3>This is not a valid path to the Workout page</h3>
 }
 else
 {
@@ -22,30 +22,44 @@ else
 			<div class="row" style="background-color: darkgrey">
 				<div class="col">
 					<div class="row">
-						<div class="col-auto">
-							<h4>
-								Workout duration: @(clock.Hours == 0 ? clock.ToString(@"mm\:ss") : clock.ToString(@"hh:\mm\:ss"))
-							</h4>
+						<div class="col-auto @(workout.IsRoutineExample? "text-center" : "")">
+							@if (workout.IsRoutineExample)
+							{
+								<h4>Adjusting @routine.Name routine</h4>
+							}
+							else
+							{
+								<h4>Workout duration: @(clock.Hours == 0 ? clock.ToString(@"mm\:ss") : clock.ToString(@"hh:\mm\:ss"))</h4>
+							}
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-auto">
 							<button class="btn btn-danger" @onclick="() => OnDiscardWorkout(workout)">
-								Discard Workout
+								Discard @(workout.IsRoutineExample? "Routine" : "Workout")
 							</button>
 						</div>
 						<div class="col-auto float-end">
-							@if (workout.IsDone)
+							@if (workout.IsRoutineExample)
 							{
-								<button class="btn btn-warning" @onclick="OnResumeWorkout">
-									Resume Workout
+								<button class="btn btn-info" @onclick="NavigateToSportPage">
+									Return to Sport Page
 								</button>
 							}
 							else
 							{
-								<button class="btn btn-success" @onclick="OnFinishWorkout">
-									Finish Workout
-								</button>
+								@if (workout.IsDone)
+								{
+									<button class="btn btn-warning" @onclick="OnResumeWorkout">
+										Resume Workout
+									</button>
+								}
+								else
+								{
+									<button class="btn btn-success" @onclick="OnFinishWorkout">
+										Finish Workout
+									</button>
+								}
 							}
 						</div>
 					</div>
@@ -126,33 +140,66 @@ else
 		</div>
 		<div class="col m-2">
 			<div class="row mb-2" style="background-color: darkgrey">
-				<div class="row">
-					<div class="col">
-						<h3>
-							<InputText class="form-control" @bind-Value=workout.Name @bind-Value:after="UpdateWorkout" disabled=@workout.IsDone
-							style="background-color: inherit; border: none; font-size: inherit; font-weight: bold" />
-						</h3>
+				@if (workout.IsRoutineExample)
+				{
+					<div class="row">
+						<div class="col">
+							<h3>
+								<InputText class="form-control" @bind-Value=routine.Name @bind-Value:after="UpdateWorkout" disabled=@workout.IsDone
+								style="background-color: inherit; border: none; font-size: inherit; font-weight: bold" />
+							</h3>
 
+						</div>
+						<div class="col-auto float-end align">
+							<h4>
+								Creation date: @workout.Starttime.ToString("yyyy-MM-dd HH:mm")
+							</h4>
+						</div>
 					</div>
-					<div class="col-auto float-end align">
-						<h4>
-							Date: @workout.Starttime.ToString("yyyy-MM-dd HH:mm")
-						</h4>
+					<div class="row">
+						<div class="col">
+							<textarea class="form-control"
+							@bind="routine.Notes"
+							@bind:after="UpdateWorkout"
+							disabled=@workout.IsDone
+							rows="1"
+							placeholder="Write something about this workout"
+							style="resize:vertical; background-color: lightgrey"
+							oninput="this.style.height = 'auto'; this.style.height = (this.scrollHeight) + 'px';">
+							</textarea>
+						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col">
-						<textarea class="form-control"
-						@bind="workout.Notes"
-						@bind:after="UpdateWorkout"
-						disabled=@workout.IsDone
-						rows="1"
-						placeholder="Write something about this workout"
-						style="resize:vertical; background-color: lightgrey"
-						oninput="this.style.height = 'auto'; this.style.height = (this.scrollHeight) + 'px';">
-						</textarea>
+				}
+				else
+				{
+					<div class="row">
+						<div class="col">
+							<h3>
+								<InputText class="form-control" @bind-Value=workout.Name @bind-Value:after="UpdateWorkout" disabled=@workout.IsDone
+								style="background-color: inherit; border: none; font-size: inherit; font-weight: bold" />
+							</h3>
+
+						</div>
+						<div class="col-auto float-end align">
+							<h4>
+								Date: @workout.Starttime.ToString("yyyy-MM-dd HH:mm")
+							</h4>
+						</div>
 					</div>
-				</div>
+					<div class="row">
+						<div class="col">
+							<textarea class="form-control"
+							@bind="workout.Notes"
+							@bind:after="UpdateWorkout"
+							disabled=@workout.IsDone
+							rows="1"
+							placeholder="Write something about this workout"
+							style="resize:vertical; background-color: lightgrey"
+							oninput="this.style.height = 'auto'; this.style.height = (this.scrollHeight) + 'px';">
+							</textarea>
+						</div>
+					</div>
+				}
 			</div>
 			<div class="row">
 				<div class="col">
@@ -174,11 +221,14 @@ else
 													</button>
 												</div>
 											</div>
-											<div class="row">
-												<div class="col">
-													<h5 class="text-secondary">Ha van Routine notes, majd alatta ide kell írni</h5>
+											@if (workout.Routine_Id is not null)
+											{
+												<div class="row">
+													<div class="col">
+														<h5 class="text-secondary">@routine.Notes</h5>
+													</div>
 												</div>
-											</div>
+											}
 											<div class="row">
 												<div class="col">
 													<textarea class="form-control"
@@ -195,7 +245,7 @@ else
 									</div>
 									<div class="row" style="background-color: navajowhite">
 										<div class="col">
-											<ExerciseSets WorkoutId="WorkoutId" Disabled=@workout.IsDone ExerciseId="ex.Id" @ref="exerciseBoxRefs[ex.Id]" />
+											<ExerciseSets WorkoutId="WorkoutId" ExerciseId="ex.Id" @ref="exerciseBoxRefs[ex.Id]" />
 										</div>
 									</div>
 								}
@@ -208,7 +258,7 @@ else
 	</div>
 }
 
-<AddExerciseDialog AccountDoesId="accountDoesSport.Id" WorkoutId="WorkoutId" ExerciseIds="exercises.Select(e => e.Id).ToList()" @ref="addExerciseDialog" />
+<AddExerciseDialog AccountDoesId="workout.Account_does_Sport_Id" WorkoutId="WorkoutId" ExerciseIds="exercises.Select(e => e.Id).ToList()" @ref="addExerciseDialog" />
 
 <WarningDialog Title="Invalid Set in Workout" @ref="warning">
 	@if (exercises.Count == 0)
@@ -232,13 +282,11 @@ else
 	[Parameter, EditorRequired]
 	public int WorkoutId { get; set; } = 0;
 
-	private Account_does_Sport accountDoesSport;
-	private Sport sport;
-	private Routine routine;
-
 	private Workout workout;
+	private Routine routine;
 	private List<Exercise> exercises;
 	private List<Sets> sets;
+
 
 	private Timer timer;
 	private TimeSpan clock;
@@ -252,13 +300,11 @@ else
 
 	public WorkoutPage()
 	{
-		accountDoesSport = new Account_does_Sport();
-		sport = new Sport();
-		routine = new Routine();
-
 		workout = new Workout();
-		sets = new List<Sets>();
+		routine = new Routine();
 		exercises = new List<Exercise>();
+		sets = new List<Sets>();
+
 
 		addExerciseDialog = new AddExerciseDialog();
 		warning = new WarningDialog();
@@ -282,18 +328,38 @@ else
 	protected override async Task ValidateParameters()
 	{
 		workout = await ValidateWorkout(WorkoutId);
-		if (workout.Duration != TimeSpan.Zero)
-			clock = workout.Duration;
+
+		if (!workout.IsRoutineExample)
+		{
+			if (workout.Duration != TimeSpan.Zero)
+				clock = workout.Duration;
+			else
+				clock = TimeSpan.Zero;
+
+			if (!workout.IsDone)
+				timer = new Timer(OnTick, null, 0, 1000);
+
+			if (workout.Routine_Id is not null)
+			{
+				var workoutSets = await _sportManager.GetSetsByWorkout(workout.Id);
+				if (workoutSets.Count == 0)
+				{
+					routine = await ValidateRoutine((int)workout.Routine_Id);
+					var list = await _sportManager.GetWorkouts(workout.Account_does_Sport_Id);
+					Workout exampleWorkout = list.First(w => w.Routine_Id == routine.Id && w.IsRoutineExample);
+
+					var exampleSets = await _sportManager.GetSetsByWorkout(exampleWorkout.Id);
+					foreach (var set in exampleSets)
+					{
+						set.Workout_Id = workout.Id;
+						bool isCorrect = await _sportManager.InsertSet(set);
+						if (!isCorrect)
+							throw new Exception($"Sorry, we could not insert Set");
+					}
+				}
+			}
+		}
 		else
-			clock = TimeSpan.Zero;
-
-		if(!workout.IsDone)
-			timer = new Timer(OnTick, null, 0, 1000);
-
-		accountDoesSport = ValidateAccountDoesSport(workout.Account_does_Sport_Id);
-		sport = ValidateSport(accountDoesSport.Sport_Id);
-
-		if (workout.Routine_Id is not null)
 			routine = await ValidateRoutine((int)workout.Routine_Id);
 
 		await base.ValidateParameters();
@@ -308,12 +374,25 @@ else
 
 		if (exIds.Count != 0)
 		{
-			foreach (var id in exIds)
+			if (exIds.Count > exercises.Count)
 			{
-				List<Exercise> exList = await _sportManager.GetExercise(id);
-				Exercise ex = exList.First();
-				if (!exercises.Select(e => e.Id).ToList().Contains(ex.Id))
+				foreach (var id in exIds)
 				{
+					List<Exercise> exList = await _sportManager.GetExercise(id);
+					Exercise ex = exList.First();
+					if (!exercises.Select(e => e.Id).ToList().Contains(ex.Id))
+					{
+						exercises.Add(ex);
+					}
+				}
+			}
+			else if (exIds.Count < exercises.Count)
+			{
+				exercises = new List<Exercise>();
+				foreach (var id in exIds)
+				{
+					List<Exercise> exList = await _sportManager.GetExercise(id);
+					Exercise ex = exList.First();
 					exercises.Add(ex);
 				}
 			}
@@ -355,7 +434,7 @@ else
 		{
 			Task.Run(async () =>
 			{
-				timer.Dispose();
+				timer?.Dispose();
 				workout.Duration = clock;
 
 				bool isCorrect = await _sportManager.UpdateWorkout(workout);
@@ -416,6 +495,11 @@ else
 		return isValid;
 	}
 
+	private void NavigateToSportPage()
+	{
+		navigation.NavigateTo($"/sports/id={workout.Account_does_Sport_Id}", true);
+	}
+
 	private async Task FinishWorkout()
 	{
 		bool isCorrect =  ValidateExercises();
@@ -431,15 +515,21 @@ else
 
 			await UpdateWorkout();
 
-			navigation.NavigateTo($"/sports/id={workout.Account_does_Sport_Id}", true);
-			// Settek Exercise alapján olyan sorrendben jelenjenek majd meg, mint ahogy most vannak
-			// Jelzés hogy vége a workoutnak
+			NavigateToSportPage();
 		}
 	}
 
 	private async Task UpdateWorkout()
 	{
-		bool isCorrect = await _sportManager.UpdateWorkout(workout);
+		bool isCorrect = true;
+		if (workout.IsRoutineExample)
+		{
+			isCorrect = await _sportManager.UpdateRoutine(routine);
+			if (!isCorrect)
+				throw new Exception($"Sorry, we could not update your Routine");
+		}
+
+		isCorrect = await _sportManager.UpdateWorkout(workout);
 		if (!isCorrect)
 			throw new Exception($"Sorry, we could not update your Workout");
 	}

@@ -186,7 +186,7 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 		{
 			Workout newWorkout = new Workout
 			{
-				Name = "New Workout",
+				Name = isRoutineExample ? "RoutineExample" : "New Workout",
 				Starttime = DateTime.Now,
 				IsDone = false,
 				IsRoutineExample = isRoutineExample,
@@ -195,7 +195,6 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 
 			if (routineId != 0)
 				newWorkout.Routine_Id = routineId;
-
 
 			bool isCorrect = await _sportManager.InsertWorkout(newWorkout);
 			if (!isCorrect)
