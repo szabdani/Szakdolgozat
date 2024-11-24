@@ -106,7 +106,7 @@ else
                 if (_pw.VerifyPassword(userData.Password_hash, userData.Password_salt, newAccount.LoginPassword))
                 {
                     await _appState.Login(userData, _localStorage);
-                    Navigation.NavigateTo("", forceLoad: true);
+                    Navigation.NavigateTo("", true);
                 }
                 else
                 {

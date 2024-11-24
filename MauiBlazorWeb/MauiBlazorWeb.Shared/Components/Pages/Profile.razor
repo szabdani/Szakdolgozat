@@ -146,6 +146,6 @@ else
 		if(!isCorrect)
 			throw new Exception($"Sorry, we could not delete your account.");
 
-		Navigation.NavigateTo("", forceLoad: true);
+		Navigation.NavigateTo("", true);
 	}
 }

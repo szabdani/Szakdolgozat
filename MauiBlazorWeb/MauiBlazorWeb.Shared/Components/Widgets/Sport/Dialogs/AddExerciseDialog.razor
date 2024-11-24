@@ -14,6 +14,10 @@
                     <button type="button" class="btn-close" aria-label="Close" @onclick="Hide"></button>
                 </div>
                 <div class="modal-body">
+                    @if (isError)
+                    {
+                        <h4 class="text-danger">You already track this exercise!</h4>
+                    }
                     <ExerciseLibrary AccountDoesId="AccountDoesId" IsInWorkout="true" OnAddAction="Add"/>
                 </div>
                 <div class="modal-footer">
@@ -28,7 +32,9 @@
 @code {
     [Parameter, EditorRequired] public int AccountDoesId { get; set; } = 0;
     [Parameter, EditorRequired] public int WorkoutId { get; set; }
+    [Parameter, EditorRequired] public List<int> ExerciseIds { get; set; }
     private bool isVisible = false;
+    private bool isError = false;
 
     public async Task Show()
     {
@@ -44,12 +50,18 @@
 
     private async Task Add(Exercise ex)
     {
-        Sets newSet = new Sets { Exercise_Id = ex.Id, Workout_Id = WorkoutId };
+        if (ExerciseIds.Contains(ex.Id))
+            isError = true;
+        else
+        { 
+            isError = false;
+            Sets newSet = new Sets { Exercise_Id = ex.Id, Workout_Id = WorkoutId };
 
-        bool isCorrect = await _sportManager.InsertSet(newSet);
-        if (!isCorrect)
-            throw new Exception($"Sorry, we could not insert your Set");
+            bool isCorrect = await _sportManager.InsertSet(newSet);
+            if (!isCorrect)
+                throw new Exception($"Sorry, we could not insert your Set");
 
-        await Hide();
+            await Hide();
+        }
     }
 }

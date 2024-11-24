@@ -22,7 +22,7 @@
 
 	private async Task OpenDay(DateTime day)
 	{
-		Navigation.NavigateTo(day.ToString("yyyy-MM-dd"));
+		Navigation.NavigateTo(day.ToString("yyyy-MM-dd"),true);
 		await Task.CompletedTask;
 	}
 }

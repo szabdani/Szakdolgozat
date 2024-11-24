@@ -41,7 +41,7 @@
     {
         ToggleDropdown();
         _appState.Logout(_localStorage);
-        Navigation.NavigateTo("", forceLoad: true);
+        Navigation.NavigateTo("", true);
     }
 
     private void ToggleDropdown()

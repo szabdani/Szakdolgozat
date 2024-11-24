@@ -171,14 +171,14 @@ namespace MauiBlazorWeb.Shared.Services
 		{
 			IDataAccess _data = new DataAccess();
 			string sql = "Insert into Workout (isDone, starttime, duration, notes, isroutineexample, routine_id, account_does_sport_id) values (@isDone, @starttime, @duration, @notes, @isroutine, @rid, @aid);";
-			int affectedRows = await _data.SaveData(sql, new { isdone = newWorkout.IsDone, starttime = newWorkout.Starttime.ToString("yyyy-MM-dd hh:mm:ss"), duration = newWorkout.Duration.ToString(@"hh\:mm\:ss"), notes = newWorkout.Notes, isroutine = newWorkout.IsRoutineExample, rid = newWorkout.Routine_Id, aid = newWorkout.Account_does_Sport_Id });
+			int affectedRows = await _data.SaveData(sql, new { isdone = newWorkout.IsDone, starttime = newWorkout.Starttime.ToString("yyyy-MM-dd HH:mm:ss"), duration = newWorkout.Duration.ToString(@"hh\:mm\:ss"), notes = newWorkout.Notes, isroutine = newWorkout.IsRoutineExample, rid = newWorkout.Routine_Id, aid = newWorkout.Account_does_Sport_Id });
 			return affectedRows != 0;
 		}
 		public async Task<bool> UpdateWorkout(Workout oldWorkout)
 		{
 			IDataAccess _data = new DataAccess();
 			string sql = "Update Workout set isDone = @isdone, starttime = @starttime, duration= @duration, notes = @notes, isroutineexample = @isroutine, routine_id = @rid, account_does_sport_id = @aid where id = @colid ;";
-			int affectedRows = await _data.SaveData(sql, new { isdone = oldWorkout.IsDone, starttime = oldWorkout.Starttime.ToString("yyyy-MM-dd hh:mm:ss"), duration = oldWorkout.Duration.ToString(@"hh\:mm\:ss"), notes = oldWorkout.Notes, isroutine = oldWorkout.IsRoutineExample, rid = oldWorkout.Routine_Id, aid = oldWorkout.Account_does_Sport_Id, colid = oldWorkout.Id });
+			int affectedRows = await _data.SaveData(sql, new { isdone = oldWorkout.IsDone, starttime = oldWorkout.Starttime.ToString("yyyy-MM-dd HH:mm:ss"), duration = oldWorkout.Duration.ToString(@"hh\:mm\:ss"), notes = oldWorkout.Notes, isroutine = oldWorkout.IsRoutineExample, rid = oldWorkout.Routine_Id, aid = oldWorkout.Account_does_Sport_Id, colid = oldWorkout.Id });
 			return affectedRows != 0;
 		}
 		public async Task<bool> DeleteWorkout(Workout oldWorkout)

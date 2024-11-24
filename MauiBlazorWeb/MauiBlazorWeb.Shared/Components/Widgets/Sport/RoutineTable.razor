@@ -100,7 +100,7 @@ else
 
 	private void CreateRoutine()
 	{
-		navigation.NavigateTo($"new-routine/id={AccountDoesId}", forceLoad: true);
+		navigation.NavigateTo($"new-routine/id={AccountDoesId}", true);
 	}
 
 	private async Task StartRoutine(int routineId)
@@ -110,7 +110,7 @@ else
 
 	private void EditRoutine(int routineId)
 	{
-		navigation.NavigateTo($"edit-routine/id={AccountDoesId}", forceLoad: true);
+		navigation.NavigateTo($"edit-routine/id={AccountDoesId}", true);
 	}
 
 	private void OpenDelete(int routineId)

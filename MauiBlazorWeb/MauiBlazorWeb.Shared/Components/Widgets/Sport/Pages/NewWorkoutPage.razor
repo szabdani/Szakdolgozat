@@ -27,8 +27,15 @@ else
 								Workout duration: @(clock.Hours == 0 ? clock.ToString(@"mm\:ss") : clock.ToString(@"hh:\mm\:ss"))
 							</h4>
 						</div>
+					</div>
+					<div class="row">
+						<div class="col-auto">
+							<button class="btn btn-danger" @onclick="OnDiscardWorkout">
+								Discard Workout
+							</button>
+						</div>
 						<div class="col-auto float-end">
-							<button class="btn btn-primary" @onclick="OnFinishWorkout">
+							<button class="btn btn-success" @onclick="OnFinishWorkout">
 								Finish Workout
 							</button>
 						</div>
@@ -79,7 +86,7 @@ else
 											}
 										</td>
 										<td>
-											<button class="btn btn-danger" @onclick="() => RemoveExercise(ex)">
+											<button class="btn btn-danger" @onclick="() => OnRemoveExercise(ex)">
 												<IconDelete />
 											</button>
 										</td>
@@ -131,7 +138,7 @@ else
 													<h4>@ex.Name</h4>
 												</div>
 												<div class="col-auto float-end">
-													<button class="btn btn-danger" @onclick="() => RemoveExercise(ex)">
+													<button class="btn btn-danger" @onclick="() => OnRemoveExercise(ex)">
 														<IconDelete />
 													</button>
 												</div>
@@ -169,7 +176,7 @@ else
 	</div>
 }
 
-<AddExerciseDialog AccountDoesId="accountDoesSport.Id" WorkoutId="WorkoutId" @ref="addExerciseDialog" />
+<AddExerciseDialog AccountDoesId="accountDoesSport.Id" WorkoutId="WorkoutId" ExerciseIds="exercises.Select(e => e.Id).ToList()" @ref="addExerciseDialog" />
 
 <WarningDialog Title="Invalid Set in Workout" @ref="warning">
 	@if (exercises.Count == 0)
@@ -250,10 +257,10 @@ else
 		workout = await ValidateWorkout(WorkoutId);
 		accountDoesSport = ValidateAccountDoesSport(workout.Account_does_Sport_Id);
 		sport = ValidateSport(accountDoesSport.Sport_Id);
-		
+
 		if (workout.Routine_Id is not null)
 			routine = await ValidateRoutine((int)workout.Routine_Id);
-		
+
 		await base.ValidateParameters();
 	}
 
@@ -262,18 +269,19 @@ else
 		await base.UpdateTables();
 
 		sets = await _sportManager.GetSetsByWorkout(workout.Id);
-		var exIds = sets.Select(obj => obj.Exercise_Id).Distinct().ToList();
+		var exIds = sets.Select(s => s.Exercise_Id).Distinct().ToList();
 
 		if (exIds.Count != 0)
 		{
-			List<Exercise> list = new List<Exercise>();
 			foreach (var id in exIds)
 			{
 				List<Exercise> exList = await _sportManager.GetExercise(id);
 				Exercise ex = exList.First();
-				list.Add(ex);
+				if (!exercises.Select(e => e.Id).ToList().Contains(ex.Id))
+				{
+					exercises.Add(ex);
+				}
 			}
-			exercises = list;
 		}
 	}
 
@@ -291,10 +299,28 @@ else
 		}
 	}
 
-	private void RemoveExercise(Exercise ex)
+	private async Task OnRemoveExercise(Exercise ex)
 	{
-		exercises.Remove(ex);
+		await _appState.ShowLoadingScreenWhileAwaiting(()=> RemoveExercise(ex));
+	}
+
+	private async Task OnDiscardWorkout()
+	{
+		await _appState.ShowLoadingScreenWhileAwaiting(DiscardWorkout);
+	}
+
+	private async Task OnFinishWorkout()
+	{
+		await _appState.ShowLoadingScreenWhileAwaiting(FinishWorkout);
+	}
+
+	private async Task RemoveExercise(Exercise ex)
+	{
+		await exerciseBoxRefs[ex.Id].DeleteSets();
 		exerciseBoxRefs.Remove(ex.Id);
+
+		await RefreshSportComps();
+
 	}
 
 	private void MoveExercise(Exercise ex, bool moveUp)
@@ -307,21 +333,16 @@ else
 		exercises[index + dir] = temp;
 	}
 
-	private async Task OnFinishWorkout()
-	{
-		await _appState.ShowLoadingScreenWhileAwaiting(FinishWorkout);
-	}
-
 	private bool ValidateExercises()
 	{
 		bool isValid = true;
 
 		foreach (var box in exerciseBoxRefs)
-		{ 
+		{
 			isValid = box.Value.ValidateSets();
 			if (!isValid)
 				break;
-		}	
+		}
 
 		return isValid;
 	}
@@ -342,6 +363,24 @@ else
 			isCorrect = await _sportManager.UpdateWorkout(workout);
 			if (!isCorrect)
 				throw new Exception($"Sorry, we could not save your Workout");
+
+			// Settek Exercise alapján olyan sorrendben jelenjenek majd meg, mint ahogy most vannak
+			// Jelzés hogy vége a workoutnak
 		}
+	}
+
+	private async Task DiscardWorkout()
+	{
+		foreach (var ex in exercises)
+		{
+			await RemoveExercise(ex);
+		}
+
+		bool isCorrect = await _sportManager.DeleteWorkout(workout);
+		if (!isCorrect)
+			throw new Exception($"Sorry, we could not discard your Workout");
+
+		// Vagy ha már elment volna akkor oda
+		navigation.NavigateTo("", true);
 	}
 }

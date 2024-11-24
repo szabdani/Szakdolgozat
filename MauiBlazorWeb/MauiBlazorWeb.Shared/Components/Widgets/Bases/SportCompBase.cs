@@ -203,7 +203,7 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 			var list = await _sportManager.GetWorkouts(accountDoesId);
 			int insertedId = list.Last().Id;
 
-			navigation.NavigateTo($"new-workout/id={insertedId}", forceLoad: true);
+			navigation.NavigateTo($"new-workout/id={insertedId}", true);
 		}
 
 		public override async Task UpdateObserver()

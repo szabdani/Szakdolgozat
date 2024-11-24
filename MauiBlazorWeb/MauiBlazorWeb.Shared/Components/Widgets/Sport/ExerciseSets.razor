@@ -276,8 +276,6 @@
 			isCorrect = await _sportManager.UpdateSet(set);
 			if (!isCorrect)
 				throw new Exception($"Sorry, we could not update your Set");
-
-			await RefreshSportComps();
 		}
 	}
 
@@ -293,12 +291,20 @@
 	private async Task AddSet()
 	{
 		Sets newSet = new Sets { Exercise_Id = ExerciseId, Workout_Id = WorkoutId };
-		
+
 		bool isCorrect = await _sportManager.InsertSet(newSet);
 		if (!isCorrect)
 			throw new Exception($"Sorry, we could not insert your Set");
 
 		await RefreshSportComps();
+	}
+
+	public async Task DeleteSets()
+	{
+		foreach(var set in sets)
+		{
+			await DeleteSet(set);
+		}
 	}
 
 	public bool ValidateSets()

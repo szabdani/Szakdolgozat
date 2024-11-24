@@ -37,4 +37,10 @@
             await OnAcceptAction.Invoke();
         Hide();
     }
+
+    [JSInvokable]
+    public void ShowWarningDialog()
+    {
+        Show();
+    }
 }
