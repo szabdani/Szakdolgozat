@@ -7,6 +7,7 @@ using MauiBlazorWeb.Shared.Components.Pages;
 using MauiBlazorWeb.Shared.Interfaces;
 using MauiBlazorWeb.Shared.Models;
 using MauiBlazorWeb.Shared.Models.Sports;
+using Mysqlx.Session;
 using Org.BouncyCastle.Asn1;
 
 namespace MauiBlazorWeb.Shared.Services
@@ -120,9 +121,10 @@ namespace MauiBlazorWeb.Shared.Services
 			TimeSpan len = new TimeSpan(newSet.LengthHours, newSet.LengthMinutes, newSet.LengthSeconds);
 			string lenStr = len.ToString(@"hh\:mm\:ss");
 
-			string sql = "Insert into Sets (isDone, type, reps, RPE, weight, length, distance, Exercise_id, Workout_id) values (@isDone, @type, @reps, @rpe, @weight, @length, @distance, @exid, @workid);";
+			string sql = "Insert into Sets (workoutindex, isDone, type, reps, RPE, weight, length, distance, Exercise_id, Workout_id) values (@workoutindex, @isDone, @type, @reps, @rpe, @weight, @length, @distance, @exid, @workid);";
 			int affectedRows = await _data.SaveData(sql, 
 				new { 
+					workoutindex = newSet.Workoutindex,
 					isDone = newSet.IsDone, 
 					type = newSet.Type.ToString(), 
 					reps = newSet.Reps, 
@@ -141,10 +143,11 @@ namespace MauiBlazorWeb.Shared.Services
 
 			TimeSpan len = new TimeSpan(oldSet.LengthHours, oldSet.LengthMinutes, oldSet.LengthSeconds);
 			string lenStr = len.ToString(@"hh\:mm\:ss");
-			string sql = "Update Sets set isDone = @isDone, type = @type, reps = @reps, RPE = @rpe, weight = @weight, length = @length, distance = @distance, Exercise_id = @exid, Workout_id = @workid where id = @colid ;";
+			string sql = "Update Sets set workoutindex = @workoutindex, isDone = @isDone, type = @type, reps = @reps, RPE = @rpe, weight = @weight, length = @length, distance = @distance, Exercise_id = @exid, Workout_id = @workid where id = @colid ;";
 			int affectedRows = await _data.SaveData(sql,
-				new
-				{
+			new
+			{
+					workoutindex = oldSet.Workoutindex,
 					isDone = oldSet.IsDone,
 					type = oldSet.Type.ToString(),
 					reps = oldSet.Reps,
@@ -304,7 +307,8 @@ namespace MauiBlazorWeb.Shared.Services
 			IDataAccess _data = new DataAccess();
 
 			string sql = $"Select * from Sets where Workout_Id = @wid;";
-			return await _data.LoadData<Sets, dynamic>(sql, new { wid = workoutId });
+			var sets = await _data.LoadData<Sets, dynamic>(sql, new { wid = workoutId });
+			return sets = sets.OrderBy(s => s.Workoutindex).ToList();
 		}
 
 		public async Task<List<Sets>> GetSetsByBoth(int exerciseId, int workoutId)

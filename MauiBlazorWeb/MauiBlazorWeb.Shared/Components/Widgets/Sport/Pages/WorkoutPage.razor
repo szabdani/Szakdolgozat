@@ -73,7 +73,7 @@ else
 										<td>
 											@if (exercises.First() != ex)
 											{
-												<button class="btn btn-info" @onclick="() => MoveExercise(ex, true)">
+												<button class="btn btn-info" disabled=@workout.IsDone @onclick="() => MoveExercise(ex, true)">
 													<IconUp />
 												</button>
 											}
@@ -85,7 +85,7 @@ else
 										<td>
 											@if (exercises.Last() != ex)
 											{
-												<button class="btn btn-info" @onclick="() => MoveExercise(ex, false)">
+												<button class="btn btn-info" disabled=@workout.IsDone @onclick="() => MoveExercise(ex, false)">
 													<IconDown />
 												</button>
 											}
@@ -95,7 +95,7 @@ else
 											}
 										</td>
 										<td>
-											<button class="btn btn-danger" @onclick="() => OnRemoveExercise(ex)">
+											<button class="btn btn-danger" disabled=@workout.IsDone @onclick="() => OnRemoveExercise(ex)">
 												<IconDelete />
 											</button>
 										</td>
@@ -114,7 +114,7 @@ else
 						<tfoot>
 							<tr>
 								<td colspan="4">
-									<button class="btn btn-primary" @onclick="() => addExerciseDialog.Show()">
+									<button class="btn btn-primary" disabled=@workout.IsDone @onclick="() => addExerciseDialog.Show()">
 										<IconAdd /> Add an Exercise
 									</button>
 								</td>
@@ -129,7 +129,7 @@ else
 				<div class="row">
 					<div class="col">
 						<h3>
-							<InputText class="form-control" @bind-Value=workout.Name @bind-Value:after="UpdateWorkout"
+							<InputText class="form-control" @bind-Value=workout.Name @bind-Value:after="UpdateWorkout" disabled=@workout.IsDone
 							style="background-color: inherit; border: none; font-size: inherit; font-weight: bold" />
 						</h3>
 
@@ -145,6 +145,7 @@ else
 						<textarea class="form-control"
 						@bind="workout.Notes"
 						@bind:after="UpdateWorkout"
+						disabled=@workout.IsDone
 						rows="1"
 						placeholder="Write something about this workout"
 						style="resize:vertical; background-color: lightgrey"
@@ -168,7 +169,7 @@ else
 													<h4>@ex.Name</h4>
 												</div>
 												<div class="col-auto float-end">
-													<button class="btn btn-danger" @onclick="() => OnRemoveExercise(ex)">
+													<button class="btn btn-danger" disabled=@workout.IsDone @onclick="() => OnRemoveExercise(ex)">
 														<IconDelete />
 													</button>
 												</div>
@@ -182,6 +183,7 @@ else
 												<div class="col">
 													<textarea class="form-control"
 													@bind="ex.Notes"
+													disabled=@workout.IsDone
 													rows="1"
 													placeholder="Add notes here"
 													style="resize:vertical; background-color: inherit"
@@ -193,7 +195,7 @@ else
 									</div>
 									<div class="row" style="background-color: navajowhite">
 										<div class="col">
-											<ExerciseSets WorkoutId="WorkoutId" ExerciseId="ex.Id" @ref="exerciseBoxRefs[ex.Id]" />
+											<ExerciseSets WorkoutId="WorkoutId" Disabled=@workout.IsDone ExerciseId="ex.Id" @ref="exerciseBoxRefs[ex.Id]" />
 										</div>
 									</div>
 								}
@@ -264,14 +266,6 @@ else
 		exerciseBoxRefs = new Dictionary<int, ExerciseSets>();
 	}
 
-	protected override void OnInitialized()
-	{
-		base.OnInitialized();
-
-		timer = new Timer(OnTick, null, 0, 1000);
-		clock = TimeSpan.Zero;
-	}
-
 	private void OnTick(object? state)
 	{
 		clock = clock.Add(TimeSpan.FromSeconds(1));
@@ -290,6 +284,11 @@ else
 		workout = await ValidateWorkout(WorkoutId);
 		if (workout.Duration != TimeSpan.Zero)
 			clock = workout.Duration;
+		else
+			clock = TimeSpan.Zero;
+
+		if(!workout.IsDone)
+			timer = new Timer(OnTick, null, 0, 1000);
 
 		accountDoesSport = ValidateAccountDoesSport(workout.Account_does_Sport_Id);
 		sport = ValidateSport(accountDoesSport.Sport_Id);
@@ -317,6 +316,19 @@ else
 				{
 					exercises.Add(ex);
 				}
+			}
+		}
+
+		int workoutIndex = 1;
+		foreach (var ex in exercises)
+		{
+			var exSets = await _sportManager.GetSetsByBoth(ex.Id, workout.Id);
+			foreach(var set in exSets)
+			{
+				set.Workoutindex = workoutIndex++;
+				bool isCorrect = await _sportManager.UpdateSet(set);
+				if (!isCorrect)
+					throw new Exception($"Sorry, we could not update index of Set");
 			}
 		}
 	}
@@ -378,7 +390,7 @@ else
 		await RefreshSportComps();
 	}
 
-	private void MoveExercise(Exercise ex, bool moveUp)
+	private async Task MoveExercise(Exercise ex, bool moveUp)
 	{
 		int dir = moveUp ? -1 : 1;
 		int index = exercises.IndexOf(ex);
@@ -386,6 +398,8 @@ else
 		Exercise temp = exercises[index];
 		exercises[index] = exercises[index + dir];
 		exercises[index + dir] = temp;
+
+		await RefreshSportComps();
 	}
 
 	private bool ValidateExercises()
@@ -417,6 +431,7 @@ else
 
 			await UpdateWorkout();
 
+			navigation.NavigateTo($"/sports/id={workout.Account_does_Sport_Id}", true);
 			// Settek Exercise alapján olyan sorrendben jelenjenek majd meg, mint ahogy most vannak
 			// Jelzés hogy vége a workoutnak
 		}

@@ -51,7 +51,10 @@
     private async Task Add(Exercise ex)
     {
         if (ExerciseIds.Contains(ex.Id))
+        {
             isError = true;
+            await RefreshSportComps();
+        }
         else
         { 
             isError = false;

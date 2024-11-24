@@ -10,6 +10,7 @@ namespace MauiBlazorWeb.Shared.Models.Sports
 	public class Sets
     {
         public int Id { get; set; }
+		public int Workoutindex { get; set; }
 		public bool IsDone { get; set; } = false;
 		public SetsType Type { get; set; } = SetsType.Normal;
         public int? Reps { get; set; }

@@ -68,46 +68,46 @@
 					{
 						case ExerciseType.Bodyweight:
 							<td>
-								<NumberInput TValue="int?" @bind-Value=set.Reps EnableMinMax="true" Min="0" Style="background-color: inherit" />
+								<NumberInput TValue="int?" @bind-Value=set.Reps EnableMinMax="true" Min="0" Style="background-color: inherit" Disabled="Disabled" />
 							</td>
 							<td>
-								<NumberInput TValue="int?" @bind-Value=set.RPE EnableMinMax="true" Min="0" Max="10" Style="background-color: inherit" />
+								<NumberInput TValue="int?" @bind-Value=set.RPE EnableMinMax="true" Min="0" Max="10" Style="background-color: inherit" Disabled="Disabled" />
 							</td>
 							break;
 						case ExerciseType.Machine:
 							<td>
-								<NumberInput TValue="double?" @bind-Value=set.Weight EnableMinMax="true" Min="0" Style="background-color: inherit" />
+								<NumberInput TValue="double?" @bind-Value=set.Weight EnableMinMax="true" Min="0" Style="background-color: inherit" Disabled="Disabled" />
 							</td>
 							<td>
-								<NumberInput TValue="int?" @bind-Value=set.Reps EnableMinMax="true" Min="0" Style="background-color: inherit" />
+								<NumberInput TValue="int?" @bind-Value=set.Reps EnableMinMax="true" Min="0" Style="background-color: inherit" Disabled="Disabled" />
 							</td>
 							<td>
-								<NumberInput TValue="int?" @bind-Value=set.RPE EnableMinMax="true" Min="0" Max="10" Style="background-color: inherit" />
+								<NumberInput TValue="int?" @bind-Value=set.RPE EnableMinMax="true" Min="0" Max="10" Style="background-color: inherit" Disabled="Disabled" />
 							</td>
 							break;
 						case ExerciseType.Timed:
 							<td>
-								<NumberInput TValue="int" @bind-Value=set.LengthHours EnableMinMax="true" Min="0" Max="99" Style="background-color: inherit" />
+								<NumberInput TValue="int" @bind-Value=set.LengthHours EnableMinMax="true" Min="0" Max="99" Style="background-color: inherit" Disabled="Disabled" />
 							</td>
 							<td>
-								<NumberInput TValue="int" @bind-Value=set.LengthMinutes EnableMinMax="true" Min="0" Max="59" Style="background-color: inherit" />
+								<NumberInput TValue="int" @bind-Value=set.LengthMinutes EnableMinMax="true" Min="0" Max="59" Style="background-color: inherit" Disabled="Disabled"/>
 							</td>
 							<td>
-								<NumberInput TValue="int" @bind-Value=set.LengthSeconds EnableMinMax="true" Min="0" Max="59" Style="background-color: inherit" />
+								<NumberInput TValue="int" @bind-Value=set.LengthSeconds EnableMinMax="true" Min="0" Max="59" Style="background-color: inherit" Disabled="Disabled" />
 							</td>
 							break;
 						case ExerciseType.Distanced:
 							<td>
-								<NumberInput TValue="double?" @bind-Value=set.Distance EnableMinMax="true" Min="0" Style="background-color: inherit" />
+								<NumberInput TValue="double?" @bind-Value=set.Distance EnableMinMax="true" Min="0" Style="background-color: inherit" Disabled="Disabled"/>
 							</td>
 							<td>
-								<NumberInput TValue="int" @bind-Value=set.LengthHours EnableMinMax="true" Min="0" Max="99" Style="background-color: inherit" />
+								<NumberInput TValue="int" @bind-Value=set.LengthHours EnableMinMax="true" Min="0" Max="99" Style="background-color: inherit" Disabled="Disabled" />
 							</td>
 							<td>
-								<NumberInput TValue="int" @bind-Value=set.LengthMinutes EnableMinMax="true" Min="0" Max="59" Style="background-color: inherit" />
+								<NumberInput TValue="int" @bind-Value=set.LengthMinutes EnableMinMax="true" Min="0" Max="59" Style="background-color: inherit" Disabled="Disabled"/>
 							</td>
 							<td>
-								<NumberInput TValue="int" @bind-Value=set.LengthSeconds EnableMinMax="true" Min="0" Max="59" Style="background-color: inherit" />
+								<NumberInput TValue="int" @bind-Value=set.LengthSeconds EnableMinMax="true" Min="0" Max="59" Style="background-color: inherit" Disabled="Disabled" />
 							</td>
 							break;
 						default:
@@ -133,7 +133,7 @@
 		<tfoot>
 			<tr>
 				<td colspan="@addColspan">
-					<button class="btn btn-info" @onclick="AddSet">
+					<button class="btn btn-info" disabled="Disabled" @onclick="AddSet">
 						Add a new Set! <IconAdd />
 					</button>
 				</td>
@@ -166,6 +166,7 @@
 @code {
 	[Parameter, EditorRequired] public int WorkoutId { get; set; }
 	[Parameter, EditorRequired] public int ExerciseId { get; set; }
+	[Parameter, EditorRequired] public bool Disabled { get; set; }
 
 	private Workout workout;
 	private Exercise exercise;
@@ -221,6 +222,9 @@
 
 	private async Task CycleSetType(Sets set)
 	{
+		if (Disabled)
+			return;
+
 		if (set.Type == SetsType.Drop)
 			set.Type = SetsType.Normal;
 		else
@@ -235,6 +239,9 @@
 
 	private async Task ToggleSetDone(Sets set)
 	{
+		if (Disabled)
+			return;
+
 		bool isCorrect = true;
 		@switch (exercise.Type)
 		{
@@ -281,6 +288,9 @@
 
 	private async Task DeleteSet(Sets set)
 	{
+		if (Disabled)
+			return;
+
 		bool isCorrect = await _sportManager.DeleteSet(set);
 		if (!isCorrect)
 			throw new Exception($"Sorry, we could not delete your Set");
