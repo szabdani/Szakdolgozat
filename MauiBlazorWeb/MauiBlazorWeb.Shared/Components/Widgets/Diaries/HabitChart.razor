@@ -9,7 +9,7 @@
 			<div class="col">
 				<label>Select Time Span:</label>
 				<InputSelect class="form-control" @bind-Value="timeSpan" @bind-Value:after="@RefreshDiaryComps">
-					@foreach (var t in Enum.GetValues(typeof(TimePeriod)))
+					@foreach (var t in Enum.GetValues(typeof(TimeFilter.TimePeriod)))
 					{
 						<option value="@t">@t</option>
 					}
@@ -60,7 +60,7 @@
 
 @code {
 	private bool isChartInit = false;
-	private TimePeriod timeSpan = new();
+	private TimeFilter.TimePeriod timeSpan = new();
 	private Dictionary<int, bool> checkBox = new();
 
 	private BarChart barChart = new();
@@ -146,7 +146,7 @@
 			double? count = 0;
 			var posts = allPosts.Where(p => p.Diary_log_column_Id == col.Id);
 
-			count = posts.Where(p => p.Value == "X" && FilterPostsByTimePeriod(p.Date, DateTime.Today, timeSpan)).Count();
+			count = posts.Where(p => p.Value == "X" && TimeFilter.FilterByTimePeriod(p.Date, DateTime.Today, timeSpan)).Count();
 
 			labels.Add(col.Name);
 			countTimes.Add(count);
@@ -160,8 +160,8 @@
 
 		chartData = new ChartData{ Labels = labels, Datasets = datasets };
 
-		double total = allDatesSinceReg.Where(d => FilterPostsByTimePeriod(d, DateTime.Today, timeSpan)).Count();
-		barChartOptions.Scales.Y.Max = total;
+		double total = allDatesSinceReg.Where(d => TimeFilter.FilterByTimePeriod(d, DateTime.Today, timeSpan)).Count();
+		barChartOptions.Scales.Y!.Max = total;
 	}
 }
 

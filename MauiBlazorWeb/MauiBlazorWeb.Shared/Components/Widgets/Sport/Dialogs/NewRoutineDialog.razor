@@ -104,8 +104,8 @@
 
             var allRoutines = await SportManager.GetRoutines(AccountDoesId);
             var routineIds = allRoutines.Select(r => r.Id);
-            var list = await SportManager.GetWorkouts(AccountDoesId);
-            var routineExamples = list.Where(w => w.IsRoutineExample && w.Routine_Id.Equals(routineIds.Any()));
+            var list = await SportManager.GetWorkouts(AccountDoesId, true);
+            var routineExamples = list.Where(w => w.Routine_Id.Equals(routineIds.Any()));
 
             foreach (var s in routineExamples)
             {
@@ -131,7 +131,7 @@
                 if (!isCorrect)
                     throw new Exception($"Sorry, we could not save your Routine example Workout");
 
-                var workouts = await SportManager.GetWorkouts(AccountDoesId);
+                var workouts = await SportManager.GetWorkouts(AccountDoesId, true);
                 var insertedExample = workouts.Last();
 
 

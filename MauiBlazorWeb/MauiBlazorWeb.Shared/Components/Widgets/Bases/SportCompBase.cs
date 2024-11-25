@@ -168,8 +168,8 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 
 		protected async Task<Workout> GetRoutineExample(int accountDoesId, int RoutineId)
 		{
-			var list = await SportManager.GetWorkouts(accountDoesId);
-			return list.First(w => w.Routine_Id == RoutineId && w.IsRoutineExample);
+			var list = await SportManager.GetWorkouts(accountDoesId, true);
+			return list.First(w => w.Routine_Id == RoutineId);
 		}
 
 		public async Task OnStartWorkout(int accountDoesId, int routineId = 0)
@@ -198,6 +198,7 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 				Name = "New Workout",
 				Starttime = DateTime.Now,
 				IsDone = false,
+				IsRoutineExample = false,
 				Account_does_Sport_Id = accountDoesId
 			};
 
@@ -208,7 +209,7 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 			if (!isCorrect)
 				throw new Exception($"Sorry, we could not save your Workout");
 
-			var list = await SportManager.GetWorkouts(accountDoesId);
+			var list = await SportManager.GetWorkouts(accountDoesId, false);
 			int insertedId = list.Last().Id;
 
 			Navigation.NavigateTo($"workout/id={insertedId}", true);

@@ -22,7 +22,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					@foreach (var date in allDatesSinceReg.Where(d => FilterPostsByTimePeriod(d, DateTime.Today, TimePeriod.Week)).OrderByDescending(d => d))
+					@foreach (var date in allDatesSinceReg.Where(d => TimeFilter.FilterByTimePeriod(d, DateTime.Today, TimeFilter.TimePeriod.Week)).OrderByDescending(d => d))
 					{
 						<tr>
 

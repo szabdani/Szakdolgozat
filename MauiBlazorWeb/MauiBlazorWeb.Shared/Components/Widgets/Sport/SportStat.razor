@@ -2,12 +2,130 @@
 
 @using Bases
 @using Models.Sports
+@using BlazorBootstrap
 
-<h3>Sport stat: Workoutok száma: x db</h3>
-<h2>Barchartos TimePeriodos beosztás mennyi idő: finish-starttime</h2>
+<div class="row">
+	<div class="col">
+		<div class="row">
+			<div class="col">
+				<h3>Sport stat: Workoutok száma: x db</h3>
+				<h2>Sum duration és leosztva napokra</h2>
+			</div>
+			<div class="col">
+				<label>Select Time Span:</label>
+				<InputSelect class="form-control" @bind-Value="timeSpan" @bind-Value:after="@RefreshSportComps">
+					@foreach (var t in Enum.GetValues(typeof(TimeFilter.TimePeriod)))
+					{
+						<option value="@t">@t</option>
+					}
+				</InputSelect>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		<BarChart @ref="barChart" />
+	</div>
+</div>
+
+<h2>Barchartos TimePeriodos beosztás mennyi idő: sum duration</h2>
 <h2>Naponként mennyi óra</h2>
 
 @code {
-	[Parameter, ]
+	[Parameter]
 	public int AccountDoesId { get; set; }
+
+	private List<Workout> filteredWorkouts = [];
+	private List<DateTime> uniqueDates = [];
+
+	private bool isChartInit = false;
+	private TimeFilter.TimePeriod timeSpan = new();
+
+	private BarChart barChart = new();
+	private ChartData chartData = new();
+
+	private BarChartOptions barChartOptions;
+
+	public SportStat()
+	{
+		barChartOptions = new BarChartOptions();
+		barChartOptions.Responsive = true;
+
+		barChartOptions.Scales = new Scales
+		{
+			X = new ChartAxes { Title = new ChartAxesTitle { Text = "Date", Display = true } },
+			Y = new ChartAxes { Title = new ChartAxesTitle { Text = "Számok mint a linechart-nál", Display = true } }
+		};
+
+		barChartOptions.Plugins.Legend.Display = false;
+	}
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		await base.OnAfterRenderAsync(firstRender);
+		if (firstRender)
+		{
+			await UpdateTables();
+			await barChart.InitializeAsync(chartData, barChartOptions);
+			isChartInit = true;
+		}
+	}
+
+	protected override async Task UpdateTables()
+	{
+		await base.UpdateTables();
+
+		var workouts = await SportManager.GetWorkouts(AccountDoesId, false);
+		filteredWorkouts = workouts.Where(w => TimeFilter.FilterByTimePeriod(w.Starttime, DateTime.Today, timeSpan)).ToList();
+		uniqueDates = filteredWorkouts.Select(w => w.Starttime.Date).Distinct().ToList();
+
+		GenerateBarChartData();
+		
+		if (isChartInit)
+			await barChart.UpdateAsync(chartData, barChartOptions);
+	}
+
+	private void GenerateBarChartData()
+	{
+		/*
+		List<string> labels = new List<string>();
+		List<double?> countTimes = new List<double?>();
+
+		foreach (var col in allCols.Where(c => checkBox[c.Id]))
+		{
+			double? count = 0;
+			var posts = allPosts.Where(p => p.Diary_log_column_Id == col.Id);
+
+			count = posts.Where(p => p.Value == "X" && FilterPostsByTimePeriod(p.Date, DateTime.Today, timeSpan)).Count();
+
+			labels.Add(col.Name);
+			countTimes.Add(count);
+		}
+
+
+		var datasets = new List<IChartDataset>();
+		var dataset1 = new BarChartDataset() { Data = countTimes };
+
+		datasets.Add(dataset1);
+
+		chartData = new ChartData{ Labels = labels, Datasets = datasets };
+
+		double total = allDatesSinceReg.Where(d => FilterPostsByTimePeriod(d, DateTime.Today, timeSpan)).Count();
+		barChartOptions.Scales.Y.Max = total;
+		*/
+	}
 }
+
+<style>
+	.tracker-post {
+		vertical-align: middle;
+		background-color: ghostwhite;
+		cursor: pointer;
+		transition: background-color 0.3s;
+	}
+
+		.tracker-post:hover {
+			background-color: powderblue;
+		}
+</style>

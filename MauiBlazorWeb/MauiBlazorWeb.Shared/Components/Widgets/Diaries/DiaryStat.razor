@@ -14,7 +14,7 @@
 			<div class="col">
 				<label>Select Time Span:</label>
 				<InputSelect class="form-control" @bind-Value="timeSpan" @bind-Value:after="@RefreshDiaryComps">
-					@foreach (var t in Enum.GetValues(typeof(TimePeriod)))
+					@foreach (var t in Enum.GetValues(typeof(TimeFilter.TimePeriod)))
 					{
 						<option value="@t">@t</option>
 					}
@@ -91,7 +91,7 @@
 	private NewDiaryColDialog newHabitDialog = new();
 	private List<Diary_log_column> numCols = new();
 
-	private TimePeriod timeSpan = new();
+	private TimeFilter.TimePeriod timeSpan = new();
 	private Dictionary<int, bool> checkBox = new();
 	private Dictionary<int, bool> isAverageCorrect = new();
 	private Dictionary<int, double> averages = new();
@@ -147,7 +147,7 @@
 
 		foreach (var col in numCols)
 		{
-			List<Diary_log_post> posts = allPosts.Where(p => p.Diary_log_column_Id == col.Id && FilterPostsByTimePeriod(p.Date, DateTime.Today, timeSpan)).ToList();
+			List<Diary_log_post> posts = allPosts.Where(p => p.Diary_log_column_Id == col.Id && TimeFilter.FilterByTimePeriod(p.Date, DateTime.Today, timeSpan)).ToList();
 			if (posts.Count != 0)
 			{
 				isAverageCorrect[col.Id] = true;
@@ -180,7 +180,7 @@
 		var dateStrings = new List<string>();
 
 		bool first = true;
-		foreach (var dateInTimeSpan in allDatesSinceReg.Where(d => FilterPostsByTimePeriod(d.Date, DateTime.Today, timeSpan)))
+		foreach (var dateInTimeSpan in allDatesSinceReg.Where(d => TimeFilter.FilterByTimePeriod(d.Date, DateTime.Today, timeSpan)))
 		{
 			string dateString;
 			if (first)
@@ -192,10 +192,10 @@
 			{
 				switch (timeSpan)
 				{
-					case TimePeriod.Year:
+					case TimeFilter.TimePeriod.Year:
 						dateString = dateInTimeSpan.ToString("MMM dd");
 						break;
-					case TimePeriod.All:
+					case TimeFilter.TimePeriod.All:
 						dateString = dateInTimeSpan.ToString("yyyy MMM dd");
 						break;
 					default:
@@ -230,7 +230,7 @@
 				};
 
 			var data = new List<double?>();
-			foreach (var dateInTimeSpan in allDatesSinceReg.Where(d => FilterPostsByTimePeriod(d.Date, DateTime.Today, timeSpan)))
+			foreach (var dateInTimeSpan in allDatesSinceReg.Where(d => TimeFilter.FilterByTimePeriod(d.Date, DateTime.Today, timeSpan)))
 			{
 				double? num = null;
 				var post = allPosts.FirstOrDefault(p => p.Diary_log_column_Id == col.Id && p.Date == dateInTimeSpan);
@@ -246,11 +246,11 @@
 
 		chartData = new ChartData { Labels = dateStrings, Datasets = datasets };
 
-		double total = allDatesSinceReg.Where(d => FilterPostsByTimePeriod(d, DateTime.Today, timeSpan)).Count();
+		double total = allDatesSinceReg.Where(d => TimeFilter.FilterByTimePeriod(d, DateTime.Today, timeSpan)).Count();
 
 		if (numCols.Where(c => checkBox[c.Id]).Count() != 0)
 		{
-			lineChartOptions.Scales.Y.Min = numCols.Where(c => checkBox[c.Id]).Min(c => c.Value_range_min);
+			lineChartOptions.Scales.Y!.Min = numCols.Where(c => checkBox[c.Id]).Min(c => c.Value_range_min);
 			lineChartOptions.Scales.Y.Max = numCols.Where(c => checkBox[c.Id]).Max(c => c.Value_range_max);
 		}
 	}

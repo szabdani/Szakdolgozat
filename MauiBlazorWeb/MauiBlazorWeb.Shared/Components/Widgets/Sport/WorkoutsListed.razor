@@ -81,11 +81,11 @@
 		accountDoes = ValidateAccountDoesSport(AccountDoesId);
 		sport = ValidateSport(accountDoes.Sport_Id);
 
-		var allWorkouts = await SportManager.GetWorkouts(AccountDoesId);
-		var justWorkouts = allWorkouts.Where(w => !w.IsRoutineExample).OrderByDescending(w => w.Starttime).ToList();
+		var workouts = await SportManager.GetWorkouts(AccountDoesId, false);
+		var orderedWorkouts = workouts.OrderByDescending(w => w.Starttime).ToList();
 
-		doneWorkouts = justWorkouts.Where(w => w.IsDone).ToList();
-		undoneWorkouts = justWorkouts.Where(w => !w.IsDone).ToList();
+		doneWorkouts = orderedWorkouts.Where(w => w.IsDone).ToList();
+		undoneWorkouts = orderedWorkouts.Where(w => !w.IsDone).ToList();
 	}
 
 	private void GoToWorkout(Workout workout)

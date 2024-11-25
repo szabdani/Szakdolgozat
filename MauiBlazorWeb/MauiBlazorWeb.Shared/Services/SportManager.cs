@@ -13,25 +13,20 @@ using Org.BouncyCastle.Asn1;
 
 namespace MauiBlazorWeb.Shared.Services
 {
-	public class SportManager : ISportManager
+	public class SportManager(IDataAccess data) : ISportManager
 	{
-		[Inject] protected IDataAccess _data { get; set; }
-
-		public SportManager(IDataAccess data)
-		{
-			_data = data;
-		}
+		[Inject] protected IDataAccess Data { get; set; } = data;
 
 		public async Task<bool> InsertSport(Sport newSport)
 		{
 			string sql = "Insert into Sport (name, status, creator_account_id) values (@name, @status, @accountid);";
-			int affectedRows = await _data.SaveData(sql, new { name = newSport.Name, status = newSport.Status.ToString(), accountid = newSport.Creator_Account_Id });
+			int affectedRows = await Data.SaveData(sql, new { name = newSport.Name, status = newSport.Status.ToString(), accountid = newSport.Creator_Account_Id });
 			return affectedRows != 0;
 		}
 		public async Task<bool> UpdateSport(Sport oldSport)
 		{
 			string sql = "Update Sport set name = @name, status = @status, creator_Account_Id = @userid where id = @colid ;";
-			int affectedRows = await _data.SaveData(sql, new { name = oldSport.Name, status = oldSport.Status.ToString(), userid = oldSport.Creator_Account_Id, colid = oldSport.Id });
+			int affectedRows = await Data.SaveData(sql, new { name = oldSport.Name, status = oldSport.Status.ToString(), userid = oldSport.Creator_Account_Id, colid = oldSport.Id });
 			return affectedRows != 0;
 		}
 		public async Task<bool> DeleteSport(Sport oldSport)
@@ -44,7 +39,7 @@ namespace MauiBlazorWeb.Shared.Services
 		public async Task<bool> InsertAccountDoesSport(Account_does_Sport newSport)
 		{
 			string sql = "Insert into Account_does_Sport (account_id, sport_id) values (@accountid, @sportid);";
-			int affectedRows = await _data.SaveData(sql, new { accountid = newSport.Account_Id, sportid = newSport.Sport_Id });
+			int affectedRows = await Data.SaveData(sql, new { accountid = newSport.Account_Id, sportid = newSport.Sport_Id });
 			return affectedRows != 0;
 		}
 		public async Task<bool> DeleteAccountDoesSport(Account_does_Sport oldSport)
@@ -52,13 +47,15 @@ namespace MauiBlazorWeb.Shared.Services
 			string sql;
 			int affectedRows;
 
-			var workouts = await GetWorkouts(oldSport.Id);
+			var workouts = await GetWorkouts(oldSport.Id, false);
+			workouts.AddRange(await GetWorkouts(oldSport.Id, true));
+
 			var routines = await GetRoutines(oldSport.Id);
 
 			foreach (var routine in routines)
 			{
 				sql = "Delete from Routine where id = @postid;";
-				affectedRows = await _data.SaveData(sql, new { postid = routine.Id });
+				affectedRows = await Data.SaveData(sql, new { postid = routine.Id });
 				if(affectedRows == 0)
 					return false;
 			}
@@ -71,7 +68,7 @@ namespace MauiBlazorWeb.Shared.Services
 			}
 
 			sql = "Delete from Account_does_Sport where id = @postid;";
-			affectedRows = await _data.SaveData(sql, new { postid = oldSport.Id });
+			affectedRows = await Data.SaveData(sql, new { postid = oldSport.Id });
 			return affectedRows != 0;
 		}
 
@@ -79,13 +76,13 @@ namespace MauiBlazorWeb.Shared.Services
 		public async Task<bool> InsertRoutine(Routine newRoutine)
 		{
 			string sql = "Insert into Routine (status, Account_does_Sport_Id, ExampleWorkout_Id) values (@status, @aid, @eid);";
-			int affectedRows = await _data.SaveData(sql, new { status = newRoutine.Status.ToString(), aid = newRoutine.Account_does_Sport_Id, eid = newRoutine.ExampleWorkout_Id });
+			int affectedRows = await Data.SaveData(sql, new { status = newRoutine.Status.ToString(), aid = newRoutine.Account_does_Sport_Id, eid = newRoutine.ExampleWorkout_Id });
 			return affectedRows != 0;
 		}
 		public async Task<bool> UpdateRoutine(Routine oldRoutine)
 		{
 			string sql = "Update Routine set status = @status, Account_does_Sport_Id = @aid, ExampleWorkout_Id = @eid where id = @colid ;";
-			int affectedRows = await _data.SaveData(sql, new { status = oldRoutine.Status.ToString(), aid = oldRoutine.Account_does_Sport_Id, eid = oldRoutine.ExampleWorkout_Id, colid = oldRoutine.Id });
+			int affectedRows = await Data.SaveData(sql, new { status = oldRoutine.Status.ToString(), aid = oldRoutine.Account_does_Sport_Id, eid = oldRoutine.ExampleWorkout_Id, colid = oldRoutine.Id });
 			return affectedRows != 0;
 		}
 		public async Task<bool> DeleteRoutine(Routine oldRoutine)
@@ -98,13 +95,13 @@ namespace MauiBlazorWeb.Shared.Services
 		public async Task<bool> InsertExercise(Exercise newExercise)
 		{
 			string sql = "Insert into Exercise (name, notes, rest, type, status, creator_account_id, sport_id) values (@name, @notes, @rest, @type, @status, @accountid, @sid);";
-			int affectedRows = await _data.SaveData(sql, new { name = newExercise.Name, notes = newExercise.Notes, rest = newExercise.Rest.ToString(@"hh\:mm\:ss"), type = newExercise.Type.ToString(), status = newExercise.Status.ToString(), accountid = newExercise.Creator_Account_Id, sid = newExercise.Sport_Id });
+			int affectedRows = await Data.SaveData(sql, new { name = newExercise.Name, notes = newExercise.Notes, rest = newExercise.Rest.ToString(@"hh\:mm\:ss"), type = newExercise.Type.ToString(), status = newExercise.Status.ToString(), accountid = newExercise.Creator_Account_Id, sid = newExercise.Sport_Id });
 			return affectedRows != 0;
 		}
 		public async Task<bool> UpdateExercise(Exercise oldExercise)
 		{
 			string sql = "Update Exercise set name = @name, notes = @notes, rest = @rest, type = @type, status = @status, creator_Account_Id = @userid, sport_id = @sid where id = @colid;";
-			int affectedRows = await _data.SaveData(sql, new { name = oldExercise.Name, notes = oldExercise.Notes, rest = oldExercise.Rest.ToString(@"hh\:mm\:ss"), type = oldExercise.Type.ToString(), status = oldExercise.Status.ToString(), userid = oldExercise.Creator_Account_Id, sid = oldExercise.Sport_Id, colid = oldExercise.Id });
+			int affectedRows = await Data.SaveData(sql, new { name = oldExercise.Name, notes = oldExercise.Notes, rest = oldExercise.Rest.ToString(@"hh\:mm\:ss"), type = oldExercise.Type.ToString(), status = oldExercise.Status.ToString(), userid = oldExercise.Creator_Account_Id, sid = oldExercise.Sport_Id, colid = oldExercise.Id });
 			return affectedRows != 0;
 		}
 		public async Task<bool> DeleteExercise(Exercise oldExercise)
@@ -116,11 +113,11 @@ namespace MauiBlazorWeb.Shared.Services
 
 		public async Task<bool> InsertSet(Sets newSet)
 		{
-			TimeSpan len = new TimeSpan(newSet.LengthHours, newSet.LengthMinutes, newSet.LengthSeconds);
+			TimeSpan len = new(newSet.LengthHours, newSet.LengthMinutes, newSet.LengthSeconds);
 			string lenStr = len.ToString(@"hh\:mm\:ss");
 
 			string sql = "Insert into Sets (workoutindex, isDone, type, reps, RPE, weight, length, distance, Exercise_id, Workout_id) values (@workoutindex, @isDone, @type, @reps, @rpe, @weight, @length, @distance, @exid, @workid);";
-			int affectedRows = await _data.SaveData(sql, 
+			int affectedRows = await Data.SaveData(sql, 
 				new { 
 					workoutindex = newSet.Workoutindex,
 					isDone = newSet.IsDone, 
@@ -137,10 +134,10 @@ namespace MauiBlazorWeb.Shared.Services
 		}
 		public async Task<bool> UpdateSet(Sets oldSet)
 		{
-			TimeSpan len = new TimeSpan(oldSet.LengthHours, oldSet.LengthMinutes, oldSet.LengthSeconds);
+			TimeSpan len = new(oldSet.LengthHours, oldSet.LengthMinutes, oldSet.LengthSeconds);
 			string lenStr = len.ToString(@"hh\:mm\:ss");
 			string sql = "Update Sets set workoutindex = @workoutindex, isDone = @isDone, type = @type, reps = @reps, RPE = @rpe, weight = @weight, length = @length, distance = @distance, Exercise_id = @exid, Workout_id = @workid where id = @colid ;";
-			int affectedRows = await _data.SaveData(sql,
+			int affectedRows = await Data.SaveData(sql,
 			new
 			{
 					workoutindex = oldSet.Workoutindex,
@@ -160,7 +157,7 @@ namespace MauiBlazorWeb.Shared.Services
 		public async Task<bool> DeleteSet(Sets oldSet)
 		{
 			string sql = "Delete from Sets where id = @postid;";
-			int affectedRows = await _data.SaveData(sql, new { postid = oldSet.Id });
+			int affectedRows = await Data.SaveData(sql, new { postid = oldSet.Id });
 			return affectedRows != 0;
 		}
 
@@ -168,13 +165,13 @@ namespace MauiBlazorWeb.Shared.Services
 		public async Task<bool> InsertWorkout(Workout newWorkout)
 		{
 			string sql = "Insert into Workout (name, isDone, starttime, duration, notes, isroutineexample, routine_id, account_does_sport_id) values (@name, @isDone, @starttime, @duration, @notes, @isroutine, @rid, @aid);";
-			int affectedRows = await _data.SaveData(sql, new { name = newWorkout.Name, isdone = newWorkout.IsDone, starttime = newWorkout.Starttime.ToString("yyyy-MM-dd HH:mm:ss"), duration = newWorkout.Duration.ToString(@"hh\:mm\:ss"), notes = newWorkout.Notes, isroutine = newWorkout.IsRoutineExample, rid = newWorkout.Routine_Id, aid = newWorkout.Account_does_Sport_Id });
+			int affectedRows = await Data.SaveData(sql, new { name = newWorkout.Name, isdone = newWorkout.IsDone, starttime = newWorkout.Starttime.ToString("yyyy-MM-dd HH:mm:ss"), duration = newWorkout.Duration.ToString(@"hh\:mm\:ss"), notes = newWorkout.Notes, isroutine = newWorkout.IsRoutineExample, rid = newWorkout.Routine_Id, aid = newWorkout.Account_does_Sport_Id });
 			return affectedRows != 0;
 		}
 		public async Task<bool> UpdateWorkout(Workout oldWorkout)
 		{
 			string sql = "Update Workout set name = @name, isDone = @isdone, starttime = @starttime, duration= @duration, notes = @notes, isroutineexample = @isroutine, routine_id = @rid, account_does_sport_id = @aid where id = @colid ;";
-			int affectedRows = await _data.SaveData(sql, new { name = oldWorkout.Name, isdone = oldWorkout.IsDone, starttime = oldWorkout.Starttime.ToString("yyyy-MM-dd HH:mm:ss"), duration = oldWorkout.Duration.ToString(@"hh\:mm\:ss"), notes = oldWorkout.Notes, isroutine = oldWorkout.IsRoutineExample, rid = oldWorkout.Routine_Id, aid = oldWorkout.Account_does_Sport_Id, colid = oldWorkout.Id });
+			int affectedRows = await Data.SaveData(sql, new { name = oldWorkout.Name, isdone = oldWorkout.IsDone, starttime = oldWorkout.Starttime.ToString("yyyy-MM-dd HH:mm:ss"), duration = oldWorkout.Duration.ToString(@"hh\:mm\:ss"), notes = oldWorkout.Notes, isroutine = oldWorkout.IsRoutineExample, rid = oldWorkout.Routine_Id, aid = oldWorkout.Account_does_Sport_Id, colid = oldWorkout.Id });
 			return affectedRows != 0;
 		}
 		public async Task<bool> DeleteWorkout(Workout oldWorkout)
@@ -188,7 +185,7 @@ namespace MauiBlazorWeb.Shared.Services
 			}
 
 			string sql = "Delete from Workout where id = @postid;";
-			int affectedRows = await _data.SaveData(sql, new { postid = oldWorkout.Id });
+			int affectedRows = await Data.SaveData(sql, new { postid = oldWorkout.Id });
 			return affectedRows != 0;
 		}
 
@@ -196,18 +193,18 @@ namespace MauiBlazorWeb.Shared.Services
 		public async Task<List<Sport>> GetAllSports(int accountId)
 		{
 			string sql = $"Select * from Sport;";
-			var allSport = await _data.LoadData<Sport, dynamic>(sql, new { });
+			var allSport = await Data.LoadData<Sport, dynamic>(sql, new { });
 			return allSport.Where(s => s.Status == SportStatus.Public || (s.Creator_Account_Id == accountId && s.Status == SportStatus.Private)).ToList();
 		}
 		public async Task<List<Sport>> GetAccountsSports(int accountId)
 		{
-			List<Sport> sports = new List<Sport>();
+			List<Sport> sports = [];
 
 			var accountDoesSports = await GetAccountDoesSports(accountId);
 			foreach (var a in accountDoesSports)
 			{
 				string sql = $"Select * from Sport where id = @id;";
-				var list = await _data.LoadData<Sport, dynamic>(sql, new { id = a.Sport_Id });
+				var list = await Data.LoadData<Sport, dynamic>(sql, new { id = a.Sport_Id });
 				var sport = list.FirstOrDefault();
 				if( sport != null )
 					sports.Add(sport);
@@ -218,70 +215,71 @@ namespace MauiBlazorWeb.Shared.Services
 		public async Task<List<Account_does_Sport>> GetAccountDoesSport(int accountId, int sportId)
 		{
 			string sql = $"Select * from Account_does_Sport where (Account_Id = @aid AND  Sport_Id = @sid);";
-			return await _data.LoadData<Account_does_Sport, dynamic>(sql, new { aid = accountId, sid = sportId });
+			return await Data.LoadData<Account_does_Sport, dynamic>(sql, new { aid = accountId, sid = sportId });
 		}
 		public async Task<List<Account_does_Sport>> GetAccountDoesSport(int accountDoesSportId)
 		{
 			string sql = $"Select * from Account_does_Sport where Id = @id;";
-			return await _data.LoadData<Account_does_Sport, dynamic>(sql, new { id = accountDoesSportId });
+			return await Data.LoadData<Account_does_Sport, dynamic>(sql, new { id = accountDoesSportId });
 		}
 		public async Task<List<Account_does_Sport>> GetAccountDoesSports(int accountId)
 		{
 			string sql = $"Select * from Account_does_Sport where Account_Id = @id;";
-			return await _data.LoadData<Account_does_Sport, dynamic>(sql, new { id = accountId });
+			return await Data.LoadData<Account_does_Sport, dynamic>(sql, new { id = accountId });
 		}
 
 		public async Task<List<Routine>> GetRoutine(int routineId)
 		{
 			string sql = $"Select * from Routine where Id = @id;";
-			return await _data.LoadData<Routine, dynamic>(sql, new { id = routineId });
+			return await Data.LoadData<Routine, dynamic>(sql, new { id = routineId });
 		}
 		public async Task<List<Routine>> GetRoutines(int accountDoesSportId)
 		{
 			string sql = $"Select * from Routine where Account_does_Sport_Id = @id;";
-			var allRoutines = await _data.LoadData<Routine, dynamic>(sql, new { id = accountDoesSportId });
+			var allRoutines = await Data.LoadData<Routine, dynamic>(sql, new { id = accountDoesSportId });
 			return allRoutines.Where(r => r.Status != SportStatus.Deleted).ToList();
 		}
 		public async Task<List<Exercise>> GetExercise(int exerciseId)
 		{
 			string sql = $"Select * from Exercise where id = @id;";
-			return await _data.LoadData<Exercise, dynamic>(sql, new { id = exerciseId });
+			return await Data.LoadData<Exercise, dynamic>(sql, new { id = exerciseId });
 		}
 		public async Task<List<Exercise>> GetExercises(int accountId, int sportId)
 		{
 			string sql = $"Select * from Exercise where Sport_id = @id;";
-			var allExercise = await _data.LoadData<Exercise, dynamic>(sql, new { id = sportId });
+			var allExercise = await Data.LoadData<Exercise, dynamic>(sql, new { id = sportId });
 			return allExercise.Where(e => e.Status == SportStatus.Public || (e.Creator_Account_Id == accountId && e.Status == SportStatus.Private)).ToList();
 		}
 
 		public async Task<List<Workout>> GetWorkout(int workoutId)
 		{
 			string sql = $"Select * from Workout where Id = @id;";
-			return await _data.LoadData<Workout, dynamic>(sql, new { id = workoutId});
+			return await Data.LoadData<Workout, dynamic>(sql, new { id = workoutId});
 		}
-		public async Task<List<Workout>> GetWorkouts(int accountDoesSportId)
+		public async Task<List<Workout>> GetWorkouts(int accountDoesSportId, bool onlyExamples)
 		{
 			string sql = $"Select * from Workout where Account_does_Sport_Id = @id;";
-			return await _data.LoadData<Workout, dynamic>(sql, new { id = accountDoesSportId });
+			var allWorkouts = await Data.LoadData<Workout, dynamic>(sql, new { id = accountDoesSportId });
+			return allWorkouts.Where(w => w.IsRoutineExample == onlyExamples).ToList();
 		}
 
 		public async Task<List<Sets>> GetSetsByExercise(int exerciseId)
 		{
 			string sql = $"Select * from Sets where Exercise_Id = @eid ;";
-			return await _data.LoadData<Sets, dynamic>(sql, new { eid = exerciseId });
+			return await Data.LoadData<Sets, dynamic>(sql, new { eid = exerciseId });
 		}
 
 		public async Task<List<Sets>> GetSetsByWorkout(int workoutId)
 		{
 			string sql = $"Select * from Sets where Workout_Id = @wid;";
-			var sets = await _data.LoadData<Sets, dynamic>(sql, new { wid = workoutId });
+			var sets = await Data.LoadData<Sets, dynamic>(sql, new { wid = workoutId });
 			return sets = sets.OrderBy(s => s.Workoutindex).ToList();
 		}
 
 		public async Task<List<Sets>> GetSetsByBoth(int exerciseId, int workoutId)
 		{
 			string sql = $"Select * from Sets where Workout_Id = @wid and  Exercise_Id = @eid ;";
-			return await _data.LoadData<Sets, dynamic>(sql, new { wid = workoutId, eid = exerciseId });
+			return await Data.LoadData<Sets, dynamic>(sql, new { wid = workoutId, eid = exerciseId });
 		}
 	}
 }

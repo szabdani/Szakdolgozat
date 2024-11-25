@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Components;
 
 namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 {
-	public enum TimePeriod { Week, Month, Year, All }
 	public class DiaryCompBase : ObserverComp
 	{
 		[Inject] protected IAppState AppState { get; set; } = default!;
@@ -61,18 +60,6 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 		protected async Task RefreshDiaryComps()
 		{
 			await AppState.ShowLoadingScreenWhileAwaiting(Subject.UpdateObservers);
-		}
-
-		protected static bool FilterPostsByTimePeriod(DateTime postDate, DateTime refDate, TimePeriod timeSpan)
-		{
-			return timeSpan switch
-			{
-				TimePeriod.Week => postDate > refDate.AddDays(-7),
-				TimePeriod.Month => postDate.Month == refDate.Month && postDate.Year == refDate.Year,
-				TimePeriod.Year => postDate.Year == refDate.Year,
-				TimePeriod.All => true,
-				_ => false,
-			};
 		}
 	}
 }

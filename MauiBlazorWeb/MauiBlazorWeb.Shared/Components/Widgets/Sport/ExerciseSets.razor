@@ -68,46 +68,46 @@
 					{
 						case ExerciseType.Bodyweight:
 							<td>
-								<NumberInput TValue="int?" @bind-Value=set.Reps @bind-Value:after="()=> UpdateSet(set)" EnableMinMax="true" Min="0" Style="background-color: inherit" Disabled="workout.IsDone" />
+								<NumberInput TValue="int?" @bind-Value=set.Reps @bind-Value:after="()=> UpdateSet(set)" EnableMinMax="true" Min="0" Style="background-color: inherit" Disabled="Disabled" />
 							</td>
 							<td>
-								<NumberInput TValue="int?" @bind-Value=set.RPE @bind-Value:after="()=> UpdateSet(set)" EnableMinMax="true" Min="0" Max="10" Style="background-color: inherit" Disabled="workout.IsDone" />
+								<NumberInput TValue="int?" @bind-Value=set.RPE @bind-Value:after="()=> UpdateSet(set)" EnableMinMax="true" Min="0" Max="10" Style="background-color: inherit" Disabled="Disabled" />
 							</td>
 							break;
 						case ExerciseType.Machine:
 							<td>
-								<NumberInput TValue="double?" @bind-Value=set.Weight @bind-Value:after="()=> UpdateSet(set)" EnableMinMax="true" Min="0" Style="background-color: inherit" Disabled="workout.IsDone" />
+								<NumberInput TValue="double?" @bind-Value=set.Weight @bind-Value:after="()=> UpdateSet(set)" EnableMinMax="true" Min="0" Style="background-color: inherit" Disabled="Disabled" />
 							</td>
 							<td>
-								<NumberInput TValue="int?" @bind-Value=set.Reps @bind-Value:after="()=> UpdateSet(set)" EnableMinMax="true" Min="0" Style="background-color: inherit" Disabled="workout.IsDone" />
+								<NumberInput TValue="int?" @bind-Value=set.Reps @bind-Value:after="()=> UpdateSet(set)" EnableMinMax="true" Min="0" Style="background-color: inherit" Disabled="Disabled" />
 							</td>
 							<td>
-								<NumberInput TValue="int?" @bind-Value=set.RPE @bind-Value:after="()=> UpdateSet(set)" EnableMinMax="true" Min="0" Max="10" Style="background-color: inherit" Disabled="workout.IsDone" />
+								<NumberInput TValue="int?" @bind-Value=set.RPE @bind-Value:after="()=> UpdateSet(set)" EnableMinMax="true" Min="0" Max="10" Style="background-color: inherit" Disabled="Disabled" />
 							</td>
 							break;
 						case ExerciseType.Timed:
 							<td>
-								<NumberInput TValue="int" @bind-Value=set.LengthHours @bind-Value:after="()=> UpdateSet(set)" EnableMinMax="true" Min="0" Max="99" Style="background-color: inherit" Disabled="workout.IsDone" />
+								<NumberInput TValue="int" @bind-Value=set.LengthHours @bind-Value:after="()=> UpdateSet(set)" EnableMinMax="true" Min="0" Max="99" Style="background-color: inherit" Disabled="Disabled" />
 							</td>
 							<td>
-								<NumberInput TValue="int" @bind-Value=set.LengthMinutes @bind-Value:after="()=> UpdateSet(set)" EnableMinMax="true" Min="0" Max="59" Style="background-color: inherit" Disabled="workout.IsDone" />
+								<NumberInput TValue="int" @bind-Value=set.LengthMinutes @bind-Value:after="()=> UpdateSet(set)" EnableMinMax="true" Min="0" Max="59" Style="background-color: inherit" Disabled="Disabled" />
 							</td>
 							<td>
-								<NumberInput TValue="int" @bind-Value=set.LengthSeconds @bind-Value:after="()=> UpdateSet(set)" EnableMinMax="true" Min="0" Max="59" Style="background-color: inherit" Disabled="workout.IsDone" />
+								<NumberInput TValue="int" @bind-Value=set.LengthSeconds @bind-Value:after="()=> UpdateSet(set)" EnableMinMax="true" Min="0" Max="59" Style="background-color: inherit" Disabled="Disabled" />
 							</td>
 							break;
 						case ExerciseType.Distanced:
 							<td>
-								<NumberInput TValue="double?" @bind-Value=set.Distance @bind-Value:after="()=> UpdateSet(set)" EnableMinMax="true" Min="0" Style="background-color: inherit" Disabled="workout.IsDone" />
+								<NumberInput TValue="double?" @bind-Value=set.Distance @bind-Value:after="()=> UpdateSet(set)" EnableMinMax="true" Min="0" Style="background-color: inherit" Disabled="Disabled" />
 							</td>
 							<td>
-								<NumberInput TValue="int" @bind-Value=set.LengthHours @bind-Value:after="()=> UpdateSet(set)" EnableMinMax="true" Min="0" Max="99" Style="background-color: inherit" Disabled="workout.IsDone" />
+								<NumberInput TValue="int" @bind-Value=set.LengthHours @bind-Value:after="()=> UpdateSet(set)" EnableMinMax="true" Min="0" Max="99" Style="background-color: inherit" Disabled="Disabled" />
 							</td>
 							<td>
-								<NumberInput TValue="int" @bind-Value=set.LengthMinutes @bind-Value:after="()=> UpdateSet(set)" EnableMinMax="true" Min="0" Max="59" Style="background-color: inherit" Disabled="workout.IsDone" />
+								<NumberInput TValue="int" @bind-Value=set.LengthMinutes @bind-Value:after="()=> UpdateSet(set)" EnableMinMax="true" Min="0" Max="59" Style="background-color: inherit" Disabled="Disabled" />
 							</td>
 							<td>
-								<NumberInput TValue="int" @bind-Value=set.LengthSeconds @bind-Value:after="()=> UpdateSet(set)" EnableMinMax="true" Min="0" Max="59" Style="background-color: inherit" Disabled="workout.IsDone" />
+								<NumberInput TValue="int" @bind-Value=set.LengthSeconds @bind-Value:after="()=> UpdateSet(set)" EnableMinMax="true" Min="0" Max="59" Style="background-color: inherit" Disabled="Disabled" />
 							</td>
 							break;
 						default:
@@ -133,7 +133,7 @@
 		<tfoot>
 			<tr>
 				<td colspan="@addColspan">
-					<button class="btn btn-info" disabled="@workout.IsDone" @onclick="AddSet">
+					<button class="btn btn-info" disabled="@Disabled" @onclick="AddSet">
 						Add a new Set! <IconAdd />
 					</button>
 				</td>
@@ -166,6 +166,7 @@
 @code {
 	[Parameter] public required int WorkoutId { get; set; }
 	[Parameter] public required int ExerciseId { get; set; }
+	[Parameter] public required bool Disabled { get; set; }
 
 	private Workout workout = new();
 	private Exercise exercise = new();
@@ -213,7 +214,7 @@
 
 	private async Task CycleSetType(Sets set)
 	{
-		if (workout.IsDone)
+		if (Disabled)
 			return;
 
 		if (set.Type == SetsType.Drop)
@@ -228,7 +229,7 @@
 
 	private async Task ToggleSetDone(Sets set)
 	{
-		if (workout.IsDone)
+		if (Disabled)
 			return;
 
 		bool isCorrect = true;
@@ -284,7 +285,7 @@
 
 	private async Task DeleteSet(Sets set)
 	{
-		if (workout.IsDone)
+		if (Disabled)
 			return;
 
 		bool isCorrect = await SportManager.DeleteSet(set);
