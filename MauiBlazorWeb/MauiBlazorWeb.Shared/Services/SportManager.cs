@@ -49,7 +49,7 @@ namespace MauiBlazorWeb.Shared.Services
 			int affectedRows;
 
 			var workouts = await GetWorkouts(oldSport.Id);
-			var routines = await GetRoutines(oldSport);
+			var routines = await GetRoutines(oldSport.Id);
 
 			foreach (var routine in routines)
 			{
@@ -75,15 +75,15 @@ namespace MauiBlazorWeb.Shared.Services
 		public async Task<bool> InsertRoutine(Routine newRoutine)
 		{
 			IDataAccess _data = new DataAccess();
-			string sql = "Insert into Routine (name, notes, status, Account_does_Sport_Id) values (@name, @notes, @status, @aid);";
-			int affectedRows = await _data.SaveData(sql, new { name = newRoutine.Name, notes = newRoutine.Notes, status = newRoutine.Status.ToString(), aid = newRoutine.Account_does_Sport_Id });
+			string sql = "Insert into Routine (status, Account_does_Sport_Id, ExampleWorkout_Id) values (@status, @aid, @eid);";
+			int affectedRows = await _data.SaveData(sql, new { status = newRoutine.Status.ToString(), aid = newRoutine.Account_does_Sport_Id, eid = newRoutine.ExampleWorkout_Id });
 			return affectedRows != 0;
 		}
 		public async Task<bool> UpdateRoutine(Routine oldRoutine)
 		{
 			IDataAccess _data = new DataAccess();
-			string sql = "Update Routine set name = @name, notes = @notes, status = @status, Account_does_Sport_Id = @aid where id = @colid ;";
-			int affectedRows = await _data.SaveData(sql, new { name = oldRoutine.Name, notes = oldRoutine.Notes, status = oldRoutine.Status.ToString(), aid = oldRoutine.Account_does_Sport_Id, colid = oldRoutine.Id });
+			string sql = "Update Routine set status = @status, Account_does_Sport_Id = @aid, ExampleWorkout_Id = @eid where id = @colid ;";
+			int affectedRows = await _data.SaveData(sql, new { status = oldRoutine.Status.ToString(), aid = oldRoutine.Account_does_Sport_Id, eid = oldRoutine.ExampleWorkout_Id, colid = oldRoutine.Id });
 			return affectedRows != 0;
 		}
 		public async Task<bool> DeleteRoutine(Routine oldRoutine)
@@ -256,12 +256,13 @@ namespace MauiBlazorWeb.Shared.Services
 			string sql = $"Select * from Routine where Id = @id;";
 			return await _data.LoadData<Routine, dynamic>(sql, new { id = routineId });
 		}
-		public async Task<List<Routine>> GetRoutines(Account_does_Sport accountDoesSport)
+		public async Task<List<Routine>> GetRoutines(int accountDoesSportId)
 		{
 			IDataAccess _data = new DataAccess();
 
 			string sql = $"Select * from Routine where Account_does_Sport_Id = @id;";
-			return await _data.LoadData<Routine, dynamic>(sql, new { id = accountDoesSport.Id });
+			var allRoutines = await _data.LoadData<Routine, dynamic>(sql, new { id = accountDoesSportId });
+			return allRoutines.Where(r => r.Status != SportStatus.Deleted).ToList();
 		}
 		public async Task<List<Exercise>> GetExercise(int exerciseId)
 		{

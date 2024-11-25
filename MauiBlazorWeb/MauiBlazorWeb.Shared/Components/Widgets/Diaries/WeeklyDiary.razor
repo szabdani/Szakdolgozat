@@ -12,10 +12,10 @@
 			<table class="table table-striped text-center">
 				<thead class="thead-light" style="position: sticky; top: 0; background-color: #ffefef">
 					<tr>
-						<th scope="col">Date</th>
+						<th>Date</th>
 						@foreach (var col in allCols)
 						{
-							<th scope="col">
+							<th>
 								@col.Name
 							</th>
 						}
@@ -28,15 +28,15 @@
 
 							@if (date == DateTime.Today)
 							{
-								<th scope="row">Today</th>
+								<th>Today</th>
 							}
 							else if (date == DateTime.Today.AddDays(-1))
 							{
-								<th scope="row">Yesterday</th>
+								<th>Yesterday</th>
 							}
 							else
 							{
-								<th scope="row">@((DateTime.Today - date).Days) days ago</th>
+								<th>@((DateTime.Today - date).Days) days ago</th>
 							}
 
 							@foreach (var col in allCols.OrderBy(col => col.Type))

@@ -12,10 +12,10 @@
 			<table class="table text-center">
 				<thead class="thead-light" style="position: sticky; top: 0; background-color: #ffefef">
 					<tr>
-						<th scope="col">Date</th>
+						<th>Date</th>
 						@foreach (var col in allCols)
 						{
-							<th scope="col">
+							<th>
 								@col.Name
 								<button class="btn btn-warning" @onclick="() => editHabitDialog.Show(col)">
 									<IconEdit />
@@ -31,7 +31,7 @@
 					@foreach (var date in allDatesSinceReg)
 					{
 						<tr id="@(date == DateTime.Today ? "last-row" : null)" class="@(date.Month % 2 == 1 ? "lightrow" : "darkrow")">
-							<th scope="row">
+							<th>
 								@date.ToString("yyyy-MM-dd")
 							</th>
 							@foreach (var col in allCols.OrderBy(col => col.Type))

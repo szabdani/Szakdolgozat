@@ -27,14 +27,14 @@
 					<table class="table float-end">
 						<tbody>
 							<tr>
-								<th scope="col">Habits</th>
+								<th>Habits</th>
 								@foreach (var col in numCols)
 								{
 									<th>@col.Name</th>
 								}
 							</tr>
 							<tr>
-								<th scope="col">Average</th>
+								<th>Average</th>
 								@foreach (var col in numCols)
 								{
 									if (isAverageCorrect[col.Id])
@@ -53,7 +53,7 @@
 								}
 							</tr>
 							<tr>
-								<th scope="col">Show?</th>
+								<th>Show?</th>
 								@foreach (var col in numCols)
 								{
 									<td class="tracker-post" @onclick="() => OnToggle(col.Id)">

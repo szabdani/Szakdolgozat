@@ -22,14 +22,14 @@
 			<table class="table w-auto float-end">
 				<tbody>
 					<tr>
-						<th scope="col">Habits</th>
+						<th>Habits</th>
 						@foreach (var col in allCols)
 						{
 							<th>@col.Name</th>
 						}
 					</tr>
 					<tr>
-						<th scope="col">Show?</th>
+						<th>Show?</th>
 						@foreach (var col in allCols)
 						{
 							<td class="tracker-post" @onclick="() => OnToggle(col.Id)">

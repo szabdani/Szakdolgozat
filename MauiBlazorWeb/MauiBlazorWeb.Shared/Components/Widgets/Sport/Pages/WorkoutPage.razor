@@ -25,7 +25,7 @@ else
 						<div class="col-auto @(workout.IsRoutineExample? "text-center" : "")">
 							@if (workout.IsRoutineExample)
 							{
-								<h4>Adjusting @routine.Name routine</h4>
+								<h4>Adjusting @workout.Name routine</h4>
 							}
 							else
 							{
@@ -35,9 +35,18 @@ else
 					</div>
 					<div class="row">
 						<div class="col-auto">
-							<button class="btn btn-danger" @onclick="() => OnDiscardWorkout(workout)">
-								Discard @(workout.IsRoutineExample? "Routine" : "Workout")
-							</button>
+							@if (workout.IsRoutineExample)
+							{
+								<button class="btn btn-danger" @onclick="() => OnDeletRoutineById(workout.Account_does_Sport_Id, (int)workout.Routine_Id)">
+									Delete Routine
+								</button>
+							}
+							else
+							{
+								<button class="btn btn-danger" @onclick="() => OnDiscardWorkout(workout)">
+									Discard Workout
+								</button>
+							}
 						</div>
 						<div class="col-auto float-end">
 							@if (workout.IsRoutineExample)
@@ -140,66 +149,42 @@ else
 		</div>
 		<div class="col m-2">
 			<div class="row mb-2" style="background-color: darkgrey">
-				@if (workout.IsRoutineExample)
-				{
-					<div class="row">
-						<div class="col">
-							<h3>
-								<InputText class="form-control" @bind-Value=routine.Name @bind-Value:after="UpdateWorkout" disabled=@workout.IsDone
-								style="background-color: inherit; border: none; font-size: inherit; font-weight: bold" />
-							</h3>
 
-						</div>
-						<div class="col-auto float-end align">
-							<h4>
-								Creation date: @workout.Starttime.ToString("yyyy-MM-dd HH:mm")
-							</h4>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col">
-							<textarea class="form-control"
-							@bind="routine.Notes"
-							@bind:after="UpdateWorkout"
-							disabled=@workout.IsDone
-							rows="1"
-							placeholder="Write something about this workout"
-							style="resize:vertical; background-color: lightgrey"
-							oninput="this.style.height = 'auto'; this.style.height = (this.scrollHeight) + 'px';">
-							</textarea>
-						</div>
-					</div>
-				}
-				else
-				{
-					<div class="row">
-						<div class="col">
-							<h3>
-								<InputText class="form-control" @bind-Value=workout.Name @bind-Value:after="UpdateWorkout" disabled=@workout.IsDone
-								style="background-color: inherit; border: none; font-size: inherit; font-weight: bold" />
-							</h3>
+				<div class="row">
+					<div class="col">
+						<h3>
+							<InputText class="form-control" @bind-Value=workout.Name @bind-Value:after="UpdateWorkout"
+							placeholder= "@placeholderStr" disabled=@workout.IsDone
+							style="background-color: inherit; border: none; font-size: inherit; font-weight: bold" />
+						</h3>
 
-						</div>
-						<div class="col-auto float-end align">
+					</div>
+					<div class="col-auto float-end align">
+						@if (!workout.IsRoutineExample && workout.Routine_Id is not null)
+						{
 							<h4>
-								Date: @workout.Starttime.ToString("yyyy-MM-dd HH:mm")
+								Routine: @routineExampleWorkout.Name 
 							</h4>
-						</div>
+						}
+						<h4>
+							@(workout.IsRoutineExample ? "Creation date:" : "Date:") @workout.Starttime.ToString("yyyy-MM-dd HH:mm")
+						</h4>
 					</div>
-					<div class="row">
-						<div class="col">
-							<textarea class="form-control"
-							@bind="workout.Notes"
-							@bind:after="UpdateWorkout"
-							disabled=@workout.IsDone
-							rows="1"
-							placeholder="Write something about this workout"
-							style="resize:vertical; background-color: lightgrey"
-							oninput="this.style.height = 'auto'; this.style.height = (this.scrollHeight) + 'px';">
-							</textarea>
-						</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<textarea class="form-control"
+						@bind="workout.Notes"
+						@bind:after="UpdateWorkout"
+						disabled=@workout.IsDone
+						rows="1"
+						placeholder="Write something about this workout"
+						style="resize:vertical; background-color: lightgrey"
+						oninput="this.style.height = 'auto'; this.style.height = (this.scrollHeight) + 'px';">
+						</textarea>
 					</div>
-				}
+				</div>
+
 			</div>
 			<div class="row">
 				<div class="col">
@@ -221,24 +206,9 @@ else
 													</button>
 												</div>
 											</div>
-											@if (workout.Routine_Id is not null)
-											{
-												<div class="row">
-													<div class="col">
-														<h5 class="text-secondary">@routine.Notes</h5>
-													</div>
-												</div>
-											}
 											<div class="row">
 												<div class="col">
-													<textarea class="form-control"
-													@bind="ex.Notes"
-													disabled=@workout.IsDone
-													rows="1"
-													placeholder="Add notes here"
-													style="resize:vertical; background-color: inherit"
-													oninput="this.style.height = 'auto'; this.style.height = (this.scrollHeight) + 'px';">
-													</textarea>
+													<h5 class="text-secondary">@ex.Notes</h5>
 												</div>
 											</div>
 										</div>
@@ -282,8 +252,10 @@ else
 	[Parameter, EditorRequired]
 	public int WorkoutId { get; set; } = 0;
 
+	private string placeholderStr = "";
+
 	private Workout workout;
-	private Routine routine;
+	private Workout routineExampleWorkout;
 	private List<Exercise> exercises;
 	private List<Sets> sets;
 
@@ -301,10 +273,10 @@ else
 	public WorkoutPage()
 	{
 		workout = new Workout();
-		routine = new Routine();
+		routineExampleWorkout = new Workout();
 		exercises = new List<Exercise>();
 		sets = new List<Sets>();
-
+		
 
 		addExerciseDialog = new AddExerciseDialog();
 		warning = new WarningDialog();
@@ -344,11 +316,9 @@ else
 				var workoutSets = await _sportManager.GetSetsByWorkout(workout.Id);
 				if (workoutSets.Count == 0)
 				{
-					routine = await ValidateRoutine((int)workout.Routine_Id);
-					var list = await _sportManager.GetWorkouts(workout.Account_does_Sport_Id);
-					Workout exampleWorkout = list.First(w => w.Routine_Id == routine.Id && w.IsRoutineExample);
+					routineExampleWorkout = await GetRoutineExample(workout.Account_does_Sport_Id, (int)workout.Routine_Id);
 
-					var exampleSets = await _sportManager.GetSetsByWorkout(exampleWorkout.Id);
+					var exampleSets = await _sportManager.GetSetsByWorkout(routineExampleWorkout.Id);
 					foreach (var set in exampleSets)
 					{
 						set.Workout_Id = workout.Id;
@@ -359,9 +329,9 @@ else
 				}
 			}
 		}
-		else
-			routine = await ValidateRoutine((int)workout.Routine_Id);
 
+		string typeStr = workout.IsRoutineExample ? "Routine" : "Workout";
+		placeholderStr = $"Name this {typeStr}";
 		await base.ValidateParameters();
 	}
 
@@ -521,15 +491,7 @@ else
 
 	private async Task UpdateWorkout()
 	{
-		bool isCorrect = true;
-		if (workout.IsRoutineExample)
-		{
-			isCorrect = await _sportManager.UpdateRoutine(routine);
-			if (!isCorrect)
-				throw new Exception($"Sorry, we could not update your Routine");
-		}
-
-		isCorrect = await _sportManager.UpdateWorkout(workout);
+		bool isCorrect = await _sportManager.UpdateWorkout(workout);
 		if (!isCorrect)
 			throw new Exception($"Sorry, we could not update your Workout");
 	}

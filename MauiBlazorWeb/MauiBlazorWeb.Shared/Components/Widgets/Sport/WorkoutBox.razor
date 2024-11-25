@@ -16,7 +16,7 @@
 			@if (workout.Routine_Id is not null)
 			{
 				<div class="col-auto">
-					Routine: @routine.Name
+					Routine: @routineExampleWorkout.Name
 				</div>
 			}
 			<div class="col-auto">
@@ -52,7 +52,7 @@
 	public int WorkoutId { get; set; } = 0;
 
 	private Workout workout;
-	private Routine routine;
+	private Workout routineExampleWorkout;
 
 	private Dictionary<int, int> numberOfSets;
 	private List<Exercise> exercises;
@@ -60,7 +60,7 @@
 	public WorkoutBox()
 	{
 		workout = new Workout();
-		routine = new Routine();
+		routineExampleWorkout = new Workout();
 
 		exercises = new List<Exercise>();
 		numberOfSets = new Dictionary<int, int>();
@@ -72,7 +72,7 @@
 
 		workout = await ValidateWorkout(WorkoutId);
 		if (workout.Routine_Id is not null)
-			routine = await ValidateRoutine((int)workout.Routine_Id);
+			routineExampleWorkout = await GetRoutineExample(workout.Account_does_Sport_Id,(int)workout.Routine_Id);
 
 		var sets = await _sportManager.GetSetsByWorkout(workout.Id);
 		var exIds = sets.Select(s => s.Exercise_Id).Distinct().ToList();

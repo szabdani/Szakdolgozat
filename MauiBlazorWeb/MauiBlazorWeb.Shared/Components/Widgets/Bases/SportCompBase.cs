@@ -12,27 +12,16 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 {
 	public class SportCompBase : ObserverComp
 	{
-		[Inject] protected IAppState _appState { get; set; }
-		[Inject] protected ISportManager _sportManager { get; set; }
-		[Inject] protected NavigationManager navigation { get; set; }
+		[Inject] protected IAppState _appState { get; set; } = default!;
+		[Inject] protected ISportManager _sportManager { get; set; } = default!;
+		[Inject] protected NavigationManager navigation { get; set; } = default!;
 
-		protected List<MauiBlazorWeb.Shared.Models.Sports.Sport> allSports;
-		protected List<Account_does_Sport> allAccountDoesSports;
+		protected List<MauiBlazorWeb.Shared.Models.Sports.Sport> allSports = new();
+		protected List<Account_does_Sport> allAccountDoesSports = new();
 		protected bool hasInvalidParameter = false;
 
 		protected DateTime firstDate;
-		protected List<DateTime> allDatesSinceReg;
-		
-		public SportCompBase()
-		{
-			_appState = new AppState();
-			_sportManager = new SportManager();
-
-			allSports = new List<MauiBlazorWeb.Shared.Models.Sports.Sport>();
-			allAccountDoesSports = new List<Account_does_Sport>();
-
-			allDatesSinceReg = new List<DateTime>();
-		}
+		protected List<DateTime> allDatesSinceReg = new();
 
 		protected override void OnInitialized()
 		{
@@ -177,19 +166,38 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 			return retVal;
 		}
 
-		public async Task OnStartWorkout(int accountDoesId, int routineId = 0, bool isRoutineExample = false)
+		protected async Task<Workout> GetRoutineExample(int accountDoesId, int RoutineId)
 		{
-			await _appState.ShowLoadingScreenWhileAwaiting(() => StartWorkout(accountDoesId, routineId, isRoutineExample));
+			var list = await _sportManager.GetWorkouts(accountDoesId);
+			return list.First(w => w.Routine_Id == RoutineId && w.IsRoutineExample);
 		}
 
-		public async Task StartWorkout(int accountDoesId, int routineId, bool isRoutineExample)
+		public async Task OnStartWorkout(int accountDoesId, int routineId = 0)
+		{
+			await _appState.ShowLoadingScreenWhileAwaiting(() => StartWorkout(accountDoesId, routineId));
+		}
+
+		public async Task OnDiscardWorkout(Workout workout)
+		{
+			await _appState.ShowLoadingScreenWhileAwaiting(() => DiscardWorkout(workout));
+		}
+		public async Task OnDeleteRoutine(Routine routine)
+		{
+			await _appState.ShowLoadingScreenWhileAwaiting(() => DeleteRoutine(routine));
+		}
+
+		public async Task OnDeletRoutineById(int accountDoesSportId, int routineId)
+		{
+			await _appState.ShowLoadingScreenWhileAwaiting(() => DeletRoutineById(accountDoesSportId, routineId));
+		}
+
+		public async Task StartWorkout(int accountDoesId, int routineId)
 		{
 			Workout newWorkout = new Workout
 			{
-				Name = isRoutineExample ? "RoutineExample" : "New Workout",
+				Name = "New Workout",
 				Starttime = DateTime.Now,
 				IsDone = false,
-				IsRoutineExample = isRoutineExample,
 				Account_does_Sport_Id = accountDoesId
 			};
 
@@ -205,19 +213,29 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 
 			navigation.NavigateTo($"workout/id={insertedId}", true);
 		}
-
-		public async Task OnDiscardWorkout(Workout workout)
+		private async Task DeletRoutineById(int accountDoesSportId, int routineId)
 		{
-			await _appState.ShowLoadingScreenWhileAwaiting(() => DiscardWorkout(workout));
+			var list = await _sportManager.GetRoutines(accountDoesSportId);
+			var first = list.First(r => r.Id == routineId);
+
+			await DeleteRoutine(first);
 		}
 
+		private async Task DeleteRoutine(Routine routine)
+		{
+			bool isCorrect = await _sportManager.DeleteRoutine(routine);
+			if (!isCorrect)
+				throw new Exception($"Sorry, could not delete your Routine");
+
+			navigation.NavigateTo($"/sports/id={routine.Account_does_Sport_Id}", true);
+		}
 		private async Task DiscardWorkout(Workout workout)
 		{
 			bool isCorrect = await _sportManager.DeleteWorkout(workout);
 			if (!isCorrect)
 				throw new Exception($"Sorry, we could not discard your Workout");
 
-			navigation.NavigateTo("", true);
+			navigation.NavigateTo($"/sports/id={workout.Account_does_Sport_Id}", true);
 		}
 
 		public override async Task UpdateObserver()

@@ -19,26 +19,6 @@
 				}
 				else
 				{
-					if (doneWorkouts.Count != 0)
-					{
-						<div class="row" style="background-color: lightgreen">
-							<div class="col text-center">
-								<h3>Completed workouts</h3>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col">
-								@foreach (var workout in doneWorkouts)
-								{
-									<div class="row mb-2">
-										<div class="col m-2">
-											<WorkoutBox WorkoutId="workout.Id" />
-										</div>
-									</div>
-								}
-							</div>
-						</div>
-					}
 					if (undoneWorkouts.Count != 0)
 					{
 						<div class="row" style="background-color: lightcoral">
@@ -49,6 +29,26 @@
 						<div class="row">
 							<div class="col">
 								@foreach (var workout in undoneWorkouts)
+								{
+									<div class="row mb-2">
+										<div class="col m-2">
+											<WorkoutBox WorkoutId="workout.Id" />
+										</div>
+									</div>
+								}
+							</div>
+						</div>
+					}
+					if (doneWorkouts.Count != 0)
+					{
+						<div class="row" style="background-color: lightgreen">
+							<div class="col text-center">
+								<h3>Completed workouts</h3>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								@foreach (var workout in doneWorkouts)
 								{
 									<div class="row mb-2">
 										<div class="col m-2">

@@ -11,6 +11,5 @@ namespace MauiBlazorWeb.Shared.Models.Sports
 		public int Id { get; set; }
 		public int Account_Id { get; set; }
 		public int Sport_Id { get; set; }
-
 	}
 }
