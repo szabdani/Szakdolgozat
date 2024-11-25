@@ -81,7 +81,7 @@
 										@allPosts.Where(p => p.Diary_log_column_Id == col.Id).Average(p => Convert.ToInt32(p.Value)).ToString("0.##")
 									</th>
 								}
-								
+
 								else
 								{
 									<th>
@@ -103,15 +103,10 @@
 <EditDiaryPostDialog IsHabit="IsHabit" @ref=editPostDialog />
 
 @code {
-	private EditDiaryColDialog editHabitDialog;
-	private EditDiaryPostDialog editPostDialog;
+	private EditDiaryColDialog editHabitDialog = new();
+	private EditDiaryPostDialog editPostDialog = new();
 
-	public DiaryTable()
-	{
-		
-		editHabitDialog = new EditDiaryColDialog();
-		editPostDialog = new EditDiaryPostDialog();
-	}
+	public DiaryTable() { IsHabit = false; }
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
@@ -124,12 +119,12 @@
 
 	private async Task OnDeleteCol(Diary_log_column col)
 	{
-		await _appState.ShowLoadingScreenWhileAwaiting(() => DeleteCol(col));
+		await AppState.ShowLoadingScreenWhileAwaiting(() => DeleteCol(col));
 	}
 
 	private async Task DeleteCol(Diary_log_column col)
 	{
-		bool isCorrect = await _diaryManager.DeleteDiaryCol(col);
+		bool isCorrect = await DiaryManager.DeleteDiaryCol(col);
 		if (!isCorrect)
 			throw new Exception($"Sorry, we could not delete {col.Name}");
 		await RefreshDiaryComps();

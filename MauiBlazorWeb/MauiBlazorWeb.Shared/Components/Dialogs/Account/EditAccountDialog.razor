@@ -27,13 +27,12 @@
 
     private bool isVisible = false;
 
-    protected LoginRegUser newAccount;
+    protected LoginRegUser newAccount = new();
     protected EditContext editContext;
     protected ValidationMessageStore messageStore;
 
     public EditAccountDialog()
     {
-        newAccount = new LoginRegUser();
         editContext = new EditContext(newAccount);
         messageStore = new ValidationMessageStore(editContext);
     }

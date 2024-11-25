@@ -14,12 +14,12 @@ using Microsoft.AspNetCore.Components;
 
 namespace MauiBlazorWeb.Shared.Services
 {
-    public class AppState : IAppState
+    public class AppState(IDataAccess data) : IAppState
     {
-        [Inject] public required IDataAccess _data { get; set; }
-		[Inject] public required IPasswordHasher _pw { get; set; }
-		[Inject] public required IDiaryManager _diaryManager { get; set; }
-		[Inject] public required ISportManager _sportManager { get; set; }
+		[Inject] public required IDataAccess Data { get; set; } = data;
+		[Inject] public required IPasswordHasher Pw { get; set; }
+		[Inject] public required IDiaryManager DiaryManager { get; set; }
+		[Inject] public required ISportManager SportManager { get; set; }
 
 		public string? Title { get; set; }
         private bool isInitialized = false;
@@ -30,17 +30,12 @@ namespace MauiBlazorWeb.Shared.Services
 		public MainLayout MainLayout { get; set; } = new();
 
 		public Account CurrentUser { get; set; } = new();
-		public List<Account> ExistingUsers { get; set; } = new();
+		public List<Account> ExistingUsers { get; set; } = [];
 
-        public AppState(IDataAccess data)
-        {
-            _data = data;
-        }
-
-        public async Task UpdateExistingUsers()
+		public async Task UpdateExistingUsers()
         {
             string sql = "Select * from account";
-            ExistingUsers = await _data.LoadData<Account, dynamic>(sql, new { });
+            ExistingUsers = await Data.LoadData<Account, dynamic>(sql, new { });
         }
 
         public async Task Init(ILocalStorageService localStorage)
@@ -50,7 +45,7 @@ namespace MauiBlazorWeb.Shared.Services
             if (id != 0)
             {
                 string sql = "Select * from account where Id = @accountid;";
-                var results = await _data.LoadData<Account, dynamic>(sql, new {accountid = id });
+                var results = await Data.LoadData<Account, dynamic>(sql, new {accountid = id });
                 if (results.Count == 1)
                 {
                     CurrentUser = results[0];
@@ -64,8 +59,8 @@ namespace MauiBlazorWeb.Shared.Services
 
         public async Task<bool> Register(LoginRegUser newAccount)
         {
-            byte[] pw_salt = _pw.GenerateSalt();
-            byte[] pw_hash = _pw.Hash(newAccount.Password1, pw_salt);
+            byte[] pw_salt = Pw.GenerateSalt();
+            byte[] pw_hash = Pw.Hash(newAccount.Password1, pw_salt);
 
             int affectedRows;
             string date = newAccount.Birthdate.ToString("yyyy-MM-dd");
@@ -73,7 +68,7 @@ namespace MauiBlazorWeb.Shared.Services
             string gen = newAccount.Gender.ToString();
             string sql = "Insert into account (username, email, password_hash, password_salt, birthdate, gender, registrationdate) values (@username, @email, @pw_h, @pw_s, @birthdate, @gender, @regdate);";
 
-            affectedRows = await _data.SaveData(sql, new
+            affectedRows = await Data.SaveData(sql, new
             {
                 username = newAccount.Username,
                 email = newAccount.Email,
@@ -105,18 +100,18 @@ namespace MauiBlazorWeb.Shared.Services
 
         public async Task<bool> Delete(ILocalStorageService localStorage)
         {
-            var cols = await _diaryManager.GetDiaryCols(CurrentUser.Id, true);
-            cols.AddRange(await _diaryManager.GetDiaryCols(CurrentUser.Id, false));
+            var cols = await DiaryManager.GetDiaryCols(CurrentUser.Id, true);
+            cols.AddRange(await DiaryManager.GetDiaryCols(CurrentUser.Id, false));
 
             foreach (var col in cols)
             {
-                bool isCorrect = await _diaryManager.DeleteDiaryCol(col);
+                bool isCorrect = await DiaryManager.DeleteDiaryCol(col);
                 if (!isCorrect)
                     return false;
             }
 
             string sql = "Delete from account where id = @accid;";
-            int affectedRows = await _data.SaveData(sql, new { accid = CurrentUser.Id });
+            int affectedRows = await Data.SaveData(sql, new { accid = CurrentUser.Id });
             if (affectedRows == 0)
                 return false;
 

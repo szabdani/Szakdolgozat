@@ -88,38 +88,21 @@
 <NewDiaryColDialog IsHabit="false" @ref=newHabitDialog />
 
 @code {
-	private NewDiaryColDialog newHabitDialog;
-	private List<Diary_log_column> numCols;
+	private NewDiaryColDialog newHabitDialog = new();
+	private List<Diary_log_column> numCols = new();
 
-	private TimePeriod timeSpan;
-	private Dictionary<int, bool> checkBox;
-	private Dictionary<int, bool> isAverageCorrect;
-	private Dictionary<int, double> averages;
+	private TimePeriod timeSpan = new();
+	private Dictionary<int, bool> checkBox = new();
+	private Dictionary<int, bool> isAverageCorrect = new();
+	private Dictionary<int, double> averages = new();
 
-	private LineChart lineChart;
-	private LineChartOptions lineChartOptions;
-	private ChartData chartData;
+	private LineChart lineChart = new();
+	private LineChartOptions lineChartOptions = new LineChartOptions {Responsive = true };
+	private ChartData chartData = new();
 
 	private bool isChartInit = false;
 
-
-	public DiaryStat()
-	{
-		newHabitDialog = new NewDiaryColDialog();
-		IsHabit = false;
-
-		numCols = new List<Diary_log_column>();
-
-		checkBox = new Dictionary<int, bool>();
-		isAverageCorrect = new Dictionary<int, bool>();
-		averages = new Dictionary<int, double>();
-
-		lineChart = new LineChart();
-		lineChartOptions = new LineChartOptions();
-		lineChartOptions.Responsive = true;
-
-		chartData = new ChartData();
-	}
+	public DiaryStat() { IsHabit = false; }
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{

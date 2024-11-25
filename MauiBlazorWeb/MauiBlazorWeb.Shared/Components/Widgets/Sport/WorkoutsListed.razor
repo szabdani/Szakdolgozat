@@ -69,18 +69,10 @@
 	[Parameter]
 	public required int AccountDoesId { get; set; } = 0;
 
-	private Sport sport;
-	private Account_does_Sport accountDoes;
-	private List<Workout> doneWorkouts;
-	private List<Workout> undoneWorkouts;
-
-	public WorkoutsListed()
-	{
-		sport = new Sport();
-		accountDoes = new Account_does_Sport();
-		doneWorkouts = new List<Workout>();
-		undoneWorkouts = new List<Workout>();
-	}
+	private Sport sport = new();
+	private Account_does_Sport accountDoes = new();
+	private List<Workout> doneWorkouts = new();
+	private List<Workout> undoneWorkouts = new();
 
 	protected override async Task UpdateTables()
 	{
@@ -89,7 +81,7 @@
 		accountDoes = ValidateAccountDoesSport(AccountDoesId);
 		sport = ValidateSport(accountDoes.Sport_Id);
 
-		var allWorkouts = await _sportManager.GetWorkouts(AccountDoesId);
+		var allWorkouts = await SportManager.GetWorkouts(AccountDoesId);
 		var justWorkouts = allWorkouts.Where(w => !w.IsRoutineExample).OrderByDescending(w => w.Starttime).ToList();
 
 		doneWorkouts = justWorkouts.Where(w => w.IsDone).ToList();
@@ -98,6 +90,6 @@
 
 	private void GoToWorkout(Workout workout)
 	{
-		navigation.NavigateTo($"workout/id={workout.Id}", true);
+		Navigation.NavigateTo($"workout/id={workout.Id}", true);
 	}
 }

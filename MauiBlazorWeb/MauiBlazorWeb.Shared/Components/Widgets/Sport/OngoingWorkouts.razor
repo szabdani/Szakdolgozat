@@ -58,14 +58,8 @@
 </div>
 
 @code {
-	private List<Workout> workouts;
-	private Dictionary<int, string> sportNames;
-
-	public OngoingWorkouts()
-	{
-		workouts = new List<Workout>();
-		sportNames = new Dictionary<int, string>();
-	}
+	private List<Workout> workouts = new();
+	private Dictionary<int, string> sportNames = new();
 
 	protected override async Task UpdateTables()
 	{
@@ -78,13 +72,13 @@
 		{
 			sportNames[aSports.Id] = allSports.Where(s => s.Id == aSports.Sport_Id).Select(s => s.Name).First();
 
-			var list = await _sportManager.GetWorkouts(aSports.Id);
-			workouts.AddRange(list.Where(w => !w.IsDone));
+			var list = await SportManager.GetWorkouts(aSports.Id);
+			workouts.AddRange(list.Where(w => !w.IsDone && !w.IsRoutineExample));
 		}
 	}
 
 	private void GoToWorkout(Workout workout)
 	{
-		navigation.NavigateTo($"workout/id={workout.Id}", true);
+		Navigation.NavigateTo($"workout/id={workout.Id}", true);
 	}
 }

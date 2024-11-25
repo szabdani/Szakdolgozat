@@ -63,15 +63,13 @@
     public required int AccountDoesId { get; set; }
     private bool isVisible = false;
 
-    private Routine newRoutine;
-    private Workout newRoutineWorkout;
+    private Routine newRoutine = new();
+    private Workout newRoutineWorkout = new();
     private EditContext editContext;
     private ValidationMessageStore messageStore;
 
     public NewRoutineDialog()
     {
-        newRoutine = new Routine();
-        newRoutineWorkout = new Workout();
         editContext = new EditContext(newRoutineWorkout);
         messageStore = new ValidationMessageStore(editContext);
     }
@@ -90,7 +88,7 @@
 
     private async Task OnInsertRoutine()
     {
-        await _appState.ShowLoadingScreenWhileAwaiting(InsertRoutine);
+        await AppState.ShowLoadingScreenWhileAwaiting(InsertRoutine);
     }
 
     private async Task InsertRoutine()
@@ -104,9 +102,9 @@
         {
             bool nameUsed = false;
 
-            var allRoutines = await _sportManager.GetRoutines(AccountDoesId);
+            var allRoutines = await SportManager.GetRoutines(AccountDoesId);
             var routineIds = allRoutines.Select(r => r.Id);
-            var list = await _sportManager.GetWorkouts(AccountDoesId);
+            var list = await SportManager.GetWorkouts(AccountDoesId);
             var routineExamples = list.Where(w => w.IsRoutineExample && w.Routine_Id.Equals(routineIds.Any()));
 
             foreach (var s in routineExamples)
@@ -129,25 +127,25 @@
                 newRoutineWorkout.Account_does_Sport_Id = AccountDoesId;
                 newRoutineWorkout.Starttime = DateTime.Now;
 
-                bool isCorrect = await _sportManager.InsertWorkout(newRoutineWorkout);
+                bool isCorrect = await SportManager.InsertWorkout(newRoutineWorkout);
                 if (!isCorrect)
                     throw new Exception($"Sorry, we could not save your Routine example Workout");
 
-                var workouts = await _sportManager.GetWorkouts(AccountDoesId);
+                var workouts = await SportManager.GetWorkouts(AccountDoesId);
                 var insertedExample = workouts.Last();
 
 
                 newRoutine.ExampleWorkout_Id = insertedExample.Id;
                 newRoutine.Account_does_Sport_Id = AccountDoesId;
 
-                isCorrect = await _sportManager.InsertRoutine(newRoutine);
+                isCorrect = await SportManager.InsertRoutine(newRoutine);
                 if (isCorrect)
                 {
-                    var routines = await _sportManager.GetRoutines(AccountDoesId);
+                    var routines = await SportManager.GetRoutines(AccountDoesId);
                     var insertedRoutine = routines.Last();
 
                     insertedExample.Routine_Id = insertedRoutine.Id;
-                    isCorrect = await _sportManager.UpdateWorkout(insertedExample);
+                    isCorrect = await SportManager.UpdateWorkout(insertedExample);
                     if (!isCorrect)
                         throw new Exception($"Sorry, we could not update your Routine example Workout");
 

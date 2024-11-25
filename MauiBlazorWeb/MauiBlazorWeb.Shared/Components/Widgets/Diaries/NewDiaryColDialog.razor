@@ -107,13 +107,12 @@
     private string diaryOrHabit = "Diary column";
     private bool isVisible = false;
 
-    private Diary_log_column newCol;
+    private Diary_log_column newCol = new();
     private EditContext editContext;
     private ValidationMessageStore messageStore;
 
     public NewDiaryColDialog()
     {
-        newCol = new Diary_log_column();
         editContext = new EditContext(newCol);
         messageStore = new ValidationMessageStore(editContext);
     }
@@ -144,7 +143,7 @@
 
     private async Task OnRegisterColumn()
     {
-        await _appState.ShowLoadingScreenWhileAwaiting(RegisterColumn);
+        await AppState.ShowLoadingScreenWhileAwaiting(RegisterColumn);
     }
 
     private async Task RegisterColumn()
@@ -175,9 +174,9 @@
                 }
                 else
                 {
-                    newCol.Account_Id = _appState.CurrentUser.Id;
+                    newCol.Account_Id = AppState.CurrentUser.Id;
 
-                    bool isCorrect = await _diaryManager.InsertDiaryCol(newCol);
+                    bool isCorrect = await DiaryManager.InsertDiaryCol(newCol);
                     if (isCorrect)
                     {
                         newCol = new Diary_log_column();

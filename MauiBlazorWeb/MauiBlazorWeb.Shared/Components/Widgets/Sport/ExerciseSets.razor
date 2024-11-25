@@ -167,22 +167,14 @@
 	[Parameter] public required int WorkoutId { get; set; }
 	[Parameter] public required int ExerciseId { get; set; }
 
-	private Workout workout;
-	private Exercise exercise;
+	private Workout workout = new();
+	private Exercise exercise = new();
 
-	private List<Sets> sets;
-	private int addColspan;
+	private List<Sets> sets = new();
+	private int addColspan = 1;
 
-	private WarningDialog warning;
+	private WarningDialog warning = new();
 
-	public ExerciseSets()
-	{
-		workout = new Workout();
-		exercise = new Exercise();
-
-		sets = new List<Sets>();
-		warning = new WarningDialog();
-	}
 
 	protected override async Task ValidateParameters()
 	{
@@ -215,7 +207,7 @@
 	{
 		await base.UpdateTables();
 
-		sets = await _sportManager.GetSetsByBoth(ExerciseId, WorkoutId);
+		sets = await SportManager.GetSetsByBoth(ExerciseId, WorkoutId);
 	}
 
 
@@ -283,7 +275,7 @@
 
 	private async Task UpdateSet(Sets set)
 	{
-		bool isCorrect = await _sportManager.UpdateSet(set);
+		bool isCorrect = await SportManager.UpdateSet(set);
 		if (!isCorrect)
 			throw new Exception($"Sorry, we could not update your Set");
 
@@ -295,7 +287,7 @@
 		if (workout.IsDone)
 			return;
 
-		bool isCorrect = await _sportManager.DeleteSet(set);
+		bool isCorrect = await SportManager.DeleteSet(set);
 		if (!isCorrect)
 			throw new Exception($"Sorry, we could not delete your Set");
 
@@ -306,7 +298,7 @@
 	{
 		Sets newSet = new Sets { Exercise_Id = ExerciseId, Workout_Id = WorkoutId };
 
-		bool isCorrect = await _sportManager.InsertSet(newSet);
+		bool isCorrect = await SportManager.InsertSet(newSet);
 		if (!isCorrect)
 			throw new Exception($"Sorry, we could not insert your Set");
 

@@ -39,17 +39,13 @@
 	</table>
 </div>
 
-<NewDiaryColDialog IsHabit="IsHabit" @ref=newHabitDialog />
+<NewDiaryColDialog IsHabit="true" @ref=newHabitDialog />
 
 @code {
 	[Parameter] public required DateTime Date { get; set; }
-	private NewDiaryColDialog newHabitDialog;
+	private NewDiaryColDialog newHabitDialog = new();
 
-	public HabitsOnDate()
-	{
-		IsHabit = true;
-		newHabitDialog = new NewDiaryColDialog();
-	}
+	public HabitsOnDate() { IsHabit = true; }
 }
 
 <style>

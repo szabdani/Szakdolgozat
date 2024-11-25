@@ -8,14 +8,8 @@
 @code {
 	[Parameter]
 	public required int AccountDoesId { get; set; }
-	private Account_does_Sport accountDoesSport;
-	private List<DateTime> uniqueDates;
-
-	public SportsCalendar()
-	{
-		accountDoesSport = new Account_does_Sport();
-		uniqueDates = new List<DateTime>();
-	}
+	private Account_does_Sport accountDoesSport = new();
+	private List<DateTime> uniqueDates = new();
 
 	protected override async Task ValidateParameters()
 	{
@@ -27,7 +21,7 @@
 	protected override async Task UpdateTables()
 	{
 		await base.UpdateTables();
-		var list = await _sportManager.GetWorkouts(accountDoesSport.Id);
+		var list = await SportManager.GetWorkouts(accountDoesSport.Id);
 
 		uniqueDates = list.Select(obj => obj.Starttime).Distinct().ToList();
 	}
@@ -35,6 +29,8 @@
 	private async Task OpenDay(DateTime day)
 	{
 		throw new Exception("nincs kész");
+
+		// Több workout is lehet egy napon
 		// Navigation.NavigateTo(day.ToString("yyyy-MM-dd"));
 		// await Task.CompletedTask;
 	}

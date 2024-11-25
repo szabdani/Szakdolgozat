@@ -12,22 +12,22 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 {
 	public class SportCompBase : ObserverComp
 	{
-		[Inject] protected IAppState _appState { get; set; }
-		[Inject] protected ISportManager _sportManager { get; set; }
-		[Inject] protected NavigationManager navigation { get; set; }
+		[Inject] protected IAppState AppState { get; set; } = default!;
+		[Inject] protected ISportManager SportManager { get; set; } = default!;
+		[Inject] protected NavigationManager Navigation { get; set; } = default!;
 
-		protected List<MauiBlazorWeb.Shared.Models.Sports.Sport> allSports = new();
-		protected List<Account_does_Sport> allAccountDoesSports = new();
+		protected List<MauiBlazorWeb.Shared.Models.Sports.Sport> allSports = [];
+		protected List<Account_does_Sport> allAccountDoesSports = [];
 		protected bool hasInvalidParameter = false;
 
 		protected DateTime firstDate = new();
-		protected List<DateTime> allDatesSinceReg = new();
+		protected List<DateTime> allDatesSinceReg = [];
 
 		protected override void OnInitialized()
 		{
 			base.OnInitialized();
 
-			firstDate = _appState.CurrentUser.RegistrationDate;
+			firstDate = AppState.CurrentUser.RegistrationDate;
 
 			for (DateTime date = firstDate; date <= DateTime.Today; date = date.AddDays(1))
 			{
@@ -73,7 +73,7 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 					hasInvalidParameter = true;
 				else
 				{
-					if (first.Account_Id != _appState.CurrentUser.Id)
+					if (first.Account_Id != AppState.CurrentUser.Id)
 						hasInvalidParameter = true;
 					else
 						retVal = first;
@@ -91,7 +91,7 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 
 			if (RoutineId != 0)
 			{
-				var list = await _sportManager.GetRoutine(RoutineId);
+				var list = await SportManager.GetRoutine(RoutineId);
 				var first = list.FirstOrDefault();
 				if (first == null)
 					hasInvalidParameter = true;
@@ -102,7 +102,7 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 					else 
 					{
 						var firstAccDoes = allAccountDoesSports.FirstOrDefault(a => a.Id == first.Account_does_Sport_Id);
-						if (firstAccDoes == null || firstAccDoes.Account_Id != _appState.CurrentUser.Id)
+						if (firstAccDoes == null || firstAccDoes.Account_Id != AppState.CurrentUser.Id)
 							hasInvalidParameter = true;
 						else
 							retVal = first;
@@ -121,14 +121,14 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 
 			if (WorkoutId != 0)
 			{
-				var list = await _sportManager.GetWorkout(WorkoutId);
+				var list = await SportManager.GetWorkout(WorkoutId);
 				var first = list.FirstOrDefault();
 				if (first == null)
 					hasInvalidParameter = true;
 				else
 				{
 					var firstAccDoes = allAccountDoesSports.FirstOrDefault(a => a.Id == first.Account_does_Sport_Id);
-					if (firstAccDoes == null || firstAccDoes.Account_Id != _appState.CurrentUser.Id)
+					if (firstAccDoes == null || firstAccDoes.Account_Id != AppState.CurrentUser.Id)
 						hasInvalidParameter = true;
 					else
 						retVal = first;
@@ -146,7 +146,7 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 
 			if (ExerciseId != 0)
 			{
-				var list = await _sportManager.GetExercise(ExerciseId);
+				var list = await SportManager.GetExercise(ExerciseId);
 				var first = list.FirstOrDefault();
 				if (first == null)
 					hasInvalidParameter = true;
@@ -154,7 +154,7 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 				{
 					if(first.Status == SportStatus.Deleted)
 						hasInvalidParameter= true;
-					else if(first.Status == SportStatus.Private && first.Creator_Account_Id != _appState.CurrentUser.Id)
+					else if(first.Status == SportStatus.Private && first.Creator_Account_Id != AppState.CurrentUser.Id)
 						hasInvalidParameter = true;
 					else
 						retVal = first;
@@ -168,32 +168,32 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 
 		protected async Task<Workout> GetRoutineExample(int accountDoesId, int RoutineId)
 		{
-			var list = await _sportManager.GetWorkouts(accountDoesId);
+			var list = await SportManager.GetWorkouts(accountDoesId);
 			return list.First(w => w.Routine_Id == RoutineId && w.IsRoutineExample);
 		}
 
 		public async Task OnStartWorkout(int accountDoesId, int routineId = 0)
 		{
-			await _appState.ShowLoadingScreenWhileAwaiting(() => StartWorkout(accountDoesId, routineId));
+			await AppState.ShowLoadingScreenWhileAwaiting(() => StartWorkout(accountDoesId, routineId));
 		}
 
 		public async Task OnDiscardWorkout(Workout workout)
 		{
-			await _appState.ShowLoadingScreenWhileAwaiting(() => DiscardWorkout(workout));
+			await AppState.ShowLoadingScreenWhileAwaiting(() => DiscardWorkout(workout));
 		}
 		public async Task OnDeleteRoutine(Routine routine)
 		{
-			await _appState.ShowLoadingScreenWhileAwaiting(() => DeleteRoutine(routine));
+			await AppState.ShowLoadingScreenWhileAwaiting(() => DeleteRoutine(routine));
 		}
 
 		public async Task OnDeletRoutineById(int accountDoesSportId, int routineId)
 		{
-			await _appState.ShowLoadingScreenWhileAwaiting(() => DeletRoutineById(accountDoesSportId, routineId));
+			await AppState.ShowLoadingScreenWhileAwaiting(() => DeletRoutineById(accountDoesSportId, routineId));
 		}
 
 		public async Task StartWorkout(int accountDoesId, int routineId)
 		{
-			Workout newWorkout = new Workout
+			Workout newWorkout = new()
 			{
 				Name = "New Workout",
 				Starttime = DateTime.Now,
@@ -204,18 +204,18 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 			if (routineId != 0)
 				newWorkout.Routine_Id = routineId;
 
-			bool isCorrect = await _sportManager.InsertWorkout(newWorkout);
+			bool isCorrect = await SportManager.InsertWorkout(newWorkout);
 			if (!isCorrect)
 				throw new Exception($"Sorry, we could not save your Workout");
 
-			var list = await _sportManager.GetWorkouts(accountDoesId);
+			var list = await SportManager.GetWorkouts(accountDoesId);
 			int insertedId = list.Last().Id;
 
-			navigation.NavigateTo($"workout/id={insertedId}", true);
+			Navigation.NavigateTo($"workout/id={insertedId}", true);
 		}
 		private async Task DeletRoutineById(int accountDoesSportId, int routineId)
 		{
-			var list = await _sportManager.GetRoutines(accountDoesSportId);
+			var list = await SportManager.GetRoutines(accountDoesSportId);
 			var first = list.First(r => r.Id == routineId);
 
 			await DeleteRoutine(first);
@@ -223,19 +223,19 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 
 		private async Task DeleteRoutine(Routine routine)
 		{
-			bool isCorrect = await _sportManager.DeleteRoutine(routine);
+			bool isCorrect = await SportManager.DeleteRoutine(routine);
 			if (!isCorrect)
 				throw new Exception($"Sorry, could not delete your Routine");
 
-			navigation.NavigateTo($"/sports/id={routine.Account_does_Sport_Id}", true);
+			Navigation.NavigateTo($"/sports/id={routine.Account_does_Sport_Id}", true);
 		}
 		private async Task DiscardWorkout(Workout workout)
 		{
-			bool isCorrect = await _sportManager.DeleteWorkout(workout);
+			bool isCorrect = await SportManager.DeleteWorkout(workout);
 			if (!isCorrect)
 				throw new Exception($"Sorry, we could not discard your Workout");
 
-			navigation.NavigateTo($"/sports/id={workout.Account_does_Sport_Id}", true);
+			Navigation.NavigateTo($"/sports/id={workout.Account_does_Sport_Id}", true);
 		}
 
 		public override async Task UpdateObserver()
@@ -246,13 +246,13 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 
 		protected virtual async Task UpdateTables()
 		{
-			allSports = await _sportManager.GetAllSports(_appState.CurrentUser.Id);
-			allAccountDoesSports = await _sportManager.GetAccountDoesSports(_appState.CurrentUser.Id);
+			allSports = await SportManager.GetAllSports(AppState.CurrentUser.Id);
+			allAccountDoesSports = await SportManager.GetAccountDoesSports(AppState.CurrentUser.Id);
 		}
 
 		protected async Task RefreshSportComps()
 		{
-			await _appState.ShowLoadingScreenWhileAwaiting(_subject.UpdateObservers);
+			await AppState.ShowLoadingScreenWhileAwaiting(Subject.UpdateObservers);
 		}
 	}
 }

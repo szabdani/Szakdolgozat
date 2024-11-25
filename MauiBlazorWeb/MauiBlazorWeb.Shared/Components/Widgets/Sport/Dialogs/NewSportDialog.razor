@@ -53,13 +53,12 @@
     private bool isVisible = false;
     private bool isPublic = true;
 
-    private Sport newSport;
+    private Sport newSport = new();
     private EditContext editContext;
     private ValidationMessageStore messageStore;
 
     public NewSportDialog()
     {
-        newSport = new Sport();
         editContext = new EditContext(newSport);
         messageStore = new ValidationMessageStore(editContext);
     }
@@ -78,7 +77,7 @@
 
     private async Task OnInsertSport()
     {
-        await _appState.ShowLoadingScreenWhileAwaiting(InsertSport);
+        await AppState.ShowLoadingScreenWhileAwaiting(InsertSport);
     }
 
     private async Task InsertSport()
@@ -107,7 +106,7 @@
             }
             else
             {
-                newSport.Creator_Account_Id = _appState.CurrentUser.Id;
+                newSport.Creator_Account_Id = AppState.CurrentUser.Id;
                 if (isPublic)
                 {
                     newSport.Status = SportStatus.Public;
@@ -119,7 +118,7 @@
 
                 
 
-                bool isCorrect = await _sportManager.InsertSport(newSport);
+                bool isCorrect = await SportManager.InsertSport(newSport);
                 if (isCorrect)
                 {
                     newSport = new Sport();

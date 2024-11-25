@@ -13,21 +13,21 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 	public enum TimePeriod { Week, Month, Year, All }
 	public class DiaryCompBase : ObserverComp
 	{
-		[Inject] protected IAppState _appState { get; set; }
-		[Inject] protected IDiaryManager _diaryManager { get; set; }
+		[Inject] protected IAppState AppState { get; set; } = default!;
+		[Inject] protected IDiaryManager DiaryManager { get; set; } = default!;
 		[Parameter] public bool IsHabit { get; set; }
 
-		protected List<Diary_log_column> allCols = new();
-		protected List<Diary_log_post> allPosts = new();
+		protected List<Diary_log_column> allCols = [];
+		protected List<Diary_log_post> allPosts = [];
 
 		protected DateTime firstDate = new();
-		protected List<DateTime> allDatesSinceReg = new();
+		protected List<DateTime> allDatesSinceReg = [];
 
 		protected override void OnInitialized()
 		{
 			base.OnInitialized();
 
-			firstDate = _appState.CurrentUser.RegistrationDate;
+			firstDate = AppState.CurrentUser.RegistrationDate;
 
 			for (DateTime date = firstDate; date <= DateTime.Today; date = date.AddDays(1))
 			{
@@ -43,41 +43,36 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 
 		protected virtual async Task UpdateTables()
 		{
-			allCols = await _diaryManager.GetDiaryCols(_appState.CurrentUser.Id, IsHabit);
-			allPosts = await _diaryManager.GetDiaryPosts(_appState.CurrentUser.Id, IsHabit);
+			allCols = await DiaryManager.GetDiaryCols(AppState.CurrentUser.Id, IsHabit);
+			allPosts = await DiaryManager.GetDiaryPosts(AppState.CurrentUser.Id, IsHabit);
 		}
 
 		private async Task ToggleHabitValue(int colId, DateTime day)
 		{
-			await _diaryManager.ToggleHabitValue(colId, day);
-			await _subject.UpdateObservers();
+			await DiaryManager.ToggleHabitValue(colId, day);
+			await Subject.UpdateObservers();
 		}
 
 		protected async Task OnToggleHabitValue(int colId, DateTime day)
 		{
-			await _appState.ShowLoadingScreenWhileAwaiting(() => ToggleHabitValue(colId, day));
+			await AppState.ShowLoadingScreenWhileAwaiting(() => ToggleHabitValue(colId, day));
 		}
 
 		protected async Task RefreshDiaryComps()
 		{
-			await _appState.ShowLoadingScreenWhileAwaiting(_subject.UpdateObservers);
+			await AppState.ShowLoadingScreenWhileAwaiting(Subject.UpdateObservers);
 		}
 
-		protected bool FilterPostsByTimePeriod(DateTime postDate, DateTime refDate, TimePeriod timeSpan)
+		protected static bool FilterPostsByTimePeriod(DateTime postDate, DateTime refDate, TimePeriod timeSpan)
 		{
-			switch (timeSpan)
+			return timeSpan switch
 			{
-				case TimePeriod.Week:
-					return postDate > refDate.AddDays(-7);
-				case TimePeriod.Month:
-					return postDate.Month == refDate.Month && postDate.Year == refDate.Year;
-				case TimePeriod.Year:
-					return postDate.Year == refDate.Year;
-				case TimePeriod.All:
-					return true;
-				default:
-					return false;
-			}
+				TimePeriod.Week => postDate > refDate.AddDays(-7),
+				TimePeriod.Month => postDate.Month == refDate.Month && postDate.Year == refDate.Year,
+				TimePeriod.Year => postDate.Year == refDate.Year,
+				TimePeriod.All => true,
+				_ => false,
+			};
 		}
 	}
 }

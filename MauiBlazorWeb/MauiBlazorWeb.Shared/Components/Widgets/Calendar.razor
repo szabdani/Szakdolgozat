@@ -45,30 +45,18 @@
     [Parameter] public string? Title { get; set; }
     [Parameter] public Func<Task>? RerenderParent { get; set; }
     [Parameter] public DateTime FirstDate { get; set; }
-    [Parameter] public List<DateTime> SpecialDates { get; set; }
+    [Parameter] public List<DateTime> SpecialDates { get; set; } = new();
     [Parameter] public Func<DateTime, Task>? OnDayClickAction { get; set; }
     public DateTime CalendarDate { get { return pageDate; } }
 
-    private DateTime pageDate;
-    private List<DateTime> calendarDays;
-    private string[] DayNames;
+    private DateTime pageDate = DateTime.Now;
+    private List<DateTime> calendarDays = new();
+
+    // Starts on Monday instead of Sunday
+    private string[] DayNames = CultureInfo.CurrentCulture.DateTimeFormat.AbbreviatedDayNames.Skip(1).Concat(CultureInfo.CurrentCulture.DateTimeFormat.AbbreviatedDayNames.Take(1)).ToArray();
 
     private bool isPrevDisabled => new DateTime(pageDate.Year, pageDate.Month, 1) <= FirstDate;
     private bool isNextDisabled => new DateTime(pageDate.AddMonths(1).Year, pageDate.AddMonths(1).Month, 1) > DateTime.Today;
-
-    public Calendar()
-    {
-        pageDate = DateTime.Now;
-        calendarDays = new List<DateTime>();
-
-        // Starts on Monday instead of Sunday
-        DayNames = CultureInfo.CurrentCulture.DateTimeFormat.AbbreviatedDayNames
-       .Skip(1)
-       .Concat(CultureInfo.CurrentCulture.DateTimeFormat.AbbreviatedDayNames.Take(1))
-       .ToArray();
-
-        SpecialDates = new List<DateTime>();
-    }
 
     protected override void OnInitialized()
     {

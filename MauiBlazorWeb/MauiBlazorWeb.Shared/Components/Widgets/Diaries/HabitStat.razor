@@ -33,21 +33,21 @@
 					@foreach (TimePeriod timeSpan in Enum.GetValues(typeof(TimePeriod)))
 					{
 						<tr>
-								@switch (timeSpan)
-								{
-									case TimePeriod.Week:
-										<td>Last 7 days:</td>
+							@switch (timeSpan)
+							{
+								case TimePeriod.Week:
+									<td>Last 7 days:</td>
 									break;
 								case TimePeriod.Month:
-										<td>@calendar.CalendarDate.ToString("MMMM")</td>
+									<td>@calendar.CalendarDate.ToString("MMMM")</td>
 									break;
-									case TimePeriod.Year:
-										<td>@calendar.CalendarDate.ToString("yyyy")</td>
+								case TimePeriod.Year:
+									<td>@calendar.CalendarDate.ToString("yyyy")</td>
 									break;
 								case TimePeriod.All:
-										<td>All time</td>
+									<td>All time</td>
 									break;
-								}
+							}
 							<td>
 								@numPer[timeSpan]
 								/
@@ -69,29 +69,21 @@
 	private bool isColViewSet = false;
 	private int colId = 0;
 
-	private List<DateTime> doneDates;
+	private List<DateTime> doneDates = new();
+	private Calendar calendar = new();
 
-	private Calendar calendar;
-
-	private Dictionary<TimePeriod, int> numPer;
-	private Dictionary<TimePeriod, int> totalPer;
+	private Dictionary<TimePeriod, int> numPer = new();
+	private Dictionary<TimePeriod, int> totalPer = new();
 
 	public HabitStat()
 	{
 		IsHabit = true;
-
-		doneDates = new List<DateTime>();
-
-		numPer = new Dictionary<TimePeriod, int>();
-		totalPer = new Dictionary<TimePeriod, int>();
 
 		foreach (TimePeriod timeSpan in Enum.GetValues(typeof(TimePeriod)))
 		{
 			numPer.Add(timeSpan, 0);
 			totalPer.Add(timeSpan, 0);
 		}
-
-		calendar = new Calendar();
 	}
 
 	protected override async Task UpdateTables()

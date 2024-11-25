@@ -88,24 +88,20 @@ else
 }
 
 @code {
-    private LoginRegUser newAccount;
+    private LoginRegUser newAccount = new();
     private EditContext editContext;
     private ValidationMessageStore messageStore;
-    private bool isError;
+    private bool isError = true;
 
-    private MessageDialog dialog;
+    private MessageDialog dialog = new();
 
     private ElementReference startUsername;
 
     public Register()
     {
-        newAccount = new LoginRegUser();
         editContext = new EditContext(newAccount);
         messageStore = new ValidationMessageStore(editContext);
-        isError = true;
         editContext.OnFieldChanged += HandleFieldChanged;
-
-        dialog = new MessageDialog();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

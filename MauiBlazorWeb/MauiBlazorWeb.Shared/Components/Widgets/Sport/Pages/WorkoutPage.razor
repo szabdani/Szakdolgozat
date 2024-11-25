@@ -7,7 +7,7 @@
 @using MauiBlazorWeb.Shared.Components.Icons
 @using Models.Sports
 
-@if (!_appState.IsLoggedIn)
+@if (!AppState.IsLoggedIn)
 {
 	<NotLoggedIn/>
 }
@@ -137,7 +137,7 @@ else
 						<tfoot>
 							<tr>
 								<td colspan="4">
-									<button class="btn btn-primary" disabled=@workout.IsDone @onclick="() => addExerciseDialog.Show()">
+									<button class="btn btn-primary" disabled=@workout.IsDone @onclick="() => {if(addExerciseDialog is not null) {addExerciseDialog?.Show();}}">
 										<IconAdd /> Add an Exercise
 									</button>
 								</td>
@@ -263,7 +263,7 @@ else
 	private Timer timer = new Timer(_ => { }, null, Timeout.Infinite, Timeout.Infinite);
 	private TimeSpan clock;
 
-	private AddExerciseDialog addExerciseDialog;
+	private AddExerciseDialog? addExerciseDialog;
 	private WarningDialog warning;
 
 	private IDisposable? navHandler;
@@ -311,16 +311,16 @@ else
 
 			if (workout.Routine_Id is not null)
 			{
-				var workoutSets = await _sportManager.GetSetsByWorkout(workout.Id);
+				var workoutSets = await SportManager.GetSetsByWorkout(workout.Id);
 				if (workoutSets.Count == 0)
 				{
 					routineExampleWorkout = await GetRoutineExample(workout.Account_does_Sport_Id, (int)workout.Routine_Id);
 
-					var exampleSets = await _sportManager.GetSetsByWorkout(routineExampleWorkout.Id);
+					var exampleSets = await SportManager.GetSetsByWorkout(routineExampleWorkout.Id);
 					foreach (var set in exampleSets)
 					{
 						set.Workout_Id = workout.Id;
-						bool isCorrect = await _sportManager.InsertSet(set);
+						bool isCorrect = await SportManager.InsertSet(set);
 						if (!isCorrect)
 							throw new Exception($"Sorry, we could not insert Set");
 					}
@@ -337,7 +337,7 @@ else
 	{
 		await base.UpdateTables();
 
-		sets = await _sportManager.GetSetsByWorkout(workout.Id);
+		sets = await SportManager.GetSetsByWorkout(workout.Id);
 		var exIds = sets.Select(s => s.Exercise_Id).Distinct().ToList();
 
 		if (exIds.Count != 0)
@@ -346,7 +346,7 @@ else
 			{
 				foreach (var id in exIds)
 				{
-					List<Exercise> exList = await _sportManager.GetExercise(id);
+					List<Exercise> exList = await SportManager.GetExercise(id);
 					Exercise ex = exList.First();
 					if (!exercises.Select(e => e.Id).ToList().Contains(ex.Id))
 					{
@@ -359,7 +359,7 @@ else
 				exercises = new List<Exercise>();
 				foreach (var id in exIds)
 				{
-					List<Exercise> exList = await _sportManager.GetExercise(id);
+					List<Exercise> exList = await SportManager.GetExercise(id);
 					Exercise ex = exList.First();
 					exercises.Add(ex);
 				}
@@ -369,11 +369,11 @@ else
 		int workoutIndex = 1;
 		foreach (var ex in exercises)
 		{
-			var exSets = await _sportManager.GetSetsByBoth(ex.Id, workout.Id);
+			var exSets = await SportManager.GetSetsByBoth(ex.Id, workout.Id);
 			foreach(var set in exSets)
 			{
 				set.Workoutindex = workoutIndex++;
-				bool isCorrect = await _sportManager.UpdateSet(set);
+				bool isCorrect = await SportManager.UpdateSet(set);
 				if (!isCorrect)
 					throw new Exception($"Sorry, we could not update index of Set");
 			}
@@ -385,14 +385,14 @@ else
 		await base.OnAfterRenderAsync(firstRender);
 		if (firstRender)
 		{
-			navHandler = navigation.RegisterLocationChangingHandler(OnLocationChanging);
+			navHandler = Navigation.RegisterLocationChangingHandler(OnLocationChanging);
 
 			if (!hasInvalidParameter)
-				await InvokeAsync(() => _appState.Title = "Workout");
+				await InvokeAsync(() => AppState.Title = "Workout");
 			else
-				await InvokeAsync(() => _appState.Title = "Invalid New Workout");
+				await InvokeAsync(() => AppState.Title = "Invalid New Workout");
 
-			await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
+			await InvokeAsync(() => AppState.MainLayout.RerenderLayout());
 		}
 	}
 
@@ -405,7 +405,7 @@ else
 				timer?.Dispose();
 				workout.Duration = clock;
 
-				bool isCorrect = await _sportManager.UpdateWorkout(workout);
+				bool isCorrect = await SportManager.UpdateWorkout(workout);
 				if (!isCorrect)
 					throw new Exception($"Sorry, we could not save your Workout");
 			}).ConfigureAwait(false);
@@ -416,17 +416,17 @@ else
 
 	private async Task OnRemoveExercise(Exercise ex)
 	{
-		await _appState.ShowLoadingScreenWhileAwaiting(()=> RemoveExercise(ex));
+		await AppState.ShowLoadingScreenWhileAwaiting(()=> RemoveExercise(ex));
 	}
 
 	private async Task OnFinishWorkout()
 	{
-		await _appState.ShowLoadingScreenWhileAwaiting(FinishWorkout);
+		await AppState.ShowLoadingScreenWhileAwaiting(FinishWorkout);
 	}
 
 	private async Task OnResumeWorkout()
 	{
-		await _appState.ShowLoadingScreenWhileAwaiting(ResumeWorkout);
+		await AppState.ShowLoadingScreenWhileAwaiting(ResumeWorkout);
 	}
 
 	private async Task RemoveExercise(Exercise ex)
@@ -465,7 +465,7 @@ else
 
 	private void NavigateToSportPage()
 	{
-		navigation.NavigateTo($"/sports/id={workout.Account_does_Sport_Id}", true);
+		Navigation.NavigateTo($"/sports/id={workout.Account_does_Sport_Id}", true);
 	}
 
 	private async Task FinishWorkout()
@@ -489,7 +489,7 @@ else
 
 	private async Task UpdateWorkout()
 	{
-		bool isCorrect = await _sportManager.UpdateWorkout(workout);
+		bool isCorrect = await SportManager.UpdateWorkout(workout);
 		if (!isCorrect)
 			throw new Exception($"Sorry, we could not update your Workout");
 	}

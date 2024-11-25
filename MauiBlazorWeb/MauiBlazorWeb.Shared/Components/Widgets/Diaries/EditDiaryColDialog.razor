@@ -50,13 +50,12 @@
     private string diaryOrHabit = "Diary column";
     private bool isVisible = false;
 
-    private Diary_log_column newCol;
+    private Diary_log_column newCol = new();
     private EditContext editContext;
     private ValidationMessageStore messageStore;
 
     public EditDiaryColDialog()
     {
-        newCol = new Diary_log_column();
         editContext = new EditContext(newCol);
         messageStore = new ValidationMessageStore(editContext);
     }
@@ -89,7 +88,7 @@
 
     private async Task OnEditCol()
     {
-        await _appState.ShowLoadingScreenWhileAwaiting(EditCol);
+        await AppState.ShowLoadingScreenWhileAwaiting(EditCol);
     }
 
     private async Task EditCol()
@@ -113,7 +112,7 @@
             }
             else
             {
-                bool isCorrect = await _diaryManager.UpdateDiaryCol(newCol);
+                bool isCorrect = await DiaryManager.UpdateDiaryCol(newCol);
                 if (isCorrect)
                 {
                     newCol = new Diary_log_column();

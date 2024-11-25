@@ -6,7 +6,7 @@
 @using MauiBlazorWeb.Shared.Components.Icons
 @using Models.Sports
 
-@if (!_appState.IsLoggedIn)
+@if (!AppState.IsLoggedIn)
 {
 	<NotLoggedIn />
 }
@@ -47,14 +47,8 @@ else
 @code {
 	[Parameter]
 	public required int AccountDoesId { get; set; }
-	private Account_does_Sport accountDoesSport;
-	private Sport sport;
-
-	public SportPage()
-	{
-		accountDoesSport = new Account_does_Sport();
-		sport = new Sport();
-	}
+	private Account_does_Sport accountDoesSport = new();
+	private Sport sport = new();
 
 	protected override async Task ValidateParameters()
 	{
@@ -78,11 +72,11 @@ else
 		if (firstRender)
 		{
 			if (!hasInvalidParameter)
-				await InvokeAsync(() => _appState.Title = sport.Name);
+				await InvokeAsync(() => AppState.Title = sport.Name);
 			else
-				await InvokeAsync(() => _appState.Title = "Invalid Sport");
+				await InvokeAsync(() => AppState.Title = "Invalid Sport");
 
-			await InvokeAsync(() => _appState.MainLayout.RerenderLayout());
+			await InvokeAsync(() => AppState.MainLayout.RerenderLayout());
 		}
 	}
 }

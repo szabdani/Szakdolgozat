@@ -10,12 +10,12 @@ namespace MauiBlazorWeb.Shared.Services
 {
 	public class ObserverComp : ComponentBase, IDisposable
 	{
-		[Inject] protected ISubjectComp _subject { get; set; }
+		[Inject] protected ISubjectComp Subject { get; set; }
 
 		protected override void OnInitialized()
 		{
 			base.OnInitialized();
-			_subject.Attach(this);
+			Subject.Attach(this);
 		}
 
 		protected override async Task OnInitializedAsync()
@@ -26,7 +26,7 @@ namespace MauiBlazorWeb.Shared.Services
 
 		public virtual void Dispose()
 		{
-			_subject.Detach(this);
+			Subject.Detach(this);
 		}
 
 		public virtual async Task UpdateObserver()

@@ -59,22 +59,19 @@
 </div>
 
 @code {
-	private TimePeriod timeSpan;
-	private Dictionary<int, bool> checkBox;
-
-	private BarChart barChart;
-	private BarChartOptions barChartOptions;
-	private ChartData chartData;
-
 	private bool isChartInit = false;
+	private TimePeriod timeSpan = new();
+	private Dictionary<int, bool> checkBox = new();
+
+	private BarChart barChart = new();
+	private ChartData chartData = new();
+
+	private BarChartOptions barChartOptions;
 
 	public HabitChart()
 	{
 		IsHabit = true;
 
-		checkBox = new Dictionary<int, bool>();
-
-		barChart = new BarChart();
 		barChartOptions = new BarChartOptions();
 		barChartOptions.Responsive = true;
 
@@ -85,8 +82,6 @@
 		};
 
 		barChartOptions.Plugins.Legend.Display = false;
-
-		chartData = new ChartData();
 	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)

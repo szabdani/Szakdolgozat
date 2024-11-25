@@ -58,9 +58,9 @@ else
 									@ex.Type
 								</td>
 								<td>
-									@if (ex.Creator_Account_Id == _appState.CurrentUser.Id && !IsInWorkout)
+									@if (ex.Creator_Account_Id == AppState.CurrentUser.Id && !IsInWorkout)
 									{
-										<button class="btn btn-warning" @onclick="() => editExerciseDialog.Show(ex)">
+										<button class="btn btn-warning" @onclick="() =>{if(editExerciseDialog is not null) {editExerciseDialog?.Show(ex);}}">
 											<IconEdit />
 										</button>
 										<button class="btn btn-danger" @onclick="() => OpenDeleteExercise(ex)">
@@ -79,7 +79,7 @@ else
 							<tfoot>
 								<tr>
 									<td colspan="3">
-										<button class="btn btn-info" @onclick="() => newExerciseDialog.Show()">
+									<button class="btn btn-info" @onclick="() =>{if(newExerciseDialog is not null) {newExerciseDialog?.Show();}}">
 											Add a new Exercise! <IconAdd />
 										</button>
 									</td>
@@ -106,29 +106,18 @@ else
 	[Parameter] public required bool IsInWorkout { get; set; }
 	[Parameter] public Func<Exercise, Task>? OnAddAction { get; set; }
 
-	private Account_does_Sport accountDoes;
+	private Account_does_Sport accountDoes = new();
 
 	private int filterType = -1;
-	private Exercise selectedExercise;
-	private List<Exercise> allExercises;
-	private List<Exercise> filteredExercises;
+	private Exercise selectedExercise = new();
+	private List<Exercise> allExercises = new();
+	private List<Exercise> filteredExercises = new();
 
-	private WarningDialog warningDelete;
-	private EditExerciseDialog editExerciseDialog;
-	private NewExerciseDialog newExerciseDialog;
-	private ExerciseDialog exerciseDialog;
+	private WarningDialog warningDelete = new();
+	private ExerciseDialog exerciseDialog = new();
 
-	public ExerciseLibrary()
-	{
-		accountDoes = new Account_does_Sport();
-
-		selectedExercise = new Exercise();
-		allExercises = new List<Exercise>();
-		filteredExercises = new List<Exercise>();
-
-		warningDelete = new WarningDialog();
-		exerciseDialog = new ExerciseDialog();
-	}
+	private EditExerciseDialog? editExerciseDialog;
+	private NewExerciseDialog? newExerciseDialog;
 
 	protected override async Task ValidateParameters()
 	{
@@ -140,7 +129,7 @@ else
 	{
 		await base.UpdateTables();
 
-		allExercises = await _sportManager.GetExercises(accountDoes.Account_Id, accountDoes.Sport_Id);
+		allExercises = await SportManager.GetExercises(accountDoes.Account_Id, accountDoes.Sport_Id);
 
 		if (filterType != -1)
 			filteredExercises = allExercises.Where(ex => (int)ex.Type == filterType).ToList();
@@ -171,12 +160,12 @@ else
 
 	private async Task OnDeleteExercise()
 	{
-		await _appState.ShowLoadingScreenWhileAwaiting(DeleteExercise);
+		await AppState.ShowLoadingScreenWhileAwaiting(DeleteExercise);
 	}
 
 	private async Task DeleteExercise()
 	{
-		bool isCorrect = await _sportManager.DeleteExercise(selectedExercise);
+		bool isCorrect = await SportManager.DeleteExercise(selectedExercise);
 		if (!isCorrect)
 			throw new Exception($"Sorry, we could not delete {selectedExercise.Name}.");
 

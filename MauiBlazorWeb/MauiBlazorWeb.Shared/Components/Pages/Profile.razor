@@ -100,24 +100,13 @@ else
 }
 
 @code {
-	private EditAccountDialog usernameEdit;
-	private EditAccountDialog passwordEdit;
-	private EditAccountDialog emailEdit;
-	private EditAccountDialog birthdateEdit;
-	private EditAccountDialog genderEdit;
+	private EditAccountDialog usernameEdit = new();
+	private EditAccountDialog passwordEdit = new();
+	private EditAccountDialog emailEdit = new();
+	private EditAccountDialog birthdateEdit = new();
+	private EditAccountDialog genderEdit = new();
 
-	private WarningDialog warning;
-
-	public Profile()
-	{
-		usernameEdit = new EditAccountDialog();
-		passwordEdit = new EditAccountDialog();
-		emailEdit = new EditAccountDialog();
-		birthdateEdit = new EditAccountDialog();
-		genderEdit = new EditAccountDialog();
-
-		warning = new WarningDialog();
-	}
+	private WarningDialog warning = new();
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{

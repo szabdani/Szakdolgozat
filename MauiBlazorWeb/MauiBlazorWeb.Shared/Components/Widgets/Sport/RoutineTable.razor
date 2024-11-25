@@ -62,7 +62,7 @@ else
 
 <div class="row">
 	<div class="col">
-		<button class="btn btn-primary" @onclick="()=> newRoutineDialog.Show()">
+		<button class="btn btn-primary" @onclick="()=> newRoutineDialog!.Show()">
 			<IconAdd /> Create a new routine!
 		</button>
 	</div>
@@ -79,28 +79,19 @@ else
 	[Parameter]
 	public required int AccountDoesId { get; set; }
 
-	private List<Routine> routines;
-	private Dictionary<int, Workout> exampleWorkoutsOfRoutines;
-	private Routine deleteRoutine;
-
-	private NewRoutineDialog newRoutineDialog;
-	private WarningDialog warningDelete;
+	private List<Routine> routines = new();
+	private Dictionary<int, Workout> exampleWorkoutsOfRoutines = new();
+	private Routine deleteRoutine = new();
+	private WarningDialog warningDelete = new();
 	private string name = "";
 
-	public RoutineTable()
-	{
-		routines = new List<Routine>();
-		exampleWorkoutsOfRoutines = new Dictionary<int, Workout>();
-		deleteRoutine = new Routine();
-
-		warningDelete = new WarningDialog();
-	}
+	private NewRoutineDialog? newRoutineDialog;
 
 	protected override async Task UpdateTables()
 	{
 		await base.UpdateTables();
 
-		routines = await _sportManager.GetRoutines(AccountDoesId);
+		routines = await SportManager.GetRoutines(AccountDoesId);
 		foreach (var r in routines)
 		{
 			exampleWorkoutsOfRoutines[r.Id] = await GetRoutineExample(AccountDoesId, r.Id);
@@ -115,7 +106,7 @@ else
 	private async Task EditRoutine(int routineId)
 	{
 		Workout exampleWorkout = await GetRoutineExample(AccountDoesId, routineId);
-		navigation.NavigateTo($"workout/id={exampleWorkout.Id}", true);
+		Navigation.NavigateTo($"workout/id={exampleWorkout.Id}", true);
 	}
 
 	private void OpenDelete(Routine routine)

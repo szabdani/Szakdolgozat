@@ -6,13 +6,9 @@
 <Calendar Title="Diary Entries" SpecialDates="uniqueDates" OnDayClickAction="OpenDay" FirstDate="firstDate"/>
 
 @code {
-	private List<DateTime> uniqueDates;
+	private List<DateTime> uniqueDates = new();
 
-	public DiaryCalendar()
-	{
-		IsHabit = false;
-		uniqueDates = new List<DateTime>();
-	}
+	public DiaryCalendar() { IsHabit = false; }
 
 	protected override async Task UpdateTables()
 	{

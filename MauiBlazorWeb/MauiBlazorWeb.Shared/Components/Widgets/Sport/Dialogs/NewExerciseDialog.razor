@@ -78,15 +78,12 @@
     private bool isVisible = false;
     private bool isPublic = true;
 
-    private Exercise newExercise;
+    private Exercise newExercise = new();
     private EditContext editContext;
     private ValidationMessageStore messageStore;
 
     public NewExerciseDialog()
     {
-        AccountDoes = new Account_does_Sport();
-
-        newExercise = new Exercise();
         editContext = new EditContext(newExercise);
         messageStore = new ValidationMessageStore(editContext);
     }
@@ -105,7 +102,7 @@
 
     private async Task OnInsertExercise()
     {
-        await _appState.ShowLoadingScreenWhileAwaiting(InsertExercise);
+        await AppState.ShowLoadingScreenWhileAwaiting(InsertExercise);
     }
 
     private async Task InsertExercise()
@@ -118,7 +115,7 @@
         else
         {
             bool nameUsed = false;
-            var list = await _sportManager.GetExercises(AccountDoes.Account_Id, AccountDoes.Sport_Id);
+            var list = await SportManager.GetExercises(AccountDoes.Account_Id, AccountDoes.Sport_Id);
 
             foreach (var s in list)
             {
@@ -147,7 +144,7 @@
                     newExercise.Status = SportStatus.Private;
                 }
 
-                bool isCorrect = await _sportManager.InsertExercise(newExercise);
+                bool isCorrect = await SportManager.InsertExercise(newExercise);
                 if (isCorrect)
                 {
                     newExercise = new Exercise();

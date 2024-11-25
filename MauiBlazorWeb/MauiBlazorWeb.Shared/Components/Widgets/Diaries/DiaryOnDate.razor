@@ -53,12 +53,7 @@
 
 @code {
 	[Parameter] public required DateTime Date { get; set; }
-	private EditDiaryPostDialog editPostDialog;
-
-	public DiaryOnDate()
-	{
-		editPostDialog = new EditDiaryPostDialog();
-	}
+	private EditDiaryPostDialog editPostDialog = new();
 }
 
 <style>

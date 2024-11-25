@@ -11,7 +11,7 @@
 		<h3>@sport.Name</h3>
 	</div>
 	<div class="col w-auto float-end">
-		@if (sport.Creator_Account_Id == _appState.CurrentUser.Id)
+		@if (sport.Creator_Account_Id == AppState.CurrentUser.Id)
 		{
 			<button class="btn btn-warning" @onclick="()=> editSportDialog.Show(sport)">
 				<IconEdit />
@@ -65,28 +65,18 @@
 	[Parameter]
 	public required int SportId { get; set; }
 
-	private WarningDialog warningUnFollow;
-	private WarningDialog warningDelete;
-	private EditSportDialog editSportDialog;
+	private WarningDialog warningUnFollow = new();
+	private WarningDialog warningDelete = new();
+	private EditSportDialog editSportDialog = new();
 
-	private Account_does_Sport accountDoes;
-	private Sport sport;
-
-	public SportSummary()
-	{
-		warningUnFollow = new WarningDialog();
-		warningDelete = new WarningDialog();
-		editSportDialog = new EditSportDialog();
-
-		accountDoes = new Account_does_Sport();
-		sport = new Sport();
-	}
+	private Account_does_Sport accountDoes = new();
+	private Sport sport = new();
 
 	protected override async Task ValidateParameters()
 	{
 		sport = ValidateSport(SportId);
 
-		var list = await _sportManager.GetAccountDoesSport(_appState.CurrentUser.Id, sport.Id);
+		var list = await SportManager.GetAccountDoesSport(AppState.CurrentUser.Id, sport.Id);
 		var first = list.FirstOrDefault();
 		if (first != null)
 			accountDoes = first;
@@ -96,7 +86,7 @@
 
 	private void GoToPage()
 	{
-		navigation.NavigateTo($"sports/id={accountDoes.Id}", true);
+		Navigation.NavigateTo($"sports/id={accountDoes.Id}", true);
 	}
 
 	private async Task StartWorkoutPage()
@@ -109,8 +99,8 @@
 
 	private async Task OnUnfollow()
 	{
-		await _appState.ShowLoadingScreenWhileAwaiting(Unfollow);
-		navigation.Refresh(true);
+		await AppState.ShowLoadingScreenWhileAwaiting(Unfollow);
+		Navigation.Refresh(true);
 	}
 
 	private async Task Unfollow()
@@ -118,21 +108,21 @@
 		if(accountDoes == null)
 			throw new Exception($"Sorry, we could not unfollow {sport.Name}.");
 
-		bool isCorrect = await _sportManager.DeleteAccountDoesSport(accountDoes);
+		bool isCorrect = await SportManager.DeleteAccountDoesSport(accountDoes);
 		if (!isCorrect)
 			throw new Exception($"Sorry, we could not unfollow {sport.Name}.");
 	}
 
 	private async Task OnDeleteSport()
 	{
-		await _appState.ShowLoadingScreenWhileAwaiting(DeleteSport);
-		navigation.Refresh(true);
+		await AppState.ShowLoadingScreenWhileAwaiting(DeleteSport);
+		Navigation.Refresh(true);
 	}
 
 	private async Task DeleteSport()
 	{
 		await Unfollow();
-		bool isCorrect = await _sportManager.DeleteSport(sport);
+		bool isCorrect = await SportManager.DeleteSport(sport);
 		if (!isCorrect)
 			throw new Exception($"Sorry, we could not delete {sport.Name}.");
 	}

@@ -37,13 +37,8 @@
 </div>
 
 @code {
-    private NavMenu navmenu;
+    private NavMenu navmenu = new();
     private bool isLoading = true;
-
-    public MainLayout()
-    {
-        navmenu = new NavMenu();
-    }
 
     protected override void OnInitialized()
     {

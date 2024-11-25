@@ -51,20 +51,11 @@
 	[Parameter]
 	public required int WorkoutId { get; set; } = 0;
 
-	private Workout workout;
-	private Workout routineExampleWorkout;
+	private Workout workout = new();
+	private Workout routineExampleWorkout = new();
 
-	private Dictionary<int, int> numberOfSets;
-	private List<Exercise> exercises;
-
-	public WorkoutBox()
-	{
-		workout = new Workout();
-		routineExampleWorkout = new Workout();
-
-		exercises = new List<Exercise>();
-		numberOfSets = new Dictionary<int, int>();
-	}
+	private Dictionary<int, int> numberOfSets = new();
+	private List<Exercise> exercises = new();
 
 	protected override async Task UpdateTables()
 	{
@@ -74,7 +65,7 @@
 		if (workout.Routine_Id is not null)
 			routineExampleWorkout = await GetRoutineExample(workout.Account_does_Sport_Id,(int)workout.Routine_Id);
 
-		var sets = await _sportManager.GetSetsByWorkout(workout.Id);
+		var sets = await SportManager.GetSetsByWorkout(workout.Id);
 		var exIds = sets.Select(s => s.Exercise_Id).Distinct().ToList();
 
 		exercises = new List<Exercise>();
@@ -82,7 +73,7 @@
 
 		foreach (var id in exIds)
 		{
-			List<Exercise> exList = await _sportManager.GetExercise(id);
+			List<Exercise> exList = await SportManager.GetExercise(id);
 			exercises.Add(exList.First());
 
 			numberOfSets[id] = sets.Where(s => s.Exercise_Id == id).Count();
@@ -91,6 +82,6 @@
 
 	private void GoToWorkout(Workout workout)
 	{
-		navigation.NavigateTo($"workout/id={workout.Id}", true);
+		Navigation.NavigateTo($"workout/id={workout.Id}", true);
 	}
 }

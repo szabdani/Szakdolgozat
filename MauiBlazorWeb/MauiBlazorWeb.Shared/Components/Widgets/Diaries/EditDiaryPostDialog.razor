@@ -67,17 +67,16 @@
 @code {
     private bool isVisible = false;
     private bool doesPostNotExist = true;
-    private Diary_log_column col;
-
     private int inputNumber;
-    private Diary_log_post newPost;
+
+    private Diary_log_column col = new();
+    private Diary_log_post newPost = new();
+
     private EditContext editContext;
     private ValidationMessageStore messageStore;
 
     public EditDiaryPostDialog()
     {
-        col = new Diary_log_column();
-        newPost = new Diary_log_post();
         editContext = new EditContext(newPost);
         messageStore = new ValidationMessageStore(editContext);
     }
@@ -115,7 +114,7 @@
 
     private async Task OnDeletePost()
     {
-        await _appState.ShowLoadingScreenWhileAwaiting(DeletePost);
+        await AppState.ShowLoadingScreenWhileAwaiting(DeletePost);
     }
 
     private async Task DeletePost()
@@ -126,7 +125,7 @@
             return;
         }
 
-        bool isCorrect = await _diaryManager.DeleteDiaryPost(newPost);
+        bool isCorrect = await DiaryManager.DeleteDiaryPost(newPost);
         if (isCorrect)
         {
             newPost = new Diary_log_post();
@@ -138,7 +137,7 @@
 
     private async Task OnEditPost()
     {
-        await _appState.ShowLoadingScreenWhileAwaiting(EditPost);
+        await AppState.ShowLoadingScreenWhileAwaiting(EditPost);
     }
 
     private async Task EditPost()
@@ -174,11 +173,11 @@
         bool isCorrect = false;
         if (doesPostNotExist)
         {
-            isCorrect = await _diaryManager.InsertDiaryPost(newPost);
+            isCorrect = await DiaryManager.InsertDiaryPost(newPost);
         }
         else
         {
-            isCorrect = await _diaryManager.UpdateDiaryPost(newPost);
+            isCorrect = await DiaryManager.UpdateDiaryPost(newPost);
         }
 
         if (isCorrect)

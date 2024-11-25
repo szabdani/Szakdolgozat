@@ -34,21 +34,14 @@
 }
 
 @code {
-    private Exercise exercise { get; set; }
     private bool isVisible = false;
 
-    private Account_does_Sport accountDoes;
-
-    public ExerciseDialog()
-    {
-        exercise = new Exercise();
-
-        accountDoes = new Account_does_Sport();
-    }
+    private Exercise exercise = new();
+    private Account_does_Sport accountDoes = new();
 
     protected override async Task ValidateParameters()
     {
-        var list = await _sportManager.GetAccountDoesSport(_appState.CurrentUser.Id, exercise.Sport_Id);
+        var list = await SportManager.GetAccountDoesSport(AppState.CurrentUser.Id, exercise.Sport_Id);
         var first = list.FirstOrDefault();
         if (first != null)
             accountDoes = first;
