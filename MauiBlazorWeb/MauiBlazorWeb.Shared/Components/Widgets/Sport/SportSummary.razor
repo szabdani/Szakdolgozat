@@ -62,8 +62,8 @@
 <EditSportDialog @ref=editSportDialog />
 
 @code {
-	[Parameter, EditorRequired]
-	public int SportId { get; set; }
+	[Parameter]
+	public required int SportId { get; set; }
 
 	private WarningDialog warningUnFollow;
 	private WarningDialog warningDelete;

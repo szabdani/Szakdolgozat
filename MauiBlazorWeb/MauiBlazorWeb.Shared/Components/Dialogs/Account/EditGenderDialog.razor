@@ -1,7 +1,9 @@
 ﻿@inherits EditAccountDialog
 @using Interfaces
 @using Models
+
 @inject IAppState _appState
+@inject IDataAccess _data
 
 <div class="row">
     <div class="col">
@@ -41,7 +43,6 @@
 
     private async Task Enter()
     {
-        IDataAccess _data = new DataAccess();
         string sql = "Update account set gender = @name where id = @userid;";
         int affectedRows = await _data.SaveData(sql, new { @name = newAccount.Gender.ToString(), @userid = _appState.CurrentUser.Id });
         if (affectedRows == 1)

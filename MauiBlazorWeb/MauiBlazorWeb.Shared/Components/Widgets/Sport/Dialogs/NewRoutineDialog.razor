@@ -59,10 +59,9 @@
 }
 
 @code {
-    [Parameter, EditorRequired]
-    public int AccountDoesId { get; set; }
+    [Parameter]
+    public required int AccountDoesId { get; set; }
     private bool isVisible = false;
-    private bool isPublic = true;
 
     private Routine newRoutine;
     private Workout newRoutineWorkout;
@@ -121,7 +120,7 @@
 
             if (nameUsed)
             {
-                messageStore.Add(() => newRoutineWorkout.Name, $"A routine with this name already exists!");
+                messageStore.Add(() => newRoutineWorkout.Name!, $"A routine with this name already exists!");
             }
             else
             {

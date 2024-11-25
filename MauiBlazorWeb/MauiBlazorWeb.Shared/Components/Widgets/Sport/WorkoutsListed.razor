@@ -66,8 +66,8 @@
 </div>
 
 @code {
-	[Parameter, EditorRequired]
-	public int AccountDoesId { get; set; } = 0;
+	[Parameter]
+	public required int AccountDoesId { get; set; } = 0;
 
 	private Sport sport;
 	private Account_does_Sport accountDoes;

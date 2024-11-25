@@ -6,8 +6,8 @@
 <Calendar Title="Workouts" SpecialDates="uniqueDates" OnDayClickAction="OpenDay" FirstDate="firstDate"/>
 
 @code {
-	[Parameter, EditorRequired]
-	public int AccountDoesId { get; set; }
+	[Parameter]
+	public required int AccountDoesId { get; set; }
 	private Account_does_Sport accountDoesSport;
 	private List<DateTime> uniqueDates;
 

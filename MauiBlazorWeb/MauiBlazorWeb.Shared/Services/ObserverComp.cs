@@ -11,11 +11,6 @@ namespace MauiBlazorWeb.Shared.Services
 	public class ObserverComp : ComponentBase, IDisposable
 	{
 		[Inject] protected ISubjectComp _subject { get; set; }
-		
-		public ObserverComp()
-		{
-			_subject = new SubjectComp();
-		}
 
 		protected override void OnInitialized()
 		{

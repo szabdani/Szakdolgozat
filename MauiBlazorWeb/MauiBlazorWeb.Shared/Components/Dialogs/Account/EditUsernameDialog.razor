@@ -2,6 +2,7 @@
 @using Interfaces
 @using Models
 @inject IAppState _appState
+@inject IDataAccess _data
 
 <div class="row">
     <div class="col">
@@ -59,7 +60,6 @@
             {
                 if (!userExists)
                 {
-                    IDataAccess _data = new DataAccess();
                     string sql = "Update account set username = @name where id = @userid;";
                     int affectedRows = await _data.SaveData(sql, new { @name = newAccount.LoginUsername, @userid = _appState.CurrentUser.Id });
 

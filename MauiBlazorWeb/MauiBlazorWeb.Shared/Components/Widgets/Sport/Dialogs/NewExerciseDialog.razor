@@ -73,8 +73,8 @@
 }
 
 @code {
-    [Parameter, EditorRequired]
-    public Account_does_Sport AccountDoes { get; set; }
+    [Parameter]
+    public required Account_does_Sport AccountDoes { get; set; }
     private bool isVisible = false;
     private bool isPublic = true;
 

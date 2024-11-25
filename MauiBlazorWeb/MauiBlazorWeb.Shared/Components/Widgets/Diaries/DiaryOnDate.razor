@@ -52,7 +52,7 @@
 <EditDiaryPostDialog IsHabit="IsHabit" @ref=editPostDialog />
 
 @code {
-	[Parameter, EditorRequired] public DateTime Date { get; set; }
+	[Parameter] public required DateTime Date { get; set; }
 	private EditDiaryPostDialog editPostDialog;
 
 	public DiaryOnDate()

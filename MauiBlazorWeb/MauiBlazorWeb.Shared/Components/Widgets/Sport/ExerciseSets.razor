@@ -164,8 +164,8 @@
 </WarningDialog>
 
 @code {
-	[Parameter, EditorRequired] public int WorkoutId { get; set; }
-	[Parameter, EditorRequired] public int ExerciseId { get; set; }
+	[Parameter] public required int WorkoutId { get; set; }
+	[Parameter] public required int ExerciseId { get; set; }
 
 	private Workout workout;
 	private Exercise exercise;

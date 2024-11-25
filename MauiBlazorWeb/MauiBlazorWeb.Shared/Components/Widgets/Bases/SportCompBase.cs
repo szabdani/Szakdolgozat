@@ -12,15 +12,15 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 {
 	public class SportCompBase : ObserverComp
 	{
-		[Inject] protected IAppState _appState { get; set; } = default!;
-		[Inject] protected ISportManager _sportManager { get; set; } = default!;
-		[Inject] protected NavigationManager navigation { get; set; } = default!;
+		[Inject] protected IAppState _appState { get; set; }
+		[Inject] protected ISportManager _sportManager { get; set; }
+		[Inject] protected NavigationManager navigation { get; set; }
 
 		protected List<MauiBlazorWeb.Shared.Models.Sports.Sport> allSports = new();
 		protected List<Account_does_Sport> allAccountDoesSports = new();
 		protected bool hasInvalidParameter = false;
 
-		protected DateTime firstDate;
+		protected DateTime firstDate = new();
 		protected List<DateTime> allDatesSinceReg = new();
 
 		protected override void OnInitialized()

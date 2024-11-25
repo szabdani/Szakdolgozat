@@ -41,8 +41,6 @@
 
   <ItemGroup>
     <Folder Include="bin\" />
-    <Folder Include="Components\Dialogs\Diaries\" />
-    <Folder Include="Components\Dialogs\Sports\" />
   </ItemGroup>
 
   <ItemGroup>

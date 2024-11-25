@@ -102,8 +102,8 @@ else
 <EditExerciseDialog AccountDoes="accountDoes" @ref="editExerciseDialog" />
 
 @code {
-	[Parameter, EditorRequired] public int AccountDoesId { get; set; }
-	[Parameter, EditorRequired] public bool IsInWorkout { get; set; }
+	[Parameter] public required int AccountDoesId { get; set; }
+	[Parameter] public required bool IsInWorkout { get; set; }
 	[Parameter] public Func<Exercise, Task>? OnAddAction { get; set; }
 
 	private Account_does_Sport accountDoes;
@@ -127,8 +127,6 @@ else
 		filteredExercises = new List<Exercise>();
 
 		warningDelete = new WarningDialog();
-		editExerciseDialog = new EditExerciseDialog();
-		newExerciseDialog = new NewExerciseDialog();
 		exerciseDialog = new ExerciseDialog();
 	}
 

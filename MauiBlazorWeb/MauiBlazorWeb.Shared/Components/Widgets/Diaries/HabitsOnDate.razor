@@ -42,7 +42,7 @@
 <NewDiaryColDialog IsHabit="IsHabit" @ref=newHabitDialog />
 
 @code {
-	[Parameter, EditorRequired] public DateTime Date { get; set; }
+	[Parameter] public required DateTime Date { get; set; }
 	private NewDiaryColDialog newHabitDialog;
 
 	public HabitsOnDate()

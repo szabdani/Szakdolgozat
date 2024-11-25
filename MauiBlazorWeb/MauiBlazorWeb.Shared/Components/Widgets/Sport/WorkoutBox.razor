@@ -48,8 +48,8 @@
 </div>
 
 @code {
-	[Parameter, EditorRequired]
-	public int WorkoutId { get; set; } = 0;
+	[Parameter]
+	public required int WorkoutId { get; set; } = 0;
 
 	private Workout workout;
 	private Workout routineExampleWorkout;

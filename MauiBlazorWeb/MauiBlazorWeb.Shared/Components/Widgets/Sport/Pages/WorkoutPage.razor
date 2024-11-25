@@ -37,7 +37,7 @@ else
 						<div class="col-auto">
 							@if (workout.IsRoutineExample)
 							{
-								<button class="btn btn-danger" @onclick="() => OnDeletRoutineById(workout.Account_does_Sport_Id, (int)workout.Routine_Id)">
+								<button class="btn btn-danger" @onclick="() => OnDeletRoutineById(workout.Account_does_Sport_Id, (int)workout.Routine_Id!)">
 									Delete Routine
 								</button>
 							}
@@ -249,8 +249,8 @@ else
 </WarningDialog>
 
 @code {
-	[Parameter, EditorRequired]
-	public int WorkoutId { get; set; } = 0;
+	[Parameter]
+	public required int WorkoutId { get; set; } = 0;
 
 	private string placeholderStr = "";
 
@@ -260,7 +260,7 @@ else
 	private List<Sets> sets;
 
 
-	private Timer timer;
+	private Timer timer = new Timer(_ => { }, null, Timeout.Infinite, Timeout.Infinite);
 	private TimeSpan clock;
 
 	private AddExerciseDialog addExerciseDialog;
@@ -277,8 +277,6 @@ else
 		exercises = new List<Exercise>();
 		sets = new List<Sets>();
 		
-
-		addExerciseDialog = new AddExerciseDialog();
 		warning = new WarningDialog();
 
 		exerciseBoxRefs = new Dictionary<int, ExerciseSets>();

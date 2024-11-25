@@ -17,22 +17,11 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 		[Inject] protected IDiaryManager _diaryManager { get; set; }
 		[Parameter] public bool IsHabit { get; set; }
 
-		protected List<Diary_log_column> allCols;
-		protected List<Diary_log_post> allPosts;
+		protected List<Diary_log_column> allCols = new();
+		protected List<Diary_log_post> allPosts = new();
 
-		protected DateTime firstDate;
-		protected List<DateTime> allDatesSinceReg;
-
-		public DiaryCompBase()
-		{
-			_appState = new AppState();
-			_diaryManager = new DiaryManager();
-
-			allCols = new List<Diary_log_column>();
-			allPosts = new List<Diary_log_post>();
-
-			allDatesSinceReg = new List<DateTime>();
-		}
+		protected DateTime firstDate = new();
+		protected List<DateTime> allDatesSinceReg = new();
 
 		protected override void OnInitialized()
 		{

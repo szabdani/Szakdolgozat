@@ -30,9 +30,9 @@
 }
 
 @code {
-    [Parameter, EditorRequired] public int AccountDoesId { get; set; } = 0;
-    [Parameter, EditorRequired] public int WorkoutId { get; set; }
-    [Parameter, EditorRequired] public List<int> ExerciseIds { get; set; }
+    [Parameter] public required int AccountDoesId { get; set; } = 0;
+    [Parameter] public required int WorkoutId { get; set; }
+    [Parameter] public required List<int> ExerciseIds { get; set; }
     private bool isVisible = false;
     private bool isError = false;
 

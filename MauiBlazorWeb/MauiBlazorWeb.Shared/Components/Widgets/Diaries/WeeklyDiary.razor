@@ -67,12 +67,7 @@
 <EditDiaryPostDialog IsHabit="IsHabit" @ref=editPostDialog />
 
 @code {
-	private EditDiaryPostDialog editPostDialog;
-
-	public WeeklyDiary()
-	{
-		editPostDialog = new EditDiaryPostDialog();
-	}
+	private EditDiaryPostDialog editPostDialog = new();
 }
 
 <style>

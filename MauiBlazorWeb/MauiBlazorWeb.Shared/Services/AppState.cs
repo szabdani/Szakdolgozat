@@ -10,32 +10,35 @@ using MauiBlazorWeb.Shared.Models;
 using Org.BouncyCastle.Math.EC;
 using Blazored.LocalStorage;
 using MauiBlazorWeb.Shared.Components.Layout;
+using Microsoft.AspNetCore.Components;
 
 namespace MauiBlazorWeb.Shared.Services
 {
     public class AppState : IAppState
     {
-        public string? Title { get; set; }
+        [Inject] public required IDataAccess _data { get; set; }
+		[Inject] public required IPasswordHasher _pw { get; set; }
+		[Inject] public required IDiaryManager _diaryManager { get; set; }
+		[Inject] public required ISportManager _sportManager { get; set; }
+
+		public string? Title { get; set; }
         private bool isInitialized = false;
         private bool isLoggedIn = false;
 
 		public bool IsInitialized { get { return isInitialized; } }
         public bool IsLoggedIn { get { return isLoggedIn; } }
-		public MainLayout MainLayout { get; set; }
+		public MainLayout MainLayout { get; set; } = new();
 
-		public Account CurrentUser { get; set; }
-        public List<Account> ExistingUsers { get; set; }
-        
-		public AppState()
+		public Account CurrentUser { get; set; } = new();
+		public List<Account> ExistingUsers { get; set; } = new();
+
+        public AppState(IDataAccess data)
         {
-            ExistingUsers = new List<Account>();
-            CurrentUser = new Account();
-			MainLayout = new MainLayout();
+            _data = data;
         }
 
         public async Task UpdateExistingUsers()
         {
-            IDataAccess _data = new DataAccess();
             string sql = "Select * from account";
             ExistingUsers = await _data.LoadData<Account, dynamic>(sql, new { });
         }
@@ -46,7 +49,6 @@ namespace MauiBlazorWeb.Shared.Services
             int id = await localStorage.GetItemAsync<int>("id");
             if (id != 0)
             {
-                IDataAccess _data = new DataAccess();
                 string sql = "Select * from account where Id = @accountid;";
                 var results = await _data.LoadData<Account, dynamic>(sql, new {accountid = id });
                 if (results.Count == 1)
@@ -62,9 +64,6 @@ namespace MauiBlazorWeb.Shared.Services
 
         public async Task<bool> Register(LoginRegUser newAccount)
         {
-            IPasswordHasher _pw = new PasswordHasher();
-            IDataAccess _data = new DataAccess();
-
             byte[] pw_salt = _pw.GenerateSalt();
             byte[] pw_hash = _pw.Hash(newAccount.Password1, pw_salt);
 
@@ -106,18 +105,16 @@ namespace MauiBlazorWeb.Shared.Services
 
         public async Task<bool> Delete(ILocalStorageService localStorage)
         {
-			IDiaryManager diaryManager = new DiaryManager();
-            var cols = await diaryManager.GetDiaryCols(CurrentUser.Id, true);
-            cols.AddRange(await diaryManager.GetDiaryCols(CurrentUser.Id, false));
+            var cols = await _diaryManager.GetDiaryCols(CurrentUser.Id, true);
+            cols.AddRange(await _diaryManager.GetDiaryCols(CurrentUser.Id, false));
 
             foreach (var col in cols)
             {
-                bool isCorrect = await diaryManager.DeleteDiaryCol(col);
+                bool isCorrect = await _diaryManager.DeleteDiaryCol(col);
                 if (!isCorrect)
                     return false;
             }
 
-            IDataAccess _data = new DataAccess();
             string sql = "Delete from account where id = @accid;";
             int affectedRows = await _data.SaveData(sql, new { accid = CurrentUser.Id });
             if (affectedRows == 0)
