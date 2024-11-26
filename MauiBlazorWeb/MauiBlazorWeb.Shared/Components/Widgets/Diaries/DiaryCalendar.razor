@@ -3,7 +3,9 @@
 @using Bases
 @inject NavigationManager Navigation
 
-<Calendar Title="Diary Entries" SpecialDates="uniqueDates" OnDayClickAction="OpenDay" FirstDate="firstDate"/>
+<div class="row">
+	<Calendar Title="Diary Entries" SpecialDates="uniqueDates" OnDayClickAction="OpenDay" FirstDate="firstDate"/>
+</div>
 
 @code {
 	private List<DateTime> uniqueDates = new();

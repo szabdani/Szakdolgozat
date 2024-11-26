@@ -36,15 +36,10 @@ else
 				<table class="table table-striped text-center">
 					<thead class="thead-light" style="position: sticky; top: 0; background-color: navajowhite">
 						<tr>
-							<th>
-								Name
-							</th>
-							<th>
-								Type
-							</th>
-							<th>
-								Open
-							</th>
+							<th>Name</th>
+							<th>Description</th>
+							<th>Type</th>
+							<th>Open</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -53,6 +48,9 @@ else
 							<tr>
 								<td>
 									@ex.Name
+								</td>
+								<td>
+									@(ex.Notes ?? "-")
 								</td>
 								<td>
 									@ex.Type

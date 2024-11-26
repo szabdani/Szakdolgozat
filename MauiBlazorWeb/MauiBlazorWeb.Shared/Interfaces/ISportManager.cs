@@ -8,7 +8,7 @@ namespace MauiBlazorWeb.Shared.Interfaces
 		Task<bool> DeleteExercise(Exercise oldExercise);
 		Task<bool> DeleteRoutine(Routine oldRoutine);
 		Task<bool> DeleteSet(Sets oldSet);
-		Task<bool> DeleteSport(Sport oldSport);
+		Task<bool> DeleteSport(int accountId, Sport oldSport);
 		Task<bool> DeleteWorkout(Workout oldWorkout);
 
 		Task<bool> InsertAccountDoesSport(Account_does_Sport newSport);

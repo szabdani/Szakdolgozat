@@ -3,8 +3,9 @@
 @using Bases
 @using Models.Sports
 
-<Calendar Title="Workouts" SpecialDates="uniqueDates" OnDayClickAction="OpenDay" FirstDate="firstDate"/>
-
+<div class="row">
+	<Calendar Title="Workouts" SpecialDates="uniqueDates" OnDayClickAction="OpenDay" FirstDate="firstDate"/>
+</div>
 @code {
 	[Parameter]
 	public required int AccountDoesId { get; set; }

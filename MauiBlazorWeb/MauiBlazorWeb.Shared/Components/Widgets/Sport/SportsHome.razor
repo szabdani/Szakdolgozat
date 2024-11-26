@@ -20,33 +20,23 @@
 }
 
 <div class="row">
-	<div class="col-auto">
-		<div class="row">
-			<div class="col m-2" style="background-color: navajowhite">
-				<div class="row">
-					<div class="col">
-						<InputSelect class="form-control" @bind-Value=sportId>
-							<option value=0>Select an existing Sport</option>
-							@foreach (var s in notTrackedSports)
-							{
-								<option value="@s.Id">@s.Name</option>
-							}
-						</InputSelect>
-					</div>
-					<div class="col">
-						<button class="btn btn-info" @onclick="() => newSportDialog.Show()">Or add a new Sport!</button>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col">
-						<button class="btn btn-info" @onclick="AddSport" disabled="@(sportId == 0)">Start tracking!</button>
-					</div>
-				</div>
-			</div>
-		</div>
+	<div class="col m-2" style="background-color: navajowhite">
+		<InputSelect class="form-control" @bind-Value=sportId>
+			<option value=0>Select an existing Sport</option>
+			@foreach (var s in notTrackedSports)
+			{
+				<option value="@s.Id">@s.Name</option>
+			}
+		</InputSelect>
+	</div>
+	<div class="col">
+		<button class="btn btn-info" @onclick="OnAddSport" disabled="@(sportId == 0)">Start tracking!</button>
+	</div>
+	<div class="col">
+		<button class="btn btn-info" @onclick="() => newSportDialog.Show()">Or add a new Sport!</button>
 	</div>
 </div>
-<NewSportDialog @ref=newSportDialog />
+<NewSportDialog OnAddAction="OnOpenSport" @ref=newSportDialog />
 
 @code {
 	private int sportId = 0;
@@ -62,6 +52,24 @@
 
 		usersSports = await SportManager.GetAccountsSports(AppState.CurrentUser.Id);
 		notTrackedSports = allSports.Where(sport => !usersSports.Any(s => s.Id == sport.Id)).ToList();
+	}
+
+	private async Task OnOpenSport()
+	{
+		await AppState.ShowLoadingScreenWhileAwaiting(OpenSport);
+	}
+	private async Task OnAddSport()
+	{
+		await AppState.ShowLoadingScreenWhileAwaiting(AddSport);
+	}
+
+
+	private async Task OpenSport()
+	{
+		var list = await SportManager.GetAllSports(AppState.CurrentUser.Id);
+		int insertedId = list.Last(s => s.Creator_Account_Id == AppState.CurrentUser.Id).Id;
+		sportId = insertedId;
+		await AddSport();
 	}
 
 	private async Task AddSport()

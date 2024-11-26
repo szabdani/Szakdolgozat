@@ -122,7 +122,7 @@
 	private async Task DeleteSport()
 	{
 		await Unfollow();
-		bool isCorrect = await SportManager.DeleteSport(sport);
+		bool isCorrect = await SportManager.DeleteSport(AppState.CurrentUser.Id,sport);
 		if (!isCorrect)
 			throw new Exception($"Sorry, we could not delete {sport.Name}.");
 	}

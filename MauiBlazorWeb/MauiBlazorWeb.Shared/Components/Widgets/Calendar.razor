@@ -1,5 +1,6 @@
 ﻿@using System.Globalization
 @using Interfaces
+@using MauiBlazorWeb.Shared.Components.Icons
 
 @if (Title is not null)
 {
@@ -8,9 +9,13 @@
 
 <div class="calendar-container">
     <div class="calendar-nav">
-        <button class="btn btn-info" @onclick="ShowPrevMonth" disabled="@isPrevDisabled">Prev</button>
+        <button class="btn btn-info" @onclick="ShowPrevMonth" disabled="@isPrevDisabled">
+            <IconLeft />
+        </button>
         <span class="calendar-title">@pageDate.Year. @pageDate.ToString("MMMM") </span>
-        <button class="btn btn-info" @onclick="ShowNextMonth" disabled="@isNextDisabled">Next</button>
+        <button class="btn btn-info" @onclick="ShowNextMonth" disabled="@isNextDisabled">
+            <IconRight />
+        </button>
     </div>
 
     <div class="calendar-grid day-header-row">

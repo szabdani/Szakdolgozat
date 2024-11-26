@@ -29,8 +29,16 @@ namespace MauiBlazorWeb.Shared.Services
 			int affectedRows = await Data.SaveData(sql, new { name = oldSport.Name, status = oldSport.Status.ToString(), userid = oldSport.Creator_Account_Id, colid = oldSport.Id });
 			return affectedRows != 0;
 		}
-		public async Task<bool> DeleteSport(Sport oldSport)
+		public async Task<bool> DeleteSport(int accountId, Sport oldSport)
 		{
+			var exercises = await GetExercises(accountId, oldSport.Id);
+			foreach (var ex in exercises)
+			{
+				bool isCorrect = await DeleteExercise(ex);
+				if (!isCorrect)
+					return isCorrect;
+			}
+
 			oldSport.Status = SportStatus.Deleted;
 			return await UpdateSport(oldSport);
 		}

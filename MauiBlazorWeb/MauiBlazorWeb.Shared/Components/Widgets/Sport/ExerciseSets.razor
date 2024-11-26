@@ -156,7 +156,7 @@
 			<p>You must set a correct value for the time!</p>
 			break;
 		case ExerciseType.Distanced:
-			<p>You must set a correct value for the distance!</p>
+			<p>You must set a correct value for the distance and the time!</p>
 			break;
 		default:
 			break;
@@ -257,7 +257,7 @@
 				}
 				break;
 			case ExerciseType.Distanced:
-				if (set.Distance is null)
+				if (set.Distance is null || (set.LengthHours == 0 && set.LengthMinutes == 0 && set.LengthSeconds == 0))
 				{
 					isCorrect = false;
 					warning.Show();

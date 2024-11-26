@@ -1,6 +1,7 @@
 ﻿@inherits SportCompBase
 
 @using Bases
+@using MauiBlazorWeb.Shared.Components.Icons
 @using Models.Sports
 @using BlazorBootstrap
 
@@ -16,10 +17,27 @@
 			}
 		</InputSelect>
 	</div>
-</div>
-<div class="row">
 	<div class="col">
-		<BarChart @ref="barChart" />
+		<div class="row">
+			<div class="col">
+				<button class="btn btn-info" @onclick="() => MoveViewIndex(false)" disabled="@isPrevDisabled">
+					<IconLeft />
+				</button>
+			</div>
+			<div class="col">
+				<h5>Toggle charts</h5>
+			</div>
+			<div class="col">
+				<button class="btn btn-info" @onclick="() => MoveViewIndex(false)" disabled="@isNextDisabled">
+					<IconRight />
+				</button>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<BarChart @ref="barChart" />
+		</div>
 	</div>
 </div>
 
@@ -43,17 +61,22 @@
 	private ChartData chartData = new();
 	private BarChartOptions barChartOptions;
 
+	private int viewIndex = 0;
+	private int viewMaxIndex = 0;
+	private bool isPrevDisabled => viewIndex == 0;
+	private bool isNextDisabled => viewIndex == viewMaxIndex;
+
 	public ExerciseChart()
 	{
 		barChartOptions = new BarChartOptions();
 		barChartOptions.Responsive = true;
 
 		barChartOptions.Scales = new Scales
-		{
-			X = new ChartAxes { Title = new ChartAxesTitle { Text = "Dates", Display = true } },
-			Y = new ChartAxes { Title = new ChartAxesTitle { Text = "Duration (Minutes)", Display = true } }
-		};
-		barChartOptions.Plugins.Legend.Display = false;
+	{
+		X = new ChartAxes { Title = new ChartAxesTitle { Text = "Workouts", Display = true } },
+		Y = new ChartAxes { Title = new ChartAxesTitle { Text = "Duration (Minutes)", Display = true } }
+	};
+		barChartOptions.Plugins.Legend.Title = new ChartPluginsLegendTitle { };
 	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -67,10 +90,36 @@
 		}
 	}
 
+	private async Task MoveViewIndex(bool increase)
+	{
+		viewIndex += increase ? 1 : -1;
+
+		await RefreshSportComps();
+	}
+
 	protected override async Task UpdateTables()
 	{
 		await base.UpdateTables();
 		exercise = (await SportManager.GetExercise(ExerciseId)).First();
+		switch (exercise.Type)
+		{
+			case ExerciseType.Bodyweight:
+				viewMaxIndex = 1;
+				break;
+			case ExerciseType.Machine:
+				viewMaxIndex = 3;
+				break;
+			case ExerciseType.Timed:
+				viewMaxIndex = 2;
+				break;
+			case ExerciseType.Distanced:
+				viewMaxIndex = 6;
+				break;
+			default:
+				viewMaxIndex = 0;
+				break;
+		}
+
 
 		filteredWorkouts = Workouts.Where(w => TimeFilter.FilterByTimePeriod(w.Starttime, DateTime.Today, timeSpan)).ToList();
 
@@ -110,18 +159,97 @@
 			switch (exercise.Type)
 			{
 				case ExerciseType.Bodyweight:
-					// Reps és minél több annál jobb
+					barChartOptions.Scales.Y!.Title!.Text = "Repetitions";
+					switch(viewIndex)
+					{
+						case 0:
+							value = Sets.Select(s => s.Reps).Max();
+							barChartOptions.Plugins.Legend.Title!.Text = "Most reps";
+							break;
+						case 1:
+							value = Sets.Select(s => s.Reps).Sum();
+							barChartOptions.Plugins.Legend.Title!.Text = "Total reps";
+							break;
+					}
 					break;
 				case ExerciseType.Machine:
-					// Weigth és minél több annál jobb
+					switch(viewIndex)
+					{
+						case 0:
+							value = Sets.Select(s => s.Weight).Max();
+							barChartOptions.Plugins.Legend.Title!.Text = "Heaviest weight";
+							barChartOptions.Scales.Y!.Title!.Text = "Weight (kg)";
+							break;
+						case 1:
+							value = Sets.Select(s => s.Reps * s.Weight).Max();
+							barChartOptions.Plugins.Legend.Title!.Text = "Heaviest set volume";
+							barChartOptions.Scales.Y!.Title!.Text = "Weight x reps (kg)";
+							break;
+						case 2:
+							value = Sets.Select(s => s.Reps * s.Weight).Sum();
+							barChartOptions.Plugins.Legend.Title!.Text = "Total volume";
+							barChartOptions.Scales.Y!.Title!.Text = "Weight x reps (kg)";
+							break;
+						case 3:
+							value = Sets.Select(s => s.Reps).Sum();
+							barChartOptions.Plugins.Legend.Title!.Text = "Total reps";
+							barChartOptions.Scales.Y!.Title!.Text = "Repetitions";
+							break;
+					}
 					break;
 				case ExerciseType.Timed:
-					// Time 
+					switch (viewIndex)
+					{
+						case 0:
+							value = Sets.Select(s => new TimeSpan(s.LengthHours,s.LengthMinutes, s.LengthSeconds).TotalSeconds).Max();
+							barChartOptions.Plugins.Legend.Title!.Text = "Longest set time";
+							break;
+						case 1:
+							value = Sets.Select(s => s.Reps).Min();
+							barChartOptions.Plugins.Legend.Title!.Text = "Shortest set time";
+							break;
+						case 2:
+							value = Sets.Select(s => s.Reps).Sum();
+							barChartOptions.Plugins.Legend.Title!.Text = "Total time";
+							break;
+					}
 					break;
 				case ExerciseType.Distanced:
-					// Distance
+					switch (viewIndex)
+					{
+						case 0:
+							value = Sets.Select(s => s.Weight).Max();
+							barChartOptions.Plugins.Legend.Title!.Text = "Fastest set pace";
+							break;
+						case 1:
+							value = Sets.Select(s => s.Reps).Sum();
+							barChartOptions.Plugins.Legend.Title!.Text = "Fastest pace";
+							break;
+						case 2:
+							value = Sets.Select(s => s.Distance).Max();
+							barChartOptions.Plugins.Legend.Title!.Text = "Longest set distance";
+							break;
+						case 3:
+							value = Sets.Select(s => s.Distance).Sum();
+							barChartOptions.Plugins.Legend.Title!.Text = "Total distance";
+							break;
+						case 4:
+							value = Sets.Select(s => s.Reps).Max();
+							barChartOptions.Plugins.Legend.Title!.Text = "Longest set time";
+							break;
+						case 5:
+							value = Sets.Select(s => s.Reps).Min();
+							barChartOptions.Plugins.Legend.Title!.Text = "Shortest set time";
+							break;
+						case 6:
+							value = Sets.Select(s => s.Reps).Sum();
+							barChartOptions.Plugins.Legend.Title!.Text = "Total time";
+							break;
+					}
 					break;
 				default:
+					value = Sets.Count();
+					barChartOptions.Plugins.Legend.Title!.Text = "Number of sets";
 					break;
 			}
 

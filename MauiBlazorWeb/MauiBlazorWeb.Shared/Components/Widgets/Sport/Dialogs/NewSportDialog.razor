@@ -50,6 +50,7 @@
 }
 
 @code {
+    [Parameter] public Func<Task>? OnAddAction { get; set; }
     private bool isVisible = false;
     private bool isPublic = true;
 
@@ -123,6 +124,8 @@
                 {
                     newSport = new Sport();
                     await Hide();
+                    if (OnAddAction is not null)
+                        await OnAddAction.Invoke();
                 }
                 else
                     throw new Exception($"Sorry, we could not register your Sport");
