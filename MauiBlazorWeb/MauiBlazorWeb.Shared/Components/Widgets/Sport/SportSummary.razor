@@ -27,26 +27,24 @@
 <div class="row my-1">
 	<div class="col">
 		<div class="row">
-			<div class="col">
-				<button class="btn btn-primary" @onclick="StartWorkoutPage">
-					<IconAdd /> Start a new workout
-				</button>
-			</div>
+			<button class="btn btn-primary" @onclick="StartWorkoutPage">
+				<IconAdd /> Start a new workout
+			</button>
 		</div>
 		<div class="row">
-			<div class="col">
-				<button class="btn btn-info" @onclick="GoToPage">Go to @sport.Name page</button>
-			</div>
+			<button class="btn btn-primary" @onclick="()=> newRoutineDialog!.Show()">
+				<IconAdd /> Create a new routine!
+			</button>
+		</div>
+		<div class="row">
+			<button class="btn btn-info" @onclick="GoToPage">Go to @sport.Name page</button>
 		</div>
 	</div>
 	<div class="col">
-		<div class="row">
-			<div class="col">
-				<RoutineTable AccountDoesId="accountDoes.Id" />
-			</div>
-		</div>
+		<RoutineTable AccountDoesId="accountDoes.Id" />
 	</div>
 </div>
+
 
 
 <WarningDialog Title="Unfollowing a Sport" OnAcceptAction="OnUnfollow" @ref="warningUnFollow">
@@ -60,6 +58,7 @@
 </WarningDialog>
 
 <EditSportDialog @ref=editSportDialog />
+<NewRoutineDialog AccountDoesId="accountDoes.Id" @ref=newRoutineDialog />
 
 @code {
 	[Parameter]
@@ -68,6 +67,7 @@
 	private WarningDialog warningUnFollow = new();
 	private WarningDialog warningDelete = new();
 	private EditSportDialog editSportDialog = new();
+	private NewRoutineDialog? newRoutineDialog;
 
 	private Account_does_Sport accountDoes = new();
 	private Sport sport = new();

@@ -156,7 +156,7 @@
 			<p>You must set a correct value for the time!</p>
 			break;
 		case ExerciseType.Distanced:
-			<p>You must set a correct value for the time or the distance!</p>
+			<p>You must set a correct value for the distance!</p>
 			break;
 		default:
 			break;
@@ -179,7 +179,7 @@
 
 	protected override async Task ValidateParameters()
 	{
-		exercise = await ValidateExercise(ExerciseId);
+		exercise = (await SportManager.GetExercise(ExerciseId)).First();
 		workout = await ValidateWorkout(WorkoutId);
 
 		@switch (exercise.Type)
@@ -257,7 +257,7 @@
 				}
 				break;
 			case ExerciseType.Distanced:
-				if (set.Distance is null && (set.LengthHours == 0 && set.LengthMinutes == 0 && set.LengthSeconds == 0))
+				if (set.Distance is null)
 				{
 					isCorrect = false;
 					warning.Show();

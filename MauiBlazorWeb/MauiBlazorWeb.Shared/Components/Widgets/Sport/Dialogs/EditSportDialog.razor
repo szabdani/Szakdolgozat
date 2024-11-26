@@ -10,7 +10,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit @newSport.Name</h5>
+                    <h5 class="modal-title">Edit @oldName</h5>
                     <button type="button" class="btn-close" aria-label="Close" @onclick="Hide"></button>
                 </div>
                 <EditForm EditContext=editContext OnSubmit=OnEditSport>
@@ -66,7 +66,13 @@
 
     public async Task Show(Sport sport)
     {
-        newSport = sport;
+        newSport = new Sport {
+            Id = sport.Id, 
+            Name = sport.Name, 
+            Status = sport.Status, 
+            Creator_Account_Id = sport.Creator_Account_Id 
+        };
+
         oldName = newSport.Name;
         if (newSport.Status == SportStatus.Public)
             isPublic = true;

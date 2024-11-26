@@ -73,6 +73,9 @@
     <Content Update="Components\Widgets\Sport\OngoingWorkouts.razor">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>
+    <Content Update="Components\Widgets\Sport\WorkoutExercisesBox.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
   </ItemGroup>
 
 </Project>

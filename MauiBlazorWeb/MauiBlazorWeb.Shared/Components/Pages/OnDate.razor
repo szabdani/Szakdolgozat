@@ -2,6 +2,7 @@
 
 @using MauiBlazorWeb.Shared.Components.Dialogs
 @using MauiBlazorWeb.Shared.Components.Widgets.Diaries
+@using MauiBlazorWeb.Shared.Components.Widgets.Sport
 @using Interfaces
 
 @inject IAppState _appState
@@ -35,6 +36,11 @@ else
 			</div>
 			<div class="col m-2" style="background-color: #ffefef">
 				<HabitsOnDate Date="Date" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="col m-2" style="background-color: #ffefef">
+				<SportsOnDate Date="Date" />
 			</div>
 		</div>
 	}

@@ -28,10 +28,7 @@
 
 	private async Task OpenDay(DateTime day)
 	{
-		throw new Exception("nincs kész");
-
-		// Több workout is lehet egy napon
-		// Navigation.NavigateTo(day.ToString("yyyy-MM-dd"));
-		// await Task.CompletedTask;
+		Navigation.NavigateTo(day.ToString("yyyy-MM-dd"));
+		await Task.CompletedTask;
 	}
 }

@@ -1,0 +1,143 @@
+﻿@inherits SportCompBase
+
+@using Bases
+@using Models.Sports
+@using BlazorBootstrap
+
+<div class="row">
+	<div class="col mr-1">
+		<h4>Exercise progression</h4>
+	</div>
+	<div class="col">
+		<InputSelect class="form-control" @bind-Value="timeSpan" @bind-Value:after="@RefreshSportComps">
+			@foreach (var t in Enum.GetValues(typeof(TimeFilter.TimePeriod)))
+			{
+				<option value="@t">@t</option>
+			}
+		</InputSelect>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		<BarChart @ref="barChart" />
+	</div>
+</div>
+
+@code {
+	[Parameter]
+	public required List<Sets> Sets { get; set; }
+	[Parameter]
+	public required List<Workout> Workouts { get; set; }
+	[Parameter]
+	public required int ExerciseId { get; set; } = 0;
+	[Parameter]
+	public int AccountDoesId { get; set; }
+
+	private Exercise exercise = new();
+	private List<Workout> filteredWorkouts = [];
+
+	private bool isChartInit = false;
+	private TimeFilter.TimePeriod timeSpan = new();
+
+	private BarChart barChart = new();
+	private ChartData chartData = new();
+	private BarChartOptions barChartOptions;
+
+	public ExerciseChart()
+	{
+		barChartOptions = new BarChartOptions();
+		barChartOptions.Responsive = true;
+
+		barChartOptions.Scales = new Scales
+		{
+			X = new ChartAxes { Title = new ChartAxesTitle { Text = "Dates", Display = true } },
+			Y = new ChartAxes { Title = new ChartAxesTitle { Text = "Duration (Minutes)", Display = true } }
+		};
+		barChartOptions.Plugins.Legend.Display = false;
+	}
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		await base.OnAfterRenderAsync(firstRender);
+		if (firstRender)
+		{
+			await UpdateTables();
+			await barChart.InitializeAsync(chartData, barChartOptions);
+			isChartInit = true;
+		}
+	}
+
+	protected override async Task UpdateTables()
+	{
+		await base.UpdateTables();
+		exercise = (await SportManager.GetExercise(ExerciseId)).First();
+
+		filteredWorkouts = Workouts.Where(w => TimeFilter.FilterByTimePeriod(w.Starttime, DateTime.Today, timeSpan)).ToList();
+
+
+		GenerateBarChartData();
+
+		if (isChartInit)
+			await barChart.UpdateAsync(chartData, barChartOptions);
+	}
+
+	private void GenerateBarChartData()
+	{
+		List<string> labels = new List<string>();
+		List<double?> data = new List<double?>();
+
+		foreach (var workout in filteredWorkouts)
+		{
+			double? value = 0;
+
+			DateTime day = workout.Starttime.Date;
+
+			string dateString;
+			switch (timeSpan)
+			{
+				case TimeFilter.TimePeriod.Year:
+					dateString = day.ToString("MMM dd");
+					break;
+				case TimeFilter.TimePeriod.All:
+					dateString = day.ToString("yyyy MMM dd");
+					break;
+				default:
+					dateString = day.ToString("dd");
+					break;
+			}
+
+			var workoutSets = Sets.Where(s => s.Workout_Id == workout.Id);
+			switch (exercise.Type)
+			{
+				case ExerciseType.Bodyweight:
+					// Reps és minél több annál jobb
+					break;
+				case ExerciseType.Machine:
+					// Weigth és minél több annál jobb
+					break;
+				case ExerciseType.Timed:
+					// Time 
+					break;
+				case ExerciseType.Distanced:
+					// Distance
+					break;
+				default:
+					break;
+			}
+
+			labels.Add(dateString);
+			data.Add(value);
+		}
+
+
+		var datasets = new List<IChartDataset>();
+		var dataset1 = new BarChartDataset() { Data = data };
+
+		datasets.Add(dataset1);
+
+		chartData = new ChartData{ Labels = labels, Datasets = datasets };
+
+		double? total = data.Max();
+		barChartOptions.Scales.Y!.Max = total;
+	}
+}

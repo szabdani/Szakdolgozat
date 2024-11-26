@@ -10,18 +10,23 @@
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">@exercise.Name</h5>
+                    <h5 class="modal-title">@exercise.Name exercise summary</h5>
                     <button type="button" class="btn-close" aria-label="Close" @onclick="Hide"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
-                        Adatok, Naptár az alkalmakról, és megnyitja az aznapi workoutot
+                    <div class="row" style="background-color: lightgrey">
+                        <div class="col">
+                            <h4>@(exercise.Notes ?? "No description for this exercise")</h4>
+                        </div>
+                        <div class="col-auto">
+                            <h4>Type: @exercise.Type</h4>
+                        </div>
                     </div>
                     <div class="row">
-                        LineChart fejlődés alapján
+                        <ExerciseChart ExerciseId="exercise.Id" Workouts="workouts" Sets="sets"/>
                     </div>
                     <div class="row">
-                        Table a Workout-okról amikor volt ez a feladat
+                        <WorkoutsByExercise ExerciseId="exercise.Id" Workouts="workouts" Sets="sets" />
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -37,6 +42,9 @@
     private bool isVisible = false;
 
     private Exercise exercise = new();
+    private List<Workout> workouts = [];
+    private List<Sets> sets = [];
+
     private Account_does_Sport accountDoes = new();
 
     protected override async Task ValidateParameters()
@@ -62,4 +70,18 @@
         await RefreshSportComps();
     }
 
+    protected override async Task UpdateTables()
+    {
+        await base.UpdateTables();
+
+        var allSets = await SportManager.GetSetsByExercise(exercise.Id);
+        sets = allSets.Where(s => s.IsDone).ToList();
+        var workoutIds = sets.Select(s => s.Workout_Id).Distinct();
+
+        workouts = [];
+        foreach (var workoutId in workoutIds)
+        {
+            workouts.AddRange(await SportManager.GetWorkout(workoutId));
+        }
+    }
 }

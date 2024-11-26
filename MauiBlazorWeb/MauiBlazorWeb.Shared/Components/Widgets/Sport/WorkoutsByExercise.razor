@@ -1,0 +1,152 @@
+﻿@inherits SportCompBase
+
+@using Bases
+@using Models.Sports
+@using MauiBlazorWeb.Shared.Components.Icons
+
+<div class="row">
+	<div class="col">
+		<div class="row" style="background-color: darkgrey">
+			<div class="col">
+				<h3>Your workouts with @exercise.Name</h3>
+			</div>
+		</div>
+		<div class="row" style="background-color: lightgrey">
+			<div class="col">
+				@if (doneWorkouts.Count == 0 && undoneWorkouts.Count == 0)
+				{
+					<h5>You have no workouts.</h5>
+				}
+				else
+				{
+					@foreach (var workout in Workouts)
+					{
+						<div class="row" style="background-color: slategrey">
+							<div class="col-auto">
+								@(workout.Name ?? "Unnamed workout")
+							</div>
+							<div class="col-auto">
+								@workout.Starttime.ToString("yyyy-MM-dd HH:mm")
+							</div>
+							<div class="col-auto float-end">
+								<button class="btn btn-info" @onclick="() => GoToWorkout(workout)">
+									<IconAdd />
+								</button>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								<table class="table table-striped text-center">
+									<thead class="thead-light">
+										<tr>
+											<th>Set</th>
+											@switch (exercise.Type)
+											{
+												case ExerciseType.Bodyweight:
+													<th>Reps</th>
+													<th>RPE</th>
+													break;
+												case ExerciseType.Machine:
+													<th>KG</th>
+													<th>Reps</th>
+													<th>RPE</th>
+													break;
+												case ExerciseType.Timed:
+													<th>Time</th>
+													break;
+												case ExerciseType.Distanced:
+													<th>KM</th>
+													<th>Time</th>
+													break;
+												default:
+													break;
+											}
+										</tr>
+									</thead>
+									<tbody>
+										@{int i = 1;}
+										@foreach (var set in Sets.Where(s => s.Workout_Id == workout.Id))
+										{
+											<tr>
+												<th>
+													@switch (set.Type)
+													{
+														case SetsType.Normal:
+															@(i++);
+															break;
+														case SetsType.Warmup:
+															<div class="text-danger">
+																W
+															</div>
+															break;
+														case SetsType.Drop:
+															<div class="text-info">
+																D
+															</div>
+															break;
+													}
+												</th>
+
+												@switch (exercise.Type)
+												{
+													case ExerciseType.Bodyweight:
+														<td>@set.Reps</td>
+														<td>@(set.RPE.ToString() ?? "-")</td>
+														break;
+													case ExerciseType.Machine:
+														<td>@set.Weight</td>
+														<td>@set.Reps</td>
+														<td>@(set.RPE.ToString() ?? "-")</td>
+														break;
+													case ExerciseType.Timed:
+														<td>@(new TimeSpan(set.LengthHours, set.LengthMinutes, set.LengthSeconds).ToString(@"hh\:mm\:ss"))</td>
+														break;
+													case ExerciseType.Distanced:
+														<td>@(set.Distance.ToString() ?? "-")</td>
+														<td>@(new TimeSpan(set.LengthHours, set.LengthMinutes, set.LengthSeconds).ToString(@"hh\:mm\:ss"))</td>
+														break;
+													default:
+														break;
+												}
+											</tr>
+										}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					}
+				}
+			</div>
+		</div>
+	</div>
+</div>
+
+@code {
+	[Parameter]
+	public required List<Sets> Sets { get; set; }
+	[Parameter]
+	public required List<Workout> Workouts { get; set; }
+	[Parameter]
+	public required int ExerciseId { get; set; } = 0;
+
+	private Exercise exercise = new();
+
+	private List<Workout> doneWorkouts = new();
+	private List<Workout> undoneWorkouts = new();
+
+	protected override async Task UpdateTables()
+	{
+		await base.UpdateTables();
+		exercise = (await SportManager.GetExercise(ExerciseId)).First();
+
+		var orderedWorkouts = Workouts.OrderByDescending(w => w.Starttime).ToList();
+
+		doneWorkouts = orderedWorkouts.Where(w => w.IsDone).ToList();
+		undoneWorkouts = orderedWorkouts.Where(w => !w.IsDone).ToList();
+	}
+
+	private void GoToWorkout(Workout workout)
+	{
+		Navigation.NavigateTo($"workout/id={workout.Id}", true);
+	}
+}

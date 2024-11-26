@@ -3,6 +3,7 @@
 
 @using Bases
 @using MauiBlazorWeb.Shared.Components.Dialogs
+@using MauiBlazorWeb.Shared.Components.Widgets.Sport.Dialogs
 @using MauiBlazorWeb.Shared.Components.Icons
 @using Models.Sports
 
@@ -18,17 +19,22 @@ else
 {
 	<div class="row">
 		<div class="col-auto m-2" style="background-color: navajowhite;">
-			<SportsCalendar AccountDoesId="AccountDoesId" />
-		</div>
-		<div class="col m-2" style="background-color: navajowhite">
 			<div class="row">
-				<SportStat AccountDoesId="AccountDoesId" />
+				<SportsCalendar AccountDoesId="AccountDoesId" />
 			</div>
 			<div class="row">
 				<button class="btn btn-primary" @onclick="StartWorkoutPage">
 					<IconAdd /> Start a new workout
 				</button>
 			</div>
+			<div class="row">
+				<button class="btn btn-primary" @onclick="()=> newRoutineDialog!.Show()">
+					<IconAdd /> Create a new routine!
+				</button>
+			</div>
+		</div>
+		<div class="col m-2" style="background-color: navajowhite">
+			<SportStat AccountDoesId="AccountDoesId" />
 		</div>
 		<div class="col m-2" style="background-color: navajowhite">
 			<ExerciseLibrary AccountDoesId="AccountDoesId" IsInWorkout="false"/>
@@ -44,11 +50,15 @@ else
 	</div>
 }
 
+<NewRoutineDialog AccountDoesId="AccountDoesId" @ref=newRoutineDialog />
+
 @code {
 	[Parameter]
 	public required int AccountDoesId { get; set; }
 	private Account_does_Sport accountDoesSport = new();
 	private Sport sport = new();
+
+	private NewRoutineDialog? newRoutineDialog;
 
 	protected override async Task ValidateParameters()
 	{

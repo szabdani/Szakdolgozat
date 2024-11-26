@@ -94,14 +94,14 @@ namespace MauiBlazorWeb.Shared.Services
 
 		public async Task<bool> InsertExercise(Exercise newExercise)
 		{
-			string sql = "Insert into Exercise (name, notes, rest, type, status, creator_account_id, sport_id) values (@name, @notes, @rest, @type, @status, @accountid, @sid);";
-			int affectedRows = await Data.SaveData(sql, new { name = newExercise.Name, notes = newExercise.Notes, rest = newExercise.Rest.ToString(@"hh\:mm\:ss"), type = newExercise.Type.ToString(), status = newExercise.Status.ToString(), accountid = newExercise.Creator_Account_Id, sid = newExercise.Sport_Id });
+			string sql = "Insert into Exercise (name, notes, type, status, creator_account_id, sport_id) values (@name, @notes, @type, @status, @accountid, @sid);";
+			int affectedRows = await Data.SaveData(sql, new { name = newExercise.Name, notes = newExercise.Notes, type = newExercise.Type.ToString(), status = newExercise.Status.ToString(), accountid = newExercise.Creator_Account_Id, sid = newExercise.Sport_Id });
 			return affectedRows != 0;
 		}
 		public async Task<bool> UpdateExercise(Exercise oldExercise)
 		{
-			string sql = "Update Exercise set name = @name, notes = @notes, rest = @rest, type = @type, status = @status, creator_Account_Id = @userid, sport_id = @sid where id = @colid;";
-			int affectedRows = await Data.SaveData(sql, new { name = oldExercise.Name, notes = oldExercise.Notes, rest = oldExercise.Rest.ToString(@"hh\:mm\:ss"), type = oldExercise.Type.ToString(), status = oldExercise.Status.ToString(), userid = oldExercise.Creator_Account_Id, sid = oldExercise.Sport_Id, colid = oldExercise.Id });
+			string sql = "Update Exercise set name = @name, notes = @notes, type = @type, status = @status, creator_Account_Id = @userid, sport_id = @sid where id = @colid;";
+			int affectedRows = await Data.SaveData(sql, new { name = oldExercise.Name, notes = oldExercise.Notes, type = oldExercise.Type.ToString(), status = oldExercise.Status.ToString(), userid = oldExercise.Creator_Account_Id, sid = oldExercise.Sport_Id, colid = oldExercise.Id });
 			return affectedRows != 0;
 		}
 		public async Task<bool> DeleteExercise(Exercise oldExercise)

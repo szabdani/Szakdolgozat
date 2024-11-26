@@ -5,22 +5,50 @@
 @using BlazorBootstrap
 
 <div class="row">
+	<div class="col text-center">
+		<h3>Your workouts @titleStr</h3>
+	</div>
+</div>
+<div class="row">
 	<div class="col">
-		<div class="row">
-			<div class="col">
-				<h3>Sport stat: Workoutok száma: x db</h3>
-				<h2>Sum duration és leosztva napokra</h2>
-			</div>
-			<div class="col">
-				<label>Select Time Span:</label>
-				<InputSelect class="form-control" @bind-Value="timeSpan" @bind-Value:after="@RefreshSportComps">
-					@foreach (var t in Enum.GetValues(typeof(TimeFilter.TimePeriod)))
-					{
-						<option value="@t">@t</option>
-					}
-				</InputSelect>
-			</div>
-		</div>
+		<InputSelect class="form-control" @bind-Value="timeSpan" @bind-Value:after="@RefreshSportComps">
+			@foreach (var t in Enum.GetValues(typeof(TimeFilter.TimePeriod)))
+			{
+				<option value="@t">@t</option>
+			}
+		</InputSelect>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		<table class="table table-striped">
+			<tbody>
+				<tr>
+					<td>#</td>
+					<td>
+						@numberOfWorkouts/@dayCountByFilter
+					</td>
+				</tr>
+				<tr>
+					<td>%</td>
+					<td>
+						@((numberOfWorkouts / (double)dayCountByFilter).ToString("0.##%"))
+					</td>
+				</tr>
+				<tr>
+					<td>Time</td>
+					<td>
+						@totalDuration.ToString(@"hh\:mm\:ss")
+					</td>
+				</tr>
+				<tr>
+					<td>Average Time</td>
+					<td>
+						@averageDuration.ToString(@"hh\:mm\:ss")
+					</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </div>
 <div class="row">
@@ -29,8 +57,6 @@
 	</div>
 </div>
 
-<h2>Barchartos TimePeriodos beosztás mennyi idő: sum duration</h2>
-<h2>Naponként mennyi óra</h2>
 
 @code {
 	[Parameter]
@@ -38,6 +64,13 @@
 
 	private List<Workout> filteredWorkouts = [];
 	private List<DateTime> uniqueDates = [];
+	private List<DateTime> filteredDays = [];
+
+	private string titleStr = "";
+	private int dayCountByFilter = 0;
+	private int numberOfWorkouts = 0;
+	private TimeSpan totalDuration = new();
+	private TimeSpan averageDuration = new();
 
 	private bool isChartInit = false;
 	private TimeFilter.TimePeriod timeSpan = new();
@@ -54,10 +87,9 @@
 
 		barChartOptions.Scales = new Scales
 		{
-			X = new ChartAxes { Title = new ChartAxesTitle { Text = "Date", Display = true } },
-			Y = new ChartAxes { Title = new ChartAxesTitle { Text = "Számok mint a linechart-nál", Display = true } }
+			X = new ChartAxes { Title = new ChartAxesTitle { Text = "Dates", Display = true } },
+			Y = new ChartAxes { Title = new ChartAxesTitle { Text = "Duration (Minutes)", Display = true } }
 		};
-
 		barChartOptions.Plugins.Legend.Display = false;
 	}
 
@@ -76,56 +108,82 @@
 	{
 		await base.UpdateTables();
 
+		switch (timeSpan)
+		{
+			case TimeFilter.TimePeriod.Week:
+				titleStr = "in the past 7 days";
+				break;
+			case TimeFilter.TimePeriod.Month:
+				titleStr = "in the past month";
+				break;
+			case TimeFilter.TimePeriod.Year:
+				titleStr = "this year";
+				break;
+			case TimeFilter.TimePeriod.All:
+				titleStr = "since registration";
+				break;
+		}
+
+
+		filteredDays = allDatesSinceReg.Where(d => TimeFilter.FilterByTimePeriod(d, DateTime.Today, timeSpan)).ToList();
+		dayCountByFilter = filteredDays.Count();
+
 		var workouts = await SportManager.GetWorkouts(AccountDoesId, false);
 		filteredWorkouts = workouts.Where(w => TimeFilter.FilterByTimePeriod(w.Starttime, DateTime.Today, timeSpan)).ToList();
 		uniqueDates = filteredWorkouts.Select(w => w.Starttime.Date).Distinct().ToList();
+		numberOfWorkouts = filteredWorkouts.Count();
+
+		var durations = filteredWorkouts.Select(w => w.Duration).ToList();
+		totalDuration = durations.Aggregate(TimeSpan.Zero, (sum, duration) => sum + duration);
+		averageDuration = TimeSpan.FromTicks((totalDuration.Ticks / dayCountByFilter));
 
 		GenerateBarChartData();
-		
+
 		if (isChartInit)
 			await barChart.UpdateAsync(chartData, barChartOptions);
 	}
 
 	private void GenerateBarChartData()
 	{
-		/*
 		List<string> labels = new List<string>();
-		List<double?> countTimes = new List<double?>();
+		List<double?> durationTimes = new List<double?>();
 
-		foreach (var col in allCols.Where(c => checkBox[c.Id]))
+		foreach (var day in filteredDays)
 		{
-			double? count = 0;
-			var posts = allPosts.Where(p => p.Diary_log_column_Id == col.Id);
+			double? duration = 0;
 
-			count = posts.Where(p => p.Value == "X" && FilterPostsByTimePeriod(p.Date, DateTime.Today, timeSpan)).Count();
+			string dateString;
+			switch (timeSpan)
+			{
+				case TimeFilter.TimePeriod.Year:
+					dateString = day.ToString("MMM dd");
+					break;
+				case TimeFilter.TimePeriod.All:
+					dateString = day.ToString("yyyy MMM dd");
+					break;
+				default:
+					dateString = day.ToString("dd");
+					break;
+			}
 
-			labels.Add(col.Name);
-			countTimes.Add(count);
+			var durations = filteredWorkouts.Where(w => w.Starttime.Date == day.Date).Select(w => w.Duration).ToList();
+			var sumDuration = durations.Aggregate(TimeSpan.Zero, (sum, duration) => sum + duration);
+
+			duration = sumDuration.TotalMinutes;
+
+			labels.Add(dateString);
+			durationTimes.Add(duration);
 		}
 
 
 		var datasets = new List<IChartDataset>();
-		var dataset1 = new BarChartDataset() { Data = countTimes };
+		var dataset1 = new BarChartDataset() { Data = durationTimes };
 
 		datasets.Add(dataset1);
 
 		chartData = new ChartData{ Labels = labels, Datasets = datasets };
 
-		double total = allDatesSinceReg.Where(d => FilterPostsByTimePeriod(d, DateTime.Today, timeSpan)).Count();
-		barChartOptions.Scales.Y.Max = total;
-		*/
+		double? total = durationTimes.Max();
+		barChartOptions.Scales.Y!.Max = total;
 	}
 }
-
-<style>
-	.tracker-post {
-		vertical-align: middle;
-		background-color: ghostwhite;
-		cursor: pointer;
-		transition: background-color 0.3s;
-	}
-
-		.tracker-post:hover {
-			background-color: powderblue;
-		}
-</style>

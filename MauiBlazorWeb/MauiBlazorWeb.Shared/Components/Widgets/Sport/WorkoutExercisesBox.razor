@@ -1,0 +1,67 @@
+﻿@inherits SportCompBase
+
+@using Bases
+@using Models.Sports
+@using MauiBlazorWeb.Shared.Components.Icons
+@using MauiBlazorWeb.Shared.Components.Widgets.Sport.Dialogs
+
+@foreach (var ex in exercises)
+{
+	<div class="col m-1 h5" style="background-color: floralwhite">
+		<div class="row">
+			<div class="col">
+				@numberOfSets[ex.Id] Set@(numberOfSets[ex.Id] > 1 ? "s" : "") of @ex.Name
+			</div>
+			<div class="col-auto float-end">
+				<button class="btn btn-info" disabled="@Disabled" @onclick="() =>{if(exerciseDialog is not null) {exerciseDialog?.Show(ex);}}">
+					<IconAdd />
+				</button>
+			</div>
+		</div>
+	</div>
+}
+
+<ExerciseDialog @ref="exerciseDialog" />
+
+@code {
+	[Parameter]
+	public required int WorkoutId { get; set; } = 0;
+	[Parameter]
+	public bool Disabled { get; set; } = false;
+
+	private ExerciseDialog? exerciseDialog;
+
+	private Workout workout = new();
+	private Workout routineExampleWorkout = new();
+
+	private Dictionary<int, int> numberOfSets = new();
+	private List<Exercise> exercises = new();
+
+	protected override async Task UpdateTables()
+	{
+		await base.UpdateTables();
+
+		workout = await ValidateWorkout(WorkoutId);
+		if (workout.Routine_Id is not null)
+			routineExampleWorkout = await GetRoutineExample(workout.Account_does_Sport_Id,(int)workout.Routine_Id);
+
+		var sets = await SportManager.GetSetsByWorkout(workout.Id);
+		var exIds = sets.Select(s => s.Exercise_Id).Distinct().ToList();
+
+		exercises = new List<Exercise>();
+		numberOfSets = new Dictionary<int, int>();
+
+		foreach (var id in exIds)
+		{
+			List<Exercise> exList = await SportManager.GetExercise(id);
+			exercises.Add(exList.First());
+
+			numberOfSets[id] = sets.Where(s => s.Exercise_Id == id).Count();
+		}
+	}
+
+	private void GoToWorkout(Workout workout)
+	{
+		Navigation.NavigateTo($"workout/id={workout.Id}", true);
+	}
+}

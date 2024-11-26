@@ -29,7 +29,7 @@ else
 							}
 							else
 							{
-								<h4>Workout duration: @(clock.Hours == 0 ? clock.ToString(@"mm\:ss") : clock.ToString(@"hh:\mm\:ss"))</h4>
+								<h4>Workout duration: @(clock.Hours == 0 ? clock.ToString(@"mm\:ss") : clock.ToString(@"hh\:mm\:ss"))</h4>
 							}
 						</div>
 					</div>
@@ -201,6 +201,11 @@ else
 													<h4>@ex.Name</h4>
 												</div>
 												<div class="col-auto float-end">
+													<button class="btn btn-info" disabled=@workout.IsDone @onclick="() =>{if(exerciseDialog is not null) {exerciseDialog?.Show(ex);}}">
+														<IconAdd />
+													</button>
+												</div>
+												<div class="col-auto float-end">
 													<button class="btn btn-danger" disabled=@workout.IsDone @onclick="() => OnRemoveExercise(ex)">
 														<IconDelete />
 													</button>
@@ -208,7 +213,7 @@ else
 											</div>
 											<div class="row">
 												<div class="col">
-													<h5 class="text-secondary">@(ex.Notes ?? "No description for exercise")</h5>
+													<h5 class="text-secondary">@(ex.Notes ?? "No description for this exercise")</h5>
 												</div>
 											</div>
 										</div>
@@ -248,6 +253,8 @@ else
 
 </WarningDialog>
 
+<ExerciseDialog @ref="exerciseDialog" />
+
 @code {
 	[Parameter]
 	public required int WorkoutId { get; set; } = 0;
@@ -263,6 +270,7 @@ else
 	private Timer timer = new Timer(_ => { }, null, Timeout.Infinite, Timeout.Infinite);
 	private TimeSpan clock;
 
+	private ExerciseDialog? exerciseDialog;
 	private AddExerciseDialog? addExerciseDialog;
 	private WarningDialog warning = new();
 

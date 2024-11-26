@@ -3,7 +3,6 @@
 @using Bases
 @using Models.Sports
 @using MauiBlazorWeb.Shared.Components.Dialogs
-@using MauiBlazorWeb.Shared.Components.Widgets.Sport.Dialogs
 @using MauiBlazorWeb.Shared.Components.Icons
 
 @if (routines.Count == 0)
@@ -36,7 +35,7 @@ else
 							@exampleWorkoutsOfRoutines[r.Id].Name
 						</th>
 						<td>
-							@exampleWorkoutsOfRoutines[r.Id].Notes
+							@(exampleWorkoutsOfRoutines[r.Id].Notes ?? "-")
 						</td>
 						<td>
 							<button class="btn btn-primary" @onclick="() => StartRoutine(r.Id)">
@@ -44,7 +43,7 @@ else
 							</button>
 						</td>
 						<td>
-							<button class="btn btn-warning" @onclick="() => EditRoutine(r.Id)">
+							<button class="btn btn-warning" @onclick="() => OnEditRoutine(r.Id)">
 								<IconEdit />
 							</button>
 						</td>
@@ -54,21 +53,16 @@ else
 							</button>
 						</td>
 					</tr>
+					<tr>
+						<td colspan="5">
+							<WorkoutExercisesBox WorkoutId="exampleWorkoutsOfRoutines[r.Id].Id" />
+						</td>
+					</tr>
 				}
 			</tbody>
 		</table>
 	</div>
 }
-
-<div class="row">
-	<div class="col">
-		<button class="btn btn-primary" @onclick="()=> newRoutineDialog!.Show()">
-			<IconAdd /> Create a new routine!
-		</button>
-	</div>
-</div>
-
-<NewRoutineDialog AccountDoesId="AccountDoesId" @ref=newRoutineDialog />
 
 <WarningDialog Title="Deleting a Routine" OnAcceptAction="() => OnDeleteRoutine(deleteRoutine)" @ref="warningDelete">
 	Do you want to delete @name routine?<br />
@@ -85,8 +79,6 @@ else
 	private WarningDialog warningDelete = new();
 	private string name = "";
 
-	private NewRoutineDialog? newRoutineDialog;
-
 	protected override async Task UpdateTables()
 	{
 		await base.UpdateTables();
@@ -101,6 +93,11 @@ else
 	private async Task StartRoutine(int routineId)
 	{
 		await OnStartWorkout(AccountDoesId, routineId);
+	}
+
+	private async Task OnEditRoutine(int routineId)
+	{
+		await AppState.ShowLoadingScreenWhileAwaiting(() => EditRoutine(routineId));
 	}
 
 	private async Task EditRoutine(int routineId)

@@ -31,31 +31,24 @@
 		</div>
 		<div class="row">
 			<div class="col">
-				@(workout.Notes ?? "-")
+				@(workout.Notes ?? "No notes for this workout")
 			</div>
 		</div>
 	</div>
 </div>
 
-
 <div class="row" style="background-color: lightslategray">
-	@foreach (var ex in exercises)
-	{
-		<div class="col m-1 h5" style="background-color: floralwhite">
-			@numberOfSets[ex.Id] Set@(numberOfSets[ex.Id] > 1 ? "s" : "") of @ex.Name
-		</div>
-	}
+	<WorkoutExercisesBox Disabled="Disabled" WorkoutId="WorkoutId" />
 </div>
 
 @code {
 	[Parameter]
 	public required int WorkoutId { get; set; } = 0;
+	[Parameter]
+	public bool Disabled { get; set; } = false;
 
 	private Workout workout = new();
 	private Workout routineExampleWorkout = new();
-
-	private Dictionary<int, int> numberOfSets = new();
-	private List<Exercise> exercises = new();
 
 	protected override async Task UpdateTables()
 	{
@@ -64,20 +57,6 @@
 		workout = await ValidateWorkout(WorkoutId);
 		if (workout.Routine_Id is not null)
 			routineExampleWorkout = await GetRoutineExample(workout.Account_does_Sport_Id,(int)workout.Routine_Id);
-
-		var sets = await SportManager.GetSetsByWorkout(workout.Id);
-		var exIds = sets.Select(s => s.Exercise_Id).Distinct().ToList();
-
-		exercises = new List<Exercise>();
-		numberOfSets = new Dictionary<int, int>();
-
-		foreach (var id in exIds)
-		{
-			List<Exercise> exList = await SportManager.GetExercise(id);
-			exercises.Add(exList.First());
-
-			numberOfSets[id] = sets.Where(s => s.Exercise_Id == id).Count();
-		}
 	}
 
 	private void GoToWorkout(Workout workout)

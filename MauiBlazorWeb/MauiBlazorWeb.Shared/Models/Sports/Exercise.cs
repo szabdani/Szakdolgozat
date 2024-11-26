@@ -12,7 +12,6 @@ namespace MauiBlazorWeb.Shared.Models.Sports
         public int Id { get; set; }
 		public string Name { get; set; } = "";
 		public string? Notes { get; set; }
-		public TimeSpan Rest { get; set; }
 		public ExerciseType Type { get; set; }
 		public SportStatus Status { get; set; }
 		public int Sport_Id { get; set; }
