@@ -6,10 +6,23 @@
 @using BlazorBootstrap
 
 <div class="row">
-	<div class="col mr-1">
+	<div class="col-auto">
 		<h4>Exercise progression</h4>
 	</div>
-	<div class="col">
+	<div class="col-auto">
+		<button class="btn btn-info" @onclick="() => MoveViewIndex(false)" disabled="@isPrevDisabled">
+			<IconLeft />
+		</button>
+	</div>
+	<div class="col-auto">
+		<h5>Switch charts</h5>
+	</div>
+	<div class="col-auto">
+		<button class="btn btn-info" @onclick="() => MoveViewIndex(true)" disabled="@isNextDisabled">
+			<IconRight />
+		</button>
+	</div>
+	<div class="col-auto float-end">
 		<InputSelect class="form-control" @bind-Value="timeSpan" @bind-Value:after="@RefreshSportComps">
 			@foreach (var t in Enum.GetValues(typeof(TimeFilter.TimePeriod)))
 			{
@@ -17,26 +30,14 @@
 			}
 		</InputSelect>
 	</div>
-	<div class="col">
-		<div class="row">
-			<div class="col">
-				<button class="btn btn-info" @onclick="() => MoveViewIndex(false)" disabled="@isPrevDisabled">
-					<IconLeft />
-				</button>
-			</div>
-			<div class="col">
-				<h5>Toggle charts</h5>
-			</div>
-			<div class="col">
-				<button class="btn btn-info" @onclick="() => MoveViewIndex(false)" disabled="@isNextDisabled">
-					<IconRight />
-				</button>
-			</div>
+	<div class="row">
+		<div class="col text-center">
+			<h3>@title</h3>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col">
-			<BarChart @ref="barChart" />
+			<LineChart @ref="lineChart" />
 		</div>
 	</div>
 </div>
@@ -51,15 +52,16 @@
 	[Parameter]
 	public int AccountDoesId { get; set; }
 
+	private string title = "";
 	private Exercise exercise = new();
 	private List<Workout> filteredWorkouts = [];
 
 	private bool isChartInit = false;
 	private TimeFilter.TimePeriod timeSpan = new();
 
-	private BarChart barChart = new();
+	private LineChart lineChart = new();
 	private ChartData chartData = new();
-	private BarChartOptions barChartOptions;
+	private LineChartOptions lineChartOptions = new LineChartOptions { Responsive = true };
 
 	private int viewIndex = 0;
 	private int viewMaxIndex = 0;
@@ -68,15 +70,15 @@
 
 	public ExerciseChart()
 	{
-		barChartOptions = new BarChartOptions();
-		barChartOptions.Responsive = true;
+		lineChartOptions = new LineChartOptions();
+		lineChartOptions.Responsive = true;
 
-		barChartOptions.Scales = new Scales
+		lineChartOptions.Scales = new Scales
 	{
 		X = new ChartAxes { Title = new ChartAxesTitle { Text = "Workouts", Display = true } },
 		Y = new ChartAxes { Title = new ChartAxesTitle { Text = "Duration (Minutes)", Display = true } }
 	};
-		barChartOptions.Plugins.Legend.Title = new ChartPluginsLegendTitle { };
+		lineChartOptions.Plugins.Legend.Display = false;
 	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -85,7 +87,7 @@
 		if (firstRender)
 		{
 			await UpdateTables();
-			await barChart.InitializeAsync(chartData, barChartOptions);
+			await lineChart.InitializeAsync(chartData, lineChartOptions);
 			isChartInit = true;
 		}
 	}
@@ -120,24 +122,60 @@
 				break;
 		}
 
-
 		filteredWorkouts = Workouts.Where(w => TimeFilter.FilterByTimePeriod(w.Starttime, DateTime.Today, timeSpan)).ToList();
-
 
 		GenerateBarChartData();
 
 		if (isChartInit)
-			await barChart.UpdateAsync(chartData, barChartOptions);
+			await lineChart.UpdateAsync(chartData, lineChartOptions);
 	}
 
 	private void GenerateBarChartData()
 	{
 		List<string> labels = new List<string>();
 		List<double?> data = new List<double?>();
+		string datasetLabel = "";
+
+		Dictionary<string, int> timeDivider = [];
+		Dictionary<string, string> timeDatasetLabel = [];
+		Dictionary<string, string> timeText = [];
+
+		if (exercise.Type == ExerciseType.Timed || exercise.Type == ExerciseType.Distanced)
+		{
+			double min = Sets.Select(s => new TimeSpan(s.LengthHours, s.LengthMinutes, s.LengthSeconds).TotalSeconds).Min();
+			double max = Sets.Select(s => new TimeSpan(s.LengthHours, s.LengthMinutes, s.LengthSeconds).TotalSeconds).Max();
+
+			if (min > 600)
+			{
+				timeDivider["min"] = 60;
+				timeText["min"] = "Duration (minutes)";
+				timeDatasetLabel["min"] = "Minutes";
+			}
+			else
+			{
+				timeDivider["min"] = 1;
+				timeText["min"] = "Duration (seconds)";
+				timeDatasetLabel["min"] = "Seconds";
+			}
+
+			if (max > 600)
+			{
+				timeDivider["max"] = 60;
+				timeText["max"] = "Duration (minutes)";
+				timeDatasetLabel["max"] = "Minutes";
+			}
+			else
+			{
+				timeDivider["max"] = 1;
+				timeText["max"] = "Duration (seconds)";
+				timeDatasetLabel["max"] = "Seconds";
+			}
+		}
 
 		foreach (var workout in filteredWorkouts)
 		{
 			double? value = 0;
+
 
 			DateTime day = workout.Starttime.Date;
 
@@ -159,16 +197,17 @@
 			switch (exercise.Type)
 			{
 				case ExerciseType.Bodyweight:
-					barChartOptions.Scales.Y!.Title!.Text = "Repetitions";
+					lineChartOptions.Scales.Y!.Title!.Text = "# of Reps";
+					datasetLabel = "Reps";
 					switch(viewIndex)
 					{
 						case 0:
-							value = Sets.Select(s => s.Reps).Max();
-							barChartOptions.Plugins.Legend.Title!.Text = "Most reps";
+							value = workoutSets.Select(s => s.Reps).Max();
+							title = "Most reps";
 							break;
 						case 1:
-							value = Sets.Select(s => s.Reps).Sum();
-							barChartOptions.Plugins.Legend.Title!.Text = "Total reps";
+							value = workoutSets.Select(s => s.Reps).Sum();
+							title = "Total reps";
 							break;
 					}
 					break;
@@ -176,24 +215,28 @@
 					switch(viewIndex)
 					{
 						case 0:
-							value = Sets.Select(s => s.Weight).Max();
-							barChartOptions.Plugins.Legend.Title!.Text = "Heaviest weight";
-							barChartOptions.Scales.Y!.Title!.Text = "Weight (kg)";
+							value = workoutSets.Select(s => s.Weight).Max();
+							title = "Heaviest weight";
+							lineChartOptions.Scales.Y!.Title!.Text = "Weight (kg)";
+							datasetLabel = "Kg";
 							break;
 						case 1:
-							value = Sets.Select(s => s.Reps * s.Weight).Max();
-							barChartOptions.Plugins.Legend.Title!.Text = "Heaviest set volume";
-							barChartOptions.Scales.Y!.Title!.Text = "Weight x reps (kg)";
+							value = workoutSets.Select(s => s.Reps * s.Weight).Max();
+							title = "Heaviest set volume";
+							lineChartOptions.Scales.Y!.Title!.Text = "Weight x reps (kg)";
+							datasetLabel = "Kg x Reps";
 							break;
 						case 2:
-							value = Sets.Select(s => s.Reps * s.Weight).Sum();
-							barChartOptions.Plugins.Legend.Title!.Text = "Total volume";
-							barChartOptions.Scales.Y!.Title!.Text = "Weight x reps (kg)";
+							value = workoutSets.Select(s => s.Reps * s.Weight).Sum();
+							title = "Total volume";
+							lineChartOptions.Scales.Y!.Title!.Text = "Weight x reps (kg)";
+							datasetLabel = "Kg x Reps";
 							break;
 						case 3:
-							value = Sets.Select(s => s.Reps).Sum();
-							barChartOptions.Plugins.Legend.Title!.Text = "Total reps";
-							barChartOptions.Scales.Y!.Title!.Text = "Repetitions";
+							value = workoutSets.Select(s => s.Reps).Sum();
+							title = "Total reps";
+							lineChartOptions.Scales.Y!.Title!.Text = "# of Reps";
+							datasetLabel = "Reps";
 							break;
 					}
 					break;
@@ -201,16 +244,22 @@
 					switch (viewIndex)
 					{
 						case 0:
-							value = Sets.Select(s => new TimeSpan(s.LengthHours,s.LengthMinutes, s.LengthSeconds).TotalSeconds).Max();
-							barChartOptions.Plugins.Legend.Title!.Text = "Longest set time";
+							value = workoutSets.Select(s => new TimeSpan(s.LengthHours, s.LengthMinutes, s.LengthSeconds).TotalSeconds).Max() / timeDivider["max"];
+							lineChartOptions.Scales.Y!.Title!.Text = timeText["max"];
+							datasetLabel = timeDatasetLabel["max"];
+							title = "Longest set time";
 							break;
 						case 1:
-							value = Sets.Select(s => s.Reps).Min();
-							barChartOptions.Plugins.Legend.Title!.Text = "Shortest set time";
+							value = workoutSets.Select(s => new TimeSpan(s.LengthHours, s.LengthMinutes, s.LengthSeconds).TotalSeconds).Min() / timeDivider["min"];
+							lineChartOptions.Scales.Y!.Title!.Text = timeText["min"];
+							datasetLabel = timeDatasetLabel["min"];
+							title = "Shortest set time";
 							break;
 						case 2:
-							value = Sets.Select(s => s.Reps).Sum();
-							barChartOptions.Plugins.Legend.Title!.Text = "Total time";
+							value = workoutSets.Select(s => new TimeSpan(s.LengthHours, s.LengthMinutes, s.LengthSeconds).TotalMinutes).Sum();
+							lineChartOptions.Scales.Y!.Title!.Text = "Duration (minutes)";
+							datasetLabel = "Minutes";
+							title = "Total time";
 							break;
 					}
 					break;
@@ -218,38 +267,54 @@
 					switch (viewIndex)
 					{
 						case 0:
-							value = Sets.Select(s => s.Weight).Max();
-							barChartOptions.Plugins.Legend.Title!.Text = "Fastest set pace";
+							value = workoutSets.Select(s => s.Distance / new TimeSpan(s.LengthHours, s.LengthMinutes, s.LengthSeconds).TotalHours).Max();
+							title = "Fastest set pace";
+							lineChartOptions.Scales.Y!.Title!.Text = "Pace (km/h)";
+							datasetLabel = "Km/h";
 							break;
 						case 1:
-							value = Sets.Select(s => s.Reps).Sum();
-							barChartOptions.Plugins.Legend.Title!.Text = "Fastest pace";
+							value = workoutSets.Select(s => s.Distance / new TimeSpan(s.LengthHours, s.LengthMinutes, s.LengthSeconds).TotalHours).Sum();
+							title = "Fastest pace";
+							lineChartOptions.Scales.Y!.Title!.Text = "Pace (km/h)";
+							datasetLabel = "Km/h";
 							break;
 						case 2:
-							value = Sets.Select(s => s.Distance).Max();
-							barChartOptions.Plugins.Legend.Title!.Text = "Longest set distance";
+							value = workoutSets.Select(s => s.Distance).Max();
+							title = "Longest set distance";
+							lineChartOptions.Scales.Y!.Title!.Text = "Distance (km)";
+							datasetLabel = "Km";
 							break;
 						case 3:
-							value = Sets.Select(s => s.Distance).Sum();
-							barChartOptions.Plugins.Legend.Title!.Text = "Total distance";
+							value = workoutSets.Select(s => s.Distance).Sum();
+							title = "Total distance";
+							lineChartOptions.Scales.Y!.Title!.Text = "Distance (km)";
+							datasetLabel = "Km";
 							break;
 						case 4:
-							value = Sets.Select(s => s.Reps).Max();
-							barChartOptions.Plugins.Legend.Title!.Text = "Longest set time";
+							value = workoutSets.Select(s => new TimeSpan(s.LengthHours, s.LengthMinutes, s.LengthSeconds).TotalSeconds).Max() / timeDivider["max"];
+							lineChartOptions.Scales.Y!.Title!.Text = timeText["max"];
+							datasetLabel = timeDatasetLabel["max"];
+							title = "Longest set time";
 							break;
 						case 5:
-							value = Sets.Select(s => s.Reps).Min();
-							barChartOptions.Plugins.Legend.Title!.Text = "Shortest set time";
+							value = workoutSets.Select(s => new TimeSpan(s.LengthHours, s.LengthMinutes, s.LengthSeconds).TotalSeconds).Min() / timeDivider["min"];
+							lineChartOptions.Scales.Y!.Title!.Text = timeText["min"];
+							datasetLabel = timeDatasetLabel["min"];
+							title = "Shortest set time";
 							break;
 						case 6:
-							value = Sets.Select(s => s.Reps).Sum();
-							barChartOptions.Plugins.Legend.Title!.Text = "Total time";
+							value = workoutSets.Select(s => new TimeSpan(s.LengthHours, s.LengthMinutes, s.LengthSeconds).TotalMinutes).Sum();
+							lineChartOptions.Scales.Y!.Title!.Text = "Duration (minutes)";
+							datasetLabel = "Minutes";
+							title = "Total time";
 							break;
 					}
 					break;
 				default:
-					value = Sets.Count();
-					barChartOptions.Plugins.Legend.Title!.Text = "Number of sets";
+					value = workoutSets.Count();
+					lineChartOptions.Scales.Y!.Title!.Text = "# of Sets";
+					datasetLabel = "Sets";
+					title = "Number of sets";
 					break;
 			}
 
@@ -257,15 +322,25 @@
 			data.Add(value);
 		}
 
-
 		var datasets = new List<IChartDataset>();
-		var dataset1 = new BarChartDataset() { Data = data };
 
-		datasets.Add(dataset1);
+		var c = ColorUtility.CategoricalTwelveColors[0].ToColor();
+		var dataset = new LineChartDataset
+			{
+				Label = datasetLabel,
+				BackgroundColor = c.ToRgbString(),
+				BorderColor = c.ToRgbString(),
+				BorderWidth = 2,
+				HoverBorderWidth = 4,
+				Data = data
+			};
+
+
+		datasets.Add(dataset);
 
 		chartData = new ChartData{ Labels = labels, Datasets = datasets };
 
 		double? total = data.Max();
-		barChartOptions.Scales.Y!.Max = total;
+		lineChartOptions.Scales.Y!.Max = total;
 	}
 }
