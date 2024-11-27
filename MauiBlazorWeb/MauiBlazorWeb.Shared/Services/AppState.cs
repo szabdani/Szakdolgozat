@@ -110,6 +110,14 @@ namespace MauiBlazorWeb.Shared.Services
                     return false;
             }
 
+            var accountDoesSports = await SportManager.GetAccountDoesSports(CurrentUser.Id);
+            foreach (var accountDoesSport in accountDoesSports)
+            {
+				bool isCorrect = await SportManager.DeleteAccountDoesSport(accountDoesSport);
+				if (!isCorrect)
+					return false;
+			}
+
             string sql = "Delete from account where id = @accid;";
             int affectedRows = await Data.SaveData(sql, new { accid = CurrentUser.Id });
             if (affectedRows == 0)

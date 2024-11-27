@@ -1,0 +1,398 @@
+﻿@using BlazorBootstrap
+@using MauiBlazorWeb.Shared.Components.Dialogs
+@using MauiBlazorWeb.Shared.Components.Icons
+@using Models.Diaries
+@using Models.Sports
+@using Interfaces
+@using System.Text
+
+@inject IAppState _appState
+@inject IDiaryManager _diaryManager
+@inject ISportManager _sportManager
+@inject IJSRuntime JS
+
+<div class="row">
+	<div class="col">
+		<h3>Export data</h3>
+	</div>
+	<div class="col-auto float-end">
+		<button class="btn btn-info" @onclick="() => accordion.ShowAllAccordionItemsAsync()">Show All</button>
+		<button class="btn btn-info" @onclick="() => accordion.HideAllAccordionItemsAsync()">Hide All</button>
+	</div>
+</div>
+<div class="row">
+	<Accordion AlwaysOpen="true" @ref="accordion">
+		<AccordionItem>
+			<TitleTemplate>
+				<IconDiary /> Save Diary data
+			</TitleTemplate>
+			<Content>
+				<h5>By selecting a Diary column you can download all of its entries</h5>
+				<table class="table">
+					<thead class="thead-light">
+						<tr>
+							<th>Columns</th>
+							@foreach (var col in diaryCols)
+							{
+								<th>@col.Name</th>
+							}
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>Save ?</th>
+							@foreach (var col in diaryCols)
+							{
+								<td>
+									<Switch @bind-Value="diaryCheckBox.First(state => state.Id == col.Id).IsChecked" />
+								</td>
+							}
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="@(diaryCols.Count % 2 == 1 ? (diaryCols.Count + 1)/2 : diaryCols.Count/2 + 1)">
+								<button class="btn btn-info w-100" value="Show" @onclick="CheckAllDiary">Select All</button>
+							</td>
+							<td colspan="@(diaryCols.Count % 2 == 1 ? (diaryCols.Count + 1)/2 : diaryCols.Count/2)">
+								<button class="btn btn-info w-100" value="Show" @onclick="UnCheckAllDiary">Select None</button>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+				<button class="btn btn-success" @onclick="OnExportDiary">Download file (CSV)</button>
+			</Content>
+		</AccordionItem>
+		<AccordionItem>
+			<TitleTemplate>
+				<IconHabits />  Save Habits data
+			</TitleTemplate>
+			<Content>
+				<h5>By selecting a Habit you can download all of its entries</h5>
+				<table class="table text-center">
+					<thead class="thead-light">
+						<tr>
+							<th>Habits</th>
+							@foreach (var col in habits)
+							{
+								<th>@col.Name</th>
+							}
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>Save ?</th>
+							@foreach (var col in habits)
+							{
+								<td>
+									<Switch @bind-Value="habitCheckBox.First(state => state.Id == col.Id).IsChecked" />
+								</td>
+							}
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="@(habits.Count % 2 == 1 ? (habits.Count + 1)/2 : habits.Count/2 + 1)">
+								<button class="btn btn-info w-100" value="Show" @onclick="CheckAllHabit">Select All</button>
+							</td>
+							<td colspan="@(habits.Count % 2 == 1 ? (habits.Count + 1)/2 : habits.Count/2)">
+								<button class="btn btn-info w-100" value="Show" @onclick="UnCheckAllHabit">Select None</button>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+				<button class="btn btn-success" @onclick="OnExportHabit">Download file (CSV)</button>
+			</Content>
+		</AccordionItem>
+		<AccordionItem>
+			<TitleTemplate>
+				<IconSports />  Save Sports data
+			</TitleTemplate>
+			<Content>
+				<h5>By selecting a Sport you can download all your routines and workouts</h5>
+				<table class="table text-center">
+					<thead class="thead-light">
+						<tr>
+							<th>Sports</th>
+							@foreach (var col in accountDoesSports)
+							{
+								<th>@sports.First(s => s.Id == col.Sport_Id).Name</th>
+							}
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>Save ?</th>
+							@foreach (var col in accountDoesSports)
+							{
+								<td>
+									<Switch @bind-Value="sportCheckBox.First(state => state.Id == col.Id).IsChecked" />
+								</td>
+							}
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="@(accountDoesSports.Count % 2 == 1 ? (accountDoesSports.Count + 1)/2 : accountDoesSports.Count/2 + 1)">
+								<button class="btn btn-info w-100" value="Show" @onclick="CheckAllSport">Select All</button>
+							</td>
+							<td colspan="@(accountDoesSports.Count % 2 == 1 ? (accountDoesSports.Count + 1)/2 : accountDoesSports.Count/2)">
+								<button class="btn btn-info w-100" value="Show" @onclick="UnCheckAllSport">Select None</button>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+				<button class="btn btn-success" @onclick="OnExportSport">Download file (CSV)</button>
+			</Content>
+		</AccordionItem>
+	</Accordion>
+</div>
+
+<WarningDialog Title="No data selected to save" @ref="warning">
+	<p>
+		You did not select any data to save!<br />
+		Please select a column if you want to export data.
+	</p>
+</WarningDialog>
+
+
+@code {
+	private Accordion accordion = default!;
+	private WarningDialog warning = new();
+
+	private List<Diary_log_column> diaryCols = [];
+	private List<Diary_log_column> habits = [];
+	private List<Account_does_Sport> accountDoesSports = [];
+	private List<Models.Sports.Sport> sports = [];
+
+	public class Checkbox
+	{
+		public int Id { get; set; }
+		public bool IsChecked { get; set; }
+	}
+
+	private List<Checkbox> diaryCheckBox = new();
+	private List<Checkbox> habitCheckBox = new();
+	private List<Checkbox> sportCheckBox = new();
+
+	protected override async Task OnInitializedAsync()
+	{
+		await base.OnInitializedAsync();
+
+		diaryCols = await _diaryManager.GetDiaryCols(_appState.CurrentUser.Id, false);
+		habits = await _diaryManager.GetDiaryCols(_appState.CurrentUser.Id, true);
+		accountDoesSports = await _sportManager.GetAccountDoesSports(_appState.CurrentUser.Id);
+		sports = await _sportManager.GetAccountsSports(_appState.CurrentUser.Id);
+
+		diaryCheckBox = diaryCols.Select(col => new Checkbox { Id = col.Id, IsChecked = false }).ToList();
+		habitCheckBox = habits.Select(col => new Checkbox { Id = col.Id, IsChecked = false }).ToList();
+		sportCheckBox = accountDoesSports.Select(col => new Checkbox { Id = col.Id, IsChecked = false }).ToList();
+	}
+
+	private async Task OnExportDiary()
+	{
+		await _appState.ShowLoadingScreenWhileAwaiting(ExportDiary);
+	}
+	private async Task OnExportHabit()
+	{
+		await _appState.ShowLoadingScreenWhileAwaiting(ExportHabit);
+	}
+	private async Task OnExportSport()
+	{
+		await _appState.ShowLoadingScreenWhileAwaiting(ExportSport);
+	}
+
+	private async Task ExportDiary()
+	{
+		if (diaryCheckBox.All(c => !c.IsChecked))
+			warning.Show();
+		else
+		{
+			var csv = new StringBuilder();
+			csv.AppendLine("Date,Name,Type,Min,Max,Value");
+
+			List<Diary_log_post> posts = [];
+			foreach (var box in diaryCheckBox.Where(c => c.IsChecked))
+			{
+				posts.AddRange(await _diaryManager.GetDiaryColumnsPosts(box.Id));
+			}
+
+			var uniqueDates = posts.Select(p => p.Date).Distinct().Order().ToList();
+			foreach (var date in uniqueDates)
+			{
+				var postsOnDate = posts.Where(p => p.Date == date).ToList();
+
+				foreach (var post in postsOnDate)
+				{
+					var col = diaryCols.First(c => c.Id == post.Diary_log_column_Id);
+					string input = $"{date.ToString("yyyy-MM-dd")},{col.Name},{col.Type.ToString()},{col.Value_range_min},{col.Value_range_max},{post.Value}";
+					csv.AppendLine(input);
+				}
+			}
+
+			await JS.InvokeVoidAsync("downloadFile", $"LifeTracker_diary_{DateTime.Now.ToString("yyyy_MM_dd")}.csv", csv.ToString());
+		}
+	}
+	private async Task ExportHabit()
+	{
+		if (habitCheckBox.All(c => !c.IsChecked))
+			warning.Show();
+		else
+		{
+			var csv = new StringBuilder();
+			csv.AppendLine("Date,Name,Value");
+
+			List<Diary_log_post> posts = [];
+			foreach (var box in habitCheckBox.Where(c => c.IsChecked))
+			{
+				posts.AddRange(await _diaryManager.GetDiaryColumnsPosts(box.Id));
+			}
+
+			var uniqueDates = posts.Select(p => p.Date).Distinct().Order().ToList();
+			foreach (var date in uniqueDates)
+			{
+				var postsOnDate = posts.Where(p => p.Date == date && p.Value == "X").ToList();
+
+				foreach (var post in postsOnDate)
+				{
+					var col = habits.First(c => c.Id == post.Diary_log_column_Id);
+					string input = $"{date.ToString("yyyy-MM-dd")},{col.Name},{post.Value}";
+					csv.AppendLine(input);
+				}
+			}
+
+			await JS.InvokeVoidAsync("downloadFile", $"LifeTracker_habits_{DateTime.Now.ToString("yyyy_MM_dd")}.csv", csv.ToString());
+		}
+	}
+	private async Task ExportSport()
+	{
+		if (sportCheckBox.All(c => !c.IsChecked))
+			warning.Show();
+		else
+		{
+			var csv = new StringBuilder();
+			csv.AppendLine("Date, Sport, Routine, Description, Workout, Finished, Notes, Duration, Exercise, Set, Set Type, Weight (kg), Reps, RPE, Distance (km), Length (secs)");
+
+			foreach (var box in sportCheckBox.Where(c => c.IsChecked))
+			{
+				var accountDoes = accountDoesSports.First(s => s.Id == box.Id);
+				string sportName = sports.First(s => s.Id == accountDoes.Sport_Id).Name;
+
+				List<Workout> exampleWorkouts = [];
+				var workouts = await _sportManager.GetWorkouts(box.Id, false);
+
+				var routines = await _sportManager.GetRoutines(accountDoes.Id);
+				foreach (var r in routines)
+				{
+					exampleWorkouts.Add(await _sportManager.GetRoutineExample(accountDoes.Id, r.Id));
+				}
+
+				var routineExampleDates = exampleWorkouts.Select(e => e.Starttime).Distinct().Order().ToList();
+				foreach (var date in routineExampleDates)
+				{
+					var examples = exampleWorkouts.Where(e => e.Starttime == date).ToList();
+
+					foreach (var example in examples)
+					{
+						string done = example.IsDone ? "Yes" : "No";
+
+						var sets = await _sportManager.GetSetsByWorkout(example.Id);
+						var exerciseIds = sets.Select(s => s.Exercise_Id).Distinct().ToList();
+						foreach (var id in exerciseIds)
+						{
+							var exercise = await _sportManager.GetExercise(id);
+
+							var exerciseSets = sets.Where(s => s.Exercise_Id == id).ToList();
+							int i = 1;
+							foreach (var set in exerciseSets)
+							{
+								string secs = new TimeSpan(set.LengthHours, set.LengthMinutes, set.LengthSeconds).TotalSeconds.ToString();
+								
+								string input = $"{date.ToString("yyyy-MM-dd")},{sportName},{example.Name},{example.Notes},-,-,-,-,{exercise.First().Name},{i++},{set.Type.ToString()},{set.Weight},{set.Reps},{set.RPE},{set.Distance},{secs}";
+								csv.AppendLine(input);
+							}
+						}
+					}
+				}
+
+				var uniqueDates = workouts.Select(e => e.Starttime).Distinct().Order().ToList();
+				foreach (var date in uniqueDates)
+				{
+					var workoutsOnDate = workouts.Where(e => e.Starttime == date).ToList();
+					foreach (var work in workoutsOnDate)
+					{
+						string? routine = "";
+						string? description = "";
+						string done = work.IsDone ? "Yes" : "No";
+
+						if (work.Routine_Id is not null)
+						{
+							int routineId = (int)work.Routine_Id;
+							var routineExample = await _sportManager.GetRoutineExample(accountDoes.Id, routineId);
+							routine = routineExample.Name;
+							description = routineExample.Notes;
+						}
+
+						var sets = await _sportManager.GetSetsByWorkout(work.Id);
+						var exerciseIds = sets.Select(s => s.Exercise_Id).Distinct().ToList();
+						foreach (var id in exerciseIds)
+						{
+							var exercise = await _sportManager.GetExercise(id);
+
+							var exerciseSets = sets.Where(s => s.Exercise_Id == id).ToList();
+							int i = 1;
+							foreach (var set in exerciseSets)
+							{								
+								string secs = new TimeSpan(set.LengthHours, set.LengthMinutes, set.LengthSeconds).TotalSeconds.ToString();
+								string input = $"{date.ToString("yyyy-MM-dd")},{sportName},{routine},{description},{work.Name},{done},{work.Notes},{work.Duration.ToString(@"hh\:mm\:ss")},{exercise.First().Name},{i++},{set.Type.ToString()},{set.Weight},{set.Reps},{set.RPE},{set.Distance},{secs}";
+								csv.AppendLine(input);
+							}
+						}
+					}
+				}
+			}
+
+			await JS.InvokeVoidAsync("downloadFile", $"LifeTracker_sports_{DateTime.Now.ToString("yyyy_MM_dd")}.csv", csv.ToString());
+		}
+	}
+
+	private void CheckAll(List<Checkbox> checkboxStates)
+	{
+		foreach (var state in checkboxStates)
+		{
+			state.IsChecked = true;
+		}
+	}
+
+	private void UnCheckAll(List<Checkbox> checkboxStates)
+	{
+		foreach (var state in checkboxStates)
+		{
+			state.IsChecked = false;
+		}
+	}
+
+	private void CheckAllDiary() => CheckAll(diaryCheckBox);
+	private void UnCheckAllDiary() => UnCheckAll(diaryCheckBox);
+
+	private void CheckAllHabit() => CheckAll(habitCheckBox);
+	private void UnCheckAllHabit() => UnCheckAll(habitCheckBox);
+
+	private void CheckAllSport() => CheckAll(sportCheckBox);
+	private void UnCheckAllSport() => UnCheckAll(sportCheckBox);
+}
+
+<script>
+	function downloadFile(filename, content) {
+		var element = document.createElement('a');
+		element.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(content));
+		element.setAttribute('download', filename);
+
+		element.style.display = 'none';
+		document.body.appendChild(element);
+
+		element.click();
+
+		document.body.removeChild(element);
+}
+</script>

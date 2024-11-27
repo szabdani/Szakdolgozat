@@ -13,7 +13,7 @@
 				<thead class="thead-light" style="position: sticky; top: 0; background-color: #ffefef">
 					<tr>
 						<th>Date</th>
-						@foreach (var col in allCols)
+						@foreach (var col in allCols.OrderBy(col => col.Type))
 						{
 							<th>
 								@col.Name
@@ -61,7 +61,7 @@
 							<th>
 								Sum
 							</th>
-							@foreach (var col in allCols)
+							@foreach (var col in allCols.OrderBy(col => col.Type))
 							{
 								<th>
 									@allPosts.Where(p => p.Diary_log_column_Id == col.Id && p.Value == "X").Count()

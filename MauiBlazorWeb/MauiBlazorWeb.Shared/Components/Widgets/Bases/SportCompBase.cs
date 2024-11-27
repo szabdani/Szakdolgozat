@@ -110,12 +110,6 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 			return retVal;
 		}
 
-		protected async Task<Workout> GetRoutineExample(int accountDoesId, int RoutineId)
-		{
-			var list = await SportManager.GetWorkouts(accountDoesId, true);
-			return list.First(w => w.Routine_Id == RoutineId);
-		}
-
 		public async Task OnStartWorkout(int accountDoesId, int routineId = 0)
 		{
 			await AppState.ShowLoadingScreenWhileAwaiting(() => StartWorkout(accountDoesId, routineId));

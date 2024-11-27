@@ -1,6 +1,7 @@
 ﻿@page "/profile"
 
 @using Blazored.LocalStorage
+@using MauiBlazorWeb.Shared.Components.Widgets
 @using MauiBlazorWeb.Shared.Components.Dialogs.Account
 @using MauiBlazorWeb.Shared.Components.Dialogs
 @using Interfaces
@@ -18,8 +19,8 @@ else
 	<div class="row">
 		<div class="col m-2" style="background-color: #ffefef">
 			<div class="row">
-				<label class="col-sm-2">Username:</label>
-				<div class="col-sm-4">
+				<label class="col">Username:</label>
+				<div class="col">
 					@_appState.CurrentUser.Username
 				</div>
 				<div class="col d-flex align-items-center">
@@ -27,8 +28,8 @@ else
 				</div>
 			</div>
 			<div class="row">
-				<label class="col-sm-2">Password:</label>
-				<div class="col-sm-4">
+				<label class="col">Password:</label>
+				<div class="col">
 					-
 				</div>
 				<div class="col d-flex align-items-center">
@@ -36,8 +37,8 @@ else
 				</div>
 			</div>
 			<div class="row">
-				<label class="col-sm-2">Email:</label>
-				<div class="col-sm-4">
+				<label class="col">Email:</label>
+				<div class="col">
 					@_appState.CurrentUser.Email
 				</div>
 				<div class="col d-flex align-items-center">
@@ -45,8 +46,8 @@ else
 				</div>
 			</div>
 			<div class="row">
-				<label class="col-sm-2">Birthdate:</label>
-				<div class="col-sm-4">
+				<label class="col">Birthdate:</label>
+				<div class="col">
 					@_appState.CurrentUser.Birthdate.ToString("yyyy-MM-dd")
 				</div>
 				<div class="col d-flex align-items-center">
@@ -54,8 +55,8 @@ else
 				</div>
 			</div>
 			<div class="row">
-				<label class="col-sm-2">Gender:</label>
-				<div class="col-sm-4">
+				<label class="col">Gender:</label>
+				<div class="col">
 					@_appState.CurrentUser.Gender
 				</div>
 				<div class="col d-flex align-items-center">
@@ -63,8 +64,8 @@ else
 				</div>
 			</div>
 			<div class="row">
-				<label class="col-sm-2">User since:</label>
-				<div class="col-sm-4">
+				<label class="col">User since:</label>
+				<div class="col">
 					@_appState.CurrentUser.RegistrationDate.ToString("yyyy-MM-dd")
 				</div>
 				<div class="col d-flex align-items-center">
@@ -73,7 +74,7 @@ else
 			</div>
 		</div>
 		<div class="col m-2" style="background-color: #ffefef">
-			Export data
+			<ExportData />
 		</div>
 	</div>
 

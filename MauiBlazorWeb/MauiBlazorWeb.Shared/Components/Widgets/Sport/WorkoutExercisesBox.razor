@@ -43,7 +43,7 @@
 
 		workout = await ValidateWorkout(WorkoutId);
 		if (workout.Routine_Id is not null)
-			routineExampleWorkout = await GetRoutineExample(workout.Account_does_Sport_Id,(int)workout.Routine_Id);
+			routineExampleWorkout = await SportManager.GetRoutineExample(workout.Account_does_Sport_Id, (int)workout.Routine_Id);
 
 		var sets = await SportManager.GetSetsByWorkout(workout.Id);
 		var exIds = sets.Select(s => s.Exercise_Id).Distinct().ToList();

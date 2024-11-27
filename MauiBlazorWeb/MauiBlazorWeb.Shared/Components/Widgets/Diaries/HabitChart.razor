@@ -20,7 +20,7 @@
 	<div class="col">
 		<div class="table-responsive">
 			<table class="table w-auto float-end">
-				<tbody>
+				<thead>
 					<tr>
 						<th>Habits</th>
 						@foreach (var col in allCols)
@@ -28,8 +28,10 @@
 							<th>@col.Name</th>
 						}
 					</tr>
+				</thead>
+				<tbody>
 					<tr>
-						<th>Show?</th>
+						<th>Show ?</th>
 						@foreach (var col in allCols)
 						{
 							<td class="tracker-post" @onclick="() => OnToggle(col.Id)">
@@ -40,10 +42,10 @@
 				</tbody>
 				<tfoot>
 					<tr>
-						<td colspan="@((allCols.Count + 1) / 2)">
+						<td colspan="@(allCols.Count % 2 == 1 ? (allCols.Count + 1)/2 : allCols.Count/2 + 1)">
 							<button class="btn btn-info w-100" value="Show" @onclick="CheckAll">Show All</button>
 						</td>
-						<td colspan="@((allCols.Count + 1) / 2)">
+						<td colspan="@(allCols.Count % 2 == 1 ? (allCols.Count + 1)/2 : allCols.Count/2)">
 							<button class="btn btn-info w-100" value="Show" @onclick="UnCheckAll">Hide All</button>
 						</td>
 					</tr>

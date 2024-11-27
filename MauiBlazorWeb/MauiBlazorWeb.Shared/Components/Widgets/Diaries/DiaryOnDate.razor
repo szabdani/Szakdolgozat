@@ -11,7 +11,7 @@
 				<thead class="thead-light" style="position: sticky; top: 0; background-color: #ffefef">
 					<tr>
 						<th>Date</th>
-						@foreach (var col in allCols)
+						@foreach (var col in allCols.OrderBy(col => col.Type))
 						{
 							<th>
 								@col.Name
@@ -24,7 +24,7 @@
 						<th>
 							@Date.ToString("yyyy-MM-dd")
 						</th>
-						@foreach (var col in allCols)
+						@foreach (var col in allCols.OrderBy(col => col.Type))
 						{
 							var post = allPosts.FirstOrDefault(p => p.Diary_log_column_Id == col.Id && p.Date == Date);
 							@switch (col.Type)

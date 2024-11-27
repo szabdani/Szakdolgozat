@@ -1,7 +1,8 @@
 ﻿@page "/workout/id={WorkoutId:int}"
 @inherits SportCompBase
 
-@using Bases
+@using MauiBlazorWeb.Shared.Components.Widgets.Bases
+@using MauiBlazorWeb.Shared.Components.Widgets.Sport
 @using MauiBlazorWeb.Shared.Components.Dialogs
 @using MauiBlazorWeb.Shared.Components.Widgets.Sport.Dialogs
 @using MauiBlazorWeb.Shared.Components.Icons
@@ -309,7 +310,7 @@ else
 			if (workout.Routine_Id is not null)
 			{
 				var workoutSets = await SportManager.GetSetsByWorkout(workout.Id);
-				routineExampleWorkout = await GetRoutineExample(workout.Account_does_Sport_Id, (int)workout.Routine_Id);
+				routineExampleWorkout = await SportManager.GetRoutineExample(workout.Account_does_Sport_Id, (int)workout.Routine_Id);
 
 				if (workoutSets.Count == 0)
 				{

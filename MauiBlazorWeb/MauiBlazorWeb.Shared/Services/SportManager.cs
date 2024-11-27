@@ -247,6 +247,13 @@ namespace MauiBlazorWeb.Shared.Services
 			var allRoutines = await Data.LoadData<Routine, dynamic>(sql, new { id = accountDoesSportId });
 			return allRoutines.Where(r => r.Status != SportStatus.Deleted).ToList();
 		}
+
+		public async Task<Workout> GetRoutineExample(int accountDoesId, int RoutineId)
+		{
+			var list = await GetWorkouts(accountDoesId, true);
+			return list.First(w => w.Routine_Id == RoutineId);
+		}
+
 		public async Task<List<Exercise>> GetExercise(int exerciseId)
 		{
 			string sql = $"Select * from Exercise where id = @id;";

@@ -56,7 +56,7 @@
 
 		workout = await ValidateWorkout(WorkoutId);
 		if (workout.Routine_Id is not null)
-			routineExampleWorkout = await GetRoutineExample(workout.Account_does_Sport_Id,(int)workout.Routine_Id);
+			routineExampleWorkout = await SportManager.GetRoutineExample(workout.Account_does_Sport_Id,(int)workout.Routine_Id);
 	}
 
 	private void GoToWorkout(Workout workout)
