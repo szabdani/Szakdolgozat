@@ -328,6 +328,18 @@ else
 
 		string typeStr = workout.IsRoutineExample ? "Routine" : "Workout";
 		placeholderStr = $"Name this {typeStr}";
+
+		if (!hasInvalidParameter)
+		{
+			var accountDoes = allAccountDoesSports.First(a => a.Id == workout.Account_does_Sport_Id);
+			var sport = allSports.First(s => s.Id == accountDoes.Sport_Id);
+			await InvokeAsync(() => AppState.Title = $"{sport.Name} Workout on {workout.Starttime.ToString("yyyy-MM-dd")}");
+		}
+		else
+			await InvokeAsync(() => AppState.Title = "Invalid New Workout");
+
+		await InvokeAsync(() => AppState.MainLayout.RerenderLayout());
+
 		await base.ValidateParameters();
 	}
 

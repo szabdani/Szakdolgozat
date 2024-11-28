@@ -16,10 +16,10 @@ namespace MauiBlazorWeb.Shared.Interfaces
         List<Account> ExistingUsers { get; set; }
 
         Task<bool> Register(LoginRegUser newAccount);
-		Task<bool> Delete(ILocalStorageService localStorage);
-        Task Init(ILocalStorageService localStorage);
-        Task Login(Account userData, ILocalStorageService localStorage);
-        Task Logout(ILocalStorageService localStorage);
+		Task<bool> Delete(ILocalDataStorage localStorage);
+        Task Init(ILocalDataStorage localStorage);
+        Task Login(Account userData, ILocalDataStorage localStorage);
+        Task Logout(ILocalDataStorage localStorage);
        
 		Task UpdateExistingUsers();
 

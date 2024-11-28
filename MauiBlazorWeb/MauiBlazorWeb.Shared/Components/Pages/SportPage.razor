@@ -66,6 +66,15 @@ else
 		accountDoesSport = ValidateAccountDoesSport(AccountDoesId);
 		sport = ValidateSport(accountDoesSport.Sport_Id);
 
+		if (!hasInvalidParameter)
+		{
+			await InvokeAsync(() => AppState.Title = sport.Name);
+		}
+		else
+			await InvokeAsync(() => AppState.Title = "Invalid Sport");
+
+		await InvokeAsync(() => AppState.MainLayout.RerenderLayout());
+
 		await base.ValidateParameters();
 	}
 
@@ -75,19 +84,5 @@ else
 			throw new Exception($"Sorry, this Sport is not followed.");
 		else
 			await OnStartWorkout(accountDoesSport.Id);
-	}
-
-	protected override async Task OnAfterRenderAsync(bool firstRender)
-	{
-		await base.OnAfterRenderAsync(firstRender);
-		if (firstRender)
-		{
-			if (!hasInvalidParameter)
-				await InvokeAsync(() => AppState.Title = sport.Name);
-			else
-				await InvokeAsync(() => AppState.Title = "Invalid Sport");
-
-			await InvokeAsync(() => AppState.MainLayout.RerenderLayout());
-		}
 	}
 }

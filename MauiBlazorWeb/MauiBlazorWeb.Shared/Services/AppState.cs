@@ -38,10 +38,10 @@ namespace MauiBlazorWeb.Shared.Services
             ExistingUsers = await Data.LoadData<Account, dynamic>(sql, new { });
         }
 
-        public async Task Init(ILocalStorageService localStorage)
+        public async Task Init(ILocalDataStorage localStorage)
         {
             isInitialized = true;
-            int id = await localStorage.GetItemAsync<int>("id");
+            int id = await localStorage.GetItemAsync("id");
             if (id != 0)
             {
                 string sql = "Select * from account where Id = @accountid;";
@@ -84,21 +84,21 @@ namespace MauiBlazorWeb.Shared.Services
             return affectedRows != 0;
         }
 
-        public async Task Login(Account userData, ILocalStorageService localStorage)
+        public async Task Login(Account userData, ILocalDataStorage localStorage)
         {
             CurrentUser = userData;
             isLoggedIn = true;
             await localStorage.SetItemAsync("id", userData.Id);
         }
 
-        public async Task Logout(ILocalStorageService localStorage)
+        public async Task Logout(ILocalDataStorage localStorage)
         {
             CurrentUser = new Account();
             isLoggedIn = false;
             await localStorage.RemoveItemAsync("id");
         }
 
-        public async Task<bool> Delete(ILocalStorageService localStorage)
+        public async Task<bool> Delete(ILocalDataStorage localStorage)
         {
             var cols = await DiaryManager.GetDiaryCols(CurrentUser.Id, true);
             cols.AddRange(await DiaryManager.GetDiaryCols(CurrentUser.Id, false));
@@ -130,7 +130,7 @@ namespace MauiBlazorWeb.Shared.Services
 
         public async Task ShowLoadingScreenWhileAwaiting(Func<Task>? action)
         {
-            await MainLayout.SetLoadingScreen(true);
+            // await MainLayout.SetLoadingScreen(true);
 
             try
             {
@@ -139,7 +139,7 @@ namespace MauiBlazorWeb.Shared.Services
             }
             finally
             {
-                await MainLayout.SetLoadingScreen(false);
+               // await MainLayout.SetLoadingScreen(false);
             }
         }
     }

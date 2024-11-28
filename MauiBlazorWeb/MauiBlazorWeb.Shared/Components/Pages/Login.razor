@@ -3,12 +3,11 @@
 @using MauiBlazorWeb.Shared.Components.Dialogs
 @using Models
 @using Interfaces
-@using Blazored.LocalStorage
 
 @inject NavigationManager Navigation
 @inject IPasswordHasher _pw
 @inject IAppState _appState
-@inject ILocalStorageService _localStorage
+@inject ILocalDataStorage _localStorage
 
 @if (_appState.IsLoggedIn)
 {

@@ -1,13 +1,12 @@
 ﻿@page "/profile"
 
-@using Blazored.LocalStorage
 @using MauiBlazorWeb.Shared.Components.Widgets
 @using MauiBlazorWeb.Shared.Components.Dialogs.Account
 @using MauiBlazorWeb.Shared.Components.Dialogs
 @using Interfaces
 
 @inject IAppState _appState
-@inject ILocalStorageService _localStorage
+@inject ILocalDataStorage _localStorage
 @inject NavigationManager Navigation
 
 @if (!_appState.IsLoggedIn)

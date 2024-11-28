@@ -2,6 +2,7 @@ using MauiBlazorWeb.Web.Components;
 using MauiBlazorWeb.Shared.Interfaces;
 using Blazored.LocalStorage;
 using MauiBlazorWeb.Shared.Services;
+using MauiBlazorWeb.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,7 @@ builder.Services.AddSingleton<IDataAccess, DataAccess>();
 
 // Session data
 builder.Services.AddBlazoredLocalStorage();
+builder.Services.AddScoped<ILocalDataStorage, PCLocalStorage>();
 
 builder.Services.AddBlazorBootstrap();
 

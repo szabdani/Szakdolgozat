@@ -23,10 +23,10 @@ namespace MauiBlazorWeb.Maui
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 });
             // Session data
-            builder.Services.AddBlazoredLocalStorage();
+			builder.Services.AddScoped<ILocalDataStorage, AndroidLocalStorage>();
 
-            // For Db services
-            builder.Services.AddSingleton<IDataAccess, DataAccess>();
+			// For Db services
+			builder.Services.AddSingleton<IDataAccess, DataAccess>();
 
             // For keeping up with the state of the app
             builder.Services.AddSingleton<IAppState, AppState>();
@@ -39,7 +39,7 @@ namespace MauiBlazorWeb.Maui
 
             // Diary DB accesses
             builder.Services.AddScoped<IDiaryManager, DiaryManager>();
-			builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7142") });
+			builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("192.168.25.230:7142") });
 			// Sport DB accesses
 			builder.Services.AddScoped<ISportManager, SportManager>();
 

@@ -8,13 +8,9 @@ namespace LifeTrackerDatabaseAPI.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	public class DiaryController : ControllerBase
+	public class DiaryController(IDiaryManager diaryManager) : ControllerBase
 	{
-		private readonly IDiaryManager _diaryManager;
-		public DiaryController(IDiaryManager diaryManager)
-		{
-			_diaryManager = diaryManager;
-		}
+		private readonly IDiaryManager _diaryManager = diaryManager;
 
 		[HttpPost("InsertDiaryCol")]
 		public async Task<IActionResult> InsertDiaryCol(Diary_log_column newCol)

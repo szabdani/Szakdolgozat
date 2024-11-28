@@ -8,13 +8,9 @@ namespace LifeTrackerDatabaseAPI.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	public class SportController : ControllerBase
+	public class SportController(ISportManager sportManager) : ControllerBase
 	{
-		private readonly ISportManager _sportManager;
-		public SportController(ISportManager sportManager)
-		{
-			_sportManager = sportManager;
-		}
+		private readonly ISportManager _sportManager = sportManager;
 
 		[HttpPost("InsertSport")]
 		public async Task<IActionResult> InsertSport(Sport newSport)
