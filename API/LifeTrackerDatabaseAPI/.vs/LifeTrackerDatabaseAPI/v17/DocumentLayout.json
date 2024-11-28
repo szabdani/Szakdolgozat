@@ -1,0 +1,122 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\API\\LifeTrackerDatabaseAPI\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4850E4FB-1E9F-45D5-972B-D72074F7F2C4}|LifeTrackerDatabaseAPI.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\api\\lifetrackerdatabaseapi\\controllers\\sportcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4850E4FB-1E9F-45D5-972B-D72074F7F2C4}|LifeTrackerDatabaseAPI.csproj|solutionrelative:controllers\\sportcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4850E4FB-1E9F-45D5-972B-D72074F7F2C4}|LifeTrackerDatabaseAPI.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\api\\lifetrackerdatabaseapi\\controllers\\diarycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4850E4FB-1E9F-45D5-972B-D72074F7F2C4}|LifeTrackerDatabaseAPI.csproj|solutionrelative:controllers\\diarycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4850E4FB-1E9F-45D5-972B-D72074F7F2C4}|LifeTrackerDatabaseAPI.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\api\\lifetrackerdatabaseapi\\interfaces\\isportmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4850E4FB-1E9F-45D5-972B-D72074F7F2C4}|LifeTrackerDatabaseAPI.csproj|solutionrelative:interfaces\\isportmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4850E4FB-1E9F-45D5-972B-D72074F7F2C4}|LifeTrackerDatabaseAPI.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\api\\lifetrackerdatabaseapi\\services\\sportmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4850E4FB-1E9F-45D5-972B-D72074F7F2C4}|LifeTrackerDatabaseAPI.csproj|solutionrelative:services\\sportmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4850E4FB-1E9F-45D5-972B-D72074F7F2C4}|LifeTrackerDatabaseAPI.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\api\\lifetrackerdatabaseapi\\services\\diarymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4850E4FB-1E9F-45D5-972B-D72074F7F2C4}|LifeTrackerDatabaseAPI.csproj|solutionrelative:services\\diarymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4850E4FB-1E9F-45D5-972B-D72074F7F2C4}|LifeTrackerDatabaseAPI.csproj|c:\\dani\\bme\\felev_7\\szakdoga\\program\\szakdolgozat\\api\\lifetrackerdatabaseapi\\interfaces\\idiarymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4850E4FB-1E9F-45D5-972B-D72074F7F2C4}|LifeTrackerDatabaseAPI.csproj|solutionrelative:interfaces\\idiarymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SportManager.cs",
+              "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\API\\LifeTrackerDatabaseAPI\\Services\\SportManager.cs",
+              "RelativeDocumentMoniker": "Services\\SportManager.cs",
+              "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\API\\LifeTrackerDatabaseAPI\\Services\\SportManager.cs",
+              "RelativeToolTip": "Services\\SportManager.cs",
+              "ViewState": "AgIAAOwAAAAAAAAAAAAmwPgAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-28T17:32:01.36Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "IDiaryManager.cs",
+              "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\API\\LifeTrackerDatabaseAPI\\Interfaces\\IDiaryManager.cs",
+              "RelativeDocumentMoniker": "Interfaces\\IDiaryManager.cs",
+              "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\API\\LifeTrackerDatabaseAPI\\Interfaces\\IDiaryManager.cs",
+              "RelativeToolTip": "Interfaces\\IDiaryManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-28T16:57:38.517Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SportController.cs",
+              "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\API\\LifeTrackerDatabaseAPI\\Controllers\\SportController.cs",
+              "RelativeDocumentMoniker": "Controllers\\SportController.cs",
+              "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\API\\LifeTrackerDatabaseAPI\\Controllers\\SportController.cs",
+              "RelativeToolTip": "Controllers\\SportController.cs",
+              "ViewState": "AgIAAGQAAAAAAAAAAAAUwHAAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-28T15:41:13.826Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ISportManager.cs",
+              "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\API\\LifeTrackerDatabaseAPI\\Interfaces\\ISportManager.cs",
+              "RelativeDocumentMoniker": "Interfaces\\ISportManager.cs",
+              "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\API\\LifeTrackerDatabaseAPI\\Interfaces\\ISportManager.cs",
+              "RelativeToolTip": "Interfaces\\ISportManager.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAqwCIAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-28T17:51:54.042Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DiaryController.cs",
+              "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\API\\LifeTrackerDatabaseAPI\\Controllers\\DiaryController.cs",
+              "RelativeDocumentMoniker": "Controllers\\DiaryController.cs",
+              "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\API\\LifeTrackerDatabaseAPI\\Controllers\\DiaryController.cs",
+              "RelativeToolTip": "Controllers\\DiaryController.cs",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAwwDUAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-28T16:41:25.908Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "DiaryManager.cs",
+              "DocumentMoniker": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\API\\LifeTrackerDatabaseAPI\\Services\\DiaryManager.cs",
+              "RelativeDocumentMoniker": "Services\\DiaryManager.cs",
+              "ToolTip": "C:\\Dani\\BME\\felev_7\\szakdoga\\Program\\Szakdolgozat\\API\\LifeTrackerDatabaseAPI\\Services\\DiaryManager.cs",
+              "RelativeToolTip": "Services\\DiaryManager.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAA1wAcAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-28T16:57:41.873Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

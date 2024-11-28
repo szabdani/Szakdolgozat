@@ -183,8 +183,9 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 			await base.UpdateObserver();
 		}
 
-		protected virtual async Task UpdateTables()
+		protected override async Task UpdateTables()
 		{
+			await base.UpdateTables();
 			allSports = await SportManager.GetAllSports(AppState.CurrentUser.Id);
 			allAccountDoesSports = await SportManager.GetAccountDoesSports(AppState.CurrentUser.Id);
 		}

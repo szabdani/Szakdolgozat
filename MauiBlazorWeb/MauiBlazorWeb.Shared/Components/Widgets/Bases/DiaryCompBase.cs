@@ -7,6 +7,7 @@ using MauiBlazorWeb.Shared.Interfaces;
 using MauiBlazorWeb.Shared.Models.Diaries;
 using MauiBlazorWeb.Shared.Services;
 using Microsoft.AspNetCore.Components;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 {
@@ -40,15 +41,32 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 			await base.UpdateObserver();
 		}
 
-		protected virtual async Task UpdateTables()
+		protected override async Task UpdateTables()
 		{
+			await base.UpdateTables();
 			allCols = await DiaryManager.GetDiaryCols(AppState.CurrentUser.Id, IsHabit);
 			allPosts = await DiaryManager.GetDiaryPosts(AppState.CurrentUser.Id, IsHabit);
 		}
 
 		private async Task ToggleHabitValue(int colId, DateTime day)
 		{
-			await DiaryManager.ToggleHabitValue(colId, day);
+			bool isCorrect = true;
+
+			var posts = await DiaryManager.GetDiaryColumnsPosts(colId);
+			var post = posts.FirstOrDefault(p => p.Date == day);
+			if (post == null)
+			{
+				post = new Diary_log_post { Date = day, Value = "X", Diary_log_column_Id = colId };
+				isCorrect = await DiaryManager.InsertDiaryPost(post);
+			}
+			else
+			{
+				post.Value = post.Value == "X" ? "" : "X";
+				isCorrect = await DiaryManager.UpdateDiaryPost(post);
+			}
+
+			if (!isCorrect)
+				throw new Exception($"Sorry, we could not toggle the value.");
 			await Subject.UpdateObservers();
 		}
 

@@ -1,111 +1,67 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using MauiBlazorWeb.Shared.Components.Pages;
 using MauiBlazorWeb.Shared.Interfaces;
 using MauiBlazorWeb.Shared.Models;
 using MauiBlazorWeb.Shared.Models.Diaries;
-using Microsoft.AspNetCore.Components;
 
 namespace MauiBlazorWeb.Shared.Services
 {
-    public class DiaryManager(IDataAccess data) : IDiaryManager
+    public class DiaryManager(HttpClient httpClient) : IDiaryManager
     {
-		[Inject] protected IDataAccess Data { get; set; } = data;
-
 		public async Task<bool> InsertDiaryCol(Diary_log_column newCol)
         {
-            string sql = "Insert into Diary_log_column (name, type, Value_range_min, Value_range_max, account_id) values (@name, @type, @min, @max, @accountid);";
-            int affectedRows = await Data.SaveData(sql, new { name = newCol.Name, type = newCol.Type.ToString(), min = newCol.Value_range_min, max = newCol.Value_range_max, accountid = newCol.Account_Id });
-            return affectedRows != 0;
-        }
+			var response = await httpClient.PostAsJsonAsync("api/Diary/InsertDiaryCol", newCol);
+			return response.IsSuccessStatusCode;
+		}
         public async Task<bool> UpdateDiaryCol(Diary_log_column oldCol)
         {
-            string sql = "Update Diary_log_column set name = @name, type = @type, Value_range_min = @min, Value_range_max = @max,Account_Id = @userid where id = @colid ;";
-            int affectedRows = await Data.SaveData(sql, new { name = oldCol.Name, type = oldCol.Type.ToString(), min = oldCol.Value_range_min, max = oldCol.Value_range_max, userid = oldCol.Account_Id, colid = oldCol.Id });
-            return affectedRows != 0;
-        }
+			var response = await httpClient.PutAsJsonAsync("api/Diary/UpdateDiaryCol", oldCol);
+			return response.IsSuccessStatusCode;
+		}
         public async Task<bool> DeleteDiaryCol(Diary_log_column oldCol)
         {
-            var posts = await GetDiaryColumnsPosts(oldCol.Id);
-			foreach (var p in posts)
-			{
-				bool isCorrect = await DeleteDiaryPost(p);
-				if (!isCorrect)
-					return isCorrect;
-			}
-
-			string sql = "Delete from Diary_log_column where id = @postid;";
-            int affectedRows = await Data.SaveData(sql, new { postid = oldCol.Id });
-            return affectedRows != 0;
-        }
+			var response = await httpClient.DeleteAsync($"api/Diary/DeleteDiaryCol/{oldCol.Id}");
+			return response.IsSuccessStatusCode;
+		}
 
 
         public async Task<bool> InsertDiaryPost(Diary_log_post newPost)
         {
-            string sql = "Insert into Diary_log_post (date, value, diary_log_column_id) values (@date, @value, @colid);";
-            int affectedRows = await Data.SaveData(sql, new { date = newPost.Date.ToString("yyyy-MM-dd"), value = newPost.Value, colid = newPost.Diary_log_column_Id });
-            return affectedRows != 0;
-        }
+			var response = await httpClient.PostAsJsonAsync("api/Diary/InsertDiaryPost", newPost);
+			return response.IsSuccessStatusCode;
+		}
         public async Task<bool> UpdateDiaryPost(Diary_log_post oldPost)
         {
-            string sql = "Update Diary_log_post set date = @date, value = @value, Diary_log_column_Id = @colid where id = @postid;";
-            int affectedRows = await Data.SaveData(sql, new { date = oldPost.Date.ToString("yyyy-MM-dd"), value = oldPost.Value, colid = oldPost.Diary_log_column_Id, postid = oldPost.Id });
-            return affectedRows != 0;
-        }
+			var response = await httpClient.PutAsJsonAsync("api/Diary/UpdateDiaryPost", oldPost);
+			return response.IsSuccessStatusCode;
+		}
 
         public async Task<bool> DeleteDiaryPost(Diary_log_post oldPost)
         {
-            string sql = "Delete from Diary_log_post where id = @postid;";
-            int affectedRows = await Data.SaveData(sql, new { postid = oldPost.Id });
-            return affectedRows != 0;
-        }
+			var response = await httpClient.DeleteAsync($"api/Diary/DeleteDiaryPost/{oldPost.Id}");
+			return response.IsSuccessStatusCode;
+		}
 
 
         public async Task<List<Diary_log_column>> GetDiaryCols(int accountId, bool isHabit)
         {
-            string relation = isHabit ? "=" : "!=";
-            string sql = $"Select * from Diary_log_column where Account_id = @userid and type {relation} 'Habit';";
-            return await Data.LoadData<Diary_log_column, dynamic>(sql, new { @userid = accountId });
-        }
+			var response = await httpClient.GetAsync($"api/Diary/GetDiaryCols?accountId={accountId}&isHabit={isHabit}");
+			return await response.Content.ReadFromJsonAsync<List<Diary_log_column>>() ?? [];
+		}
         public async Task<List<Diary_log_post>> GetDiaryColumnsPosts(int columnId)
         {
-            string sql = "Select * from Diary_log_post where Diary_log_column_id = @colid order by date;";
-            return await Data.LoadData<Diary_log_post, dynamic>(sql, new { @colid = columnId });
-        }
+			var response = await httpClient.GetAsync($"api/Diary/GetDiaryColumnsPosts?columnId={columnId}");
+			return await response.Content.ReadFromJsonAsync<List<Diary_log_post>>() ?? [];
+		}
         public async Task<List<Diary_log_post>> GetDiaryPosts(int accountId, bool isHabit)
         {
-            var retVal = new List<Diary_log_post>();
-
-            var cols = await GetDiaryCols(accountId, isHabit);
-            foreach (var col in cols)
-                retVal.AddRange(await GetDiaryColumnsPosts(col.Id));
-
-            return retVal;
-        }
-
-
-		public async Task ToggleHabitValue(int colId, DateTime date)
-		{
-            bool isCorrect = true;
-
-			var posts = await GetDiaryColumnsPosts(colId);
-            var post = posts.FirstOrDefault(p => p.Date == date);
-			if (post == null)
-			{
-				post = new Diary_log_post { Date = date, Value = "X", Diary_log_column_Id = colId };
-				isCorrect = await InsertDiaryPost(post);
-			}
-			else
-			{
-				post.Value = post.Value == "X" ? "" : "X";
-				isCorrect = await UpdateDiaryPost(post);
-			}
-
-			if (!isCorrect)
-				throw new Exception($"Sorry, we could not toggle the value.");
+			var response = await httpClient.GetAsync($"api/Diary/GetDiaryPosts?accountId={accountId}&isHabit={isHabit}");
+			return await response.Content.ReadFromJsonAsync<List<Diary_log_post>>() ?? [];
 		}
 	}
 }

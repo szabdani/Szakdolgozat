@@ -310,7 +310,7 @@ else
 			if (workout.Routine_Id is not null)
 			{
 				var workoutSets = await SportManager.GetSetsByWorkout(workout.Id);
-				routineExampleWorkout = await SportManager.GetRoutineExample(workout.Account_does_Sport_Id, (int)workout.Routine_Id);
+				routineExampleWorkout = (await SportManager.GetRoutineExample(workout.Account_does_Sport_Id, (int)workout.Routine_Id)).First();
 
 				if (workoutSets.Count == 0)
 				{

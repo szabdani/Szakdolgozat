@@ -10,7 +10,7 @@ namespace MauiBlazorWeb.Shared.Services
 {
 	public class ObserverComp : ComponentBase, IDisposable
 	{
-		[Inject] protected ISubjectComp Subject { get; set; }
+		[Inject] protected ISubjectComp Subject { get; set; } = default!;
 
 		protected override void OnInitialized()
 		{
@@ -31,7 +31,10 @@ namespace MauiBlazorWeb.Shared.Services
 
 		public virtual async Task UpdateObserver()
 		{
+			await UpdateTables();
 			await InvokeAsync(StateHasChanged);
 		}
+
+		protected virtual async Task UpdateTables() { await Task.CompletedTask; }
 	}
 }

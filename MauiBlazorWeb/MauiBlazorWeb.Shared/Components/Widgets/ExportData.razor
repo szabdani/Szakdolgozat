@@ -284,7 +284,7 @@
 				var routines = await _sportManager.GetRoutines(accountDoes.Id);
 				foreach (var r in routines)
 				{
-					exampleWorkouts.Add(await _sportManager.GetRoutineExample(accountDoes.Id, r.Id));
+					exampleWorkouts.AddRange(await _sportManager.GetRoutineExample(accountDoes.Id, r.Id));
 				}
 
 				var routineExampleDates = exampleWorkouts.Select(e => e.Starttime).Distinct().Order().ToList();
@@ -328,7 +328,7 @@
 						if (work.Routine_Id is not null)
 						{
 							int routineId = (int)work.Routine_Id;
-							var routineExample = await _sportManager.GetRoutineExample(accountDoes.Id, routineId);
+							var routineExample = (await _sportManager.GetRoutineExample(accountDoes.Id, routineId)).First();
 							routine = routineExample.Name;
 							description = routineExample.Notes;
 						}

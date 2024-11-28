@@ -1,6 +1,5 @@
 using MauiBlazorWeb.Shared;
 using Microsoft.Extensions.Logging;
-using MauiBlazorWeb.Maui.Services;
 using MauiBlazorWeb.Shared.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,6 +39,7 @@ namespace MauiBlazorWeb.Maui
 
             // Diary DB accesses
             builder.Services.AddScoped<IDiaryManager, DiaryManager>();
+			builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7142") });
 			// Sport DB accesses
 			builder.Services.AddScoped<ISportManager, SportManager>();
 
@@ -51,8 +51,6 @@ namespace MauiBlazorWeb.Maui
     		builder.Services.AddBlazorWebViewDeveloperTools();
     		builder.Logging.AddDebug();
 #endif
-
-            builder.Services.AddSingleton<IFormFactor, FormFactor>();
 
             return builder.Build();
         }

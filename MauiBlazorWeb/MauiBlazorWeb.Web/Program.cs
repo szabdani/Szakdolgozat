@@ -1,6 +1,5 @@
 using MauiBlazorWeb.Web.Components;
 using MauiBlazorWeb.Shared.Interfaces;
-using MauiBlazorWeb.Web.Services;
 using Blazored.LocalStorage;
 using MauiBlazorWeb.Shared.Services;
 
@@ -23,6 +22,7 @@ builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 
 // Diary DB accesses
 builder.Services.AddScoped<IDiaryManager, DiaryManager>();
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7142") });
 // Sport DB accesses
 builder.Services.AddScoped<ISportManager, SportManager>();
 
@@ -31,8 +31,6 @@ builder.Services.AddSingleton<IAppState, AppState>();
 
 // Subject-Observer for all diary components
 builder.Services.AddScoped<ISubjectComp, SubjectComp>();
-
-builder.Services.AddScoped<IFormFactor, FormFactor>();
 
 var app = builder.Build();
 
