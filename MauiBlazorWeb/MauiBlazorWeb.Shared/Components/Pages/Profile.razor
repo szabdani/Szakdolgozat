@@ -1,12 +1,13 @@
 ﻿@page "/profile"
 
+@using Blazored.LocalStorage
 @using MauiBlazorWeb.Shared.Components.Widgets
 @using MauiBlazorWeb.Shared.Components.Dialogs.Account
 @using MauiBlazorWeb.Shared.Components.Dialogs
 @using Interfaces
 
 @inject IAppState _appState
-@inject ILocalDataStorage _localStorage
+@inject ILocalStorageService _localStorage
 @inject IAccountAPIService _accountAPI
 @inject IDiaryAPIService _diaryAPI
 @inject ISportAPIService _sportAPI

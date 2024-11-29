@@ -19,10 +19,10 @@ namespace MauiBlazorWeb.Shared.Interfaces
 
 
 		Task<bool> Register(LoginRegUser newAccount, IAccountAPIService accountAPI, IPasswordHasher passwordHasher);
-		Task<bool> Delete(ILocalDataStorage localStorage, IAccountAPIService accountAPI, IDiaryAPIService diaryAPI, ISportAPIService sportAPI);
-        Task Init(ILocalDataStorage localStorage, IAccountAPIService accountAPI);
-        Task<bool> Login(LoginRegUser newAccount, IAccountAPIService accountAPI, ILocalDataStorage localStorage, IPasswordHasher passwordHasher);
-        Task Logout(ILocalDataStorage localStorage);
+		Task<bool> Delete(ILocalStorageService localStorage, IAccountAPIService accountAPI, IDiaryAPIService diaryAPI, ISportAPIService sportAPI);
+        Task Init(ILocalStorageService localStorage, IAccountAPIService accountAPI);
+        Task<bool> Login(LoginRegUser newAccount, IAccountAPIService accountAPI, ILocalStorageService localStorage, IPasswordHasher passwordHasher);
+        Task Logout(ILocalStorageService localStorage);
        
 		Task UpdateExistingUsers(IAccountAPIService accountAPI);
 

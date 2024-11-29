@@ -1,9 +1,10 @@
 ﻿@inherits LayoutComponentBase
+@using Blazored.LocalStorage
 @using Models
 @using Interfaces
 @using MauiBlazorWeb.Shared.Components.Dialogs  
 
-@inject ILocalDataStorage _localStorage
+@inject ILocalStorageService _localStorage
 @inject IAppState _appState
 @inject IAccountAPIService _accountAPI
 @inject IJSRuntime JS

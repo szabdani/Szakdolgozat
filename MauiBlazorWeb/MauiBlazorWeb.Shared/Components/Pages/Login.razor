@@ -1,5 +1,6 @@
 ﻿@page "/login"
 
+@using Blazored.LocalStorage
 @using MauiBlazorWeb.Shared.Components.Dialogs
 @using Models
 @using Interfaces
@@ -8,7 +9,7 @@
 @inject IPasswordHasher _passwordHasher
 @inject IAppState _appState
 @inject IAccountAPIService _accountAPI
-@inject ILocalDataStorage _localStorage
+@inject ILocalStorageService _localStorage
 
 @if (_appState.IsLoggedIn)
 {

@@ -12,7 +12,6 @@ builder.Services.AddRazorComponents()
 
 // Session data
 builder.Services.AddBlazoredLocalStorage();
-builder.Services.AddScoped<ILocalDataStorage, PCLocalStorage>();
 
 builder.Services.AddBlazorBootstrap();
 

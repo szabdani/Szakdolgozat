@@ -24,7 +24,6 @@ namespace MauiBlazorWeb.Maui
                 });
 			// Session data
 			builder.Services.AddBlazoredLocalStorage();
-			builder.Services.AddScoped<ILocalDataStorage, AndroidLocalStorage>();
 
             // For keeping up with the state of the app
             builder.Services.AddSingleton<IAppState, AppState>();

@@ -34,10 +34,10 @@ namespace MauiBlazorWeb.Shared.Services
             Emails = await accountAPI.GetAllEmails();
         }
 
-        public async Task Init(ILocalDataStorage localStorage, IAccountAPIService accountAPI)
+        public async Task Init(ILocalStorageService localStorage, IAccountAPIService accountAPI)
         {
             isInitialized = true;
-            int id = await localStorage.GetItemAsync("id");
+            int id = await localStorage.GetItemAsync<int>("id");
             if (id != 0)
             {
                 var results = await accountAPI.GetAccount(id);
@@ -72,7 +72,7 @@ namespace MauiBlazorWeb.Shared.Services
             return retVal;
         }
 
-        public async Task<bool> Login(LoginRegUser newAccount, IAccountAPIService accountAPI, ILocalDataStorage localStorage, IPasswordHasher passwordHasher)
+        public async Task<bool> Login(LoginRegUser newAccount, IAccountAPIService accountAPI, ILocalStorageService localStorage, IPasswordHasher passwordHasher)
         {
             var userData = (await accountAPI.GetAccountByUsername(newAccount.LoginUsername)).First();
             if (userData is null || userData.Password_hash is null || userData.Password_salt is null)
@@ -89,14 +89,14 @@ namespace MauiBlazorWeb.Shared.Services
                 return false;
         }
 
-        public async Task Logout(ILocalDataStorage localStorage)
+        public async Task Logout(ILocalStorageService localStorage)
         {
             CurrentUser = new Account();
             isLoggedIn = false;
             await localStorage.RemoveItemAsync("id");
         }
 
-        public async Task<bool> Delete(ILocalDataStorage localStorage, IAccountAPIService accountAPI, IDiaryAPIService diaryAPI, ISportAPIService sportAPI)
+        public async Task<bool> Delete(ILocalStorageService localStorage, IAccountAPIService accountAPI, IDiaryAPIService diaryAPI, ISportAPIService sportAPI)
         {
             bool isCorrect = true;
 
