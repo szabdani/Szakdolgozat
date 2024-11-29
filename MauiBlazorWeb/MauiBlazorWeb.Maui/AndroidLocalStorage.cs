@@ -1,32 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Blazored.LocalStorage;
 using MauiBlazorWeb.Shared.Interfaces;
+
+
+using Microsoft.AspNetCore.Components;
 
 namespace MauiBlazorWeb.Maui
 {
-	public class AndroidLocalStorage : ILocalDataStorage
+	public class AndroidLocalStorage(ILocalStorageService localStorage) : ILocalDataStorage
 	{
-		public Task<int> GetItemAsync(string key)
+		public async Task<int> GetItemAsync(string key)
 		{
-			string? value = Preferences.Get(key, null);
-			int retVal = value is null ? 0 : Convert.ToInt32(value);
-			
-			return Task.FromResult(retVal);
+			return await localStorage.GetItemAsync<int>(key);
 		}
 
-		public Task RemoveItemAsync(string key)
+		public async Task RemoveItemAsync(string key)
 		{
-			Preferences.Remove(key);
-			return Task.CompletedTask;
+			await localStorage.RemoveItemAsync("id");
 		}
 
-		public Task SetItemAsync(string key, int value)
+		public async Task SetItemAsync(string key, int value)
 		{
-			Preferences.Set(key, value);
-			return Task.CompletedTask;
+			await localStorage.SetItemAsync("id", value);
 		}
 	}
 }

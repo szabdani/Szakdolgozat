@@ -120,9 +120,9 @@ else
 
     private void HandleFieldChanged(object? sender, FieldChangedEventArgs e)
     {
-        if (e.FieldIdentifier.FieldName == nameof(Account.Username))
+        if (e.FieldIdentifier.FieldName == nameof(Account.Username) || e.FieldIdentifier.FieldName == nameof(Account.Email))
         {
-            isError = ValidateUsername();
+            isError = ValidateUsernameAndEmail();
         }
         isError = !editContext.Validate();
         StateHasChanged();
@@ -142,26 +142,27 @@ else
         editContext.OnFieldChanged -= HandleFieldChanged;
     }
 
-    private bool ValidateUsername()
+    private bool ValidateUsernameAndEmail()
     {
-        bool isTaken = false;
+        bool usernameisTaken = _appState.Usernames.Contains(newAccount.Username);
+        bool emailisTaken = _appState.Emails.Contains(newAccount.Email);
 
-        foreach (var user in _appState.ExistingUsers)
-        { 
-            if (user.Username.Equals(newAccount.Username))
-            {
-                isTaken = true;
-                break;
-            }
-        }
-
-        if (isTaken)
+        if (usernameisTaken)
         {
             messageStore.Add(() => newAccount.Username, "Sorry, this username is already taken.");
+            if (emailisTaken)
+            {
+                messageStore.Add(() => newAccount.Email, "Sorry, this email is already taken.");
+            }
+        }
+        else if (emailisTaken)
+        {
+            messageStore.Add(() => newAccount.Email, "Sorry, this email is already taken.");
         }
         else
             messageStore.Clear();
-        return isTaken;
+
+        return usernameisTaken || emailisTaken;
     }
 
     private async Task OnRegisterAccount()

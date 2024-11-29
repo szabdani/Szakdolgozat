@@ -41,25 +41,15 @@
 
     private async Task Enter()
     {
-        bool emailExists = false;
         messageStore.Clear();
 
         await _appState.UpdateExistingUsers(_accountAPI);
-
-        foreach (var user in _appState.ExistingUsers)
-        {
-            if (newAccount.Email is not null && newAccount.Email.Equals(user.Email))
-            {
-                emailExists = true;
-                break;
-            }
-        }
 
         if (newAccount.Email != "")
         {
             if (!newAccount.Email.Equals(_appState.CurrentUser.Email))
             {
-                if (!emailExists)
+                if (!_appState.Emails.Any(u => u == newAccount.Email))
                 {
                     _appState.CurrentUser.Email = newAccount.Email;
                     bool isCorrect = await _accountAPI.UpdateAccount(_appState.CurrentUser);

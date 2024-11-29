@@ -41,25 +41,15 @@
 
     private async Task Enter()
     {
-        bool userExists = false;
         messageStore.Clear();
 
         await _appState.UpdateExistingUsers(_accountAPI);
-
-        foreach (var user in _appState.ExistingUsers)
-        {
-            if (user.Username.Equals(newAccount.LoginUsername))
-            {
-                userExists = true;
-                break;
-            }
-        }
 
         if (newAccount.LoginUsername != "")
         {
             if (!newAccount.LoginUsername.Equals(_appState.CurrentUser.Username))
             {
-                if (!userExists)
+                if (!_appState.Usernames.Contains(newAccount.LoginUsername))
                 {
                     _appState.CurrentUser.Username = newAccount.LoginUsername;
                     bool isCorrect = await _accountAPI.UpdateAccount(_appState.CurrentUser);

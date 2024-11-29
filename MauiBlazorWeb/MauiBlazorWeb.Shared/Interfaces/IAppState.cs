@@ -14,12 +14,14 @@ namespace MauiBlazorWeb.Shared.Interfaces
         MainLayout MainLayout { get; set; }
 
         Account CurrentUser { get; set; }
-        List<Account> ExistingUsers { get; set; }
+		List<string> Usernames { get; set; }
+		List<string> Emails { get; set; }
 
-        Task<bool> Register(LoginRegUser newAccount, IAccountAPIService accountAPI, IPasswordHasher passwordHasher);
+
+		Task<bool> Register(LoginRegUser newAccount, IAccountAPIService accountAPI, IPasswordHasher passwordHasher);
 		Task<bool> Delete(ILocalDataStorage localStorage, IAccountAPIService accountAPI, IDiaryAPIService diaryAPI, ISportAPIService sportAPI);
         Task Init(ILocalDataStorage localStorage, IAccountAPIService accountAPI);
-        Task Login(Account userData, ILocalDataStorage localStorage);
+        Task<bool> Login(LoginRegUser newAccount, IAccountAPIService accountAPI, ILocalDataStorage localStorage, IPasswordHasher passwordHasher);
         Task Logout(ILocalDataStorage localStorage);
        
 		Task UpdateExistingUsers(IAccountAPIService accountAPI);

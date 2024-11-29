@@ -25,11 +25,13 @@ namespace MauiBlazorWeb.Shared.Services
 		public MainLayout MainLayout { get; set; } = new();
 
 		public Account CurrentUser { get; set; } = new();
-		public List<Account> ExistingUsers { get; set; } = [];
+		public List<string> Usernames { get; set; } = [];
+		public List<string> Emails { get; set; } = [];
 
 		public async Task UpdateExistingUsers(IAccountAPIService accountAPI)
         {
-            ExistingUsers = await accountAPI.GetAllAccounts();
+			Usernames = await accountAPI.GetAllUsernames();
+            Emails = await accountAPI.GetAllEmails();
         }
 
         public async Task Init(ILocalDataStorage localStorage, IAccountAPIService accountAPI)
@@ -70,11 +72,21 @@ namespace MauiBlazorWeb.Shared.Services
             return retVal;
         }
 
-        public async Task Login(Account userData, ILocalDataStorage localStorage)
+        public async Task<bool> Login(LoginRegUser newAccount, IAccountAPIService accountAPI, ILocalDataStorage localStorage, IPasswordHasher passwordHasher)
         {
-            CurrentUser = userData;
-            isLoggedIn = true;
-            await localStorage.SetItemAsync("id", userData.Id);
+            var userData = (await accountAPI.GetAccountByUsername(newAccount.LoginUsername)).First();
+            if (userData is null || userData.Password_hash is null || userData.Password_salt is null)
+                return false;
+
+            if (passwordHasher.VerifyPassword(userData.Password_hash, userData.Password_salt, newAccount.LoginPassword))
+            {
+				CurrentUser = userData;
+				isLoggedIn = true;
+				await localStorage.SetItemAsync("id", userData.Id);
+				return true;
+			}
+            else
+                return false;
         }
 
         public async Task Logout(ILocalDataStorage localStorage)

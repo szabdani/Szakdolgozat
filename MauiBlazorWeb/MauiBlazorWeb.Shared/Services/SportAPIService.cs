@@ -15,8 +15,15 @@ using Org.BouncyCastle.Asn1;
 
 namespace MauiBlazorWeb.Shared.Services
 {
-	public class SportAPIService(HttpClient httpClient) : ISportAPIService
+	public class SportAPIService : ISportAPIService
 	{
+		public SportAPIService(HttpClient httpClientIn)
+		{
+			httpClient = httpClientIn;
+		}
+
+		private HttpClient httpClient;
+
 		public async Task<bool> InsertSport(Sport newSport)
 		{
 			var response = await httpClient.PostAsJsonAsync("api/Sport/InsertSport", newSport);
@@ -116,8 +123,21 @@ namespace MauiBlazorWeb.Shared.Services
 
 		public async Task<List<Sport>> GetAllSports(int accountId)
 		{
-			var response = await httpClient.GetAsync($"api/Sport/GetAllSports?accountId={accountId}");
-			return await response.Content.ReadFromJsonAsync<List<Sport>>() ?? [];
+			try
+			{
+				var response = await httpClient.GetAsync($"api/Sport/GetAllSports?accountId={accountId}");
+				response.EnsureSuccessStatusCode();
+				return await response.Content.ReadFromJsonAsync<List<Sport>>() ?? new List<Sport>();
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"Error calling API: {ex.Message}");
+				throw;
+			}
+
+
+			//var response = await httpClient.GetAsync($"api/Sport/GetAllSports?accountId={accountId}");
+			//return await response.Content.ReadFromJsonAsync<List<Sport>>() ?? [];
 		}
 		public async Task<List<Sport>> GetAccountsSports(int accountId)
 		{

@@ -12,8 +12,14 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MauiBlazorWeb.Shared.Services
 {
-    public class AccountAPIService(HttpClient httpClient) : IAccountAPIService
+    public class AccountAPIService : IAccountAPIService
 	{
+		public AccountAPIService(HttpClient httpClientIn)
+		{
+			httpClient = httpClientIn;
+		}
+
+		private HttpClient httpClient;
 		public async Task<bool> InsertAccount(Account newAccount)
 		{
 			var response = await httpClient.PostAsJsonAsync("api/Account/InsertAccount", newAccount);
@@ -34,10 +40,21 @@ namespace MauiBlazorWeb.Shared.Services
 			var response = await httpClient.GetAsync($"api/Account/GetAccount?accountId={accountId}");
 			return await response.Content.ReadFromJsonAsync<List<Account>>() ?? [];
 		}
-		public async Task<List<Account>> GetAllAccounts()
+		public async Task<List<Account>> GetAccountByUsername(string username)
 		{
-			var response = await httpClient.GetAsync($"api/Account/GetAllAccounts");
+			var response = await httpClient.GetAsync($"api/Account/GetAccountByUsername?username={username}");
 			return await response.Content.ReadFromJsonAsync<List<Account>>() ?? [];
+		}
+		public async Task<List<string>> GetAllUsernames()
+		{
+			var response = await httpClient.GetAsync($"api/Account/GetAllUsernames");
+			return await response.Content.ReadFromJsonAsync<List<string>>() ?? [];
+		}
+
+		public async Task<List<string>> GetAllEmails()
+		{
+			var response = await httpClient.GetAsync($"api/Account/GetAllEmails");
+			return await response.Content.ReadFromJsonAsync<List<string>>() ?? [];
 		}
 	}
 }

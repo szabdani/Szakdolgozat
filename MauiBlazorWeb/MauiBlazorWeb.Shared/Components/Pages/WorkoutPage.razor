@@ -329,6 +329,8 @@ else
 		string typeStr = workout.IsRoutineExample ? "Routine" : "Workout";
 		placeholderStr = $"Name this {typeStr}";
 
+		// OnAfterRenderAsync functions
+		navHandler = Navigation.RegisterLocationChangingHandler(OnLocationChanging);
 		if (!hasInvalidParameter)
 		{
 			var accountDoes = allAccountDoesSports.First(a => a.Id == workout.Account_does_Sport_Id);
@@ -387,22 +389,6 @@ else
 				if (!isCorrect)
 					throw new Exception($"Sorry, we could not update index of Set");
 			}
-		}
-	}
-
-	protected override async Task OnAfterRenderAsync(bool firstRender)
-	{
-		await base.OnAfterRenderAsync(firstRender);
-		if (firstRender)
-		{
-			navHandler = Navigation.RegisterLocationChangingHandler(OnLocationChanging);
-
-			if (!hasInvalidParameter)
-				await InvokeAsync(() => AppState.Title = "Workout");
-			else
-				await InvokeAsync(() => AppState.Title = "Invalid New Workout");
-
-			await InvokeAsync(() => AppState.MainLayout.RerenderLayout());
 		}
 	}
 

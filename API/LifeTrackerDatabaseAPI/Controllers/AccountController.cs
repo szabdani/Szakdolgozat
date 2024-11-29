@@ -40,11 +40,25 @@ namespace LifeTrackerDatabaseAPI.Controllers
 			return Ok(acc);
 		}
 
-		[HttpGet("GetAllAccounts")]
-		public async Task<IActionResult> GetAllAccounts()
+		[HttpGet("GetAccountByUsername")]
+		public async Task<IActionResult> GetAccountByUsername(string username)
 		{
-			var accs = await _accountManager.GetAllAccounts();
-			return Ok(accs);
+			var acc = await _accountManager.GetAccountByUsername(username);
+			return Ok(acc);
+		}
+
+		[HttpGet("GetAllUsernames")]
+		public async Task<IActionResult> GetAllUsernames()
+		{
+			var usernames = await _accountManager.GetAllUsernames();
+			return Ok(usernames);
+		}
+
+		[HttpGet("GetAllEmails")]
+		public async Task<IActionResult> GetAllEmails()
+		{
+			var emails = await _accountManager.GetAllEmails();
+			return Ok(emails);
 		}
 	}
 }

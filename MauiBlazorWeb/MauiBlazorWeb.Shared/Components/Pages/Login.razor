@@ -5,7 +5,7 @@
 @using Interfaces
 
 @inject NavigationManager Navigation
-@inject IPasswordHasher _pw
+@inject IPasswordHasher _passwordHasher
 @inject IAppState _appState
 @inject IAccountAPIService _accountAPI
 @inject ILocalDataStorage _localStorage
@@ -80,31 +80,17 @@ else
 
     private async Task ProcessLogin()
     {
-        bool userExists = false;
         messageStore.Clear();
         
         await _appState.UpdateExistingUsers(_accountAPI);
 
-        foreach (var user in _appState.ExistingUsers)
-        {
-            if (user.Username.Equals(newAccount.LoginUsername))
-            {
-                userExists = true;
-                break;
-            }
-        }
-
-        if (userExists)
+        if (_appState.Usernames.Contains(newAccount.LoginUsername))
         {
             if (newAccount.LoginPassword != "")
             {
-                var userData = _appState.ExistingUsers.FirstOrDefault(user => user.Username.Equals(newAccount.LoginUsername));
-                if (userData is null || userData.Password_hash is null || userData.Password_salt is null)
-                    throw new Exception("Invalid username request while logging in");
 
-                if (_pw.VerifyPassword(userData.Password_hash, userData.Password_salt, newAccount.LoginPassword))
+                if (await _appState.Login(newAccount, _accountAPI, _localStorage, _passwordHasher))
                 {
-                    await _appState.Login(userData, _localStorage);
                     Navigation.NavigateTo("", true);
                 }
                 else

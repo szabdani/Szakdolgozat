@@ -10,6 +10,8 @@ namespace MauiBlazorWeb.Shared.Interfaces
 		Task<bool> UpdateAccount(Account oldAccount);
 
 		Task<List<Account>> GetAccount(int id);
-		Task<List<Account>> GetAllAccounts();
+		Task<List<Account>> GetAccountByUsername(string username);
+		Task<List<string>> GetAllUsernames();
+		Task<List<string>> GetAllEmails();
 	}
 }

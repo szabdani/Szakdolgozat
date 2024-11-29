@@ -37,10 +37,21 @@ namespace LifeTrackerDatabaseAPI.Services
 			string sql = "Select * from account where Id = @accid;";
 			return await Data.LoadData<Account, dynamic>(sql, new {accid = accountId });
 		}
-		public async Task<List<Account>> GetAllAccounts()
+		public async Task<List<Account>> GetAccountByUsername(string username)
 		{
-			string sql = "Select * from account;";
-			return await Data.LoadData<Account, dynamic>(sql, new {});
+			string sql = "Select * from account where username = @username;";
+			return await Data.LoadData<Account, dynamic>(sql, new { username = username });
+		}
+		public async Task<List<string>> GetAllUsernames()
+		{
+			string sql = "Select username from account;";
+			return await Data.LoadData<string, dynamic>(sql, new {});
+		}
+
+		public async Task<List<string>> GetAllEmails()
+		{
+			string sql = "Select email from account;";
+			return await Data.LoadData<string, dynamic>(sql, new { });
 		}
 	}
 }
