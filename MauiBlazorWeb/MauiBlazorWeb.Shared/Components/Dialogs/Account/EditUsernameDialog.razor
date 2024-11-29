@@ -3,7 +3,7 @@
 @using Models
 
 @inject IAppState _appState
-@inject IAccountManager _accountManager
+@inject IAccountAPIService _accountAPI
 
 <div class="row">
     <div class="col">
@@ -44,7 +44,7 @@
         bool userExists = false;
         messageStore.Clear();
 
-        await _appState.UpdateExistingUsers(_accountManager);
+        await _appState.UpdateExistingUsers(_accountAPI);
 
         foreach (var user in _appState.ExistingUsers)
         {
@@ -62,7 +62,7 @@
                 if (!userExists)
                 {
                     _appState.CurrentUser.Username = newAccount.LoginUsername;
-                    bool isCorrect = await _accountManager.UpdateAccount(_appState.CurrentUser);
+                    bool isCorrect = await _accountAPI.UpdateAccount(_appState.CurrentUser);
                     if (isCorrect)
                         await InvokeAsync(StateHasChanged);
                     else

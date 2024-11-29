@@ -176,7 +176,7 @@
                 {
                     newCol.Account_Id = AppState.CurrentUser.Id;
 
-                    bool isCorrect = await DiaryManager.InsertDiaryCol(newCol);
+                    bool isCorrect = await DiaryAPI.InsertDiaryCol(newCol);
                     if (isCorrect)
                     {
                         newCol = new Diary_log_column();

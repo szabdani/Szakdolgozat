@@ -133,7 +133,7 @@
 
                 
 
-                bool isCorrect = await SportManager.UpdateSport(newSport);
+                bool isCorrect = await SportAPI.UpdateSport(newSport);
                 if (isCorrect)
                 {
                     newSport = new Sport();

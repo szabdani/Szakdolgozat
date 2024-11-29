@@ -5,7 +5,7 @@
 
 @inject ILocalDataStorage _localStorage
 @inject IAppState _appState
-@inject IAccountManager _accountManager
+@inject IAccountAPIService _accountAPI
 @inject IJSRuntime JS
 
 <PageTitle>
@@ -66,7 +66,7 @@
         {
             if (!_appState.IsInitialized)
             {
-                await _appState.Init(_localStorage, _accountManager);
+                await _appState.Init(_localStorage, _accountAPI);
                 await JS.InvokeVoidAsync("location.reload");
             } 
             isLoading = false;

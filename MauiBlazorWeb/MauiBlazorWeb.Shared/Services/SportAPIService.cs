@@ -15,7 +15,7 @@ using Org.BouncyCastle.Asn1;
 
 namespace MauiBlazorWeb.Shared.Services
 {
-	public class SportManager(HttpClient httpClient) : ISportManager
+	public class SportAPIService(HttpClient httpClient) : ISportAPIService
 	{
 		public async Task<bool> InsertSport(Sport newSport)
 		{

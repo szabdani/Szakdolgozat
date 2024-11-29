@@ -76,7 +76,7 @@
 	{
 		sport = ValidateSport(SportId);
 
-		var list = await SportManager.GetAccountDoesSport(AppState.CurrentUser.Id, sport.Id);
+		var list = await SportAPI.GetAccountDoesSport(AppState.CurrentUser.Id, sport.Id);
 		var first = list.FirstOrDefault();
 		if (first != null)
 			accountDoes = first;
@@ -108,7 +108,7 @@
 		if(accountDoes == null)
 			throw new Exception($"Sorry, we could not unfollow {sport.Name}.");
 
-		bool isCorrect = await SportManager.DeleteAccountDoesSport(accountDoes);
+		bool isCorrect = await SportAPI.DeleteAccountDoesSport(accountDoes);
 		if (!isCorrect)
 			throw new Exception($"Sorry, we could not unfollow {sport.Name}.");
 	}
@@ -122,7 +122,7 @@
 	private async Task DeleteSport()
 	{
 		await Unfollow();
-		bool isCorrect = await SportManager.DeleteSport(AppState.CurrentUser.Id,sport);
+		bool isCorrect = await SportAPI.DeleteSport(AppState.CurrentUser.Id,sport);
 		if (!isCorrect)
 			throw new Exception($"Sorry, we could not delete {sport.Name}.");
 	}

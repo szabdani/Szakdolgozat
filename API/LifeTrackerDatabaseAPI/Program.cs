@@ -13,6 +13,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IDataAccess, DataAccess>();
 builder.Services.AddScoped<IDiaryManager, DiaryManager>();
 builder.Services.AddScoped<ISportManager, SportManager>();
+builder.Services.AddScoped<IAccountManager, AccountManager>();
 
 var app = builder.Build();
 

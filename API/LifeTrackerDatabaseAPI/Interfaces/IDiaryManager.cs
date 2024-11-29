@@ -6,16 +6,11 @@ namespace LifeTrackerDatabaseAPI.Intefaces
     {
         Task<bool> DeleteDiaryPost(int id);
         Task<bool> DeleteDiaryCol(int id);
-        Task<bool> DeleteAccount(int id);
-		Task<bool> InsertAccount(Account newAccount);
 		Task<bool> InsertDiaryPost(Diary_log_post newPost);
         Task<bool> InsertDiaryCol(Diary_log_column newCol);
-        Task<bool> UpdateAccount(Account oldAccount);
 		Task<bool> UpdateDiaryPost(Diary_log_post oldPost);
         Task<bool> UpdateDiaryCol(Diary_log_column oldCol);
 
-        Task<List<Account>> GetAccount(int id);
-        Task<List<Account>> GetAllAccounts();
 		Task<List<Diary_log_column>> GetDiaryCols(int accountId, bool isHabit);
         Task<List<Diary_log_post>> GetDiaryPosts(int accountId, bool isHabit);
 		Task<List<Diary_log_post>> GetDiaryColumnsPosts(int columnId);

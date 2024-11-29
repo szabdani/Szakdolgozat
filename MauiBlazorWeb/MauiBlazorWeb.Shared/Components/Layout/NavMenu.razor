@@ -82,11 +82,11 @@
     protected override async Task UpdateTables()
     {
         await base.UpdateTables();
-        accountSports = await SportManager.GetAccountsSports(AppState.CurrentUser.Id);
+        accountSports = await SportAPI.GetAccountsSports(AppState.CurrentUser.Id);
 
         foreach (var sport in accountSports)
         {
-            var list = await SportManager.GetAccountDoesSport(AppState.CurrentUser.Id, sport.Id);
+            var list = await SportAPI.GetAccountDoesSport(AppState.CurrentUser.Id, sport.Id);
             var first = list.FirstOrDefault();
             if (first != null)
                 sportHrefs[sport.Id] = $"sports/id={first.Id}";

@@ -43,9 +43,9 @@
 
 		workout = await ValidateWorkout(WorkoutId);
 		if (workout.Routine_Id is not null)
-			routineExampleWorkout = (await SportManager.GetRoutineExample(workout.Account_does_Sport_Id, (int)workout.Routine_Id)).First();
+			routineExampleWorkout = (await SportAPI.GetRoutineExample(workout.Account_does_Sport_Id, (int)workout.Routine_Id)).First();
 
-		var sets = await SportManager.GetSetsByWorkout(workout.Id);
+		var sets = await SportAPI.GetSetsByWorkout(workout.Id);
 		var exIds = sets.Select(s => s.Exercise_Id).Distinct().ToList();
 
 		exercises = new List<Exercise>();
@@ -53,7 +53,7 @@
 
 		foreach (var id in exIds)
 		{
-			List<Exercise> exList = await SportManager.GetExercise(id);
+			List<Exercise> exList = await SportAPI.GetExercise(id);
 			exercises.Add(exList.First());
 
 			numberOfSets[id] = sets.Where(s => s.Exercise_Id == id).Count();

@@ -7,9 +7,9 @@
 
 @inject IAppState _appState
 @inject ILocalDataStorage _localStorage
-@inject IAccountManager _accountManager
-@inject IDiaryManager _diaryManager
-@inject ISportManager _sportManager
+@inject IAccountAPIService _accountAPI
+@inject IDiaryAPIService _diaryAPI
+@inject ISportAPIService _sportAPI
 @inject NavigationManager Navigation
 
 @if (!_appState.IsLoggedIn)
@@ -50,7 +50,7 @@ else
 			<div class="row">
 				<label class="col">Birthdate:</label>
 				<div class="col">
-					@_appState.CurrentUser.Birthdate.ToString("yyyy-MM-dd")
+					@_appState.CurrentUser.Birthdate.ToString("yyyy. MM. dd.")
 				</div>
 				<div class="col d-flex align-items-center">
 					<button type="button" class="btn btn-primary" @onclick="()=> birthdateEdit.Show()">Edit</button>
@@ -68,7 +68,7 @@ else
 			<div class="row">
 				<label class="col">User since:</label>
 				<div class="col">
-					@_appState.CurrentUser.RegistrationDate.ToString("yyyy-MM-dd")
+					@_appState.CurrentUser.RegistrationDate.ToString("yyyy. MM. dd.")
 				</div>
 				<div class="col d-flex align-items-center">
 					<button type="button" class="btn btn-danger" @onclick="()=> warning.Show()">Delete Account</button>
@@ -133,7 +133,7 @@ else
 
 	private async Task DeleteAccount()
 	{
-		bool isCorrect = await _appState.Delete(_localStorage, _accountManager, _diaryManager, _sportManager);
+		bool isCorrect = await _appState.Delete(_localStorage, _accountAPI, _diaryAPI, _sportAPI);
 
 		if(!isCorrect)
 			throw new Exception($"Sorry, we could not delete your account.");

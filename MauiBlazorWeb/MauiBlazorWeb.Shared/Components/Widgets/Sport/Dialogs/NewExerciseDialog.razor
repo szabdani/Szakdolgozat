@@ -115,7 +115,7 @@
         else
         {
             bool nameUsed = false;
-            var list = await SportManager.GetExercises(AccountDoes.Account_Id, AccountDoes.Sport_Id);
+            var list = await SportAPI.GetExercises(AccountDoes.Account_Id, AccountDoes.Sport_Id);
 
             foreach (var s in list)
             {
@@ -144,7 +144,7 @@
                     newExercise.Status = SportStatus.Private;
                 }
 
-                bool isCorrect = await SportManager.InsertExercise(newExercise);
+                bool isCorrect = await SportAPI.InsertExercise(newExercise);
                 if (isCorrect)
                 {
                     newExercise = new Exercise();

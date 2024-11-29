@@ -60,7 +60,7 @@
             isError = false;
             Sets newSet = new Sets { Exercise_Id = ex.Id, Workout_Id = WorkoutId };
 
-            bool isCorrect = await SportManager.InsertSet(newSet);
+            bool isCorrect = await SportAPI.InsertSet(newSet);
             if (!isCorrect)
                 throw new Exception($"Sorry, we could not insert your Set");
 

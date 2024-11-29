@@ -20,14 +20,14 @@ builder.Services.AddBlazorBootstrap();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 
 // Diary DB accesses
-builder.Services.AddScoped<IDiaryManager, DiaryManager>();
+builder.Services.AddScoped<IDiaryAPIService, DiaryAPIService>();
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7142") });
 
 // Account DB accesses
-builder.Services.AddScoped<IAccountManager, AccountManager>();
+builder.Services.AddScoped<IAccountAPIService, AccountAPIService>();
 
 // Sport DB accesses
-builder.Services.AddScoped<ISportManager, SportManager>();
+builder.Services.AddScoped<ISportAPIService, SportAPIService>();
 
 // For keeping up with the state of the app
 builder.Services.AddSingleton<IAppState, AppState>();

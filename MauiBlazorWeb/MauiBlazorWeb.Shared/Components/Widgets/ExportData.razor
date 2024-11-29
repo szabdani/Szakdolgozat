@@ -7,8 +7,8 @@
 @using System.Text
 
 @inject IAppState _appState
-@inject IDiaryManager _diaryManager
-@inject ISportManager _sportManager
+@inject IDiaryAPIService _diaryAPI
+@inject ISportAPIService _sportAPI
 @inject IJSRuntime JS
 
 <div class="row">
@@ -179,10 +179,10 @@
 	{
 		await base.OnInitializedAsync();
 
-		diaryCols = await _diaryManager.GetDiaryCols(_appState.CurrentUser.Id, false);
-		habits = await _diaryManager.GetDiaryCols(_appState.CurrentUser.Id, true);
-		accountDoesSports = await _sportManager.GetAccountDoesSports(_appState.CurrentUser.Id);
-		sports = await _sportManager.GetAccountsSports(_appState.CurrentUser.Id);
+		diaryCols = await _diaryAPI.GetDiaryCols(_appState.CurrentUser.Id, false);
+		habits = await _diaryAPI.GetDiaryCols(_appState.CurrentUser.Id, true);
+		accountDoesSports = await _sportAPI.GetAccountDoesSports(_appState.CurrentUser.Id);
+		sports = await _sportAPI.GetAccountsSports(_appState.CurrentUser.Id);
 
 		diaryCheckBox = diaryCols.Select(col => new Checkbox { Id = col.Id, IsChecked = false }).ToList();
 		habitCheckBox = habits.Select(col => new Checkbox { Id = col.Id, IsChecked = false }).ToList();
@@ -214,7 +214,7 @@
 			List<Diary_log_post> posts = [];
 			foreach (var box in diaryCheckBox.Where(c => c.IsChecked))
 			{
-				posts.AddRange(await _diaryManager.GetDiaryColumnsPosts(box.Id));
+				posts.AddRange(await _diaryAPI.GetDiaryColumnsPosts(box.Id));
 			}
 
 			var uniqueDates = posts.Select(p => p.Date).Distinct().Order().ToList();
@@ -245,7 +245,7 @@
 			List<Diary_log_post> posts = [];
 			foreach (var box in habitCheckBox.Where(c => c.IsChecked))
 			{
-				posts.AddRange(await _diaryManager.GetDiaryColumnsPosts(box.Id));
+				posts.AddRange(await _diaryAPI.GetDiaryColumnsPosts(box.Id));
 			}
 
 			var uniqueDates = posts.Select(p => p.Date).Distinct().Order().ToList();
@@ -279,12 +279,12 @@
 				string sportName = sports.First(s => s.Id == accountDoes.Sport_Id).Name;
 
 				List<Workout> exampleWorkouts = [];
-				var workouts = await _sportManager.GetWorkouts(box.Id, false);
+				var workouts = await _sportAPI.GetWorkouts(box.Id, false);
 
-				var routines = await _sportManager.GetRoutines(accountDoes.Id);
+				var routines = await _sportAPI.GetRoutines(accountDoes.Id);
 				foreach (var r in routines)
 				{
-					exampleWorkouts.AddRange(await _sportManager.GetRoutineExample(accountDoes.Id, r.Id));
+					exampleWorkouts.AddRange(await _sportAPI.GetRoutineExample(accountDoes.Id, r.Id));
 				}
 
 				var routineExampleDates = exampleWorkouts.Select(e => e.Starttime).Distinct().Order().ToList();
@@ -296,11 +296,11 @@
 					{
 						string done = example.IsDone ? "Yes" : "No";
 
-						var sets = await _sportManager.GetSetsByWorkout(example.Id);
+						var sets = await _sportAPI.GetSetsByWorkout(example.Id);
 						var exerciseIds = sets.Select(s => s.Exercise_Id).Distinct().ToList();
 						foreach (var id in exerciseIds)
 						{
-							var exercise = await _sportManager.GetExercise(id);
+							var exercise = await _sportAPI.GetExercise(id);
 
 							var exerciseSets = sets.Where(s => s.Exercise_Id == id).ToList();
 							int i = 1;
@@ -328,16 +328,16 @@
 						if (work.Routine_Id is not null)
 						{
 							int routineId = (int)work.Routine_Id;
-							var routineExample = (await _sportManager.GetRoutineExample(accountDoes.Id, routineId)).First();
+							var routineExample = (await _sportAPI.GetRoutineExample(accountDoes.Id, routineId)).First();
 							routine = routineExample.Name;
 							description = routineExample.Notes;
 						}
 
-						var sets = await _sportManager.GetSetsByWorkout(work.Id);
+						var sets = await _sportAPI.GetSetsByWorkout(work.Id);
 						var exerciseIds = sets.Select(s => s.Exercise_Id).Distinct().ToList();
 						foreach (var id in exerciseIds)
 						{
-							var exercise = await _sportManager.GetExercise(id);
+							var exercise = await _sportAPI.GetExercise(id);
 
 							var exerciseSets = sets.Where(s => s.Exercise_Id == id).ToList();
 							int i = 1;

@@ -179,7 +179,7 @@
 
 	protected override async Task ValidateParameters()
 	{
-		exercise = (await SportManager.GetExercise(ExerciseId)).First();
+		exercise = (await SportAPI.GetExercise(ExerciseId)).First();
 		workout = await ValidateWorkout(WorkoutId);
 
 		@switch (exercise.Type)
@@ -208,7 +208,7 @@
 	{
 		await base.UpdateTables();
 
-		sets = await SportManager.GetSetsByBoth(ExerciseId, WorkoutId);
+		sets = await SportAPI.GetSetsByBoth(ExerciseId, WorkoutId);
 	}
 
 
@@ -276,7 +276,7 @@
 
 	private async Task UpdateSet(Sets set)
 	{
-		bool isCorrect = await SportManager.UpdateSet(set);
+		bool isCorrect = await SportAPI.UpdateSet(set);
 		if (!isCorrect)
 			throw new Exception($"Sorry, we could not update your Set");
 
@@ -288,7 +288,7 @@
 		if (Disabled)
 			return;
 
-		bool isCorrect = await SportManager.DeleteSet(set);
+		bool isCorrect = await SportAPI.DeleteSet(set);
 		if (!isCorrect)
 			throw new Exception($"Sorry, we could not delete your Set");
 
@@ -299,7 +299,7 @@
 	{
 		Sets newSet = new Sets { Exercise_Id = ExerciseId, Workout_Id = WorkoutId };
 
-		bool isCorrect = await SportManager.InsertSet(newSet);
+		bool isCorrect = await SportAPI.InsertSet(newSet);
 		if (!isCorrect)
 			throw new Exception($"Sorry, we could not insert your Set");
 

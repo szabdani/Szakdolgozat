@@ -125,7 +125,7 @@
             return;
         }
 
-        bool isCorrect = await DiaryManager.DeleteDiaryPost(newPost);
+        bool isCorrect = await DiaryAPI.DeleteDiaryPost(newPost);
         if (isCorrect)
         {
             newPost = new Diary_log_post();
@@ -173,11 +173,11 @@
         bool isCorrect = false;
         if (doesPostNotExist)
         {
-            isCorrect = await DiaryManager.InsertDiaryPost(newPost);
+            isCorrect = await DiaryAPI.InsertDiaryPost(newPost);
         }
         else
         {
-            isCorrect = await DiaryManager.UpdateDiaryPost(newPost);
+            isCorrect = await DiaryAPI.UpdateDiaryPost(newPost);
         }
 
         if (isCorrect)

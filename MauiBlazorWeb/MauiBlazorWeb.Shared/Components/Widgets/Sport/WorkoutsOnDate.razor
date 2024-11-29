@@ -83,7 +83,7 @@
 		accountDoes = ValidateAccountDoesSport(AccountDoesId);
 		sport = ValidateSport(accountDoes.Sport_Id);
 
-		var workouts = await SportManager.GetWorkouts(AccountDoesId, false);
+		var workouts = await SportAPI.GetWorkouts(AccountDoesId, false);
 		var orderedWorkouts = workouts.Where(w => w.Starttime.Date == Date).OrderByDescending(w => w.Starttime).ToList();
 
 		doneWorkouts = orderedWorkouts.Where(w => w.IsDone).ToList();

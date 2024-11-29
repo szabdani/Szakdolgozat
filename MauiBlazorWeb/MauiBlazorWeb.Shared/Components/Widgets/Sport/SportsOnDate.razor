@@ -28,6 +28,6 @@
 	{
 		await base.UpdateTables();
 
-		accountDoesSports = await SportManager.GetAccountDoesSports(AppState.CurrentUser.Id);
+		accountDoesSports = await SportAPI.GetAccountDoesSports(AppState.CurrentUser.Id);
 	}
 }

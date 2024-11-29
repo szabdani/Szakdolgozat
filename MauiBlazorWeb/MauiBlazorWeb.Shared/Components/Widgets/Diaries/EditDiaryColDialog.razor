@@ -112,7 +112,7 @@
             }
             else
             {
-                bool isCorrect = await DiaryManager.UpdateDiaryCol(newCol);
+                bool isCorrect = await DiaryAPI.UpdateDiaryCol(newCol);
                 if (isCorrect)
                 {
                     newCol = new Diary_log_column();

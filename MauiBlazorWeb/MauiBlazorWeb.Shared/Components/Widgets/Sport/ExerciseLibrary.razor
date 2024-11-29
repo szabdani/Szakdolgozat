@@ -127,7 +127,7 @@ else
 	{
 		await base.UpdateTables();
 
-		allExercises = await SportManager.GetExercises(accountDoes.Account_Id, accountDoes.Sport_Id);
+		allExercises = await SportAPI.GetExercises(accountDoes.Account_Id, accountDoes.Sport_Id);
 
 		if (filterType != -1)
 			filteredExercises = allExercises.Where(ex => (int)ex.Type == filterType).ToList();
@@ -163,7 +163,7 @@ else
 
 	private async Task DeleteExercise()
 	{
-		bool isCorrect = await SportManager.DeleteExercise(selectedExercise);
+		bool isCorrect = await SportAPI.DeleteExercise(selectedExercise);
 		if (!isCorrect)
 			throw new Exception($"Sorry, we could not delete {selectedExercise.Name}.");
 

@@ -102,9 +102,9 @@
         {
             bool nameUsed = false;
 
-            var allRoutines = await SportManager.GetRoutines(AccountDoesId);
+            var allRoutines = await SportAPI.GetRoutines(AccountDoesId);
             var routineIds = allRoutines.Select(r => r.Id);
-            var list = await SportManager.GetWorkouts(AccountDoesId, true);
+            var list = await SportAPI.GetWorkouts(AccountDoesId, true);
             var routineExamples = list.Where(w => w.Routine_Id.Equals(routineIds.Any()));
 
             foreach (var s in routineExamples)
@@ -127,25 +127,25 @@
                 newRoutineWorkout.Account_does_Sport_Id = AccountDoesId;
                 newRoutineWorkout.Starttime = DateTime.Now;
 
-                bool isCorrect = await SportManager.InsertWorkout(newRoutineWorkout);
+                bool isCorrect = await SportAPI.InsertWorkout(newRoutineWorkout);
                 if (!isCorrect)
                     throw new Exception($"Sorry, we could not save your Routine example Workout");
 
-                var workouts = await SportManager.GetWorkouts(AccountDoesId, true);
+                var workouts = await SportAPI.GetWorkouts(AccountDoesId, true);
                 var insertedExample = workouts.Last();
 
 
                 newRoutine.ExampleWorkout_Id = insertedExample.Id;
                 newRoutine.Account_does_Sport_Id = AccountDoesId;
 
-                isCorrect = await SportManager.InsertRoutine(newRoutine);
+                isCorrect = await SportAPI.InsertRoutine(newRoutine);
                 if (isCorrect)
                 {
-                    var routines = await SportManager.GetRoutines(AccountDoesId);
+                    var routines = await SportAPI.GetRoutines(AccountDoesId);
                     var insertedRoutine = routines.Last();
 
                     insertedExample.Routine_Id = insertedRoutine.Id;
-                    isCorrect = await SportManager.UpdateWorkout(insertedExample);
+                    isCorrect = await SportAPI.UpdateWorkout(insertedExample);
                     if (!isCorrect)
                         throw new Exception($"Sorry, we could not update your Routine example Workout");
 

@@ -11,7 +11,7 @@ using MauiBlazorWeb.Shared.Models.Diaries;
 
 namespace MauiBlazorWeb.Shared.Services
 {
-    public class DiaryManager(HttpClient httpClient) : IDiaryManager
+    public class DiaryAPIService(HttpClient httpClient) : IDiaryAPIService
     {
 		public async Task<bool> InsertDiaryCol(Diary_log_column newCol)
         {

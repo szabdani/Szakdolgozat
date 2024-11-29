@@ -13,7 +13,7 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 	public class SportCompBase : ObserverComp
 	{
 		[Inject] protected IAppState AppState { get; set; } = default!;
-		[Inject] protected ISportManager SportManager { get; set; } = default!;
+		[Inject] protected ISportAPIService SportAPI { get; set; } = default!;
 		[Inject] protected NavigationManager Navigation { get; set; } = default!;
 
 		protected List<MauiBlazorWeb.Shared.Models.Sports.Sport> allSports = [];
@@ -91,7 +91,7 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 
 			if (WorkoutId != 0)
 			{
-				var list = await SportManager.GetWorkout(WorkoutId);
+				var list = await SportAPI.GetWorkout(WorkoutId);
 				var first = list.FirstOrDefault();
 				if (first == null)
 					hasInvalidParameter = true;
@@ -143,18 +143,18 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 			if (routineId != 0)
 				newWorkout.Routine_Id = routineId;
 
-			bool isCorrect = await SportManager.InsertWorkout(newWorkout);
+			bool isCorrect = await SportAPI.InsertWorkout(newWorkout);
 			if (!isCorrect)
 				throw new Exception($"Sorry, we could not save your Workout");
 
-			var list = await SportManager.GetWorkouts(accountDoesId, false);
+			var list = await SportAPI.GetWorkouts(accountDoesId, false);
 			int insertedId = list.Last().Id;
 
 			Navigation.NavigateTo($"workout/id={insertedId}", true);
 		}
 		private async Task DeletRoutineById(int accountDoesSportId, int routineId)
 		{
-			var list = await SportManager.GetRoutines(accountDoesSportId);
+			var list = await SportAPI.GetRoutines(accountDoesSportId);
 			var first = list.First(r => r.Id == routineId);
 
 			await DeleteRoutine(first);
@@ -162,7 +162,7 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 
 		private async Task DeleteRoutine(Routine routine)
 		{
-			bool isCorrect = await SportManager.DeleteRoutine(routine);
+			bool isCorrect = await SportAPI.DeleteRoutine(routine);
 			if (!isCorrect)
 				throw new Exception($"Sorry, could not delete your Routine");
 
@@ -170,7 +170,7 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 		}
 		private async Task DiscardWorkout(Workout workout)
 		{
-			bool isCorrect = await SportManager.DeleteWorkout(workout);
+			bool isCorrect = await SportAPI.DeleteWorkout(workout);
 			if (!isCorrect)
 				throw new Exception($"Sorry, we could not discard your Workout");
 
@@ -186,8 +186,8 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 		protected override async Task UpdateTables()
 		{
 			await base.UpdateTables();
-			allSports = await SportManager.GetAllSports(AppState.CurrentUser.Id);
-			allAccountDoesSports = await SportManager.GetAccountDoesSports(AppState.CurrentUser.Id);
+			allSports = await SportAPI.GetAllSports(AppState.CurrentUser.Id);
+			allAccountDoesSports = await SportAPI.GetAccountDoesSports(AppState.CurrentUser.Id);
 		}
 
 		protected async Task RefreshSportComps()

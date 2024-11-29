@@ -7,7 +7,7 @@
 @inject NavigationManager Navigation
 @inject IPasswordHasher _pw
 @inject IAppState _appState
-@inject IAccountManager _accountManager
+@inject IAccountAPIService _accountAPI
 @inject ILocalDataStorage _localStorage
 
 @if (_appState.IsLoggedIn)
@@ -83,7 +83,7 @@ else
         bool userExists = false;
         messageStore.Clear();
         
-        await _appState.UpdateExistingUsers(_accountManager);
+        await _appState.UpdateExistingUsers(_accountAPI);
 
         foreach (var user in _appState.ExistingUsers)
         {

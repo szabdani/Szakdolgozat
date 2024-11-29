@@ -12,31 +12,31 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MauiBlazorWeb.Shared.Services
 {
-    public class AccountManager(HttpClient httpClient) : IAccountManager
+    public class AccountAPIService(HttpClient httpClient) : IAccountAPIService
 	{
 		public async Task<bool> InsertAccount(Account newAccount)
 		{
-			var response = await httpClient.PostAsJsonAsync("api/Diary/InsertAccount", newAccount);
+			var response = await httpClient.PostAsJsonAsync("api/Account/InsertAccount", newAccount);
 			return response.IsSuccessStatusCode;
 		}
 		public async Task<bool> UpdateAccount(Account oldAccount)
 		{
-			var response = await httpClient.PutAsJsonAsync("api/Diary/UpdateAccount", oldAccount);
+			var response = await httpClient.PutAsJsonAsync("api/Account/UpdateAccount", oldAccount);
 			return response.IsSuccessStatusCode;
 		}
 		public async Task<bool> DeleteAccount(Account oldAccount)
 		{
-			var response = await httpClient.DeleteAsync($"api/Diary/DeleteAccount/{oldAccount.Id}");
+			var response = await httpClient.DeleteAsync($"api/Account/DeleteAccount/{oldAccount.Id}");
 			return response.IsSuccessStatusCode;
 		}
 		public async Task<List<Account>> GetAccount(int accountId)
 		{
-			var response = await httpClient.GetAsync($"api/Diary/GetAccount?accountId={accountId}");
+			var response = await httpClient.GetAsync($"api/Account/GetAccount?accountId={accountId}");
 			return await response.Content.ReadFromJsonAsync<List<Account>>() ?? [];
 		}
 		public async Task<List<Account>> GetAllAccounts()
 		{
-			var response = await httpClient.GetAsync($"api/Diary/GetAllAccounts");
+			var response = await httpClient.GetAsync($"api/Account/GetAllAccounts");
 			return await response.Content.ReadFromJsonAsync<List<Account>>() ?? [];
 		}
 	}

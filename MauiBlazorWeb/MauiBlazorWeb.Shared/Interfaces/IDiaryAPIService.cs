@@ -2,7 +2,7 @@
 
 namespace MauiBlazorWeb.Shared.Interfaces
 {
-    public interface IDiaryManager
+    public interface IDiaryAPIService
     {
         Task<bool> DeleteDiaryPost(Diary_log_post oldPost);
         Task<bool> DeleteDiaryCol(Diary_log_column oldCol);

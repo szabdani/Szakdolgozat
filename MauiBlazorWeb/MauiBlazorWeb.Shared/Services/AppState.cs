@@ -27,18 +27,18 @@ namespace MauiBlazorWeb.Shared.Services
 		public Account CurrentUser { get; set; } = new();
 		public List<Account> ExistingUsers { get; set; } = [];
 
-		public async Task UpdateExistingUsers(IAccountManager accountManager)
+		public async Task UpdateExistingUsers(IAccountAPIService accountAPI)
         {
-            ExistingUsers = await accountManager.GetAllAccounts();
+            ExistingUsers = await accountAPI.GetAllAccounts();
         }
 
-        public async Task Init(ILocalDataStorage localStorage, IAccountManager accountManager)
+        public async Task Init(ILocalDataStorage localStorage, IAccountAPIService accountAPI)
         {
             isInitialized = true;
             int id = await localStorage.GetItemAsync("id");
             if (id != 0)
             {
-                var results = await accountManager.GetAccount(id);
+                var results = await accountAPI.GetAccount(id);
                 if (results.Count == 1)
                 {
                     CurrentUser = results[0];
@@ -47,10 +47,10 @@ namespace MauiBlazorWeb.Shared.Services
                 else
                     throw new Exception("Account not found in database");
             }
-            await UpdateExistingUsers(accountManager);
+            await UpdateExistingUsers(accountAPI);
         }
 
-        public async Task<bool> Register(LoginRegUser newAccount, IAccountManager accountManager, IPasswordHasher passwordHasher)
+        public async Task<bool> Register(LoginRegUser newAccount, IAccountAPIService accountAPI, IPasswordHasher passwordHasher)
         {
             byte[] pw_salt = passwordHasher.GenerateSalt();
             byte[] pw_hash = passwordHasher.Hash(newAccount.Password1, pw_salt);
@@ -65,8 +65,8 @@ namespace MauiBlazorWeb.Shared.Services
                 RegistrationDate = DateTime.Now
             };
 
-            bool retVal = await accountManager.InsertAccount(insert);
-            await UpdateExistingUsers(accountManager);
+            bool retVal = await accountAPI.InsertAccount(insert);
+            await UpdateExistingUsers(accountAPI);
             return retVal;
         }
 
@@ -84,34 +84,34 @@ namespace MauiBlazorWeb.Shared.Services
             await localStorage.RemoveItemAsync("id");
         }
 
-        public async Task<bool> Delete(ILocalDataStorage localStorage, IAccountManager accountManager, IDiaryManager diaryManager, ISportManager sportManager)
+        public async Task<bool> Delete(ILocalDataStorage localStorage, IAccountAPIService accountAPI, IDiaryAPIService diaryAPI, ISportAPIService sportAPI)
         {
             bool isCorrect = true;
 
-			var cols = await diaryManager.GetDiaryCols(CurrentUser.Id, true);
-            cols.AddRange(await diaryManager.GetDiaryCols(CurrentUser.Id, false));
+			var cols = await diaryAPI.GetDiaryCols(CurrentUser.Id, true);
+            cols.AddRange(await diaryAPI.GetDiaryCols(CurrentUser.Id, false));
 
             foreach (var col in cols)
             {
-                isCorrect = await diaryManager.DeleteDiaryCol(col);
+                isCorrect = await diaryAPI.DeleteDiaryCol(col);
                 if (!isCorrect)
                     return false;
             }
 
-            var accountDoesSports = await sportManager.GetAccountDoesSports(CurrentUser.Id);
+            var accountDoesSports = await sportAPI.GetAccountDoesSports(CurrentUser.Id);
             foreach (var accountDoesSport in accountDoesSports)
             {
-				isCorrect = await sportManager.DeleteAccountDoesSport(accountDoesSport);
+				isCorrect = await sportAPI.DeleteAccountDoesSport(accountDoesSport);
 				if (!isCorrect)
 					return false;
 			}
 
-            isCorrect = await accountManager.DeleteAccount(CurrentUser);
+            isCorrect = await accountAPI.DeleteAccount(CurrentUser);
 
             if (!isCorrect)
                 return false;
 
-			await UpdateExistingUsers(accountManager);
+			await UpdateExistingUsers(accountAPI);
 			await Logout(localStorage);
 
             return true;

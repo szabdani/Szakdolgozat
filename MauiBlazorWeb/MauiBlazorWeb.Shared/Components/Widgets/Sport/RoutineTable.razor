@@ -83,10 +83,10 @@ else
 	{
 		await base.UpdateTables();
 
-		routines = await SportManager.GetRoutines(AccountDoesId);
+		routines = await SportAPI.GetRoutines(AccountDoesId);
 		foreach (var r in routines)
 		{
-			exampleWorkoutsOfRoutines[r.Id] = (await SportManager.GetRoutineExample(AccountDoesId, r.Id)).First();
+			exampleWorkoutsOfRoutines[r.Id] = (await SportAPI.GetRoutineExample(AccountDoesId, r.Id)).First();
 		}
 	}
 
@@ -102,7 +102,7 @@ else
 
 	private async Task EditRoutine(int routineId)
 	{
-		Workout exampleWorkout = (await SportManager.GetRoutineExample(AccountDoesId, routineId)).First();
+		Workout exampleWorkout = (await SportAPI.GetRoutineExample(AccountDoesId, routineId)).First();
 		Navigation.NavigateTo($"workout/id={exampleWorkout.Id}", true);
 	}
 

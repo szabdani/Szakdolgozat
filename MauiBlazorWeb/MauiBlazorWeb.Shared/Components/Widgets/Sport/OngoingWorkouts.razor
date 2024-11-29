@@ -72,7 +72,7 @@
 		{
 			sportNames[aSports.Id] = allSports.Where(s => s.Id == aSports.Sport_Id).Select(s => s.Name).First();
 
-			var list = await SportManager.GetWorkouts(aSports.Id, false);
+			var list = await SportAPI.GetWorkouts(aSports.Id, false);
 			workouts.AddRange(list.Where(w => !w.IsDone));
 		}
 	}

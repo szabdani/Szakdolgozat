@@ -309,16 +309,16 @@ else
 
 			if (workout.Routine_Id is not null)
 			{
-				var workoutSets = await SportManager.GetSetsByWorkout(workout.Id);
-				routineExampleWorkout = (await SportManager.GetRoutineExample(workout.Account_does_Sport_Id, (int)workout.Routine_Id)).First();
+				var workoutSets = await SportAPI.GetSetsByWorkout(workout.Id);
+				routineExampleWorkout = (await SportAPI.GetRoutineExample(workout.Account_does_Sport_Id, (int)workout.Routine_Id)).First();
 
 				if (workoutSets.Count == 0)
 				{
-					var exampleSets = await SportManager.GetSetsByWorkout(routineExampleWorkout.Id);
+					var exampleSets = await SportAPI.GetSetsByWorkout(routineExampleWorkout.Id);
 					foreach (var set in exampleSets)
 					{
 						set.Workout_Id = workout.Id;
-						bool isCorrect = await SportManager.InsertSet(set);
+						bool isCorrect = await SportAPI.InsertSet(set);
 						if (!isCorrect)
 							throw new Exception($"Sorry, we could not insert Set");
 					}
@@ -347,7 +347,7 @@ else
 	{
 		await base.UpdateTables();
 
-		sets = await SportManager.GetSetsByWorkout(workout.Id);
+		sets = await SportAPI.GetSetsByWorkout(workout.Id);
 		var exIds = sets.Select(s => s.Exercise_Id).Distinct().ToList();
 
 		if (exIds.Count != 0)
@@ -356,7 +356,7 @@ else
 			{
 				foreach (var id in exIds)
 				{
-					List<Exercise> exList = await SportManager.GetExercise(id);
+					List<Exercise> exList = await SportAPI.GetExercise(id);
 					Exercise ex = exList.First();
 					if (!exercises.Select(e => e.Id).ToList().Contains(ex.Id))
 					{
@@ -369,7 +369,7 @@ else
 				exercises = new List<Exercise>();
 				foreach (var id in exIds)
 				{
-					List<Exercise> exList = await SportManager.GetExercise(id);
+					List<Exercise> exList = await SportAPI.GetExercise(id);
 					Exercise ex = exList.First();
 					exercises.Add(ex);
 				}
@@ -379,11 +379,11 @@ else
 		int workoutIndex = 1;
 		foreach (var ex in exercises)
 		{
-			var exSets = await SportManager.GetSetsByBoth(ex.Id, workout.Id);
+			var exSets = await SportAPI.GetSetsByBoth(ex.Id, workout.Id);
 			foreach(var set in exSets)
 			{
 				set.Workoutindex = workoutIndex++;
-				bool isCorrect = await SportManager.UpdateSet(set);
+				bool isCorrect = await SportAPI.UpdateSet(set);
 				if (!isCorrect)
 					throw new Exception($"Sorry, we could not update index of Set");
 			}
@@ -415,7 +415,7 @@ else
 				timer?.Dispose();
 				workout.Duration = clock;
 
-				bool isCorrect = await SportManager.UpdateWorkout(workout);
+				bool isCorrect = await SportAPI.UpdateWorkout(workout);
 				if (!isCorrect)
 					throw new Exception($"Sorry, we could not save your Workout");
 			}).ConfigureAwait(false);
@@ -502,7 +502,7 @@ else
 
 	private async Task UpdateWorkout()
 	{
-		bool isCorrect = await SportManager.UpdateWorkout(workout);
+		bool isCorrect = await SportAPI.UpdateWorkout(workout);
 		if (!isCorrect)
 			throw new Exception($"Sorry, we could not update your Workout");
 	}

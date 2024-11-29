@@ -22,7 +22,7 @@
 	protected override async Task UpdateTables()
 	{
 		await base.UpdateTables();
-		var list = await SportManager.GetWorkouts(accountDoesSport.Id, false);
+		var list = await SportAPI.GetWorkouts(accountDoesSport.Id, false);
 
 		uniqueDates = list.Select(obj => obj.Starttime).Distinct().ToList();
 	}

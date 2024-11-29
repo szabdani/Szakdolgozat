@@ -137,7 +137,7 @@
 	protected override async Task UpdateTables()
 	{
 		await base.UpdateTables();
-		exercise = (await SportManager.GetExercise(ExerciseId)).First();
+		exercise = (await SportAPI.GetExercise(ExerciseId)).First();
 
 		var orderedWorkouts = Workouts.OrderByDescending(w => w.Starttime).ToList();
 

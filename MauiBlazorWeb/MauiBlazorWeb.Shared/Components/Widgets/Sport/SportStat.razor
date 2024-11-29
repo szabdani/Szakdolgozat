@@ -154,7 +154,7 @@
 		filteredDays = allDatesSinceReg.Where(d => TimeFilter.FilterByTimePeriod(d, DateTime.Today, timeSpan)).ToList();
 		dayCountByFilter = filteredDays.Count();
 
-		var workouts = await SportManager.GetWorkouts(AccountDoesId, false);
+		var workouts = await SportAPI.GetWorkouts(AccountDoesId, false);
 		filteredWorkouts = workouts.Where(w => TimeFilter.FilterByTimePeriod(w.Starttime, DateTime.Today, timeSpan)).ToList();
 		uniqueDates = filteredWorkouts.Select(w => w.Starttime.Date).Distinct().ToList();
 		numberOfWorkouts = filteredWorkouts.Count();

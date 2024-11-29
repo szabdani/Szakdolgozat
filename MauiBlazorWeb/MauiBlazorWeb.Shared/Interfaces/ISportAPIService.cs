@@ -2,7 +2,7 @@
 
 namespace MauiBlazorWeb.Shared.Interfaces
 {
-	public interface ISportManager
+	public interface ISportAPIService
 	{
 		Task<bool> DeleteAccountDoesSport(Account_does_Sport oldSport);
 		Task<bool> DeleteExercise(Exercise oldExercise);

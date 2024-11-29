@@ -124,7 +124,7 @@
 
 	private async Task DeleteCol(Diary_log_column col)
 	{
-		bool isCorrect = await DiaryManager.DeleteDiaryCol(col);
+		bool isCorrect = await DiaryAPI.DeleteDiaryCol(col);
 		if (!isCorrect)
 			throw new Exception($"Sorry, we could not delete {col.Name}");
 		await RefreshDiaryComps();

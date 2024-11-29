@@ -49,7 +49,7 @@
 
     protected override async Task ValidateParameters()
     {
-        var list = await SportManager.GetAccountDoesSport(AppState.CurrentUser.Id, exercise.Sport_Id);
+        var list = await SportAPI.GetAccountDoesSport(AppState.CurrentUser.Id, exercise.Sport_Id);
         var first = list.FirstOrDefault();
         if (first != null)
             accountDoes = first;
@@ -74,14 +74,14 @@
     {
         await base.UpdateTables();
 
-        var allSets = await SportManager.GetSetsByExercise(exercise.Id);
+        var allSets = await SportAPI.GetSetsByExercise(exercise.Id);
         sets = allSets.Where(s => s.IsDone).ToList();
         var workoutIds = sets.Select(s => s.Workout_Id).Distinct();
 
         workouts = [];
         foreach (var workoutId in workoutIds)
         {
-            workouts.AddRange(await SportManager.GetWorkout(workoutId));
+            workouts.AddRange(await SportAPI.GetWorkout(workoutId));
         }
     }
 }

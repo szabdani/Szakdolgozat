@@ -3,7 +3,7 @@
 @using Models
 
 @inject IAppState _appState
-@inject IAccountManager _accountManager
+@inject IAccountAPIService _accountAPI
 
 <div class="row">
     <div class="col">
@@ -44,7 +44,7 @@
     private async Task Enter()
     {
         _appState.CurrentUser.Gender = newAccount.Gender;
-        bool isCorrect = await _accountManager.UpdateAccount(_appState.CurrentUser);
+        bool isCorrect = await _accountAPI.UpdateAccount(_appState.CurrentUser);
         if (isCorrect)
             await InvokeAsync(StateHasChanged);
         else

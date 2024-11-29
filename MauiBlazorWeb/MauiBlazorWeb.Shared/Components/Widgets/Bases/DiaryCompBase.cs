@@ -14,7 +14,7 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 	public class DiaryCompBase : ObserverComp
 	{
 		[Inject] protected IAppState AppState { get; set; } = default!;
-		[Inject] protected IDiaryManager DiaryManager { get; set; } = default!;
+		[Inject] protected IDiaryAPIService DiaryAPI { get; set; } = default!;
 		[Parameter] public bool IsHabit { get; set; }
 
 		protected List<Diary_log_column> allCols = [];
@@ -44,25 +44,25 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 		protected override async Task UpdateTables()
 		{
 			await base.UpdateTables();
-			allCols = await DiaryManager.GetDiaryCols(AppState.CurrentUser.Id, IsHabit);
-			allPosts = await DiaryManager.GetDiaryPosts(AppState.CurrentUser.Id, IsHabit);
+			allCols = await DiaryAPI.GetDiaryCols(AppState.CurrentUser.Id, IsHabit);
+			allPosts = await DiaryAPI.GetDiaryPosts(AppState.CurrentUser.Id, IsHabit);
 		}
 
 		private async Task ToggleHabitValue(int colId, DateTime day)
 		{
 			bool isCorrect = true;
 
-			var posts = await DiaryManager.GetDiaryColumnsPosts(colId);
+			var posts = await DiaryAPI.GetDiaryColumnsPosts(colId);
 			var post = posts.FirstOrDefault(p => p.Date == day);
 			if (post == null)
 			{
 				post = new Diary_log_post { Date = day, Value = "X", Diary_log_column_Id = colId };
-				isCorrect = await DiaryManager.InsertDiaryPost(post);
+				isCorrect = await DiaryAPI.InsertDiaryPost(post);
 			}
 			else
 			{
 				post.Value = post.Value == "X" ? "" : "X";
-				isCorrect = await DiaryManager.UpdateDiaryPost(post);
+				isCorrect = await DiaryAPI.UpdateDiaryPost(post);
 			}
 
 			if (!isCorrect)
