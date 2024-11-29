@@ -12,6 +12,41 @@ namespace LifeTrackerDatabaseAPI.Controllers
 	{
 		private readonly IDiaryManager _diaryManager = diaryManager;
 
+		[HttpPost("InsertAccount")]
+		public async Task<IActionResult> InsertAccount(Account newAccount)
+		{
+			var isCorrect = await _diaryManager.InsertAccount(newAccount);
+			return isCorrect ? Ok() : StatusCode(500, "Failed to insert Account");
+		}
+
+		[HttpPut("UpdateAccount")]
+		public async Task<IActionResult> UpdateAccount(Account oldAccount)
+		{
+			var isCorrect = await _diaryManager.UpdateAccount(oldAccount);
+			return isCorrect ? Ok() : StatusCode(500, "Failed to update Account");
+		}
+
+		[HttpDelete("DeleteAccount/{id}")]
+		public async Task<IActionResult> DeleteAccount(int id)
+		{
+			var isCorrect = await _diaryManager.DeleteAccount(id);
+			return isCorrect ? Ok() : StatusCode(500, "Failed to delete Account");
+		}
+
+		[HttpGet("GetAccount")]
+		public async Task<IActionResult> GetAccount(int accountId)
+		{
+			var acc = await _diaryManager.GetAccount(accountId);
+			return Ok(acc);
+		}
+
+		[HttpGet("GetAllAccounts")]
+		public async Task<IActionResult> GetAllAccounts()
+		{
+			var accs = await _diaryManager.GetAllAccounts();
+			return Ok(accs);
+		}
+
 		[HttpPost("InsertDiaryCol")]
 		public async Task<IActionResult> InsertDiaryCol(Diary_log_column newCol)
 		{

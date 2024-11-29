@@ -19,6 +19,10 @@ select * from Diary_log_post;
 
 -- update account set registrationdate = '2024-09-10' where id = 2;
 
+-- Select All --
+select * from account;
+select * from Diary_log_column;
+select * from Diary_log_post;
 select * from account_does_sport;
 select * from sport;
 select * from exercise;

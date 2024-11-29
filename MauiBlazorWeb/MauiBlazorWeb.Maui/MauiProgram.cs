@@ -25,9 +25,6 @@ namespace MauiBlazorWeb.Maui
             // Session data
 			builder.Services.AddScoped<ILocalDataStorage, AndroidLocalStorage>();
 
-			// For Db services
-			builder.Services.AddSingleton<IDataAccess, DataAccess>();
-
             // For keeping up with the state of the app
             builder.Services.AddSingleton<IAppState, AppState>();
 
@@ -39,7 +36,11 @@ namespace MauiBlazorWeb.Maui
 
             // Diary DB accesses
             builder.Services.AddScoped<IDiaryManager, DiaryManager>();
-			builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("192.168.25.230:7142") });
+			builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://192.168.25.230:7142/") });
+			
+            // Account DB accesses
+			builder.Services.AddScoped<IAccountManager, AccountManager>();
+
 			// Sport DB accesses
 			builder.Services.AddScoped<ISportManager, SportManager>();
 

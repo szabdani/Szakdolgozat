@@ -7,6 +7,9 @@
 
 @inject IAppState _appState
 @inject ILocalDataStorage _localStorage
+@inject IAccountManager _accountManager
+@inject IDiaryManager _diaryManager
+@inject ISportManager _sportManager
 @inject NavigationManager Navigation
 
 @if (!_appState.IsLoggedIn)
@@ -130,7 +133,7 @@ else
 
 	private async Task DeleteAccount()
 	{
-		bool isCorrect = await _appState.Delete(_localStorage);
+		bool isCorrect = await _appState.Delete(_localStorage, _accountManager, _diaryManager, _sportManager);
 
 		if(!isCorrect)
 			throw new Exception($"Sorry, we could not delete your account.");

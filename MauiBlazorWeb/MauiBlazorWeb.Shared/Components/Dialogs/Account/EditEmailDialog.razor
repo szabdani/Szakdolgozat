@@ -1,8 +1,9 @@
 ﻿@inherits EditAccountDialog
 @using Interfaces
 @using Models
+
 @inject IAppState _appState
-@inject IDataAccess _data
+@inject IAccountManager _accountManager
 
 <div class="row">
     <div class="col">
@@ -43,7 +44,7 @@
         bool emailExists = false;
         messageStore.Clear();
 
-        await _appState.UpdateExistingUsers();
+        await _appState.UpdateExistingUsers(_accountManager);
 
         foreach (var user in _appState.ExistingUsers)
         {
@@ -60,16 +61,12 @@
             {
                 if (!emailExists)
                 {
-                    string sql = "Update account set email = @name where id = @userid;";
-                    int affectedRows = await _data.SaveData(sql, new { @name = newAccount.Email, @userid = _appState.CurrentUser.Id });
-
-                    if (affectedRows == 1)
-                    {
-                        _appState.CurrentUser.Email = newAccount.Email;
+                    _appState.CurrentUser.Email = newAccount.Email;
+                    bool isCorrect = await _accountManager.UpdateAccount(_appState.CurrentUser);
+                    if (isCorrect)
                         await InvokeAsync(StateHasChanged);
-                    }
                     else
-                        throw new Exception("Error editing email adress.");
+                        throw new Exception("Error editing email address.");
                 }
                 else
                 {

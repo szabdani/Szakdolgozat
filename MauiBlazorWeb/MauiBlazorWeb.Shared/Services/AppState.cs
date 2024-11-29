@@ -14,13 +14,8 @@ using Microsoft.AspNetCore.Components;
 
 namespace MauiBlazorWeb.Shared.Services
 {
-    public class AppState(IDataAccess data) : IAppState
-    {
-		[Inject] public required IDataAccess Data { get; set; } = data;
-		[Inject] public required IPasswordHasher Pw { get; set; }
-		[Inject] public required IDiaryManager DiaryManager { get; set; }
-		[Inject] public required ISportManager SportManager { get; set; }
-
+    public class AppState() : IAppState
+    {	
 		public string? Title { get; set; }
         private bool isInitialized = false;
         private bool isLoggedIn = false;
@@ -32,20 +27,18 @@ namespace MauiBlazorWeb.Shared.Services
 		public Account CurrentUser { get; set; } = new();
 		public List<Account> ExistingUsers { get; set; } = [];
 
-		public async Task UpdateExistingUsers()
+		public async Task UpdateExistingUsers(IAccountManager accountManager)
         {
-            string sql = "Select * from account";
-            ExistingUsers = await Data.LoadData<Account, dynamic>(sql, new { });
+            ExistingUsers = await accountManager.GetAllAccounts();
         }
 
-        public async Task Init(ILocalDataStorage localStorage)
+        public async Task Init(ILocalDataStorage localStorage, IAccountManager accountManager)
         {
             isInitialized = true;
             int id = await localStorage.GetItemAsync("id");
             if (id != 0)
             {
-                string sql = "Select * from account where Id = @accountid;";
-                var results = await Data.LoadData<Account, dynamic>(sql, new {accountid = id });
+                var results = await accountManager.GetAccount(id);
                 if (results.Count == 1)
                 {
                     CurrentUser = results[0];
@@ -54,34 +47,27 @@ namespace MauiBlazorWeb.Shared.Services
                 else
                     throw new Exception("Account not found in database");
             }
-            await UpdateExistingUsers();
+            await UpdateExistingUsers(accountManager);
         }
 
-        public async Task<bool> Register(LoginRegUser newAccount)
+        public async Task<bool> Register(LoginRegUser newAccount, IAccountManager accountManager, IPasswordHasher passwordHasher)
         {
-            byte[] pw_salt = Pw.GenerateSalt();
-            byte[] pw_hash = Pw.Hash(newAccount.Password1, pw_salt);
+            byte[] pw_salt = passwordHasher.GenerateSalt();
+            byte[] pw_hash = passwordHasher.Hash(newAccount.Password1, pw_salt);
 
-            int affectedRows;
-            string date = newAccount.Birthdate.ToString("yyyy-MM-dd");
-            string rDate = DateTime.Now.ToString("yyyy-MM-dd");
-            string gen = newAccount.Gender.ToString();
-            string sql = "Insert into account (username, email, password_hash, password_salt, birthdate, gender, registrationdate) values (@username, @email, @pw_h, @pw_s, @birthdate, @gender, @regdate);";
+            Account insert = new Account{ 
+                Username = newAccount.Username,
+                Email = newAccount.Email,
+                Password_hash = pw_hash,
+                Password_salt = pw_salt,
+                Birthdate = newAccount.Birthdate,
+                Gender = newAccount.Gender,
+                RegistrationDate = DateTime.Now
+            };
 
-            affectedRows = await Data.SaveData(sql, new
-            {
-                username = newAccount.Username,
-                email = newAccount.Email,
-                pw_h = pw_hash,
-                pw_s = pw_salt,
-                birthdate = date,
-                gender = gen,
-                regdate = rDate
-            }
-            );
-
-            await UpdateExistingUsers();
-            return affectedRows != 0;
+            bool retVal = await accountManager.InsertAccount(insert);
+            await UpdateExistingUsers(accountManager);
+            return retVal;
         }
 
         public async Task Login(Account userData, ILocalDataStorage localStorage)
@@ -98,39 +84,42 @@ namespace MauiBlazorWeb.Shared.Services
             await localStorage.RemoveItemAsync("id");
         }
 
-        public async Task<bool> Delete(ILocalDataStorage localStorage)
+        public async Task<bool> Delete(ILocalDataStorage localStorage, IAccountManager accountManager, IDiaryManager diaryManager, ISportManager sportManager)
         {
-            var cols = await DiaryManager.GetDiaryCols(CurrentUser.Id, true);
-            cols.AddRange(await DiaryManager.GetDiaryCols(CurrentUser.Id, false));
+            bool isCorrect = true;
+
+			var cols = await diaryManager.GetDiaryCols(CurrentUser.Id, true);
+            cols.AddRange(await diaryManager.GetDiaryCols(CurrentUser.Id, false));
 
             foreach (var col in cols)
             {
-                bool isCorrect = await DiaryManager.DeleteDiaryCol(col);
+                isCorrect = await diaryManager.DeleteDiaryCol(col);
                 if (!isCorrect)
                     return false;
             }
 
-            var accountDoesSports = await SportManager.GetAccountDoesSports(CurrentUser.Id);
+            var accountDoesSports = await sportManager.GetAccountDoesSports(CurrentUser.Id);
             foreach (var accountDoesSport in accountDoesSports)
             {
-				bool isCorrect = await SportManager.DeleteAccountDoesSport(accountDoesSport);
+				isCorrect = await sportManager.DeleteAccountDoesSport(accountDoesSport);
 				if (!isCorrect)
 					return false;
 			}
 
-            string sql = "Delete from account where id = @accid;";
-            int affectedRows = await Data.SaveData(sql, new { accid = CurrentUser.Id });
-            if (affectedRows == 0)
+            isCorrect = await accountManager.DeleteAccount(CurrentUser);
+
+            if (!isCorrect)
                 return false;
 
-            await Logout(localStorage);
+			await UpdateExistingUsers(accountManager);
+			await Logout(localStorage);
 
             return true;
         }
 
         public async Task ShowLoadingScreenWhileAwaiting(Func<Task>? action)
         {
-            // await MainLayout.SetLoadingScreen(true);
+            await MainLayout.SetLoadingScreen(true);
 
             try
             {
@@ -139,7 +128,7 @@ namespace MauiBlazorWeb.Shared.Services
             }
             finally
             {
-               // await MainLayout.SetLoadingScreen(false);
+                await MainLayout.SetLoadingScreen(false);
             }
         }
     }

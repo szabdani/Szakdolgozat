@@ -7,6 +7,8 @@
 
 @inject NavigationManager Navigation
 @inject IAppState _appState
+@inject IAccountManager _acountManager 
+@inject IPasswordHasher _passwordHasher
 @implements IDisposable
 
 @if (_appState.IsLoggedIn)
@@ -169,7 +171,7 @@ else
 
     private async Task RegisterAccount()
     {
-        bool success = await _appState.Register(newAccount);
+        bool success = await _appState.Register(newAccount, _acountManager, _passwordHasher);
         if (success)
         {
             dialog.Show();

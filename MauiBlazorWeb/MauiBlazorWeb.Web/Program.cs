@@ -10,9 +10,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-// For Db services
-builder.Services.AddSingleton<IDataAccess, DataAccess>();
-
 // Session data
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddScoped<ILocalDataStorage, PCLocalStorage>();
@@ -25,6 +22,10 @@ builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 // Diary DB accesses
 builder.Services.AddScoped<IDiaryManager, DiaryManager>();
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7142") });
+
+// Account DB accesses
+builder.Services.AddScoped<IAccountManager, AccountManager>();
+
 // Sport DB accesses
 builder.Services.AddScoped<ISportManager, SportManager>();
 

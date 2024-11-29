@@ -3,7 +3,7 @@
 @using Models
 
 @inject IAppState _appState
-@inject IDataAccess _data
+@inject IAccountManager _accountManager
 
 <div class="row">
     <div class="col">
@@ -43,14 +43,11 @@
 
     private async Task Enter()
     {
-        string sql = "Update account set gender = @name where id = @userid;";
-        int affectedRows = await _data.SaveData(sql, new { @name = newAccount.Gender.ToString(), @userid = _appState.CurrentUser.Id });
-        if (affectedRows == 1)
-        {
-            _appState.CurrentUser.Gender = newAccount.Gender;
+        _appState.CurrentUser.Gender = newAccount.Gender;
+        bool isCorrect = await _accountManager.UpdateAccount(_appState.CurrentUser);
+        if (isCorrect)
             await InvokeAsync(StateHasChanged);
-        }
         else
-            throw new Exception("Error editing username.");
+            throw new Exception("Error editing gender.");
     }
 }

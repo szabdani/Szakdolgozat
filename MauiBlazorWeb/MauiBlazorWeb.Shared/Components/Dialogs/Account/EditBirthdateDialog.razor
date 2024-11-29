@@ -3,7 +3,7 @@
 @using Models
 
 @inject IAppState _appState
-@inject IDataAccess _data
+@inject IAccountManager _accountManager
 
 <div class="row">
     <div class="col">
@@ -38,14 +38,11 @@
 
     private async Task Enter()
     {
-        string sql = "Update account set birthdate = @name where id = @userid;";
-        int affectedRows = await _data.SaveData(sql, new { @name = newAccount.Birthdate, @userid = _appState.CurrentUser.Id });
-        if (affectedRows == 1)
-        {
-            _appState.CurrentUser.Birthdate = newAccount.Birthdate;
+        _appState.CurrentUser.Birthdate = newAccount.Birthdate;
+        bool isCorrect = await _accountManager.UpdateAccount(_appState.CurrentUser);
+        if (isCorrect)
             await InvokeAsync(StateHasChanged);
-        }
         else
-            throw new Exception("Error editing Birthdate.");
+            throw new Exception("Error editing birthdate.");
     }
 }

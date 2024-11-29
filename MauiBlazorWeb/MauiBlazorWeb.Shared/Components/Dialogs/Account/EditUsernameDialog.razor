@@ -1,8 +1,9 @@
 ﻿@inherits EditAccountDialog
 @using Interfaces
 @using Models
+
 @inject IAppState _appState
-@inject IDataAccess _data
+@inject IAccountManager _accountManager
 
 <div class="row">
     <div class="col">
@@ -43,7 +44,7 @@
         bool userExists = false;
         messageStore.Clear();
 
-        await _appState.UpdateExistingUsers();
+        await _appState.UpdateExistingUsers(_accountManager);
 
         foreach (var user in _appState.ExistingUsers)
         {
@@ -60,15 +61,10 @@
             {
                 if (!userExists)
                 {
-                    string sql = "Update account set username = @name where id = @userid;";
-                    int affectedRows = await _data.SaveData(sql, new { @name = newAccount.LoginUsername, @userid = _appState.CurrentUser.Id });
-
-                    if (affectedRows == 1)
-                    {
-                        _appState.CurrentUser.Username = newAccount.LoginUsername;
+                    _appState.CurrentUser.Username = newAccount.LoginUsername;
+                    bool isCorrect = await _accountManager.UpdateAccount(_appState.CurrentUser);
+                    if (isCorrect)
                         await InvokeAsync(StateHasChanged);
-                    }
-                    
                     else
                         throw new Exception("Error editing username.");
                 }
