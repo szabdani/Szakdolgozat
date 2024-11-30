@@ -57,23 +57,39 @@ else
 	[Parameter]
 	public required int AccountDoesId { get; set; }
 	private Account_does_Sport accountDoesSport = new();
-	private Sport sport = new();
+	private string title = "";
+	private bool isInitialized = false;
 
 	private NewRoutineDialog? newRoutineDialog;
 
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		await base.OnAfterRenderAsync(firstRender);
+		if (firstRender)
+		{
+			if (!hasInvalidParameter)
+			{
+				await InvokeAsync(() => AppState.Title = title);
+			}
+			else
+				await InvokeAsync(() => AppState.Title = "Invalid Sport");
+
+			await InvokeAsync(() => AppState.MainLayout.RerenderLayout());
+			isInitialized = true;
+		}
+	}
+
+
 	protected override async Task ValidateParameters()
 	{
-		accountDoesSport = ValidateAccountDoesSport(AccountDoesId);
-		sport = ValidateSport(accountDoesSport.Sport_Id);
-
-		if (!hasInvalidParameter)
+		accountDoesSport = await ValidateAccountDoesSport(AccountDoesId);
+		var sport = await ValidateSport(accountDoesSport.Sport_Id);
+		if (isInitialized && title != sport.Name)
 		{
-			await InvokeAsync(() => AppState.Title = sport.Name);
+			title = sport.Name;
+			await InvokeAsync(() => AppState.Title = title);
+			await InvokeAsync(() => AppState.MainLayout.RerenderLayout());
 		}
-		else
-			await InvokeAsync(() => AppState.Title = "Invalid Sport");
-
-		await InvokeAsync(() => AppState.MainLayout.RerenderLayout());
 
 		await base.ValidateParameters();
 	}

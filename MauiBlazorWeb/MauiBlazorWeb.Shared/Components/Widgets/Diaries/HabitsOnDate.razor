@@ -13,12 +13,12 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach (var col in allCols)
+				@foreach (var col in allHabitCols)
 				{
 					<tr>
 						<th>@col.Name</th>
 						@{
-							var post = allPosts.FirstOrDefault(p => p.Diary_log_column_Id == col.Id && p.Date == Date);
+							var post = allHabitPosts.FirstOrDefault(p => p.Diary_log_column_Id == col.Id && p.Date == Date);
 							<td class="tracker-post" @onclick="() => OnToggleHabitValue(col.Id,Date)">
 								@(post?.Value ?? "")
 							</td>

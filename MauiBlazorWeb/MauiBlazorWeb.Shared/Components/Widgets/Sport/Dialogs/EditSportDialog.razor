@@ -106,6 +106,8 @@
         {
             bool nameUsed = false;
 
+            var allSports = await SportAPI.GetAllSports(AppState.CurrentUser.Id);
+          
             foreach (var s in allSports)
             {
                 if (s.Name.Equals(newSport.Name) && newSport.Name != oldName)

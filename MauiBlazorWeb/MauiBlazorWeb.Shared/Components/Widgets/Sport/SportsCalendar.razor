@@ -14,7 +14,7 @@
 
 	protected override async Task ValidateParameters()
 	{
-		accountDoesSport = ValidateAccountDoesSport(AccountDoesId);
+		accountDoesSport = await ValidateAccountDoesSport(AccountDoesId);
 
 		await base.ValidateParameters();
 	}

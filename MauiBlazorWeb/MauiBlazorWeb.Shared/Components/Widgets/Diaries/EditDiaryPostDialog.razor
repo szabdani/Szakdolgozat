@@ -81,13 +81,13 @@
         messageStore = new ValidationMessageStore(editContext);
     }
 
-    public async Task Show(int colId, DateTime day)
+    public void Show(int colId, DateTime day)
     {
-        col = allCols.FirstOrDefault(c => c.Id == colId)!;
+        col = allDiaryCols.FirstOrDefault(c => c.Id == colId)!;
         if(col == null)
             throw new Exception($"Sorry, we could not find {colId}. id diary column.");
 
-        var post = allPosts.FirstOrDefault(p => p.Diary_log_column_Id == colId && p.Date == day);
+        var post = allDiaryPosts.FirstOrDefault(p => p.Diary_log_column_Id == colId && p.Date == day);
         if (post is not null)
         {
             if (col.Type == DiaryColumnType.NumberRange)
@@ -104,12 +104,12 @@
         }
 
         isVisible = true;
-        await RefreshDiaryComps();
+        StateHasChanged();
     }
-    public async Task Hide()
+    public void Hide()
     {
         isVisible = false;
-        await RefreshDiaryComps();
+        StateHasChanged();
     }
 
     private async Task OnDeletePost()
@@ -121,7 +121,7 @@
     {
         if (doesPostNotExist)
         {
-            await Hide();
+            Hide();
             return;
         }
 
@@ -129,7 +129,8 @@
         if (isCorrect)
         {
             newPost = new Diary_log_post();
-            await Hide();
+            await Task.Run(RefreshDiaryComps);
+            Hide();
         }
         else  
             throw new Exception($"Sorry, we could not delete {col.Name}"); 
@@ -183,7 +184,8 @@
         if (isCorrect)
         {
             newPost = new Diary_log_post();
-            await Hide();
+            await Task.Run(RefreshDiaryComps);
+            Hide();
         }
         else
             throw new Exception($"Sorry, we could not edit {col.Name} on {newPost.Date}");

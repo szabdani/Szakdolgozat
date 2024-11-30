@@ -15,7 +15,7 @@
 	protected override async Task UpdateTables()
 	{
 		await base.UpdateTables();
-		uniqueDates = allPosts.Select(obj => obj.Date).Distinct().ToList();
+		uniqueDates = allDiaryPosts.Select(obj => obj.Date).Distinct().ToList();
 	}
 
 	private async Task OpenDay(DateTime day)

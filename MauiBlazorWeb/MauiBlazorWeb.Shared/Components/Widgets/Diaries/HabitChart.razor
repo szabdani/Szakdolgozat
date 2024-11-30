@@ -8,7 +8,7 @@
 		<div class="row">
 			<div class="col">
 				<label>Select Time Span:</label>
-				<InputSelect class="form-control" @bind-Value="timeSpan" @bind-Value:after="@RefreshDiaryComps">
+				<InputSelect class="form-control" @bind-Value="timeSpan" @bind-Value:after="@UpdateObserver">
 					@foreach (var t in Enum.GetValues(typeof(TimeFilter.TimePeriod)))
 					{
 						<option value="@t">@t</option>
@@ -23,7 +23,7 @@
 				<thead>
 					<tr>
 						<th>Habits</th>
-						@foreach (var col in allCols)
+						@foreach (var col in allHabitCols)
 						{
 							<th>@col.Name</th>
 						}
@@ -32,7 +32,7 @@
 				<tbody>
 					<tr>
 						<th>Show ?</th>
-						@foreach (var col in allCols)
+						@foreach (var col in allHabitCols)
 						{
 							<td class="tracker-post" @onclick="() => OnToggle(col.Id)">
 								@(checkBox[col.Id] ? "X" : "")
@@ -42,10 +42,10 @@
 				</tbody>
 				<tfoot>
 					<tr>
-						<td colspan="@(allCols.Count % 2 == 1 ? (allCols.Count + 1)/2 : allCols.Count/2 + 1)">
+						<td colspan="@(allHabitCols.Count % 2 == 1 ? (allHabitCols.Count + 1)/2 : allHabitCols.Count/2 + 1)">
 							<button class="btn btn-info w-100" value="Show" @onclick="CheckAll">Show All</button>
 						</td>
-						<td colspan="@(allCols.Count % 2 == 1 ? (allCols.Count + 1)/2 : allCols.Count/2)">
+						<td colspan="@(allHabitCols.Count % 2 == 1 ? (allHabitCols.Count + 1)/2 : allHabitCols.Count/2)">
 							<button class="btn btn-info w-100" value="Show" @onclick="UnCheckAll">Hide All</button>
 						</td>
 					</tr>
@@ -91,16 +91,16 @@
 		await base.OnAfterRenderAsync(firstRender);
 		if (firstRender)
 		{
-			await UpdateTables();
 			await barChart.InitializeAsync(chartData, barChartOptions);
 			isChartInit = true;
+			await UpdateTables();
 		}
 	}
 
 	private async Task OnToggle(int id)
 	{
 		checkBox[id] = !checkBox[id];
-		await RefreshDiaryComps();
+		await UpdateTables();
 	}
 
 	private async Task CheckAll()
@@ -109,7 +109,7 @@
 		{
 			checkBox[key] = true;
 		}
-		await RefreshDiaryComps();
+		await UpdateTables();
 	}
 
 	private async Task UnCheckAll()
@@ -118,14 +118,14 @@
 		{
 			checkBox[key] = false;
 		}
-		await RefreshDiaryComps();
+		await UpdateTables();
 	}
 
 	protected override async Task UpdateTables()
 	{
 		await base.UpdateTables();
 
-		foreach (var col in allCols)
+		foreach (var col in allHabitCols)
 		{
 			if (!checkBox.ContainsKey(col.Id))
 			{
@@ -143,10 +143,10 @@
 		List<string> labels = new List<string>();
 		List<double?> countTimes = new List<double?>();
 
-		foreach (var col in allCols.Where(c => checkBox[c.Id]))
+		foreach (var col in allHabitCols.Where(c => checkBox[c.Id]))
 		{
 			double? count = 0;
-			var posts = allPosts.Where(p => p.Diary_log_column_Id == col.Id);
+			var posts = allHabitPosts.Where(p => p.Diary_log_column_Id == col.Id);
 
 			count = posts.Where(p => p.Value == "X" && TimeFilter.FilterByTimePeriod(p.Date, DateTime.Today, timeSpan)).Count();
 

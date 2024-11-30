@@ -329,65 +329,75 @@ else
 		string typeStr = workout.IsRoutineExample ? "Routine" : "Workout";
 		placeholderStr = $"Name this {typeStr}";
 
-		// OnAfterRenderAsync functions
-		navHandler = Navigation.RegisterLocationChangingHandler(OnLocationChanging);
-		if (!hasInvalidParameter)
-		{
-			var accountDoes = allAccountDoesSports.First(a => a.Id == workout.Account_does_Sport_Id);
-			var sport = allSports.First(s => s.Id == accountDoes.Sport_Id);
-			await InvokeAsync(() => AppState.Title = $"{sport.Name} Workout on {workout.Starttime.ToString("yyyy-MM-dd")}");
-		}
-		else
-			await InvokeAsync(() => AppState.Title = "Invalid New Workout");
-
-		await InvokeAsync(() => AppState.MainLayout.RerenderLayout());
-
 		await base.ValidateParameters();
+	}
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		await base.OnAfterRenderAsync(firstRender);
+		if (firstRender)
+		{
+			navHandler = Navigation.RegisterLocationChangingHandler(OnLocationChanging);
+			if (!hasInvalidParameter)
+			{
+				await InvokeAsync(() => AppState.Title = "Workout");
+			}
+			else
+				await InvokeAsync(() => AppState.Title = "Invalid New Workout");
+
+			await InvokeAsync(() => AppState.MainLayout.RerenderLayout());
+		}
 	}
 
 	protected override async Task UpdateTables()
 	{
 		await base.UpdateTables();
 
-		sets = await SportAPI.GetSetsByWorkout(workout.Id);
+		var unOrderedSets = await SportAPI.GetSetsByWorkout(workout.Id);
+		sets = unOrderedSets.OrderBy(s => s.Workoutindex).ToList();
+
 		var exIds = sets.Select(s => s.Exercise_Id).Distinct().ToList();
 
-		if (exIds.Count != 0)
+		if (exIds.Count > exercises.Count)
 		{
-			if (exIds.Count > exercises.Count)
+			var addedIds = exIds.Except(exercises.Select(e => e.Id));
+
+			foreach (var id in addedIds)
 			{
-				foreach (var id in exIds)
-				{
-					List<Exercise> exList = await SportAPI.GetExercise(id);
-					Exercise ex = exList.First();
-					if (!exercises.Select(e => e.Id).ToList().Contains(ex.Id))
-					{
-						exercises.Add(ex);
-					}
-				}
+				List<Exercise> exList = await SportAPI.GetExercise(id);
+				Exercise ex = exList.First();
+				exercises.Add(ex);
 			}
-			else if (exIds.Count < exercises.Count)
+		}
+		else if (exIds.Count < exercises.Count)
+		{
+			List<int> deletedIds = exercises.Select(e => e.Id).Except(exIds).ToList();
+
+			foreach (var id in deletedIds)
 			{
-				exercises = new List<Exercise>();
-				foreach (var id in exIds)
+				if (exerciseBoxRefs.TryGetValue(id, out var exerciseSetsRef))
 				{
-					List<Exercise> exList = await SportAPI.GetExercise(id);
-					Exercise ex = exList.First();
-					exercises.Add(ex);
+					exerciseSetsRef.Dispose();
+					exerciseBoxRefs.Remove(id);
 				}
+				exercises.RemoveAll(ex => ex.Id == id);
 			}
 		}
 
 		int workoutIndex = 1;
 		foreach (var ex in exercises)
 		{
-			var exSets = await SportAPI.GetSetsByBoth(ex.Id, workout.Id);
+			var exSets = sets.Where(s => s.Exercise_Id == ex.Id);
 			foreach(var set in exSets)
 			{
-				set.Workoutindex = workoutIndex++;
-				bool isCorrect = await SportAPI.UpdateSet(set);
-				if (!isCorrect)
-					throw new Exception($"Sorry, we could not update index of Set");
+				if (set.Workoutindex != workoutIndex)
+				{
+					set.Workoutindex = workoutIndex;
+					bool isCorrect = await SportAPI.UpdateSet(set);
+					if (!isCorrect)
+						throw new Exception($"Sorry, we could not update index of Set");
+				}
+				workoutIndex++;
 			}
 		}
 	}
@@ -428,10 +438,6 @@ else
 	private async Task RemoveExercise(Exercise ex)
 	{
 		await exerciseBoxRefs[ex.Id].DeleteSets();
-		exerciseBoxRefs.Remove(ex.Id);
-		exercises.Remove(ex);
-
-		await RefreshSportComps();
 	}
 
 	private async Task MoveExercise(Exercise ex, bool moveUp)

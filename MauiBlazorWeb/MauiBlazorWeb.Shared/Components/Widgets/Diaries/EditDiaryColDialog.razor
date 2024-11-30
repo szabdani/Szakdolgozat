@@ -60,18 +60,18 @@
         messageStore = new ValidationMessageStore(editContext);
     }
 
-    public async Task Show(Diary_log_column col)
+    public void Show(Diary_log_column col)
     {
         newCol = col;
         title = newCol.Name;
         isVisible = true;
 
-        await RefreshDiaryComps();
+        StateHasChanged();
     }
-    public async Task Hide()
+    public void Hide()
     {
         isVisible = false;
-        await RefreshDiaryComps();
+        StateHasChanged();
     }
 
     protected override async Task OnInitializedAsync()
@@ -98,6 +98,8 @@
         {
             bool diaryNameUsed = false;
 
+            var allCols = IsHabit ? allHabitCols : allDiaryCols;
+
             foreach (var col in allCols)
             {
                 if (col.Name.Equals(newCol.Name))
@@ -116,7 +118,8 @@
                 if (isCorrect)
                 {
                     newCol = new Diary_log_column();
-                    await Hide();
+                    await Task.Run(RefreshDiaryComps);
+                    Hide();
                 }
                 else
                     throw new Exception($"Sorry, we could not edit {newCol.Name}");

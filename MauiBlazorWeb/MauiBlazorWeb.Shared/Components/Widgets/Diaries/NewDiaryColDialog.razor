@@ -129,16 +129,16 @@
         } 
     }
 
-    public async Task Show()
+    public void Show()
     {
         isVisible = true;
-        await RefreshDiaryComps();
+        StateHasChanged();
     }
 
-    public async Task Hide()
+    public void Hide()
     {
         isVisible = false;
-        await RefreshDiaryComps();
+        StateHasChanged();
     }
 
     private async Task OnRegisterColumn()
@@ -152,6 +152,8 @@
         if (editContext.Validate())
         {
             bool colNameUsed = false;
+
+            var allCols = IsHabit ? allHabitCols : allDiaryCols;
 
             foreach (var col in allCols)
             {
@@ -180,7 +182,8 @@
                     if (isCorrect)
                     {
                         newCol = new Diary_log_column();
-                        await Hide();
+                        await Task.Run(RefreshDiaryComps);
+                        Hide();
                     }
                     else
                         throw new Exception($"Sorry, we could not register your {diaryOrHabit}");

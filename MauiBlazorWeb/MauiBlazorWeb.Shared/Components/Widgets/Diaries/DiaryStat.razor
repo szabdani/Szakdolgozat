@@ -13,7 +13,7 @@
 		<div class="row">
 			<div class="col">
 				<label>Select Time Span:</label>
-				<InputSelect class="form-control" @bind-Value="timeSpan" @bind-Value:after="@RefreshDiaryComps">
+				<InputSelect class="form-control" @bind-Value="timeSpan" @bind-Value:after="@UpdateObserver">
 					@foreach (var t in Enum.GetValues(typeof(TimeFilter.TimePeriod)))
 					{
 						<option value="@t">@t</option>
@@ -111,16 +111,16 @@
 		await base.OnAfterRenderAsync(firstRender);
 		if (firstRender)
 		{
-			await UpdateTables();
 			await lineChart.InitializeAsync(chartData, lineChartOptions);
 			isChartInit = true;
+			await UpdateTables();
 		}
 	}
 
 	private async Task OnToggle(int id)
 	{
 		checkBox[id] = !checkBox[id];
-		await RefreshDiaryComps();
+		await UpdateTables();
 	}
 
 	private async Task CheckAll()
@@ -129,7 +129,7 @@
 		{
 			checkBox[key] = true;
 		}
-		await RefreshDiaryComps();
+		await UpdateTables();
 	}
 
 	private async Task UnCheckAll()
@@ -138,18 +138,18 @@
 		{
 			checkBox[key] = false;
 		}
-		await RefreshDiaryComps();
+		await UpdateTables();
 	}
 
 	protected override async Task UpdateTables()
 	{
 		await base.UpdateTables();
 
-		numCols = allCols.Where(c => c.Type == Models.Diaries.DiaryColumnType.NumberRange).ToList();
+		numCols = allDiaryCols.Where(c => c.Type == Models.Diaries.DiaryColumnType.NumberRange).ToList();
 
 		foreach (var col in numCols)
 		{
-			List<Diary_log_post> posts = allPosts.Where(p => p.Diary_log_column_Id == col.Id && TimeFilter.FilterByTimePeriod(p.Date, DateTime.Today, timeSpan)).ToList();
+			List<Diary_log_post> posts = allDiaryPosts.Where(p => p.Diary_log_column_Id == col.Id && TimeFilter.FilterByTimePeriod(p.Date, DateTime.Today, timeSpan)).ToList();
 			if (posts.Count != 0)
 			{
 				isAverageCorrect[col.Id] = true;
@@ -235,7 +235,7 @@
 			foreach (var dateInTimeSpan in allDatesSinceReg.Where(d => TimeFilter.FilterByTimePeriod(d.Date, DateTime.Today, timeSpan)))
 			{
 				double? num = null;
-				var post = allPosts.FirstOrDefault(p => p.Diary_log_column_Id == col.Id && p.Date == dateInTimeSpan);
+				var post = allDiaryPosts.FirstOrDefault(p => p.Diary_log_column_Id == col.Id && p.Date == dateInTimeSpan);
 				if (post is not null)
 					num = Convert.ToInt32(post.Value);
 

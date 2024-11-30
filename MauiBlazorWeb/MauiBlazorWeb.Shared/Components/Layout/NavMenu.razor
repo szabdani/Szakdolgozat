@@ -82,8 +82,12 @@
     protected override async Task UpdateTables()
     {
         await base.UpdateTables();
-        // csak ha nem ugyanannyi
-        accountSports = await SportAPI.GetAccountsSports(AppState.CurrentUser.Id);
+
+        var newList = await SportAPI.GetAccountsSports(AppState.CurrentUser.Id);
+        if (accountSports.Count != 0 && accountSports.Count == newList.Count)
+            return;
+        else
+            accountSports = newList;
 
         foreach (var sport in accountSports)
         {

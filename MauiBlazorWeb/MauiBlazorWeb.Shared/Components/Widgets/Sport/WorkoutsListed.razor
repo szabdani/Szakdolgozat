@@ -78,8 +78,8 @@
 	{
 		await base.UpdateTables();
 
-		accountDoes = ValidateAccountDoesSport(AccountDoesId);
-		sport = ValidateSport(accountDoes.Sport_Id);
+		accountDoes = await ValidateAccountDoesSport(AccountDoesId);
+		sport = await ValidateSport(accountDoes.Sport_Id);
 
 		var workouts = await SportAPI.GetWorkouts(AccountDoesId, false);
 		var orderedWorkouts = workouts.OrderByDescending(w => w.Starttime).ToList();

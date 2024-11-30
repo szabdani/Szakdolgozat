@@ -17,8 +17,8 @@
 		await base.UpdateTables();
 
 		uniqueDates = new List<DateTime>();
-		if(allCols.Count != 0)
-			uniqueDates = allDatesSinceReg.Where(date => allCols.All(col => allPosts.Any(p => p.Date == date && p.Diary_log_column_Id == col.Id))).ToList();
+		if(allDiaryCols.Count != 0)
+			uniqueDates = allDatesSinceReg.Where(date => allDiaryCols.All(col => allDiaryPosts.Any(p => p.Date == date && p.Diary_log_column_Id == col.Id))).ToList();
 	}
 
 	private async Task OpenDay(DateTime day)

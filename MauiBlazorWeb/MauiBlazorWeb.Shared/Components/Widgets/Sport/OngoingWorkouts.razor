@@ -68,6 +68,9 @@
 		workouts = new List<Workout>();
 		sportNames = new Dictionary<int, string>();
 
+		var allSports = await SportAPI.GetAllSports(AppState.CurrentUser.Id);
+		var allAccountDoesSports = await SportAPI.GetAccountDoesSports(AppState.CurrentUser.Id);
+
 		foreach (var aSports in allAccountDoesSports)
 		{
 			sportNames[aSports.Id] = allSports.Where(s => s.Id == aSports.Sport_Id).Select(s => s.Name).First();

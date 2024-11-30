@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\API\LifeTrackerDatabaseAPI\bin\Release\net8.0\publish\</_PublishTargetUrl>
+    <History>True|2024-11-29T19:10:56.2833230Z||;True|2024-11-29T20:02:32.0024771+01:00||;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Server=localhost%3bPort=3306%3bDatabase=diary_db%3bUser=root%3bPassword=%3b</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

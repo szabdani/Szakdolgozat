@@ -5,9 +5,9 @@
 
 <div class="row">
 	<div class="col">
-		<InputSelect class="form-control" @bind-Value=colId @bind-Value:after="@RefreshDiaryComps">
+		<InputSelect class="form-control" @bind-Value=colId @bind-Value:after="@UpdateObserver">
 			<option value=0>Select a Habit</option>
-			@foreach (var c in allCols)
+			@foreach (var c in allHabitCols)
 			{
 				<option value="@c.Id">@c.Name</option>
 			}
@@ -18,7 +18,7 @@
 {
 	<div class="row">
 		<div class="col-auto">
-			<Calendar Title="@title" RerenderParent="RefreshDiaryComps" SpecialDates="doneDates" FirstDate="firstDate" OnDayClickAction="Toggle" @ref="calendar" />
+			<Calendar Title="@title" RerenderParent="UpdateObserver" SpecialDates="doneDates" FirstDate="firstDate" OnDayClickAction="Toggle" @ref="calendar" />
 		</div>
 		<div class="col">
 			<table class="table text-center" style="table-layout: fixed;">
@@ -90,12 +90,12 @@
 	{
 		await base.UpdateTables();
 
-		string? name = allCols.FirstOrDefault(c => c.Id == colId)?.Name;
+		string? name = allHabitCols.FirstOrDefault(c => c.Id == colId)?.Name;
 		if (name is not null)
 		{
 			title = $"{name} Entries";
 
-			var posts = allPosts.Where(p => p.Diary_log_column_Id == colId).ToList();
+			var posts = allHabitPosts.Where(p => p.Diary_log_column_Id == colId).ToList();
 			doneDates = posts.Where(p => p.Value == "X").Select(p => p.Date).Distinct().ToList();
 
 			foreach (TimeFilter.TimePeriod timeSpan in Enum.GetValues(typeof(TimeFilter.TimePeriod)))
@@ -110,6 +110,7 @@
 		{
 			isColViewSet = false;
 		}
+		StateHasChanged();
 	}
 
 	private async Task Toggle(DateTime day)

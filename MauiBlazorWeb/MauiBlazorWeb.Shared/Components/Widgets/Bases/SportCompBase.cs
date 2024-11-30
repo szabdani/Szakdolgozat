@@ -16,8 +16,6 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 		[Inject] protected ISportAPIService SportAPI { get; set; } = default!;
 		[Inject] protected NavigationManager Navigation { get; set; } = default!;
 
-		protected List<MauiBlazorWeb.Shared.Models.Sports.Sport> allSports = [];
-		protected List<Account_does_Sport> allAccountDoesSports = [];
 		protected bool hasInvalidParameter = false;
 
 		protected DateTime firstDate = new();
@@ -44,12 +42,13 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 			await UpdateTables();
 		}
 
-		protected MauiBlazorWeb.Shared.Models.Sports.Sport ValidateSport(int SportId)
+		protected async Task<MauiBlazorWeb.Shared.Models.Sports.Sport> ValidateSport(int SportId)
 		{
 			var retVal = new MauiBlazorWeb.Shared.Models.Sports.Sport();
 
 			if (SportId != 0)
 			{
+				var allSports = await SportAPI.GetAllSports(AppState.CurrentUser.Id);
 				var first = allSports.FirstOrDefault(s => s.Id == SportId);
 				if (first == null)
 					hasInvalidParameter = true;
@@ -62,12 +61,13 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 			return retVal;
 		}
 
-		protected Account_does_Sport ValidateAccountDoesSport(int AccountDoesId)
+		protected async Task<Account_does_Sport> ValidateAccountDoesSport(int AccountDoesId)
 		{
 			var retVal = new Account_does_Sport();
 
 			if (AccountDoesId != 0)
 			{
+				var allAccountDoesSports = await SportAPI.GetAccountDoesSports(AppState.CurrentUser.Id);
 				var first = allAccountDoesSports.FirstOrDefault(a => a.Id == AccountDoesId);
 				if (first == null)
 					hasInvalidParameter = true;
@@ -97,6 +97,7 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 					hasInvalidParameter = true;
 				else
 				{
+					var allAccountDoesSports = await SportAPI.GetAccountDoesSports(AppState.CurrentUser.Id);
 					var firstAccDoes = allAccountDoesSports.FirstOrDefault(a => a.Id == first.Account_does_Sport_Id);
 					if (firstAccDoes == null || firstAccDoes.Account_Id != AppState.CurrentUser.Id)
 						hasInvalidParameter = true;
@@ -181,13 +182,6 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 		{
 			await UpdateTables();
 			await base.UpdateObserver();
-		}
-
-		protected override async Task UpdateTables()
-		{
-			await base.UpdateTables();
-			allSports = await SportAPI.GetAllSports(AppState.CurrentUser.Id);
-			allAccountDoesSports = await SportAPI.GetAccountDoesSports(AppState.CurrentUser.Id);
 		}
 
 		protected async Task RefreshSportComps()

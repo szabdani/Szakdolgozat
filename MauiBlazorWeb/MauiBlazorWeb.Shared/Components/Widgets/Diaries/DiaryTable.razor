@@ -106,7 +106,15 @@
 	private EditDiaryColDialog editHabitDialog = new();
 	private EditDiaryPostDialog editPostDialog = new();
 
-	public DiaryTable() { IsHabit = false; }
+	protected static List<Diary_log_column> allCols = [];
+	protected static List<Diary_log_post> allPosts = [];
+
+	protected override async Task UpdateTables()
+	{
+		await base.UpdateTables();
+		allCols = IsHabit ? allHabitCols : allDiaryCols;
+		allPosts = IsHabit ? allHabitPosts : allDiaryPosts;
+	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
@@ -127,7 +135,7 @@
 		bool isCorrect = await DiaryAPI.DeleteDiaryCol(col);
 		if (!isCorrect)
 			throw new Exception($"Sorry, we could not delete {col.Name}");
-		await RefreshDiaryComps();
+		await Task.Run(RefreshDiaryComps);
 	}
 }
 

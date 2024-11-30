@@ -13,7 +13,7 @@
 				<thead class="thead-light" style="position: sticky; top: 0; background-color: #ffefef">
 					<tr>
 						<th>Date</th>
-						@foreach (var col in allCols)
+						@foreach (var col in allDiaryCols)
 						{
 							<th>
 								@col.Name
@@ -39,9 +39,9 @@
 								<th>@((DateTime.Today - date).Days) days ago</th>
 							}
 
-							@foreach (var col in allCols.OrderBy(col => col.Type))
+							@foreach (var col in allDiaryCols.OrderBy(col => col.Type))
 							{
-								var post = allPosts.FirstOrDefault(p => p.Diary_log_column_Id == col.Id && p.Date == date);
+								var post = allDiaryPosts.FirstOrDefault(p => p.Diary_log_column_Id == col.Id && p.Date == date);
 								@switch (col.Type)
 								{
 									case DiaryColumnType.Habit:

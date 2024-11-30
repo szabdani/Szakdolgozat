@@ -32,7 +32,7 @@ namespace MauiBlazorWeb.Shared.Services
 			var snapshot= allObservers.ToList();
 			foreach (var c in snapshot)
 			{
-				await c.UpdateObserver();
+				await Task.Run(() => c.UpdateObserver());
 			}
 		}
 	}
