@@ -22,6 +22,8 @@ namespace MauiBlazorWeb.Maui
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 });
+            // Platform type
+            builder.Services.AddScoped<IPlatformService, MobilePlatform>();
 			// Session data
 			builder.Services.AddBlazoredLocalStorage();
 
@@ -29,7 +31,7 @@ namespace MauiBlazorWeb.Maui
             builder.Services.AddSingleton<IAppState, AppState>();
 
 			// Subject-Observer for all diary components
-			builder.Services.AddScoped<ISubjectComp, SubjectComp>();
+			builder.Services.AddScoped<IObserverSubject, ObserverSubject>();
 
 			// PW hash
 			builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();

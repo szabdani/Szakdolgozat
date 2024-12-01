@@ -10,6 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+// Platform type
+builder.Services.AddScoped<IPlatformService, WebPlatform>();
+
 // Session data
 builder.Services.AddBlazoredLocalStorage();
 
@@ -32,7 +35,7 @@ builder.Services.AddScoped<ISportAPIService, SportAPIService>();
 builder.Services.AddSingleton<IAppState, AppState>();
 
 // Subject-Observer for all diary components
-builder.Services.AddScoped<ISubjectComp, SubjectComp>();
+builder.Services.AddScoped<IObserverSubject, ObserverSubject>();
 
 var app = builder.Build();
 

@@ -12,6 +12,7 @@
 @inject IDiaryAPIService _diaryAPI
 @inject ISportAPIService _sportAPI
 @inject NavigationManager Navigation
+@inject IPlatformService _platform
 
 @if (!_appState.IsLoggedIn)
 {
@@ -76,9 +77,12 @@ else
 				</div>
 			</div>
 		</div>
-		<div class="col m-2" style="background-color: #ffefef">
-			<ExportData />
-		</div>
+		@if(_platform.GetPlatform() == "WEB")
+		{
+			<div class="col m-2" style="background-color: #ffefef">
+				<ExportData />
+			</div>
+		}
 	</div>
 
 	<WarningDialog Title="Deleting your account" OnAcceptAction="OnDeleteAccount" @ref="warning">

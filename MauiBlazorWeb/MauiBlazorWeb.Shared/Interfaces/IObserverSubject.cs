@@ -3,7 +3,7 @@ using MauiBlazorWeb.Shared.Services;
 
 namespace MauiBlazorWeb.Shared.Interfaces
 {
-	public interface ISubjectComp
+	public interface IObserverSubject
     {
         void Attach(ObserverComp observer);
         void Detach(ObserverComp observer);

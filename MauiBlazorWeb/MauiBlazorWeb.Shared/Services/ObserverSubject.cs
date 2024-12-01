@@ -8,25 +8,11 @@ using MauiBlazorWeb.Shared.Interfaces;
 
 namespace MauiBlazorWeb.Shared.Services
 {
-	public class SubjectComp : ISubjectComp
+	public class ObserverSubject : IObserverSubject
 	{
-		protected List<ObserverComp> allObservers;
-
-		public SubjectComp()
-		{
-			allObservers = new List<ObserverComp>();
-		}
-
-		public void Attach(ObserverComp observer)
-		{
-			allObservers.Add(observer);
-		}
-
-		public void Detach(ObserverComp observer)
-		{
-			allObservers.Remove(observer);
-		}
-
+		protected List<ObserverComp> allObservers = [];
+		public void Attach(ObserverComp observer) => allObservers.Add(observer);
+		public void Detach(ObserverComp observer) => allObservers.Remove(observer);
 		public async Task UpdateObservers()
 		{
 			var snapshot= allObservers.ToList();
