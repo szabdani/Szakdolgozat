@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using MauiBlazorWeb.Shared.Interfaces;
 using MauiBlazorWeb.Shared.Models;
-using Org.BouncyCastle.Math.EC;
 using Blazored.LocalStorage;
 using MauiBlazorWeb.Shared.Components.Layout;
 using Microsoft.AspNetCore.Components;

@@ -59,10 +59,6 @@
               "target": "Package",
               "version": "[4.5.0, )"
             },
-            "Dapper": {
-              "target": "Package",
-              "version": "[2.1.35, )"
-            },
             "Konscious.Security.Cryptography.Argon2": {
               "target": "Package",
               "version": "[1.3.1, )"
@@ -78,10 +74,6 @@
             "Microsoft.Extensions.Configuration": {
               "target": "Package",
               "version": "[8.0.0, )"
-            },
-            "MySql.Data": {
-              "target": "Package",
-              "version": "[9.1.0, )"
             },
             "System.Private.Uri": {
               "target": "Package",

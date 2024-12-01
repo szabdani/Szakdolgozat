@@ -10,8 +10,6 @@ using MauiBlazorWeb.Shared.Models;
 using MauiBlazorWeb.Shared.Models.Diaries;
 using MauiBlazorWeb.Shared.Models.Sports;
 using Microsoft.AspNetCore.Components;
-using Mysqlx.Session;
-using Org.BouncyCastle.Asn1;
 
 namespace MauiBlazorWeb.Shared.Services
 {
