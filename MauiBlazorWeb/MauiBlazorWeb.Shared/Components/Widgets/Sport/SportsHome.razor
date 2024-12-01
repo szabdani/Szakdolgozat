@@ -12,7 +12,7 @@
 			if (i*3+j < usersSports.Count)
 			{
 				<div class="col m-2" style="background-color: navajowhite">
-					<SportSummary SportId="usersSports[i*3+j].Id" />
+					<SportSummary Sport="usersSports[i*3+j]" />
 				</div>
 			}
 		}
@@ -40,6 +40,7 @@
 
 @code {
 	private int sportId = 0;
+	private List<Sport> allSports = new();
 	private List<Sport> usersSports = new();
 	private List<Sport> notTrackedSports = new();
 
@@ -51,7 +52,7 @@
 		await base.UpdateTables();
 
 		usersSports = await SportAPI.GetAccountsSports(AppState.CurrentUser.Id);
-		var allSports = await SportAPI.GetAllSports(AppState.CurrentUser.Id);
+		allSports = await SportAPI.GetAllSports(AppState.CurrentUser.Id);
 		notTrackedSports = allSports.Where(sport => !usersSports.Any(s => s.Id == sport.Id)).ToList();
 	}
 
@@ -67,9 +68,7 @@
 
 	private async Task OpenSport()
 	{
-		var list = await SportAPI.GetAllSports(AppState.CurrentUser.Id);
-		int insertedId = list.Last(s => s.Creator_Account_Id == AppState.CurrentUser.Id).Id;
-		sportId = insertedId;
+		sportId = allSports.Last(s => s.Creator_Account_Id == AppState.CurrentUser.Id).Id;
 		await AddSport();
 	}
 
@@ -80,6 +79,6 @@
 		if (!isCorrect)
 			throw new Exception($"Sorry, we could not add Sport with id:{sportId} to your account");
 
-		Navigation.Refresh(true);
+		await Task.Run(RefreshSportComps);
 	}
 }

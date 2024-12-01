@@ -178,12 +178,6 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 			Navigation.NavigateTo($"/sports/id={workout.Account_does_Sport_Id}", true);
 		}
 
-		public override async Task UpdateObserver()
-		{
-			await UpdateTables();
-			await base.UpdateObserver();
-		}
-
 		protected async Task RefreshSportComps()
 		{
 			await AppState.ShowLoadingScreenWhileAwaiting(Subject.UpdateObservers);

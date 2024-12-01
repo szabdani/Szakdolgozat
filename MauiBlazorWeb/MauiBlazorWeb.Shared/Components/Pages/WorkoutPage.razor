@@ -221,7 +221,7 @@ else
 									</div>
 									<div class="row" style="background-color: navajowhite">
 										<div class="col">
-											<ExerciseSets WorkoutId="WorkoutId" ExerciseId="ex.Id" Disabled="workout.IsDone" @key="ex.Id" @ref="exerciseBoxRefs[ex.Id]" />
+											<ExerciseSets WorkoutId="WorkoutId" Exercise="ex" Disabled="workout.IsDone" @key="ex.Id" @ref="exerciseBoxRefs[ex.Id]" />
 										</div>
 									</div>
 								}
@@ -449,9 +449,9 @@ else
 		exercises[index] = exercises[index + dir];
 		exercises[index + dir] = temp;
 
-		exerciseBoxRefs = [];
+		// exerciseBoxRefs = [];
 
-		await RefreshSportComps();
+		await UpdateObserver();
 	}
 
 	private bool ValidateExercises()

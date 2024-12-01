@@ -7,7 +7,7 @@
 @inject ILocalStorageService _localStorage
 @inject IAppState _appState
 @inject IAccountAPIService _accountAPI
-@inject IJSRuntime JS
+@inject NavigationManager Navigation
 
 <PageTitle>
     LifeTracker - @_appState.Title
@@ -68,7 +68,7 @@
             if (!_appState.IsInitialized)
             {
                 await _appState.Init(_localStorage, _accountAPI);
-                await JS.InvokeVoidAsync("location.reload");
+                Navigation.Refresh(true);
             } 
             isLoading = false;
             await InvokeAsync(RerenderLayout);

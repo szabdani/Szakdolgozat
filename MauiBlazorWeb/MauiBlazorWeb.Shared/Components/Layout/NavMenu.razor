@@ -52,7 +52,7 @@
                 </NavLink>
             </div>
 
-            @foreach (var sport in accountSports)
+            @foreach (var sport in sports)
             {
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="@sportHrefs[sport.Id]">
@@ -76,26 +76,47 @@
 @code
 {
     private DropUp dropup = new();
-    private List<Sport> accountSports = [];
+    private List<Sport> sports = [];
     private Dictionary<int,string> sportHrefs= [];
+    private readonly SemaphoreSlim semaphore = new SemaphoreSlim(1, 1);
 
     protected override async Task UpdateTables()
     {
         await base.UpdateTables();
 
-        var newList = await SportAPI.GetAccountsSports(AppState.CurrentUser.Id);
-        if (accountSports.Count != 0 && accountSports.Count == newList.Count)
-            return;
-        else
-            accountSports = newList;
+        await semaphore.WaitAsync();
 
-        foreach (var sport in accountSports)
+        var newList = await SportAPI.GetAccountsSports(AppState.CurrentUser.Id);
+
+        if (newList.Count > sports.Count)
         {
-            var list = await SportAPI.GetAccountDoesSport(AppState.CurrentUser.Id, sport.Id);
-            var first = list.FirstOrDefault();
-            if (first != null)
-                sportHrefs[sport.Id] = $"sports/id={first.Id}";
+            var ids = newList.Select(s => s.Id).Except(sports.Select(a => a.Id)).ToList();
+            List<Sport> newSports = newList.Where(s => ids.Contains(s.Id)).ToList();
+
+            foreach (var sport in newSports)
+            {
+                var list = await SportAPI.GetAccountDoesSport(AppState.CurrentUser.Id, sport.Id);
+                var first = list.FirstOrDefault();
+                if (first != null)
+                {
+                    sportHrefs[sport.Id] = $"sports/id={first.Id}";
+                    sports.Add(sport);
+                }
+            }
         }
+        else if (newList.Count < sports.Count)
+        {
+            var ids = sports.Select(s => s.Id).Except(newList.Select(a => a.Id)).ToList();
+            List<Sport> deleteSports = sports.Where(s => ids.Contains(s.Id)).ToList();
+
+            foreach (var sport in deleteSports)
+            {
+                sports.Remove(sport);
+                sportHrefs.Remove(sport.Id);
+            }
+        }
+
+        semaphore.Release();
     }
 
     public async Task RerenderNavMenu()

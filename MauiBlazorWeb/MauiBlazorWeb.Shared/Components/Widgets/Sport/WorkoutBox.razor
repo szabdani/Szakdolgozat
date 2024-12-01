@@ -8,55 +8,51 @@
 	<div class="col">
 		<div class="row h4 fw-bold">
 			<div class="col-auto">
-				@(workout.Name ?? "Unnamed workout")
+				@(Workout.Name ?? "Unnamed workout")
 			</div>
 			<div class="col-auto">
-				@workout.Duration.ToString(@"hh\:mm\:ss")
+				@Workout.Duration.ToString(@"hh\:mm\:ss")
 			</div>
-			@if (workout.Routine_Id is not null)
+			@if (Workout.Routine_Id is not null)
 			{
 				<div class="col-auto">
 					Routine: @routineExampleWorkout.Name
 				</div>
 			}
 			<div class="col-auto">
-				@workout.Starttime.ToString("yyyy-MM-dd HH:mm")
+				@Workout.Starttime.ToString("yyyy-MM-dd HH:mm")
 			</div>
 
 			<div class="col-auto float-end">
-				<button class="btn btn-info" @onclick="() => GoToWorkout(workout)">
+				<button class="btn btn-info" @onclick="() => GoToWorkout(Workout)">
 					<IconAdd />
 				</button>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col">
-				@(workout.Notes ?? "No notes for this workout")
+				@(Workout.Notes ?? "No notes for this workout")
 			</div>
 		</div>
 	</div>
 </div>
 
 <div class="row" style="background-color: lightslategray">
-	<WorkoutExercisesBox Disabled="Disabled" WorkoutId="WorkoutId" />
+	<WorkoutExercisesBox Workout="Workout" />
 </div>
 
 @code {
 	[Parameter]
-	public required int WorkoutId { get; set; } = 0;
-	[Parameter]
-	public bool Disabled { get; set; } = false;
+	public required Workout Workout { get; set; }
 
-	private Workout workout = new();
 	private Workout routineExampleWorkout = new();
 
 	protected override async Task UpdateTables()
 	{
 		await base.UpdateTables();
 
-		workout = await ValidateWorkout(WorkoutId);
-		if (workout.Routine_Id is not null)
-			routineExampleWorkout = (await SportAPI.GetRoutineExample(workout.Account_does_Sport_Id, (int)workout.Routine_Id)).First();
+		if (Workout.Routine_Id is not null)
+			routineExampleWorkout = (await SportAPI.GetRoutineExample(Workout.Account_does_Sport_Id, (int)Workout.Routine_Id)).First();
 	}
 
 	private void GoToWorkout(Workout workout)

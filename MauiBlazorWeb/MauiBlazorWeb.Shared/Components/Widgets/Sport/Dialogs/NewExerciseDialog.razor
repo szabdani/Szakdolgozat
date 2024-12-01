@@ -88,16 +88,16 @@
         messageStore = new ValidationMessageStore(editContext);
     }
 
-    public async Task Show()
+    public void Show()
     {
         isVisible = true;
-        await RefreshSportComps();
+        StateHasChanged();
     }
 
-    public async Task Hide()
+    public void Hide()
     {
         isVisible = false;
-        await RefreshSportComps();
+        StateHasChanged();
     }
 
     private async Task OnInsertExercise()
@@ -148,7 +148,8 @@
                 if (isCorrect)
                 {
                     newExercise = new Exercise();
-                    await Hide();
+                    await Task.Run(RefreshSportComps);
+                    Hide();
                 }
                 else
                     throw new Exception($"Sorry, we could not register your Exercise");

@@ -29,7 +29,7 @@ namespace MauiBlazorWeb.Shared.Services
 			Subject.Detach(this);
 		}
 
-		public virtual async Task UpdateObserver()
+		public async Task UpdateObserver()
 		{
 			await UpdateTables();
 			await InvokeAsync(StateHasChanged);

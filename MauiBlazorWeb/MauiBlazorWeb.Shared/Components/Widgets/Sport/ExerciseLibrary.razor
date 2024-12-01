@@ -20,7 +20,7 @@ else
 			<h3>Exercise library</h3>
 		</div>
 		<div class="col-auto float-end">
-			<InputSelect class="form-control" @bind-Value="filterType" @bind-Value:after="@RefreshSportComps">
+			<InputSelect class="form-control" @bind-Value="filterType" @bind-Value:after="UpdateObserver">
 				<option value="-1">All</option>
 				@foreach (var t in Enum.GetValues(typeof(ExerciseType)))
 				{
@@ -76,7 +76,7 @@ else
 						{
 							<tfoot>
 								<tr>
-									<td colspan="3">
+									<td colspan="4">
 									<button class="btn btn-info" @onclick="() =>{if(newExerciseDialog is not null) {newExerciseDialog?.Show();}}">
 											Add a new Exercise! <IconAdd />
 										</button>

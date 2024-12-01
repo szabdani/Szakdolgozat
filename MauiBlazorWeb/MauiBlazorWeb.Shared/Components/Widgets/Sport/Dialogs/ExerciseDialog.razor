@@ -22,12 +22,21 @@
                             <h4>Type: @exercise.Type</h4>
                         </div>
                     </div>
-                    <div class="row">
-                        <ExerciseChart ExerciseId="exercise.Id" Workouts="workouts" Sets="sets"/>
-                    </div>
-                    <div class="row">
-                        <WorkoutsByExercise ExerciseId="exercise.Id" Workouts="workouts" Sets="sets" />
-                    </div>
+                    @if (workouts.Count == 0)
+                    {
+                        <div class="row">
+                            <h3>You have not done any sets of this exercise</h3>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <ExerciseChart Exercise="exercise" Workouts="workouts" Sets="sets" />
+                        </div>
+                        <div class="row">
+                            <WorkoutsByExercise Exercise="exercise" Workouts="workouts" Sets="sets" />
+                        </div>
+                    }
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-info" @onclick="Hide">Close</button>
@@ -45,34 +54,10 @@
     private List<Workout> workouts = [];
     private List<Sets> sets = [];
 
-    private Account_does_Sport accountDoes = new();
-
-    protected override async Task ValidateParameters()
-    {
-        var list = await SportAPI.GetAccountDoesSport(AppState.CurrentUser.Id, exercise.Sport_Id);
-        var first = list.FirstOrDefault();
-        if (first != null)
-            accountDoes = first;
-
-        await base.ValidateParameters();
-    }
-
     public async Task Show(Exercise ex)
     {
         exercise = ex;
         isVisible = true;
-        await RefreshSportComps();
-    }
-
-    public async Task Hide()
-    {
-        isVisible = false;
-        await RefreshSportComps();
-    }
-
-    protected override async Task UpdateTables()
-    {
-        await base.UpdateTables();
 
         var allSets = await SportAPI.GetSetsByExercise(exercise.Id);
         sets = allSets.Where(s => s.IsDone).ToList();
@@ -83,5 +68,12 @@
         {
             workouts.AddRange(await SportAPI.GetWorkout(workoutId));
         }
+        StateHasChanged();
+    }
+
+    public void Hide()
+    {
+        isVisible = false;
+        StateHasChanged();
     }
 }

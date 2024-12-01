@@ -36,16 +36,16 @@
     private bool isVisible = false;
     private bool isError = false;
 
-    public async Task Show()
+    public void Show()
     {
         isVisible = true;
-        await RefreshSportComps();
+        StateHasChanged();
     }
 
-    public async Task Hide()
+    public void Hide()
     {
         isVisible = false;
-        await RefreshSportComps();
+        StateHasChanged();
     }
 
     private async Task Add(Exercise ex)
@@ -53,7 +53,7 @@
         if (ExerciseIds.Contains(ex.Id))
         {
             isError = true;
-            await RefreshSportComps();
+            StateHasChanged();
         }
         else
         { 
@@ -61,10 +61,11 @@
             Sets newSet = new Sets { Exercise_Id = ex.Id, Workout_Id = WorkoutId };
 
             bool isCorrect = await SportAPI.InsertSet(newSet);
+            await Task.Run(RefreshSportComps);
             if (!isCorrect)
                 throw new Exception($"Sorry, we could not insert your Set");
 
-            await Hide();
+            Hide();
         }
     }
 }

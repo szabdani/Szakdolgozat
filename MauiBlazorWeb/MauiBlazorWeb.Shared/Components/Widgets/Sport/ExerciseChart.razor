@@ -23,7 +23,7 @@
 		</button>
 	</div>
 	<div class="col-auto float-end">
-		<InputSelect class="form-control" @bind-Value="timeSpan" @bind-Value:after="@RefreshSportComps">
+		<InputSelect class="form-control" @bind-Value="timeSpan" @bind-Value:after="UpdateObserver">
 			@foreach (var t in Enum.GetValues(typeof(TimeFilter.TimePeriod)))
 			{
 				<option value="@t">@t</option>
@@ -48,12 +48,11 @@
 	[Parameter]
 	public required List<Workout> Workouts { get; set; }
 	[Parameter]
-	public required int ExerciseId { get; set; } = 0;
+	public required Exercise Exercise { get; set; }
 	[Parameter]
 	public int AccountDoesId { get; set; }
 
 	private string title = "";
-	private Exercise exercise = new();
 	private List<Workout> filteredWorkouts = [];
 
 	private bool isChartInit = false;
@@ -95,15 +94,12 @@
 	private async Task MoveViewIndex(bool increase)
 	{
 		viewIndex += increase ? 1 : -1;
-
-		await RefreshSportComps();
+		await UpdateObserver();
 	}
 
-	protected override async Task UpdateTables()
+	protected override async Task ValidateParameters()
 	{
-		await base.UpdateTables();
-		exercise = (await SportAPI.GetExercise(ExerciseId)).First();
-		switch (exercise.Type)
+		switch (Exercise.Type)
 		{
 			case ExerciseType.Bodyweight:
 				viewMaxIndex = 1;
@@ -121,9 +117,14 @@
 				viewMaxIndex = 0;
 				break;
 		}
+		await base.ValidateParameters();
+	}
+
+	protected override async Task UpdateTables()
+	{
+		await base.UpdateTables();
 
 		filteredWorkouts = Workouts.Where(w => TimeFilter.FilterByTimePeriod(w.Starttime, DateTime.Today, timeSpan)).ToList();
-
 		GenerateBarChartData();
 
 		if (isChartInit)
@@ -140,7 +141,7 @@
 		Dictionary<string, string> timeDatasetLabel = [];
 		Dictionary<string, string> timeText = [];
 
-		if (exercise.Type == ExerciseType.Timed || exercise.Type == ExerciseType.Distanced)
+		if (Exercise.Type == ExerciseType.Timed || Exercise.Type == ExerciseType.Distanced)
 		{
 			double min = Sets.Select(s => new TimeSpan(s.LengthHours, s.LengthMinutes, s.LengthSeconds).TotalSeconds).Min();
 			double max = Sets.Select(s => new TimeSpan(s.LengthHours, s.LengthMinutes, s.LengthSeconds).TotalSeconds).Max();
@@ -194,7 +195,7 @@
 			}
 
 			var workoutSets = Sets.Where(s => s.Workout_Id == workout.Id);
-			switch (exercise.Type)
+			switch (Exercise.Type)
 			{
 				case ExerciseType.Bodyweight:
 					lineChartOptions.Scales.Y!.Title!.Text = "# of Reps";

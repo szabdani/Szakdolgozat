@@ -8,7 +8,14 @@
 	<div class="col">
 		<div class="row" style="background-color: darkgrey">
 			<div class="col">
-				<h3>All your @sport.Name workouts</h3>
+				@if (Date is null)
+				{
+					<h3>All your @sportName workouts</h3>
+				}
+				else
+				{
+					<h3>Your @sportName workouts </h3>
+				}
 			</div>
 		</div>
 		<div class="row" style="background-color: lightgrey">
@@ -32,7 +39,7 @@
 								{
 									<div class="row mb-2">
 										<div class="col m-2">
-											<WorkoutBox WorkoutId="workout.Id" />
+											<WorkoutBox Workout="workout" />
 										</div>
 									</div>
 								}
@@ -52,7 +59,7 @@
 								{
 									<div class="row mb-2">
 										<div class="col m-2">
-											<WorkoutBox WorkoutId="workout.Id" />
+											<WorkoutBox Workout="workout" />
 										</div>
 									</div>
 								}
@@ -68,21 +75,31 @@
 @code {
 	[Parameter]
 	public required int AccountDoesId { get; set; } = 0;
+	[Parameter]
+	public DateTime? Date { get; set; }
 
-	private Sport sport = new();
+	private string sportName = "";
 	private Account_does_Sport accountDoes = new();
 	private List<Workout> doneWorkouts = new();
 	private List<Workout> undoneWorkouts = new();
+
+	protected override async Task ValidateParameters()
+	{
+		accountDoes = await ValidateAccountDoesSport(AccountDoesId);
+		var sport = await ValidateSport(accountDoes.Sport_Id);
+		sportName = sport.Name;
+		await base.ValidateParameters();
+	}
 
 	protected override async Task UpdateTables()
 	{
 		await base.UpdateTables();
 
-		accountDoes = await ValidateAccountDoesSport(AccountDoesId);
-		sport = await ValidateSport(accountDoes.Sport_Id);
-
 		var workouts = await SportAPI.GetWorkouts(AccountDoesId, false);
 		var orderedWorkouts = workouts.OrderByDescending(w => w.Starttime).ToList();
+		if (Date is not null)
+			orderedWorkouts = orderedWorkouts.Where(w => w.Starttime.Date == Date).ToList();
+
 
 		doneWorkouts = orderedWorkouts.Where(w => w.IsDone).ToList();
 		undoneWorkouts = orderedWorkouts.Where(w => !w.IsDone).ToList();

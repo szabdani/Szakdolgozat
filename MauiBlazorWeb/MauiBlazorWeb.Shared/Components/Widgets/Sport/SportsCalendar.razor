@@ -9,20 +9,12 @@
 @code {
 	[Parameter]
 	public required int AccountDoesId { get; set; }
-	private Account_does_Sport accountDoesSport = new();
 	private List<DateTime> uniqueDates = new();
-
-	protected override async Task ValidateParameters()
-	{
-		accountDoesSport = await ValidateAccountDoesSport(AccountDoesId);
-
-		await base.ValidateParameters();
-	}
 
 	protected override async Task UpdateTables()
 	{
 		await base.UpdateTables();
-		var list = await SportAPI.GetWorkouts(accountDoesSport.Id, false);
+		var list = await SportAPI.GetWorkouts(AccountDoesId, false);
 
 		uniqueDates = list.Select(obj => obj.Starttime).Distinct().ToList();
 	}

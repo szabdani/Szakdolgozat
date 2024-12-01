@@ -8,12 +8,12 @@
 
 <div class="row" style="background-color: lightgrey">
 	<div class="col-auto" style="word-wrap: break-word;">
-		<h3>@sport.Name</h3>
+		<h3>@Sport.Name</h3>
 	</div>
 	<div class="col w-auto float-end">
-		@if (sport.Creator_Account_Id == AppState.CurrentUser.Id)
+		@if (Sport.Creator_Account_Id == AppState.CurrentUser.Id)
 		{
-			<button class="btn btn-warning" @onclick="()=> editSportDialog.Show(sport)">
+			<button class="btn btn-warning" @onclick="()=> editSportDialog.Show(Sport)">
 				<IconEdit />
 			</button>
 			<button class="btn btn-danger" @onclick="() => warningDelete.Show()">
@@ -37,7 +37,7 @@
 			</button>
 		</div>
 		<div class="row">
-			<button class="btn btn-info" @onclick="GoToPage">Go to @sport.Name page</button>
+			<button class="btn btn-info" @onclick="GoToPage">Go to @Sport.Name page</button>
 		</div>
 	</div>
 	<div class="col">
@@ -48,12 +48,12 @@
 
 
 <WarningDialog Title="Unfollowing a Sport" OnAcceptAction="OnUnfollow" @ref="warningUnFollow">
-	By unfollowing @sport.Name you will lose all your routines and workouts for this Sport?<br />
+	By unfollowing @Sport.Name you will lose all your routines and workouts for this Sport?<br />
 	This action can not be undone!
 </WarningDialog>
 
 <WarningDialog Title="Deleting a Sport" OnAcceptAction="OnDeleteSport" @ref="warningDelete">
-	Do you want to delete @sport.Name?<br />
+	Do you want to delete @Sport.Name?<br />
 	This action can not be undone!
 </WarningDialog>
 
@@ -62,7 +62,7 @@
 
 @code {
 	[Parameter]
-	public required int SportId { get; set; }
+	public required Sport Sport { get; set; }
 
 	private WarningDialog warningUnFollow = new();
 	private WarningDialog warningDelete = new();
@@ -70,13 +70,10 @@
 	private NewRoutineDialog? newRoutineDialog;
 
 	private Account_does_Sport accountDoes = new();
-	private Sport sport = new();
 
 	protected override async Task ValidateParameters()
 	{
-		sport = await ValidateSport(SportId);
-
-		var list = await SportAPI.GetAccountDoesSport(AppState.CurrentUser.Id, sport.Id);
+		var list = await SportAPI.GetAccountDoesSport(AppState.CurrentUser.Id, Sport.Id);
 		var first = list.FirstOrDefault();
 		if (first != null)
 			accountDoes = first;
@@ -86,7 +83,10 @@
 
 	private void GoToPage()
 	{
-		Navigation.NavigateTo($"sports/id={accountDoes.Id}", true);
+		if (accountDoes == null)
+			throw new Exception($"Sorry, this Sport is not followed.");
+		else
+			Navigation.NavigateTo($"sports/id={accountDoes.Id}", true);
 	}
 
 	private async Task StartWorkoutPage()
@@ -100,30 +100,30 @@
 	private async Task OnUnfollow()
 	{
 		await AppState.ShowLoadingScreenWhileAwaiting(Unfollow);
-		Navigation.Refresh(true);
-	}
-
-	private async Task Unfollow()
-	{
-		if(accountDoes == null)
-			throw new Exception($"Sorry, we could not unfollow {sport.Name}.");
-
-		bool isCorrect = await SportAPI.DeleteAccountDoesSport(accountDoes);
-		if (!isCorrect)
-			throw new Exception($"Sorry, we could not unfollow {sport.Name}.");
+		await Task.Run(RefreshSportComps);
 	}
 
 	private async Task OnDeleteSport()
 	{
 		await AppState.ShowLoadingScreenWhileAwaiting(DeleteSport);
-		Navigation.Refresh(true);
+		await Task.Run(RefreshSportComps);
+	}
+
+	private async Task Unfollow()
+	{
+		if(accountDoes == null)
+			throw new Exception($"Sorry, we could not unfollow {Sport.Name}.");
+
+		bool isCorrect = await SportAPI.DeleteAccountDoesSport(accountDoes);
+		if (!isCorrect)
+			throw new Exception($"Sorry, we could not unfollow {Sport.Name}.");
 	}
 
 	private async Task DeleteSport()
 	{
 		await Unfollow();
-		bool isCorrect = await SportAPI.DeleteSport(AppState.CurrentUser.Id,sport);
+		bool isCorrect = await SportAPI.DeleteSport(AppState.CurrentUser.Id, Sport);
 		if (!isCorrect)
-			throw new Exception($"Sorry, we could not delete {sport.Name}.");
+			throw new Exception($"Sorry, we could not delete {Sport.Name}.");
 	}
 }

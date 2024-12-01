@@ -52,12 +52,6 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 			await UpdateAllTables(AppState, DiaryAPI);
 		}
 
-		public override async Task UpdateObserver()
-		{
-			await UpdateTables();
-			await base.UpdateObserver();
-		}
-
 		private async Task ToggleHabitValue(int colId, DateTime day)
 		{
 			bool isCorrect = true;

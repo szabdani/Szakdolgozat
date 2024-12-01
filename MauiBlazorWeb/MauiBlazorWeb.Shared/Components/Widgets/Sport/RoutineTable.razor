@@ -55,7 +55,7 @@ else
 					</tr>
 					<tr>
 						<td colspan="5">
-							<WorkoutExercisesBox WorkoutId="exampleWorkoutsOfRoutines[r.Id].Id" />
+							<WorkoutExercisesBox Workout="exampleWorkoutsOfRoutines[r.Id]" />
 						</td>
 					</tr>
 				}
@@ -79,15 +79,39 @@ else
 	private WarningDialog warningDelete = new();
 	private string name = "";
 
+	private readonly SemaphoreSlim semaphore = new SemaphoreSlim(1, 1);
+
 	protected override async Task UpdateTables()
 	{
 		await base.UpdateTables();
 
-		routines = await SportAPI.GetRoutines(AccountDoesId);
-		foreach (var r in routines)
+		await semaphore.WaitAsync();
+		var newRoutines = await SportAPI.GetRoutines(AccountDoesId);
+
+		if (newRoutines.Count > routines.Count)
 		{
-			exampleWorkoutsOfRoutines[r.Id] = (await SportAPI.GetRoutineExample(AccountDoesId, r.Id)).First();
+			var ids = newRoutines.Select(s => s.Id).Except(routines.Select(a => a.Id)).ToList();
+			List<Routine> addRoutines = newRoutines.Where(s => ids.Contains(s.Id)).ToList();
+
+			foreach (var r in addRoutines)
+			{
+				routines.Add(r);
+				exampleWorkoutsOfRoutines[r.Id] = (await SportAPI.GetRoutineExample(AccountDoesId, r.Id)).First();
+			}
 		}
+		else if (newRoutines.Count < routines.Count)
+		{
+			var ids = routines.Select(s => s.Id).Except(newRoutines.Select(a => a.Id)).ToList();
+			List<Routine> deleteRoutines = routines.Where(s => ids.Contains(s.Id)).ToList();
+
+			foreach (var r in deleteRoutines)
+			{
+				routines.Remove(r);
+				exampleWorkoutsOfRoutines.Remove(r.Id);
+			}
+		}
+
+		semaphore.Release();
 	}
 
 	private async Task StartRoutine(int routineId)
@@ -95,15 +119,9 @@ else
 		await OnStartWorkout(AccountDoesId, routineId);
 	}
 
-	private async Task OnEditRoutine(int routineId)
+	private void OnEditRoutine(int routineId)
 	{
-		await AppState.ShowLoadingScreenWhileAwaiting(() => EditRoutine(routineId));
-	}
-
-	private async Task EditRoutine(int routineId)
-	{
-		Workout exampleWorkout = (await SportAPI.GetRoutineExample(AccountDoesId, routineId)).First();
-		Navigation.NavigateTo($"workout/id={exampleWorkout.Id}", true);
+		Navigation.NavigateTo($"workout/id={exampleWorkoutsOfRoutines[routineId].Id}", true);
 	}
 
 	private void OpenDelete(Routine routine)

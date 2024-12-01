@@ -8,18 +8,18 @@
 	<div class="col">
 		<div class="row" style="background-color: darkgrey">
 			<div class="col">
-				<h3>Your workouts with @exercise.Name</h3>
+				<h3>Your workouts with @Exercise.Name</h3>
 			</div>
 		</div>
 		<div class="row" style="background-color: lightgrey">
 			<div class="col">
-				@if (doneWorkouts.Count == 0 && undoneWorkouts.Count == 0)
+				@if (Workouts.Count == 0)
 				{
 					<h5>You have no workouts.</h5>
 				}
 				else
 				{
-					@foreach (var workout in Workouts)
+					@foreach (var workout in Workouts.OrderByDescending(w => w.Starttime))
 					{
 						<div class="row" style="background-color: slategrey">
 							<div class="col-auto">
@@ -40,7 +40,7 @@
 									<thead class="thead-light">
 										<tr>
 											<th>Set</th>
-											@switch (exercise.Type)
+											@switch (Exercise.Type)
 											{
 												case ExerciseType.Bodyweight:
 													<th>Reps</th>
@@ -87,7 +87,7 @@
 													}
 												</th>
 
-												@switch (exercise.Type)
+												@switch (Exercise.Type)
 												{
 													case ExerciseType.Bodyweight:
 														<td>@set.Reps</td>
@@ -127,23 +127,7 @@
 	[Parameter]
 	public required List<Workout> Workouts { get; set; }
 	[Parameter]
-	public required int ExerciseId { get; set; } = 0;
-
-	private Exercise exercise = new();
-
-	private List<Workout> doneWorkouts = new();
-	private List<Workout> undoneWorkouts = new();
-
-	protected override async Task UpdateTables()
-	{
-		await base.UpdateTables();
-		exercise = (await SportAPI.GetExercise(ExerciseId)).First();
-
-		var orderedWorkouts = Workouts.OrderByDescending(w => w.Starttime).ToList();
-
-		doneWorkouts = orderedWorkouts.Where(w => w.IsDone).ToList();
-		undoneWorkouts = orderedWorkouts.Where(w => !w.IsDone).ToList();
-	}
+	public required Exercise Exercise { get; set; }
 
 	private void GoToWorkout(Workout workout)
 	{

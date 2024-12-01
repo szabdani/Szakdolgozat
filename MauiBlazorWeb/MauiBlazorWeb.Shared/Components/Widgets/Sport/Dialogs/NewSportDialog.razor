@@ -64,16 +64,16 @@
         messageStore = new ValidationMessageStore(editContext);
     }
 
-    public async Task Show()
+    public void Show()
     {
         isVisible = true;
-        await RefreshSportComps();
+        StateHasChanged();
     }
 
-    public async Task Hide()
+    public void Hide()
     {
         isVisible = false;
-        await RefreshSportComps();
+        StateHasChanged();
     }
 
     private async Task OnInsertSport()
@@ -125,7 +125,8 @@
                 if (isCorrect)
                 {
                     newSport = new Sport();
-                    await Hide();
+                    await Task.Run(RefreshSportComps);
+                    Hide();
                     if (OnAddAction is not null)
                         await OnAddAction.Invoke();
                 }

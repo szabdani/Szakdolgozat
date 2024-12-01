@@ -64,7 +64,7 @@
         messageStore = new ValidationMessageStore(editContext);
     }
 
-    public async Task Show(Sport sport)
+    public void Show(Sport sport)
     {
         newSport = new Sport {
             Id = sport.Id, 
@@ -81,13 +81,13 @@
 
 
         isVisible = true;
-        await RefreshSportComps();
+        StateHasChanged();
     }
 
-    public async Task Hide()
+    public void Hide()
     {
         isVisible = false;
-        await RefreshSportComps();
+        StateHasChanged();
     }
 
     private async Task OnEditSport()
@@ -139,7 +139,8 @@
                 if (isCorrect)
                 {
                     newSport = new Sport();
-                    await Hide();
+                    Navigation.NavigateTo(Navigation.Uri, true);
+                    Hide();
                 }
                 else
                     throw new Exception($"Sorry, we could not register your Sport");

@@ -57,7 +57,7 @@ namespace MauiBlazorWeb.Shared.Services
             byte[] pw_salt = passwordHasher.GenerateSalt();
             byte[] pw_hash = passwordHasher.Hash(newAccount.Password1, pw_salt);
 
-            Account insert = new Account{ 
+            var insert = new Account{ 
                 Username = newAccount.Username,
                 Email = newAccount.Email,
                 Password_hash = pw_hash,
@@ -133,15 +133,10 @@ namespace MauiBlazorWeb.Shared.Services
         {
             await MainLayout.SetLoadingScreen(true);
 
-            try
-            {
-                if (action is not null)
-                    await action();
-            }
-            finally
-            {
-                await MainLayout.SetLoadingScreen(false);
-            }
+            if (action is not null)
+                await action();
+
+            await MainLayout.SetLoadingScreen(false);
         }
     }
 }
