@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections;
 using System.Security.Cryptography;
-using System.Security.Principal;
 using System.Text;
-using System.Threading.Tasks;
 using Konscious.Security.Cryptography;
-using MauiBlazorWeb.Shared.Interfaces;
 
 namespace MauiBlazorWeb.Shared.Interfaces
 {

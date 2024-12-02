@@ -91,7 +91,9 @@
 		await base.UpdateTables();
 
 		string? name = allHabitCols.FirstOrDefault(c => c.Id == colId)?.Name;
-		if (name is not null)
+		if (name is null)
+			isColViewSet = false;
+		else
 		{
 			title = $"{name} Entries";
 
@@ -106,10 +108,7 @@
 
 			isColViewSet = true;
 		}
-		else
-		{
-			isColViewSet = false;
-		}
+
 		StateHasChanged();
 	}
 

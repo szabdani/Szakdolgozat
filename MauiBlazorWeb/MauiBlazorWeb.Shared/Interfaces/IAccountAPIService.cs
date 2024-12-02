@@ -1,5 +1,4 @@
 ﻿using MauiBlazorWeb.Shared.Models;
-using MauiBlazorWeb.Shared.Models.Diaries;
 
 namespace MauiBlazorWeb.Shared.Interfaces
 {

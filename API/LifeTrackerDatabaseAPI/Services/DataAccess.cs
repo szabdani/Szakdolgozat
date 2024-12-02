@@ -29,12 +29,11 @@ namespace LifeTrackerDatabaseAPI.Services
 				try
 				{
 					var rows = await connection.QueryAsync<T>(sql, parameters);
-
 					return rows.ToList();
 				}
 				catch (Exception e)
 				{
-                    throw new Exception($"Error loading data to the database: {e.Message}");
+                    throw new Exception($"Error loading data from the database: {e.Message}");
 				}
 				
 			}

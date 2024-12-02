@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
-using MauiBlazorWeb.Shared.Interfaces;
+﻿using MauiBlazorWeb.Shared.Interfaces;
 using MauiBlazorWeb.Shared.Models;
 using Blazored.LocalStorage;
 using MauiBlazorWeb.Shared.Components.Layout;
-using Microsoft.AspNetCore.Components;
+
 
 namespace MauiBlazorWeb.Shared.Services
 {
@@ -130,11 +123,11 @@ namespace MauiBlazorWeb.Shared.Services
 
         public async Task ShowLoadingScreenWhileAwaiting(Func<Task>? action)
         {
+            if (action is null)
+                return;
+
             await MainLayout.SetLoadingScreen(true);
-
-            if (action is not null)
-                await action();
-
+            await action();
             await MainLayout.SetLoadingScreen(false);
         }
     }

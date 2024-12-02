@@ -62,10 +62,17 @@
 
     public void Show(Diary_log_column col)
     {
-        newCol = col;
+        newCol = new Diary_log_column {
+            Id = col.Id,
+            Name = col.Name,
+            Type = col.Type,
+            Value_range_max = col.Value_range_max,
+            Value_range_min = col.Value_range_min,
+            Account_Id = col.Account_Id
+        };
+
         title = newCol.Name;
         isVisible = true;
-
         StateHasChanged();
     }
     public void Hide()

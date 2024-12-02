@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MauiBlazorWeb.Shared.Interfaces;
+﻿using MauiBlazorWeb.Shared.Interfaces;
 using Microsoft.AspNetCore.Components;
 
 namespace MauiBlazorWeb.Shared.Services
@@ -12,29 +7,14 @@ namespace MauiBlazorWeb.Shared.Services
 	{
 		[Inject] protected IObserverSubject Subject { get; set; } = default!;
 
-		protected override void OnInitialized()
-		{
-			base.OnInitialized();
-			Subject.Attach(this);
-		}
-
-		protected override async Task OnInitializedAsync()
-		{
-			await base.OnInitializedAsync();
-			await UpdateObserver();
-		}
-
-		public virtual void Dispose()
-		{
-			Subject.Detach(this);
-		}
-
+		protected override void OnInitialized() => Subject.Attach(this);
+		protected override async Task OnInitializedAsync() => await UpdateObserver();
+		public virtual void Dispose() => Subject.Detach(this);
+		protected virtual async Task UpdateTables() => await Task.CompletedTask;
 		public async Task UpdateObserver()
 		{
 			await UpdateTables();
 			await InvokeAsync(StateHasChanged);
 		}
-
-		protected virtual async Task UpdateTables() { await Task.CompletedTask; }
 	}
 }

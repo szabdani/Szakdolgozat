@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
-using MauiBlazorWeb.Shared.Components.Pages;
+﻿using System.Net.Http.Json;
 using MauiBlazorWeb.Shared.Interfaces;
 using MauiBlazorWeb.Shared.Models;
-using MauiBlazorWeb.Shared.Models.Diaries;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MauiBlazorWeb.Shared.Services
 {

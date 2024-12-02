@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MauiBlazorWeb.Shared.Interfaces;
+﻿using MauiBlazorWeb.Shared.Interfaces;
 using MauiBlazorWeb.Shared.Models.Diaries;
 using MauiBlazorWeb.Shared.Services;
 using Microsoft.AspNetCore.Components;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 {

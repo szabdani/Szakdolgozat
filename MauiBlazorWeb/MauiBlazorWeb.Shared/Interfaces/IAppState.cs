@@ -1,7 +1,6 @@
 ﻿using Blazored.LocalStorage;
 using MauiBlazorWeb.Shared.Components.Layout;
 using MauiBlazorWeb.Shared.Models;
-using MauiBlazorWeb.Shared.Services;
 
 namespace MauiBlazorWeb.Shared.Interfaces
 {

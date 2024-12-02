@@ -1,5 +1,4 @@
-﻿using MauiBlazorWeb.Shared.Components.Widgets.Bases;
-using MauiBlazorWeb.Shared.Services;
+﻿using MauiBlazorWeb.Shared.Services;
 
 namespace MauiBlazorWeb.Shared.Interfaces
 {

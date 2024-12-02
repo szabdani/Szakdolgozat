@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
-using MauiBlazorWeb.Shared.Components.Pages;
+﻿using System.Net.Http.Json;
 using MauiBlazorWeb.Shared.Interfaces;
-using MauiBlazorWeb.Shared.Models;
-using MauiBlazorWeb.Shared.Models.Diaries;
 using MauiBlazorWeb.Shared.Models.Sports;
-using Microsoft.AspNetCore.Components;
 
 namespace MauiBlazorWeb.Shared.Services
 {
