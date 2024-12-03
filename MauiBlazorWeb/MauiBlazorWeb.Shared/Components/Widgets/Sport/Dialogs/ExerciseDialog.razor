@@ -48,6 +48,8 @@
 }
 
 @code {
+    [Parameter]
+    public required int AccountDoesId { get; set; }
     private bool isVisible = false;
 
     private Exercise exercise = new();
@@ -59,7 +61,7 @@
         exercise = ex;
         isVisible = true;
 
-        var allSets = await SportAPI.GetSetsByExercise(exercise.Id);
+        var allSets = await SportAPI.GetSetsByExercise(AccountDoesId, exercise.Id);
         sets = allSets.Where(s => s.IsDone).ToList();
         var workoutIds = sets.Select(s => s.Workout_Id).Distinct();
 

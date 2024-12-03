@@ -158,18 +158,14 @@ C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Ma
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\ar\Microsoft.Maui.Controls.resources.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\BlazorBootstrap.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\Blazored.LocalStorage.dll
-C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\BouncyCastle.Cryptography.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\ca\Microsoft.Maui.Controls.resources.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\cs\Microsoft.Maui.Controls.resources.dll
-C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\Dapper.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\da\Microsoft.Maui.Controls.resources.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\de\Microsoft.Maui.Controls.resources.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\el\Microsoft.Maui.Controls.resources.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\es\Microsoft.Maui.Controls.resources.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\fi\Microsoft.Maui.Controls.resources.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\fr\Microsoft.Maui.Controls.resources.dll
-C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\Google.Protobuf.dll
-C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\Google.Protobuf.pdb
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\GoogleGson.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\he\Microsoft.Maui.Controls.resources.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\hi\Microsoft.Maui.Controls.resources.dll
@@ -181,9 +177,6 @@ C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Ma
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\Java.Interop.pdb
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\ja\Microsoft.Maui.Controls.resources.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\Jsr305Binding.dll
-C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\K4os.Compression.LZ4.dll
-C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\K4os.Compression.LZ4.Streams.dll
-C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\K4os.Hash.xxHash.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\Konscious.Security.Cryptography.Argon2.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\Konscious.Security.Cryptography.Blake2.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\ko\Microsoft.Maui.Controls.resources.dll
@@ -244,7 +237,6 @@ C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Ma
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\Mono.Android.Runtime.pdb
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\mscorlib.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\ms\Microsoft.Maui.Controls.resources.dll
-C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\MySql.Data.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\nb\Microsoft.Maui.Controls.resources.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\netstandard.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\nl\Microsoft.Maui.Controls.resources.dll
@@ -268,7 +260,6 @@ C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Ma
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.ComponentModel.EventBasedAsync.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.ComponentModel.Primitives.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.ComponentModel.TypeConverter.dll
-C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.Configuration.ConfigurationManager.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.Configuration.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.Console.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.Core.dll
@@ -278,7 +269,6 @@ C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Ma
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.Diagnostics.Contracts.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.Diagnostics.Debug.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.Diagnostics.DiagnosticSource.dll
-C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.Diagnostics.EventLog.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.Diagnostics.FileVersionInfo.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.Diagnostics.Process.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.Diagnostics.StackTrace.dll
@@ -380,10 +370,8 @@ C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Ma
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.Security.Cryptography.Encoding.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.Security.Cryptography.OpenSsl.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.Security.Cryptography.Primitives.dll
-C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.Security.Cryptography.ProtectedData.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.Security.Cryptography.X509Certificates.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.Security.dll
-C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.Security.Permissions.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.Security.Principal.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.Security.Principal.Windows.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.Security.SecureString.dll
@@ -411,7 +399,6 @@ C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Ma
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.Web.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.Web.HttpUtility.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.Windows.dll
-C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.Windows.Extensions.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.Xml.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.Xml.Linq.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\System.Xml.ReaderWriter.dll
@@ -578,7 +565,6 @@ C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Ma
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\zh-Hans\Microsoft.Maui.Controls.resources.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\zh-Hant\Microsoft.Maui.Controls.resources.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\zh-HK\Microsoft.Maui.Controls.resources.dll
-C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\ZstdSharp.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\_Microsoft.Android.Resource.Designer.dll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\typemaps.arm64-v8a.ll
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\AndroidManifest.xml
@@ -1110,7 +1096,3 @@ C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Ma
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\stamp\_GenerateJavaStubs.stamp
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\stamp\_GeneratePackageManagerJava.stamp
 C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\stamp\_ResolveLibraryProjectImports.stamp
-C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\arm64-v8a\System.Private.CoreLib.dll
-C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\armeabi-v7a\System.Private.CoreLib.dll
-C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\x86\System.Private.CoreLib.dll
-C:\Dani\BME\felev_7\szakdoga\Program\Szakdolgozat\MauiBlazorWeb\MauiBlazorWeb.Maui\obj\Debug\net8.0-android\android\assets\x86_64\System.Private.CoreLib.dll

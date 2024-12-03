@@ -112,21 +112,8 @@ namespace MauiBlazorWeb.Shared.Services
 
 		public async Task<List<Sport>> GetAllSports(int accountId)
 		{
-			try
-			{
-				var response = await httpClient.GetAsync($"api/Sport/GetAllSports?accountId={accountId}");
-				response.EnsureSuccessStatusCode();
-				return await response.Content.ReadFromJsonAsync<List<Sport>>() ?? new List<Sport>();
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine($"Error calling API: {ex.Message}");
-				throw;
-			}
-
-
-			//var response = await httpClient.GetAsync($"api/Sport/GetAllSports?accountId={accountId}");
-			//return await response.Content.ReadFromJsonAsync<List<Sport>>() ?? [];
+			var response = await httpClient.GetAsync($"api/Sport/GetAllSports?accountId={accountId}");
+			return await response.Content.ReadFromJsonAsync<List<Sport>>() ?? new List<Sport>();
 		}
 		public async Task<List<Sport>> GetAccountsSports(int accountId)
 		{
@@ -189,9 +176,9 @@ namespace MauiBlazorWeb.Shared.Services
 			return await response.Content.ReadFromJsonAsync<List<Workout>>() ?? [];
 		}
 
-		public async Task<List<Sets>> GetSetsByExercise(int exerciseId)
+		public async Task<List<Sets>> GetSetsByExercise(int accountDoesSportId, int exerciseId)
 		{
-			var response = await httpClient.GetAsync($"api/Sport/GetSetsByExercise?exerciseId={exerciseId}");
+			var response = await httpClient.GetAsync($"api/Sport/GetSetsByExercise?accountDoesSportId={accountDoesSportId}&exerciseId={exerciseId}");
 			return await response.Content.ReadFromJsonAsync<List<Sets>>() ?? [];
 		}
 

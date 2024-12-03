@@ -68,14 +68,14 @@
 		workouts = new List<Workout>();
 		sportNames = new Dictionary<int, string>();
 
-		var allSports = await SportAPI.GetAllSports(AppState.CurrentUser.Id);
+		var allSports = await SportAPI.GetAccountsSports(AppState.CurrentUser.Id);
 		var allAccountDoesSports = await SportAPI.GetAccountDoesSports(AppState.CurrentUser.Id);
 
-		foreach (var aSports in allAccountDoesSports)
+		foreach (var aSport in allAccountDoesSports)
 		{
-			sportNames[aSports.Id] = allSports.Where(s => s.Id == aSports.Sport_Id).Select(s => s.Name).First();
+			sportNames[aSport.Id] = allSports.Where(s => s.Id == aSport.Sport_Id).Select(s => s.Name).First();
 
-			var list = await SportAPI.GetWorkouts(aSports.Id, false);
+			var list = await SportAPI.GetWorkouts(aSport.Id, false);
 			workouts.AddRange(list.Where(w => !w.IsDone));
 		}
 	}

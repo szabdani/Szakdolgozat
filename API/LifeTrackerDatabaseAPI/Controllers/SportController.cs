@@ -216,9 +216,9 @@ namespace LifeTrackerDatabaseAPI.Controllers
 		}
 
 		[HttpGet("GetSetsByExercise")]
-		public async Task<IActionResult> GetSetsByExercise(int exerciseId)
+		public async Task<IActionResult> GetSetsByExercise(int accountDoesSportId, int exerciseId)
 		{
-			var sets = await _sportManager.GetSetsByExercise(exerciseId);
+			var sets = await _sportManager.GetSetsByExercise(accountDoesSportId, exerciseId);
 			return Ok(sets);
 		}
 

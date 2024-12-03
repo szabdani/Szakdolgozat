@@ -276,10 +276,23 @@ namespace LifeTrackerDatabaseAPI.Services
 			return allWorkouts.Where(w => w.IsRoutineExample == onlyExamples).ToList();
 		}
 
-		public async Task<List<Sets>> GetSetsByExercise(int exerciseId)
+		public async Task<List<Sets>> GetSetsByExercise(int accountDoesSportId, int exerciseId)
 		{
-			string sql = $"Select * from Sets where Exercise_Id = @eid ;";
-			return await Data.LoadData<Sets, dynamic>(sql, new { eid = exerciseId });
+			string sql = $"Select * from Sets where Exercise_Id = @eid;";
+
+			var sets = await Data.LoadData<Sets, dynamic>(sql, new { eid = exerciseId });
+			List<int> workoutIds = sets.Select(s => s.Workout_Id).Distinct().ToList();
+
+			List<Sets> retVal = [];
+			foreach (int workoutId in workoutIds)
+			{
+				Workout workout = (await GetWorkout(workoutId)).First();
+				if (workout.Account_does_Sport_Id == accountDoesSportId)
+				{
+					retVal.AddRange(sets.Where(s => s.Workout_Id == workoutId));
+				}
+			}
+			return retVal;
 		}
 
 		public async Task<List<Sets>> GetSetsByWorkout(int workoutId)

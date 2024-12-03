@@ -234,6 +234,7 @@ else
 	</div>
 }
 
+<ExerciseDialog AccountDoesId="workout.Account_does_Sport_Id" @ref="exerciseDialog" />
 <AddExerciseDialog AccountDoesId="workout.Account_does_Sport_Id" WorkoutId="WorkoutId" ExerciseIds="exercises.Select(e => e.Id).ToList()" @ref="addExerciseDialog" />
 
 <WarningDialog Title="Invalid Set in Workout" @ref="warning">
@@ -251,10 +252,7 @@ else
 			Either finish it or delete it.
 		</p>
 	}
-
 </WarningDialog>
-
-<ExerciseDialog @ref="exerciseDialog" />
 
 @code {
 	[Parameter]
@@ -307,21 +305,19 @@ else
 			if (!workout.IsDone)
 				timer = new Timer(OnTick, null, 0, 1000);
 
-			if (workout.Routine_Id is not null)
+			var workoutSets = await SportAPI.GetSetsByWorkout(workout.Id);
+			if (workout.Routine_Id is not null && workoutSets.Count == 0)
 			{
-				var workoutSets = await SportAPI.GetSetsByWorkout(workout.Id);
 				routineExampleWorkout = (await SportAPI.GetRoutineExample(workout.Account_does_Sport_Id, (int)workout.Routine_Id)).First();
 
-				if (workoutSets.Count == 0)
+				var exampleSets = await SportAPI.GetSetsByWorkout(routineExampleWorkout.Id);
+				foreach (var set in exampleSets)
 				{
-					var exampleSets = await SportAPI.GetSetsByWorkout(routineExampleWorkout.Id);
-					foreach (var set in exampleSets)
-					{
-						set.Workout_Id = workout.Id;
-						bool isCorrect = await SportAPI.InsertSet(set);
-						if (!isCorrect)
-							throw new Exception($"Sorry, we could not insert Set");
-					}
+					set.Workout_Id = workout.Id;
+					set.IsDone = false;
+					bool isCorrect = await SportAPI.InsertSet(set);
+					if (!isCorrect)
+						throw new Exception($"Sorry, we could not insert Set");
 				}
 			}
 		}

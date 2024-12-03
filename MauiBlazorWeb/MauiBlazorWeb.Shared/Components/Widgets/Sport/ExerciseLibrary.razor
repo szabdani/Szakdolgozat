@@ -95,7 +95,7 @@ else
 	This action can not be undone!
 </WarningDialog>
 
-<ExerciseDialog @ref="exerciseDialog" />
+<ExerciseDialog AccountDoesId="accountDoes.Id" @ref="exerciseDialog" />
 <NewExerciseDialog AccountDoes="accountDoes" @ref="newExerciseDialog"/>
 <EditExerciseDialog AccountDoes="accountDoes" @ref="editExerciseDialog" />
 
@@ -112,8 +112,8 @@ else
 	private List<Exercise> filteredExercises = new();
 
 	private WarningDialog warningDelete = new();
-	private ExerciseDialog exerciseDialog = new();
 
+	private ExerciseDialog? exerciseDialog;
 	private EditExerciseDialog? editExerciseDialog;
 	private NewExerciseDialog? newExerciseDialog;
 
@@ -137,7 +137,7 @@ else
 
 	private async Task OnAdd(Exercise ex)
 	{
-		if (!IsInWorkout)
+		if (!IsInWorkout && exerciseDialog is not null)
 		{
 			await exerciseDialog.Show(ex);
 		}

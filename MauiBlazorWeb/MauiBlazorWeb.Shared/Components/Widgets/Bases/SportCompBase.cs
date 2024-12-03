@@ -35,6 +35,7 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 
 		protected override async Task OnParametersSetAsync()
 		{
+			hasInvalidParameter = false;
 			await ValidateParameters();
 		}
 		protected virtual async Task ValidateParameters()
@@ -48,7 +49,7 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 
 			if (SportId != 0)
 			{
-				var allSports = await SportAPI.GetAllSports(AppState.CurrentUser.Id);
+				var allSports = await SportAPI.GetAccountsSports(AppState.CurrentUser.Id);
 				var first = allSports.FirstOrDefault(s => s.Id == SportId);
 				if (first == null)
 					hasInvalidParameter = true;
@@ -167,7 +168,7 @@ namespace MauiBlazorWeb.Shared.Components.Widgets.Bases
 			if (!isCorrect)
 				throw new Exception($"Sorry, could not delete your Routine");
 
-			Navigation.NavigateTo($"/sports/id={routine.Account_does_Sport_Id}", true);
+			await RefreshSportComps();
 		}
 		private async Task DiscardWorkout(Workout workout)
 		{
