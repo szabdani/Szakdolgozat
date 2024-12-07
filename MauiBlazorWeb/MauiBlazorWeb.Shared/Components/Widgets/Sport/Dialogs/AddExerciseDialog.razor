@@ -53,7 +53,7 @@
         if (ExerciseIds.Contains(ex.Id))
         {
             isError = true;
-            StateHasChanged();
+            await InvokeAsync(StateHasChanged);
         }
         else
         { 

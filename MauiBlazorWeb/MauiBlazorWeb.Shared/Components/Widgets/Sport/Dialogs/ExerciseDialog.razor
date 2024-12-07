@@ -70,7 +70,7 @@
         {
             workouts.AddRange(await SportAPI.GetWorkout(workoutId));
         }
-        StateHasChanged();
+        await InvokeAsync(StateHasChanged);
     }
 
     public void Hide()

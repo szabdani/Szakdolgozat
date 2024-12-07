@@ -102,14 +102,18 @@
 
 			foreach (TimeFilter.TimePeriod timeSpan in Enum.GetValues(typeof(TimeFilter.TimePeriod)))
 			{
-				numPer[timeSpan] = doneDates.Where(d => TimeFilter.FilterByTimePeriod(d, calendar.CalendarDate, timeSpan)).Count();
-				totalPer[timeSpan] = allDatesSinceReg.Where(d => TimeFilter.FilterByTimePeriod(d, calendar.CalendarDate, timeSpan)).Count();
+				var date = calendar.CalendarDate;
+				if (timeSpan == TimeFilter.TimePeriod.Week)
+					date = DateTime.Today;
+
+				numPer[timeSpan] = doneDates.Where(d => TimeFilter.FilterByTimePeriod(d, date, timeSpan)).Count();
+				totalPer[timeSpan] = allDatesSinceReg.Where(d => TimeFilter.FilterByTimePeriod(d, date, timeSpan)).Count();
 			}
 
 			isColViewSet = true;
 		}
 
-		StateHasChanged();
+		await InvokeAsync(StateHasChanged);
 	}
 
 	private async Task Toggle(DateTime day)
